@@ -17,10 +17,10 @@ public class AdminController {
 	
 	@Autowired AdminService service;
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
-		return "adminReviewKing";
-	}
+//	@RequestMapping(value = "/", method = RequestMethod.GET)
+//	public String home(Model model) {
+//		return "adminReviewKing";
+//	}
 	
 
 }
