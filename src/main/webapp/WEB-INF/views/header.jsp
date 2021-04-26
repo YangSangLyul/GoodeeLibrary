@@ -86,10 +86,11 @@
                 color: blue;
             }
         </style>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
     <body>
         <div id="home">
-            <a href="#"><i>구디 도서관</i></a>
+            <a href="./"><i>구디 도서관</i></a>
         </div>
 
         
@@ -156,6 +157,10 @@
         <br/>
         <hr/>
     </body>
-
+	<script>
+		$("#librarySearch").click(function(){
+			location.href = 'booksSearch';
+		});
+	</script>
 
 </html>
