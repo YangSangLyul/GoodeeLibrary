@@ -39,6 +39,8 @@
 </head>
 
 <body>
+	<!-- 헤더 영역 -->
+    <jsp:include page="header.jsp"/>
     <div id="QBack">
         <div id="buttonBox">
             <button>전체</button>

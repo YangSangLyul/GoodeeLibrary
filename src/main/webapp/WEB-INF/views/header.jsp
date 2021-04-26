@@ -110,6 +110,8 @@
                 </li>
                 <li class="topMenuLi">
                     <button id="libraryMy">마이 라이브러리</button>
+                    <!-- onclick="location.href='myLibrary'" -->
+                    
                     <!-- 관리자가 로그인할 경우 나타나게 될 메뉴
                          마이 라이브러리는 숨김처리 됨
                     -->
