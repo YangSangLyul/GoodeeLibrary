@@ -26,10 +26,19 @@ public class MemberService {
 		return dao.join(params);
 	}
 
-	public boolean login(String loginId, String loginPw) {
-		String encrypt_pass = dao.login(loginId);
-		logger.info(loginPw+"=="+encrypt_pass);
+	public boolean login(String id, String pw) {
+		String encrypt_pass = dao.login(id);
+		logger.info(pw+"=="+encrypt_pass);
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		return encoder.matches(loginPw, encrypt_pass);
+		return encoder.matches(pw, encrypt_pass);
+	}
+
+	public String memOverlay(String id) {
+		boolean success = false;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		success = dao.memOverlay(id);
+		System.out.println("아이디 사용여부 : " + success);
+		map.put("use", success);
+		return null;
 	}
 }

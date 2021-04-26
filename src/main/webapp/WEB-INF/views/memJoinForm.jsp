@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
 .main {
 	width: 600px;
@@ -123,5 +124,32 @@ var msg = "${msg}";
 if(msg!=""){
 	alert(msg);
 }
+
+$("#overlay").click(function() {
+	//console.log($('#userId').val());
+
+	if($('#userId').val() == '') {
+		alert('ID를 입력해 주세요.');
+	}else{
+	$.ajax({
+		type:'get'
+		,url:'memOverlay'
+		,data: {"id":$("#userId").val()}
+		,dataType:'JSON'
+		,success:function(data){
+			console.log(obj);
+			if(data==0){
+				alert('사용할 수 있는 아이디입니다.');
+				$("#overlay").css({color:'green'});
+			}else{
+				alert('이미 사용중인 아이디입니다.');
+				$("#userId").val('');
+			}
+		},error:function(e){
+				console.log(e);
+		}
+	});
+	}
+});
 </script>
 </html>

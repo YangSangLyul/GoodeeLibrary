@@ -1,7 +1,6 @@
 package com.spring.main.controller;
 
 import java.util.HashMap;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +13,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.LibrarySearchService;
 
+import com.spring.main.service.BookService;
+
+
 @Controller
 public class BookController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+
 	@Autowired LibrarySearchService searchService;
 	
 	
@@ -38,4 +41,16 @@ public class BookController {
 		
 		return searchService.searchResult(params);
 	}
+
+	@Autowired BookService service;
+	
+	@RequestMapping(value = "/normalBookManage", method = RequestMethod.GET)
+	public ModelAndView normalBookManage(Model model) {
+		logger.info("일반도서 리스트");
+		
+		//"/BookManage/normalBookManage"
+		return service.bookManageList();
+	}
+	
+
 }

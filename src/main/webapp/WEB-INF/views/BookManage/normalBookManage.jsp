@@ -34,13 +34,15 @@
 
         <div>
             <table>
+            <c:forEach items="${list}" var="book">
                 <tr>
                     <td rowspan="5">
-                        이미지 넣을 위치
+                        ${book.bookImg}
                     </td>
                 </tr>
                 <tr>
-                    <th>책 제목</th>
+                    <th>${book.bookName}</th>
+                    <c:if test="${book.bookState eq 'B001'}">
                     <td>
                         <select name="bookState">
                             <option value="">예약가능일 때만 상태 변경 가능</option>
@@ -48,16 +50,15 @@
                             <option value="">예약중인 도서에만 예약 승인 가능</option>
                         </select>
                     </td>
+                    </c:if>
                 </tr>
                 <tr>
-                    <td colspan="2">저자명</td>
+                    <td colspan="2">${book.writer}</td>
                 </tr>
                 <tr>
-                    <td colspan="2">출판사</td>
+                    <td colspan="2">${book.publisher}</td>
                 </tr>
-                <tr>
-                    <td colspan="2">등록번호</td>
-                </tr>
+            </c:forEach>
             </table>
         </div>
     </div>

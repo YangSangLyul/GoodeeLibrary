@@ -57,7 +57,7 @@
             <p>5</p>
         </div>
         <div class="menu">
-            <p>6</p>
+            <a href="find">6</a>
         </div>
     </div>
 
@@ -68,8 +68,15 @@
             $(this).css("backgroundColor", "white");
         })
 
+        //여기 누르면 경로 지정 예시 ;
         //여기 누르면 경로 지정;
-        $(".menu").click(function () {
+        $(".menu:eq(0)").click(function () {
+           console.log("0번")
+           location.href = '';
+       })
+       
+        $(".menu:eq(1)").click(function () {
+            console.log("1번")
             location.href = '';
         })
     </script>

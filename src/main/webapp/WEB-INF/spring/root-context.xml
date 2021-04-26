@@ -28,7 +28,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="mapperLocations" value="classpath:/mapper/*.xml"/>
-		
+		<property name="configLocation" value="classpath:/aliase/aliase.xml"/>
 	</bean>
 	
 	<!-- MyBastis를 자동으로 감지하여 사용할 수 있또록 설정 -->

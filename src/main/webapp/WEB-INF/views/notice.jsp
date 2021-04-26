@@ -74,56 +74,13 @@
                     <th class="n2">제목</th>
                     <th>등록일</th>
                 </tr>
-                <tr>
-                    <td class="n1">1</td>
-                    <td class="n2">예</td>
-                    <td>2022-22-22</td>
-                </tr>
-                <tr>
-                    <td class="n1">2</td>
-                    <td class="n2">예</td>
-                    <td>2022-22-22</td>
-                </tr>
-                <tr>
-                    <td class="n1">3</td>
-                    <td class="n2">예</td>
-                    <td>2022-22-22</td>
-                </tr>
-                <tr>
-                    <td class="n1">4</td>
-                    <td class="n2">예</td>
-                    <td>2022-22-22</td>
-                </tr>
-                <tr>
-                    <td class="n1">5</td>
-                    <td class="n2">예</td>
-                    <td>2022-22-22</td>
-                </tr>
-                <tr>
-                    <td class="n1">6</td>
-                    <td class="n2">예</td>
-                    <td>2022-22-22</td>
-                </tr>
-                <tr>
-                    <td class="n1">7</td>
-                    <td class="n2">예</td>
-                    <td>2022-22-22</td>
-                </tr>
-                <tr>
-                    <td class="n1">8</td>
-                    <td class="n2">예</td>
-                    <td>2022-22-22</td>
-                </tr>
-                <tr>
-                    <td class="n1">9</td>
-                    <td class="n2">예</td>
-                    <td>2022-22-22</td>
-                </tr>
-                <tr>
-                    <td class="n1">10</td>
-                    <td class="n2">예</td>
-                    <td>2022-22-22</td>
-                </tr>
+                <c:forEach items="${list}" var="dto">
+                	<tr>
+                		<td class="n1">${dto.noticeidx}</td>
+                		<td class="n2"><a href=/main/noticeDetail/${dto.noticeidx}>${dto.subject}</a></td>
+                		<td>${dto.reg_date}</td>
+                	</tr>
+                </c:forEach>
             </table>
         </div>
     </div>

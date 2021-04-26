@@ -8,4 +8,6 @@ public interface MemberDAO {
 
 	String login(String loginId);
 
+	boolean memOverlay(String id);
+
 }

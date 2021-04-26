@@ -62,6 +62,7 @@
             $(this).css("backgroundColor", "white");
         })
 
+
         //여기 누르면 경로 지정;
         $("#bookSearch").click(function () {
             location.href = '';
@@ -81,6 +82,7 @@
         $("#wantBook").click(function () {
             location.href = '';
         });
+
     </script>
 </body>
 

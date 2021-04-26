@@ -1,35 +1,37 @@
 package com.spring.main.dto;
 
 import java.sql.Date;
+import org.apache.ibatis.type.Alias;
 
+@Alias("book")
 public class BookDTO {
-	
-	private int bookidx;
-	private String bookname;
-	private String bookimg;
+
+	private int bookIdx;
+	private String bookName;
+	private String bookImg;
 	private String writer;
 	private String story;
 	private String publisher;
-	private Date reg_date;
-	private String bookstate;
+	private Date reg_date ;
+	private String bookState;
 	
-	public int getBookidx() {
-		return bookidx;
+	public int getBookIdx() {
+		return bookIdx;
 	}
-	public void setBookidx(int bookidx) {
-		this.bookidx = bookidx;
+	public void setBookIdx(int bookIdx) {
+		this.bookIdx = bookIdx;
 	}
-	public String getBookname() {
-		return bookname;
+	public String getBookName() {
+		return bookName;
 	}
-	public void setBookname(String bookname) {
-		this.bookname = bookname;
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
 	}
-	public String getBookimg() {
-		return bookimg;
+	public String getBookImg() {
+		return bookImg;
 	}
-	public void setBookimg(String bookimg) {
-		this.bookimg = bookimg;
+	public void setBookImg(String bookImg) {
+		this.bookImg = bookImg;
 	}
 	public String getWriter() {
 		return writer;
@@ -55,14 +57,12 @@ public class BookDTO {
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}
-	public String getBookstate() {
-		return bookstate;
-	}
-	public void setBookstate(String bookstate) {
-		this.bookstate = bookstate;
-	}
-	
-	
-	
 
+	public String getBookState() {
+		return bookState;
+	}
+	public void setBookState(String bookState) {
+		this.bookState = bookState;
+	}
+	
 }

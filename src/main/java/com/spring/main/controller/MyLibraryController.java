@@ -43,4 +43,12 @@ public class MyLibraryController {
 		
 		return service.question_edit(dto);
 	}
+
+	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
+	public String uploadForm(Model model) {
+		logger.info("파일 업로드 페이지로 이동");
+		return "uploadForm";
+	}
+	
+
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.spring.main.dao.LibraryInfoDAO">
+	<select id="list" resultType="com.spring.main.dto.LibraryInfoDTO">
+		SELECT NOTICEIDX ,ID ,SUBJECT ,CONTENT ,REG_DATE ,NOTICESTATUS FROM notice
+	</select>
+	
+<select id="noticeDetail" resultType="com.spring.main.dto.LibraryInfoDTO">
+		SELECT NOTICEIDX ,ID ,SUBJECT ,CONTENT ,REG_DATE ,NOTICESTATUS FROM notice WHERE NOTICEIDX = #{param1}
+	</select> 
+</mapper>
