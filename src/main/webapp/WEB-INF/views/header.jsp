@@ -86,10 +86,11 @@
                 color: blue;
             }
         </style>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
     <body>
         <div id="home">
-            <a href="#"><i>구디 도서관</i></a>
+            <a href="./"><i>구디 도서관</i></a>
         </div>
 
         
@@ -109,8 +110,8 @@
                     <button id="librarySearch">자료 검색</button>
                 </li>
                 <li class="topMenuLi">
-                    <button id="libraryMy">마이 라이브러리</button>
-                    <!-- onclick="location.href='myLibrary'" -->
+                    <button id="libraryMy" onclick="location.href='MyLibrary'">마이 라이브러리</button>
+                    <!-- onclick="location.href='MyLibrary'" -->
                     
                     <!-- 관리자가 로그인할 경우 나타나게 될 메뉴
                          마이 라이브러리는 숨김처리 됨
@@ -160,6 +161,10 @@
         <br/>
         <hr/>
     </body>
-
+	<script>
+		$("#librarySearch").click(function(){
+			location.href = 'booksSearch';
+		});
+	</script>
 
 </html>
