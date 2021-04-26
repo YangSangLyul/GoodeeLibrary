@@ -13,5 +13,8 @@ public class LibrarySearchService {
 	public int reserveBook(String bookIdx) {
 		return dao.reserveBook(bookIdx);
 	}
+	public int reserveBookCancel(String reserveBookIdx) {
+		return dao.reserveBookCancel(reserveBookIdx);
+	}
 
 }

@@ -8,6 +8,7 @@
 	</head>
 	<body>
 		<button onclick="location.href='reserveBook?bookIdx=3'">예약하기</button>
+		<button onclick="location.href='reserveBookCancel?reserveBookIdx=5'">예약 취소하기</button>
 	</body>
 	<script></script>
 </html>

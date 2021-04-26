@@ -9,4 +9,8 @@
 		INSERT INTO ReserveBook(reserveBookIdx,bookIdx,id)
 			VALUES(reserveBookIdx_seq.NEXTVAL,#{param1},'test')
 	</insert>
+	
+	<delete id="reserveBookCancel">
+		DELETE FROM reserveBook WHERE reserveBookIdx = #{param1}
+	</delete>
 </mapper>
