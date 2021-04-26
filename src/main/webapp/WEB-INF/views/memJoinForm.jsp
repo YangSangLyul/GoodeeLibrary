@@ -84,7 +84,7 @@ input[type="button"],input[type="submit"] {
 				<tr>
 					<th id="title"><label>비밀번호 확인</label></th>
 					<td>
-						<input type="password" name="userPwchk" value="" id="userPwchk" placeholder="비밀번호를 다시 입력해주세요." /> 
+						<input type="password" name="userPwchk" value="" id="userPwchk" onkeydown="pwChk()" placeholder="비밀번호를 다시 입력해주세요." /> 
 						<br /> 
 						<span></span>
 					</td>
@@ -145,8 +145,6 @@ $("#overlay").click(function() {
 				alert('이미 사용중인 아이디입니다.');
 				$("#userId").val('');
 			}
-		},error:function(e){
-				console.log(e);
 		}
 	});
 	}

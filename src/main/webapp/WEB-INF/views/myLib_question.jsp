@@ -59,13 +59,17 @@
                     <th>작성일</th>
                     <th>답변</th>
                 </tr>
-                <tr>
-                    <td class="n1">1</td>
-                    <td class="n2">예제예제제목입니달ㅇㄴ마ㅣ릉ㄴㅁ리ㅏㄴㅁㅇㅇㅇㄴㄴㅇ</td>
-                    <td>테스트1</td>
-                    <td>2022-22-22</td>
-                    <td>x</td>
-                </tr>
+              
+                <c:forEach items="${questionList}" var="list">
+				<tr>
+					<td class="n1">${list.queidx}</td>
+					<td class="n2"><a href="detail?idx=${list.queidx}">${list.subject}</a></td>
+					<td>${list.id}</td>
+					<td>${list.reg_date}</td>
+					<td>${list.ansstatus}</td>
+				</tr>
+				</c:forEach>
+                
                 <tr>
                     <td class="n1">2</td>
                     <td class="n2">예제예제제목입니달ㅇㄴ마ㅣ릉ㄴㅁ리ㅏㄴㅁㅇㅇㅇㄴㄴㅇ</td>

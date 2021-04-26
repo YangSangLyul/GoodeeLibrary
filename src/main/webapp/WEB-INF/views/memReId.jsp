@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
- <title>계정찾기</title>
+<title>Insert title here</title>
+   <title>아이디 찾기 완료</title>
     <style>
       .main {
         width: 400px;
@@ -39,8 +40,8 @@
         height: 40px;
         margin: 20px 5px;
         font-size: 15px;
-        background-color: #c5d8f1;
-        color: #0070c0;
+        background-color: #94a7be;
+        color: white;
         border: none;
         border-radius: 5px;
       }
@@ -48,20 +49,20 @@
   </head>
   <body>
     <div class="main">
-      <h3>계정 찾기</h3>
+      <h3>아이디 찾기완료</h3>
       <hr />
       <div id="find_img">
         <img src="./image/lock.png">
       </div>
       <div id="find_content">
-        <span class="what">로그인에 문제가 있나요??</span>
+        <span class="what">님의 아이디는</span>
         <br/>
-        <span class="what">당신이 찾고자 하는 것을 눌러주세요.</span>
+        <span class="what">입니다.</span>
       </div>
         <div id="find_btn">
-          <button class="find_button" onclick="location.href='memFindId'">아이디 찾기</button>
-          <button class="find_button" onclick="location.href='memFindPw'">비밀번호 찾기</button>
+          <button class="find_button" onclick="location.href='memLogin'">로그인</button>
+          <button class="find_button" onclick="location.href='memfindPw'">비밀번호 찾기</button>
         </div>
     </div>
-  </body>
+</body>
 </html>

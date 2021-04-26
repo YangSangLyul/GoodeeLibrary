@@ -110,8 +110,8 @@
                     <button id="librarySearch">자료 검색</button>
                 </li>
                 <li class="topMenuLi">
-                    <button id="libraryMy">마이 라이브러리</button>
-                    <!-- onclick="location.href='myLibrary'" -->
+                    <button id="libraryMy" onclick="location.href='MyLibrary'">마이 라이브러리</button>
+                    <!-- onclick="location.href='MyLibrary'" -->
                     
                     <!-- 관리자가 로그인할 경우 나타나게 될 메뉴
                          마이 라이브러리는 숨김처리 됨
@@ -154,7 +154,7 @@
         </c:if>
         <c:if test="${sessionScope.loginId ne null}">
         <div id="loginOnBox">
-            user1님 반갑습니다. | 
+            	님 반갑습니다. | 
             <a href="#"> 로그아웃</a>
         </div>
         </c:if>
