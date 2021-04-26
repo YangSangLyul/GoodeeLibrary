@@ -33,9 +33,27 @@ public class LibrarySearchController {
 	
 	@RequestMapping(value = "/reserveBookCancel", method = RequestMethod.GET)
 	public String reserveBookCancel(@RequestParam String reserveBookIdx) {
-		logger.info("예약 취소하기");
+		logger.info("예약 취소하기 : " + reserveBookIdx);
 		int success = service.reserveBookCancel(reserveBookIdx);
 		logger.info("예약 취소 성공 여부 : " + success);
+		
+		return "BookManage/test";
+	}
+	
+	@RequestMapping(value = "/rentalBook", method = RequestMethod.GET)
+	public String rentalBook(@RequestParam String reserveBookIdx) {
+		logger.info("대여하기 : " + reserveBookIdx);
+		int success = service.rentalBook(reserveBookIdx);
+		logger.info("대여 성공 여부 : " + success);
+		
+		return "BookManage/test";
+	}
+	
+	@RequestMapping(value = "/returnBook", method = RequestMethod.GET)
+	public String returnBook(@RequestParam String reserveBookIdx) {
+		logger.info("반납하기 : " + reserveBookIdx);
+		int success = service.returnBook(reserveBookIdx);
+		logger.info("반납 성공 여부 : " + success);
 		
 		return "BookManage/test";
 	}

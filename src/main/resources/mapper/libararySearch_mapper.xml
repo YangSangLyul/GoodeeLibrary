@@ -13,4 +13,12 @@
 	<delete id="reserveBookCancel">
 		DELETE FROM reserveBook WHERE reserveBookIdx = #{param1}
 	</delete>
+	
+	<update id="rentalBook">
+		UPDATE ReserveBook SET bookState = 'R002' WHERE reserveBookIdx = #{param1}
+	</update>
+	
+	<update id="returnBook">
+		UPDATE ReserveBook SET bookState = 'R003' WHERE reserveBookIdx = #{param1}
+	</update>
 </mapper>

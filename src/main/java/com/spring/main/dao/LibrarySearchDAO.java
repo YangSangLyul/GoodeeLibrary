@@ -6,4 +6,8 @@ public interface  LibrarySearchDAO {
 
 	int reserveBookCancel(String reserveBookIdx);
 
+	int rentalBook(String reserveBookIdx);
+
+	int returnBook(String reserveBookIdx);
+
 }
