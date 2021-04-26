@@ -24,5 +24,13 @@ public class LibraryInfoService {
 		model.addAttribute("list",list);
 		
 	}
+	public void detail_infoNotice(Model model, String idx) {
+		logger.info("현재위치는 noticeDetail의 service 입니다");
+		
+		LibraryInfoDTO dto=dao.noticeDetail(idx);
+		
+		model.addAttribute("dto",dto);
+		
+	}
 
 }

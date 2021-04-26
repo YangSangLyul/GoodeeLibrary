@@ -62,7 +62,7 @@
 </style>
 <body>
     <div id="qwBackground">
-        <form action="write" method="POST">    
+        <form action="">
             <input type="text" value="아이디" readonly class="gw1">
                 <div class="gw2" style="background-color: white;">
                     문의유형
@@ -75,42 +75,11 @@
                 </div>
             <input type="text" placeholder="제목을 작성해주세요"  class="gw3">
             <textarea name="" id="" cols="30" rows="10" placeholder="문의사항을 작성해 주십시ㅇ"  class="gw4"></textarea>
-            <input type="button" value="사진업로드"  class="gw5" onclick="fileUp()">
+            <input type="button" value="사진업로드"  class="gw5">
             <label class="gw6"><input type="checkbox" name="" id="" value="">비밀글</label>
             <input type="button" value="작성완료"  class="gw7">
         </form>
     </div>
 </body>
-<script>
 
-function fileUp(){
-	window.open('uploadForm','fileupload','width=60','height=40');
-}
-
-function del(elem){
-	console.log(elem);
-	var newFileName = elem.id.substring(elem.id.lastIndexOf("/")+1);
-	console.log(newFileName);
-	
-	//1. 실제 파일 삭제 요청
-	$.ajax({
-		url:'fileDelete',
-		type:'get',
-		data:{"fileName":newFileName},//key값에 : 이거 들어가니 파일삭제요청 못함. 항상 key:value 이렇게!
-		//컨트롤러에 보내서 값 받아줄 때 이름 꼭 맞춰라!!!! fileName 보내려는데 내가 한 실수는 "fileName :"
-		//문제가 일어난거임
-		dataType:'json',
-		success:function(d){
-			console.log(d);
-			if(d.success == 1){
-				//$(elem).find('img').remove();//이미지 삭제
-				$(elem).remove();//이미지와 X 삭제				
-			}
-		},
-		error:function(e){
-			console.log(e);
-		}
-	});
-}
-</script>
 </html>

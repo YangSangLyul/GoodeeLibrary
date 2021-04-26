@@ -1,21 +1,11 @@
 package com.spring.main.service;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.QuestionDAO;
@@ -26,8 +16,7 @@ public class MyLibraryService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
-	QuestionDAO dao;
+	@Autowired QuestionDAO dao;
 
 	public ModelAndView question_list() {
 
@@ -69,7 +58,7 @@ public class MyLibraryService {
 		mav.setViewName(page);
 		return mav;
 	}
-
+	
 	public ModelAndView question_write(QuestionDTO dto) {
 		ModelAndView mav = new ModelAndView();
 		logger.info("글쓰기 요청");
@@ -83,5 +72,4 @@ public class MyLibraryService {
 		return mav;
 	}
 
-	
 }

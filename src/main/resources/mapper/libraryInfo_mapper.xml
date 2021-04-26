@@ -6,6 +6,10 @@
 
 <mapper namespace="com.spring.main.dao.LibraryInfoDAO">
 	<select id="list" resultType="com.spring.main.dto.LibraryInfoDTO">
-		
+		SELECT NOTICEIDX ,ID ,SUBJECT ,CONTENT ,REG_DATE ,NOTICESTATUS FROM notice
 	</select>
+	
+<select id="noticeDetail" resultType="com.spring.main.dto.LibraryInfoDTO">
+		SELECT NOTICEIDX ,ID ,SUBJECT ,CONTENT ,REG_DATE ,NOTICESTATUS FROM notice WHERE NOTICEIDX = #{param1}
+	</select> 
 </mapper>
