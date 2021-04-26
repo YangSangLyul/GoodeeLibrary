@@ -10,8 +10,13 @@
 			VALUES(#{userId},#{userPw},#{name},#{phone},#{email})
 </insert>
 
+<select id="memOverlay" resultType="int">
+	SELECT count(id) FROM member WHERE id=#{id}
+</select>
+
 <select id="login" resultType="String">
 	SELECT pw FROM member WHERE id=#{param1}
 </select>
+
 
 </mapper>
