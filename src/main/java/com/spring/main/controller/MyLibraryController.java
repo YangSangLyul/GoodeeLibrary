@@ -65,16 +65,4 @@ public class MyLibraryController {
 		return "uploadForm";
 	}
 	
-	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public ModelAndView upload(MultipartFile file, HttpSession session) {
-		logger.info("파일 업로드 요청");
-		return service.fileUpload(file,session);
-	}
-	
-	@RequestMapping(value = "/fileDelete", method = RequestMethod.GET)
-	public @ResponseBody HashMap<String, Object>fileDelete(
-			@RequestParam String fileName,HttpSession session) {
-		logger.info(fileName+"파일 삭제 요청");
-		return service.fileDelete(fileName,session);
-	}
 }
