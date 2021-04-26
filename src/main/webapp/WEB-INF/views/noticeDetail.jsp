@@ -55,12 +55,13 @@
 </head>
 <body>
     <div id="noticeBackground">
-        <span id="noticeSubject">신간도서</span><span id="noticeReg_date">2021-22-22</span>
+        <span id="noticeSubject">${dto.subject}</span><span id="noticeReg_date">${dto.reg_date}</span>
         <div id="noticeContent">
-            이번주 신간도서입니다 ...
+            ${dto.content}
         <span id="noticeButton">
-            <button>목록</button>
+            <button onclick="location.href='/main/notice'">목록</button>
         </span>
+    </div>
     </div>
 </body>
 </html>
