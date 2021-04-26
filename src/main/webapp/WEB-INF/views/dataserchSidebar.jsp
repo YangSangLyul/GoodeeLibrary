@@ -62,10 +62,7 @@
             $(this).css("backgroundColor", "white");
         })
 
-        //여기 누르면 경로 지정;
-        $(".menu").click(function () {
-            location.href = '';
-        })
+      
     </script>
 </body>
 
