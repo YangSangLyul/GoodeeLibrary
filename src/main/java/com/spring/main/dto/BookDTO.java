@@ -1,7 +1,6 @@
 package com.spring.main.dto;
 
 import java.sql.Date;
-
 import org.apache.ibatis.type.Alias;
 
 @Alias("book")
@@ -58,6 +57,7 @@ public class BookDTO {
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}
+
 	public String getBookState() {
 		return bookState;
 	}
