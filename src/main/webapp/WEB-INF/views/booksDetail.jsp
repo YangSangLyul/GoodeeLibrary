@@ -85,28 +85,28 @@
             <h2>도서 상세보기</h2>
             <hr/>
             <div class="searchImg">
-                <img src="./알림.jpg"/>
+                <img src="${searchDetail.bookImg}"/>
             </div>
             <div class="searchBookName">
-                <p>자바스크립트</p>
+                <p>${searchDetail.bookName}</p>
             </div>
 
             <table>
                 <tr>
                     <th>저자명</th>
-                    <td>박성배 지음</td>
+                    <td>${searchDetail.writer}</td>
                 </tr>
                 <tr>
                     <th>출판사</th>
-                    <td>Youngjin.com</td>
+                    <td>${searchDetail.publisher}</td>
                 </tr>
                 <tr>
                     <th>등록번호</th>
-                    <td>12345678</td>
+                    <td>${searchDetail.bookIdx}</td>
                 </tr>
                 <tr>
                     <th>책소개</th>
-                    <td>초보자를 위한 새로운 컨텐츠</td>
+                    <td id="story">${searchDetail.story}</td>
                 </tr>
                 <tr>
                     <th>예약인원</th>
@@ -114,7 +114,13 @@
                 </tr>
                 <tr>
                     <th>도서상태</th>
-                    <td>예약가능</td>
+                    <td><c:if test="${searchDetail.bookState eq 'B001'}">
+		                <p>예약가능</p>
+		                </c:if>
+		                <c:if test="${searchDetail.bookState eq 'B002'}">
+		                <p>예약불가</p>
+		                </c:if>
+                	</td>
                 </tr>
             </table>
             <button id="reserve">도서예약</button>

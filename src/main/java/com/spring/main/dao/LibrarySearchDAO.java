@@ -17,4 +17,6 @@ public interface  LibrarySearchDAO {
 
 	ArrayList<BookDTO> searchResult(HashMap<String, String> params);
 
+	BookDTO searchResultDetail(String bookIdx);
+
 }

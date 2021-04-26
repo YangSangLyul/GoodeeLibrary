@@ -41,6 +41,18 @@ public class BookController {
 		
 		return searchService.searchResult(params);
 	}
+	
+	@RequestMapping(value = "/searchResultDetail", method = RequestMethod.GET)
+	public ModelAndView searchResultDetail(@RequestParam String bookIdx) {
+		
+		logger.info("검색도서 상세보기 대상 : {}", bookIdx);
+		
+		
+		
+		return searchService.searchResultDetail(bookIdx);
+	}
+	
+	
 
 	@Autowired BookService service;
 	

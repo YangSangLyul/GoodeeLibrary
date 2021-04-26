@@ -22,7 +22,7 @@
 		UPDATE ReserveBook SET bookState = 'R003' WHERE reserveBookIdx = #{param1}
 	</update>
 	
-	<select id="searchResult" parameterType="hashMap" resultType="com.spring.main.dto.BookDTO">
+	<select id="searchResult" parameterType="hashMap" resultType="book">
 		
 		SELECT * FROM book
 		<where>
@@ -35,4 +35,9 @@
 	 	</where>
 		
 	</select>
+	
+	<select id="searchResultDetail" resultType="book">
+		SELECT * FROM book WHERE bookidx = #{bookIdx}
+	</select>
+	
 </mapper>

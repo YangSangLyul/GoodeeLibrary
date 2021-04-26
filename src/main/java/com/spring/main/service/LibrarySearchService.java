@@ -54,4 +54,19 @@ public class LibrarySearchService {
 		return mav;
 	}
 
+	public ModelAndView searchResultDetail(String bookIdx) {
+		ModelAndView mav = new ModelAndView();
+		
+		BookDTO book = dao.searchResultDetail(bookIdx);
+		if(book != null) {
+			mav.addObject("searchDetail",book);
+		}
+		
+		logger.info("상세도서 불러오기 결과ㅣ : {}",book);
+		
+		mav.setViewName("booksDetail");
+		
+		return mav;
+	}
+
 }
