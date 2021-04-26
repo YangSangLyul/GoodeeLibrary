@@ -110,6 +110,8 @@
                 </li>
                 <li class="topMenuLi">
                     <button id="libraryMy">마이 라이브러리</button>
+                    <!-- onclick="location.href='myLibrary'" -->
+                    
                     <!-- 관리자가 로그인할 경우 나타나게 될 메뉴
                          마이 라이브러리는 숨김처리 됨
                     -->
@@ -143,9 +145,9 @@
             <a href="#"><img id="light" src="./image/알림.jpg" width="100" height="80"/></a>
         </div>
         <div id="loginOffBox">
-            <a href="#">회원가입 </a>
+            <a href="memJoinForm">회원가입 </a>
             |
-            <a href="#"> 로그인</a>
+            <a href="memLogin"> 로그인</a>
         </div>
         <div id="loginOnBox">
             user1님 반갑습니다. | 
