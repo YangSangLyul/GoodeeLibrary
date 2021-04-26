@@ -48,7 +48,7 @@
             <button>도서</button>
             <button>서비스</button>
             <button>기타</button>
-            <button class="writebox" onclick="location.href=questionWrite">글쓰기</button>
+            <button class="writebox">글쓰기</button>
         </div>
         <div id="QuestionTable">
             <table>

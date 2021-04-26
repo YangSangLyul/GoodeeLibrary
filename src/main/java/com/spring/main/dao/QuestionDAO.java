@@ -12,6 +12,4 @@ public interface QuestionDAO {
 
 	int edit(QuestionDTO dto);
 
-	int write(QuestionDTO dto);
-
 }
