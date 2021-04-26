@@ -28,4 +28,14 @@ public class BookService {
 		return mav;
 	}
 
+	public ModelAndView normalBookFilter(ArrayList<String> filter) {
+		ModelAndView mav = new ModelAndView();
+		
+		ArrayList<BookDTO> filterList = dao.normalBookFilter(filter);
+		mav.addObject("filterList", filterList);
+		mav.setViewName("/BookManage/normalBookManage");
+		
+		return mav;
+	}
+
 }

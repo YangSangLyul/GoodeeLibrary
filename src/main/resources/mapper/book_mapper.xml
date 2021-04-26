@@ -8,4 +8,12 @@
 	<select id="bookManageList" resultType="book">
 		SELECT * FROM book ORDER BY bookIdx DESC
 	</select>
+	
+	<select id="normalBookFilter" parameterType="list" resultType="book">
+		SELECT * FROM book WHERE bookstate IN
+			<foreach collection="list" item="item" open="(" separator="," close=")">
+					#{item}
+			</foreach>
+	</select>
+	
 </mapper>

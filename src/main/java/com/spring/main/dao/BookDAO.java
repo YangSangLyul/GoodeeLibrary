@@ -8,4 +8,6 @@ public interface BookDAO {
 
 	ArrayList<BookDTO> bookManageList();
 
+	ArrayList<BookDTO> normalBookFilter(ArrayList<String> filter);
+
 }
