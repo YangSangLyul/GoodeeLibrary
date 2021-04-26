@@ -7,7 +7,7 @@
 		<style></style>
 	</head>
 	<body>
-		<button onclick="location.href='reserveBook?bookIdx=1'">예약하기</button>
+		<button onclick="location.href='reserveBook?bookIdx=3'">예약하기</button>
 	</body>
 	<script></script>
 </html>
