@@ -1,12 +1,19 @@
 package com.spring.main.controller;
 
+import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dto.QuestionDTO;
@@ -30,10 +37,18 @@ public class MyLibraryController {
 		return service.question_list();
 	}
 	
-	@RequestMapping(value = "/question_detail", method = RequestMethod.GET)
-	public ModelAndView question_detail(@RequestParam String idx) {
+	@RequestMapping(value = "/question_detail/{queidx}", method = RequestMethod.GET)
+	public ModelAndView question_detail(@PathVariable String idx) {
 		logger.info("나의 문의 상세페이지");
 		return service.question_detail(idx);
+	}
+	
+	@RequestMapping(value = "/question_write", method = RequestMethod.GET)
+	public ModelAndView question_write(@RequestParam QuestionDTO dto) {
+		logger.info("나의 문의 작성");
+		logger.info(dto.getSubject()+"/"+dto.getContent()+"/"+dto.getType());
+		
+		return service.question_write(dto);
 	}
 	
 	@RequestMapping(value = "/question_edit", method = RequestMethod.POST)
@@ -42,5 +57,24 @@ public class MyLibraryController {
 		logger.info(dto.getQueidx()+"/"+dto.getSubject()+"/"+dto.getContent()+"/"+dto.getType());
 		
 		return service.question_edit(dto);
+	}
+	
+	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
+	public String uploadForm(Model model) {
+		logger.info("파일 업로드 페이지로 이동");
+		return "uploadForm";
+	}
+	
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	public ModelAndView upload(MultipartFile file, HttpSession session) {
+		logger.info("파일 업로드 요청");
+		return service.fileUpload(file,session);
+	}
+	
+	@RequestMapping(value = "/fileDelete", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object>fileDelete(
+			@RequestParam String fileName,HttpSession session) {
+		logger.info(fileName+"파일 삭제 요청");
+		return service.fileDelete(fileName,session);
 	}
 }
