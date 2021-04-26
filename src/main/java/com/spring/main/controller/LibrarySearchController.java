@@ -30,4 +30,13 @@ public class LibrarySearchController {
 		
 		return "BookManage/test";
 	}
+	
+	@RequestMapping(value = "/reserveBookCancel", method = RequestMethod.GET)
+	public String reserveBookCancel(@RequestParam String reserveBookIdx) {
+		logger.info("예약 취소하기");
+		int success = service.reserveBookCancel(reserveBookIdx);
+		logger.info("예약 취소 성공 여부 : " + success);
+		
+		return "BookManage/test";
+	}
 }

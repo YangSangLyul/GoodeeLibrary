@@ -14,4 +14,10 @@ public class MyLibraryController {
 		logger.info("나의 문의 페이지");
 		return "myLib_question";
 	}
+	
+	@RequestMapping(value = "/question_detail", method = RequestMethod.GET)
+	public String question_detail(Model model) {
+		logger.info("나의 문의 상세페이지");
+		return "myLib_question_detail";
+	}
 }
