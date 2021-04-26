@@ -1,0 +1,18 @@
+package com.spring.main.service;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.spring.main.dao.AdminDAO;
+
+@Service
+public class AdminService {
+	
+	@Autowired AdminDAO dao;
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	
+}
