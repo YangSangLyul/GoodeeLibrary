@@ -38,7 +38,7 @@ fieldset {
 	border: none;
 }
 
-input[type="button"] {
+input[type="button"],input[type="submit"] {
 	width: 50%;
 	height: 50px;
 	margin-top: 15pX;
@@ -110,7 +110,7 @@ input[type="button"] {
 				<tr>
 					<th></th>
 					<td>
-						<input type="button" value="회원가입" />
+						<input type="submit" value="회원가입" />
 					</td>
 				</tr>
 			</table>
@@ -118,4 +118,10 @@ input[type="button"] {
 		</form>
 	</div>
 </body>
+<script>
+var msg = "${msg}";
+if(msg!=""){
+	alert(msg);
+}
+</script>
 </html>

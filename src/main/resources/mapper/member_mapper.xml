@@ -5,6 +5,13 @@
 >
 
 <mapper namespace="com.spring.main.dao.MemberDAO">
+<insert id="join" parameterType="hashmap">
+	INSERT INTO member(id,pw,name,phone,email)
+			VALUES(#{userId},#{userPw},#{name},#{phone},#{email})
+</insert>
 
+<select id="login" resultType="String">
+	SELECT pw FROM member WHERE id=#{param1}
+</select>
 
 </mapper>
