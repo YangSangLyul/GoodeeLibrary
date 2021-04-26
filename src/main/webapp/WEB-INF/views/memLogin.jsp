@@ -88,7 +88,7 @@ input[type="button"] {
 			</fieldset>
 
 			<div id="etcFields">
-				<p class="find"><input type="button" value="아이디/비밀번호찾기" onclick="location.href='myfind'" /></p>
+				<p class="find"><input type="button" value="아이디/비밀번호찾기" onclick="location.href='find'" /></p>
 				<p class="join"><input type="button" value="회원가입" onclick="location.href='memJoinForm'" /></p>
 			</div>
 		</form>

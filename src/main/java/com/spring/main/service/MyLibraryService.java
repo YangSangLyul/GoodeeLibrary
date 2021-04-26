@@ -20,6 +20,7 @@ public class MyLibraryService {
 
 	public ModelAndView question_list() {
 
+		logger.info("나의 문의내역 요청");
 		ModelAndView mav = new ModelAndView();
 
 		ArrayList<QuestionDTO> list = dao.question_list();

@@ -21,4 +21,23 @@
 	<update id="returnBook">
 		UPDATE ReserveBook SET bookState = 'R003' WHERE reserveBookIdx = #{param1}
 	</update>
+	
+	<select id="searchResult" parameterType="hashMap" resultType="book">
+		
+		SELECT * FROM book
+		<where>
+	 	<if test="search == '도서명'">
+	 		bookname LIKE '%'||#{searchContent}||'%'
+	 	</if>
+	 	<if test="search == '저자명'">
+	 		writer LIKE '%'||#{search}||'%'
+	 	</if>
+	 	</where>
+		
+	</select>
+	
+	<select id="searchResultDetail" resultType="book">
+		SELECT * FROM book WHERE bookidx = #{bookIdx}
+	</select>
+	
 </mapper>

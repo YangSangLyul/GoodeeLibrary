@@ -41,17 +41,17 @@
 <body>
     <div id="mysidenav" class="sidenav">
         <div id="titleMenu"><a href="">도서관메뉴</a></div>
-        <div class="menu">
-            <p>1</p>
+        <div class="menu" id="bookSearch">
+            <p>도서 검색</p>
         </div>
-        <div class="menu">
-            <p>2</p>
+        <div class="menu" id="newBooks">
+            <p>신착도서 안내</p>
         </div>
-        <div class="menu">
-            <p>3</p>
+        <div class="menu" id="authorRecommend">
+            <p>사서추천 도서</p>
         </div>
-        <div class="menu">
-            <p>4</p>
+        <div class="menu" id="wantBook">
+            <p>희망도서 신청</p>
         </div>
     </div>
 
@@ -62,10 +62,27 @@
             $(this).css("backgroundColor", "white");
         })
 
+
         //여기 누르면 경로 지정;
-        $(".menu").click(function () {
+        $("#bookSearch").click(function () {
             location.href = '';
-        })
+        });
+        
+        //여기 누르면 경로 지정;
+        $("#newBooks").click(function () {
+            location.href = '';
+        });
+        
+        //여기 누르면 경로 지정;
+        $("#authorRecommend").click(function () {
+            location.href = '';
+        });
+        
+        //여기 누르면 경로 지정;
+        $("#wantBook").click(function () {
+            location.href = '';
+        });
+
     </script>
 </body>
 
