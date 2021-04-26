@@ -27,7 +27,7 @@
 	<!-- 2. 쿼리문 xml 이 있는 장소는?(이것 제대로 안하면 문제 생김) -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
-		<property name="mapperLocations" value="classpath:com/spring/main/resources/mapper/*.xml"/>
+		<property name="mapperLocations" value="classpath:/mapper/*.xml"/>
 		
 	</bean>
 	
