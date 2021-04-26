@@ -80,18 +80,23 @@ input[type="button"] {
 		<form action="login" method="POST">
 			<fieldset>
 				<div id="inputFields">
-					<p><input type="text" name="id" value="" placeholder="아이디를 입력해주세요." /></p>
-					<p><input type="password" name="pw" value=""placeholder="비밀번호를 입력해주세요." /></p>
+					<p><input type="text" name="loginId" value="" placeholder="아이디를 입력해주세요." /></p>
+					<p><input type="password" name="loginPw" value="" placeholder="비밀번호를 입력해주세요." /></p>
 					<p><input type="submit" value="로그인" /></p>
 				</div>
 			</fieldset>
 
 			<div id="etcFields">
 				<p class="find"><input type="button" value="아이디/비밀번호찾기" onclick="location.href='myfind'" /></p>
-				<p class="join"><input type="button" value="회원가입" onclick="location.href='joinForm'" /></p>
+				<p class="join"><input type="button" value="회원가입" onclick="location.href='memJoinForm'" /></p>
 			</div>
 		</form>
 	</div>
 </body>
-<script></script>
+<script>
+var msg = "${msg}";
+if(msg!=""){
+	alert(msg);
+}
+</script>
 </html>
