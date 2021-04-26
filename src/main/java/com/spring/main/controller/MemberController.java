@@ -1,4 +1,4 @@
-package com.spring.main;
+package com.spring.main.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -11,13 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
-public class HomeController {
+public class MemberController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
