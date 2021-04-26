@@ -129,7 +129,7 @@
     </head>
     <body>
         <!-- 헤더 영역 -->
-        <iframe src="header.html" width="100%" frameborder="0" scrolling="no">
+        <iframe src="header.jsp" width="100%" frameborder="0" scrolling="no">
         </iframe>
         <!-- 검색창 영역-->
         <div id="searchBox">
