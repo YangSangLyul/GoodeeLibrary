@@ -142,15 +142,19 @@
         <div class="topMenuNotice">
             <a href="#"><img id="light" src="./image/알림.jpg" width="100" height="80"/></a>
         </div>
+        <c:if test="${sessionScope.loginId eq null}">
         <div id="loginOffBox">
             <a href="memJoinForm">회원가입 </a>
             |
             <a href="memLogin"> 로그인</a>
         </div>
+        </c:if>
+        <c:if test="${sessionScope.loginId ne null}">
         <div id="loginOnBox">
             user1님 반갑습니다. | 
             <a href="#"> 로그아웃</a>
         </div>
+        </c:if>
         <br/>
         <hr/>
     </body>

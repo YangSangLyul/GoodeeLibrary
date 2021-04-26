@@ -57,7 +57,7 @@
             <p>5</p>
         </div>
         <div class="menu">
-            <p>6</p>
+            <a href="find">6</a>
         </div>
     </div>
 

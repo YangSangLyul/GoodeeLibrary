@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 화면</title>
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
 .main {
 	width: 400px;
@@ -80,8 +81,8 @@ input[type="button"] {
 		<form action="login" method="POST">
 			<fieldset>
 				<div id="inputFields">
-					<p><input type="text" name="loginId" value="" placeholder="아이디를 입력해주세요." /></p>
-					<p><input type="password" name="loginPw" value="" placeholder="비밀번호를 입력해주세요." /></p>
+					<p><input type="text" name="id" value="" placeholder="아이디를 입력해주세요." /></p>
+					<p><input type="password" name="pw" value="" placeholder="비밀번호를 입력해주세요." /></p>
 					<p><input type="submit" value="로그인" /></p>
 				</div>
 			</fieldset>
