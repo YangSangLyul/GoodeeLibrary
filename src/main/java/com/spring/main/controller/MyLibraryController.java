@@ -19,14 +19,14 @@ public class MyLibraryController {
 	
 	@Autowired MyLibraryService service;
 	
-	@RequestMapping(value = "/MyLibrary", method = RequestMethod.GET)
-	public String home(Model model) {
-		logger.info("나의 문의 페이지");
-		
-		return "myLib_question";
-	}
+	/*
+	 * @RequestMapping(value = "/MyLibrary", method = RequestMethod.GET) public
+	 * String home(Model model) { logger.info("나의 문의 페이지");
+	 * 
+	 * return "myLib_question"; }
+	 */
 	
-	@RequestMapping(value = "/question", method = RequestMethod.GET)
+	@RequestMapping(value = "/MyLibrary", method = RequestMethod.GET)
 	public ModelAndView question() {
 		logger.info("나의 문의 페이지");
 		return service.question_list();

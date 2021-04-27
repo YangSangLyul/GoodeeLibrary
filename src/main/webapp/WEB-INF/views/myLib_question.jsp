@@ -54,7 +54,7 @@
             <table>
                 <tr>
                     <th class="n1">글번호</th>
-                    <th class="n2" onclick="location.href='myLib_question_detail'">제목</th>
+                    <th class="n2">제목</th>
                     <th>작성자</th>
                     <th>작성일</th>
                     <th>답변</th>
@@ -63,7 +63,7 @@
                 <c:forEach items="${questionList}" var="list">
 				<tr>
 					<td class="n1">${list.queidx}</td>
-					<td class="n2"><a href="detail?idx=${list.queidx}">${list.subject}</a></td>
+					<td class="n2"><a href="./question_detail?idx=${list.queidx}">${list.subject}</a></td>
 					<td>${list.id}</td>
 					<td>${list.reg_date}</td>
 					<td>${list.ansstatus}</td>

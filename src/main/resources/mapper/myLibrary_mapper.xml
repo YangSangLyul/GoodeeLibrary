@@ -6,15 +6,15 @@
 
 <mapper namespace="com.spring.main.dao.QuestionDAO">
 	<select id="question_list" resultType="com.spring.main.dto.QuestionDTO">
-		SELECT id,subject,reg_date,ansstatus FROM question ORDER BY reg_date DESC;
+		SELECT queidx,id,subject,reg_date,ansstatus FROM question ORDER BY reg_date DESC
 	</select>
 	
 	<insert id="write" parameterType="com.spring.main.dto.QuestionDTO">
 		INSERT INTO QUESTION(queIdx,id,subject,content,ansstatus,type) 
-			VALUES(queIdx_seq.NEXTVAL,#{id},#{subject},#{content},#{ansstatus},#{type});
+			VALUES(queIdx_seq.NEXTVAL,#{id},#{subject},#{content},#{ansstatus},#{type})
 	</insert>
 	
 	<select id="detail" resultType="com.spring.main.dto.QuestionDTO">
-		SELECT id,subject,content,reg_date,ansstatus FROM question WHERE queidx=#{param1};
+		SELECT id,subject,content,reg_date,ansstatus FROM question WHERE queidx=#{param1}
 	</select>
 </mapper>

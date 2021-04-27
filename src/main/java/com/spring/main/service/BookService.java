@@ -32,7 +32,7 @@ public class BookService {
 		ModelAndView mav = new ModelAndView();
 		
 		ArrayList<BookDTO> filterList = dao.normalBookFilter(filter);
-		mav.addObject("filterList", filterList);
+		mav.addObject("list", filterList);
 		mav.setViewName("/BookManage/normalBookManage");
 		
 		return mav;
