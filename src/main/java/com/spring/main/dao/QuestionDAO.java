@@ -8,10 +8,12 @@ public interface QuestionDAO {
 
 	ArrayList<QuestionDTO> question_list();
 
-	QuestionDTO detail(String idx);
+	int question_write(QuestionDTO dto);
 
-	int edit(QuestionDTO dto);
+	int question_edit(QuestionDTO dto);
 
-	int write(QuestionDTO dto);
+	QuestionDTO question_detail(String idx);
+
+	int question_delete(String idx);
 
 }

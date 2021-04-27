@@ -5,16 +5,24 @@
 >
 
 <mapper namespace="com.spring.main.dao.QuestionDAO">
-	<select id="question_list" resultType="com.spring.main.dto.QuestionDTO">
+	<select id="question_list" resultType="question">
 		SELECT queidx,id,subject,reg_date,ansstatus FROM question ORDER BY reg_date DESC
 	</select>
 	
-	<insert id="write" parameterType="com.spring.main.dto.QuestionDTO">
+	<insert id="question_write" parameterType="question">
 		INSERT INTO QUESTION(queIdx,id,subject,content,ansstatus,type) 
 			VALUES(queIdx_seq.NEXTVAL,#{id},#{subject},#{content},#{ansstatus},#{type})
 	</insert>
 	
-	<select id="detail" resultType="com.spring.main.dto.QuestionDTO">
-		SELECT id,subject,content,reg_date,ansstatus FROM question WHERE queidx=#{param1}
+	<select id="question_detail" resultType="question">
+		SELECT queidx,id,subject,content,reg_date,ansstatus,type FROM question WHERE queidx=#{param1}
 	</select>
+	
+	<update id="question_edit" parameterType="question">
+		UPDATE question SET subject=#{subject}, type=#{type}, content=#{content} WHERE queIdx=6 
+	</update>
+	
+	<delete id="question_delete">
+		DELETE FROM question WHERE queidx=#{param1}
+	</delete>
 </mapper>

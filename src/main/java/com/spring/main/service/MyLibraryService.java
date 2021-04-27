@@ -36,7 +36,7 @@ public class MyLibraryService {
 		String page = "redirect:/";
 		logger.info("상세보기 요청");
 
-		QuestionDTO dto = dao.detail(idx);// 상세 보기
+		QuestionDTO dto = dao.question_detail(idx);// 상세 보기
 		if (dto != null) {// 상세보기 정보를 정상적으로 가져왔다면...
 			page = "myLib_question_detail";
 			mav.addObject("question_info", dto);
@@ -50,7 +50,7 @@ public class MyLibraryService {
 	public ModelAndView question_edit(QuestionDTO dto) {
 		ModelAndView mav = new ModelAndView();
 		logger.info("문의글 수정 요청");
-		int success = dao.edit(dto);
+		int success = dao.question_edit(dto);
 		String page = "myLib_question_edit";
 		if (success > 0) {
 			logger.info("글수정 성공");
@@ -63,10 +63,23 @@ public class MyLibraryService {
 	public ModelAndView question_write(QuestionDTO dto) {
 		ModelAndView mav = new ModelAndView();
 		logger.info("글쓰기 요청");
-		int success = dao.write(dto);
+		int success = dao.question_write(dto);
 		String page = "questionWrite";
 		if (success > 0) {
 			page = "redirect:/";
+		}
+		mav.setViewName(page);
+
+		return mav;
+	}
+
+	public ModelAndView question_delete(String idx) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("문의글 삭제 요청");
+		int success = dao.question_delete(idx);
+		String page = "myLib_question_detail";
+		if (success > 0) {
+			page = "myLib_question";
 		}
 		mav.setViewName(page);
 

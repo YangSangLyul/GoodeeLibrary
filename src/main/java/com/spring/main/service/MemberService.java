@@ -28,8 +28,7 @@ public class MemberService {
 	}
 
 	public int memOverlay(String id) {
-		int result = dao.memOverlay(id);
-		return result;
+		return dao.memOverlay(id);
 	}
 	
 	public boolean login(String id, String pw) {
@@ -38,6 +37,8 @@ public class MemberService {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder.matches(pw, encrypt_pass);
 	}
+	
+	
 
 	public ModelAndView memFindId(HashMap<String, String> params) {
 		logger.info("params:"+params);
@@ -45,5 +46,17 @@ public class MemberService {
 		
 		return null;
 	}
+
+	/*public String login(String id, String pw) {
+		String encrypt_pass = dao.login(id);
+		logger.info(pw+"=="+encrypt_pass);
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String success = "";
+		if(encoder.matches(pw, encrypt_pass)==true) {
+			success = "login";
+		}
+		return success;
+	}*/
+
 
 }
