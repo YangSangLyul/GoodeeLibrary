@@ -9,8 +9,8 @@
     <style>
         #bookManageMain{
             position: absolute;
-            top: 25%;
-            left: 25%;
+            top: 20%;
+            left: 20%;
         }
         table, th, td{
             border: 1px solid black;
@@ -22,11 +22,11 @@
     <div id="bookManageMain">
         <div id="bookFilter">
             <button id="toggle">필터 옵션</button>
-            <form>
-                <span><input type="checkbox" name="R001" value="예약중"/>예약중</span>
-                <span><input type="checkbox" name="B001" value="예약가능"/>예약가능</span>
-                <span><input type="checkbox" name="B002" value="예약불가"/>예약불가</span>
-                <span><input type="checkbox" name="B007" value="숨김"/>숨김</span>
+            <form action="normalBookFilter" method="POST">
+                <span><input type="checkbox" name="filter" value="R001"/>예약중</span>
+                <span><input type="checkbox" name="filter" value="B001"/>예약가능</span>
+                <span><input type="checkbox" name="filter" value="B002"/>예약불가</span>
+                <span><input type="checkbox" name="filter" value="B007"/>숨김</span>
                 <input type="submit" value="검색"/>
             </form>
         </div>
@@ -36,22 +36,19 @@
             <table>
             <c:forEach items="${list}" var="book">
                 <tr>
-                    <td rowspan="5">
-                        ${book.bookImg}
+                    <td rowspan="3">
+                       <img src="${book.bookImg}" width="100px" height="100px"/>
                     </td>
-                </tr>
-                <tr>
-                    <th>${book.bookName}</th>
-                    <c:if test="${book.bookState eq 'B001'}">
+                     <th>${book.bookName}</th>
+					 <c:if test="${book.bookState eq 'B001'}">
                     <td>
                         <select name="bookState">
                             <option value="">예약가능일 때만 상태 변경 가능</option>
                             <option value="">숨김</option>
-                            <option value="">예약중인 도서에만 예약 승인 가능</option>
                         </select>
                     </td>
-                    </c:if>
-                </tr>
+                    </c:if> 
+					</tr>
                 <tr>
                     <td colspan="2">${book.writer}</td>
                 </tr>

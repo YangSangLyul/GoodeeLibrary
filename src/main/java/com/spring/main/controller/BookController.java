@@ -1,5 +1,7 @@
 package com.spring.main.controller;
 
+import java.util.ArrayList;
+
 import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +43,18 @@ public class BookController {
 		
 		return searchService.searchResult(params);
 	}
+	
+	@RequestMapping(value = "/searchResultDetail", method = RequestMethod.GET)
+	public ModelAndView searchResultDetail(@RequestParam String bookIdx) {
+		
+		logger.info("검색도서 상세보기 대상 : {}", bookIdx);
+		
+		
+		
+		return searchService.searchResultDetail(bookIdx);
+	}
+	
+	
 
 	@Autowired BookService service;
 	
@@ -48,9 +62,7 @@ public class BookController {
 	public ModelAndView normalBookManage(Model model) {
 		logger.info("일반도서 리스트");
 		
-		//"/BookManage/normalBookManage"
 		return service.bookManageList();
 	}
 	
-
 }

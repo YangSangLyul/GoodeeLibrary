@@ -154,7 +154,7 @@
         </c:if>
         <c:if test="${sessionScope.loginId ne null}">
         <div id="loginOnBox">
-            user1님 반갑습니다. | 
+            	님 반갑습니다. | 
             <a href="#"> 로그아웃</a>
         </div>
         </c:if>

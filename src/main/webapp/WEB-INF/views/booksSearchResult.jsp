@@ -98,23 +98,23 @@
         <c:forEach items="${searchList}" var="books">
         <div class="searchResultContent">
             <div class="searchImg">
-                <a href="searchResultDetail?bookIdx=${books.bookidx}"><img src="${books.bookimg}"/></a>
+                <a href="searchResultDetail?bookIdx=${books.bookIdx}"><img src="${books.bookImg}"/></a>
             </div>
             <div class="searchBookName">
-                <p>${books.bookname}</p>
+                <p>${books.bookName}</p>
             </div>
             <div class="reserveChk">
-            	<c:if test="${books.bookstate eq 'B001'}">
+            	<c:if test="${books.bookState eq 'B001'}">
                 <p>예약가능</p>
                 </c:if>
-                <c:if test="${books.bookstate eq 'B002'}">
+                <c:if test="${books.bookState eq 'B002'}">
                 <p>예약불가</p>
                 </c:if>
             </div>
             <div class="searchResultOther">
                 저자명 : ${books.writer}<br/>
                 출판사 : ${books.publisher}<br/>
-                등록번호 : ${books.bookidx}
+                등록번호 : ${books.bookIdx}
             </div>
             <hr/>
         </div>

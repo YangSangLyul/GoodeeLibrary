@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.MemberDAO;
 
@@ -26,6 +27,11 @@ public class MemberService {
 		return dao.join(params);
 	}
 
+	public int memOverlay(String id) {
+		int result = dao.memOverlay(id);
+		return result;
+	}
+	
 	public boolean login(String id, String pw) {
 		String encrypt_pass = dao.login(id);
 		logger.info(pw+"=="+encrypt_pass);
@@ -33,12 +39,11 @@ public class MemberService {
 		return encoder.matches(pw, encrypt_pass);
 	}
 
-	public String memOverlay(String id) {
-		boolean success = false;
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		success = dao.memOverlay(id);
-		System.out.println("아이디 사용여부 : " + success);
-		map.put("use", success);
+	public ModelAndView memFindId(HashMap<String, String> params) {
+		logger.info("params:"+params);
+		
+		
 		return null;
 	}
+
 }
