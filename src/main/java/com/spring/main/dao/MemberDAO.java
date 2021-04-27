@@ -6,8 +6,14 @@ public interface MemberDAO {
 
 	int join(HashMap<String, String> params);
 
-	String login(String loginId);
-
 	int memOverlay(String id);
+
+	String login(String id);
+
+	String findId(String name, int phone);
+
+	String findPw(HashMap<String, String> params);
+
+	boolean newPw(String newPw);
 
 }

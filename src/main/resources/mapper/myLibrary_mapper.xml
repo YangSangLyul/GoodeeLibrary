@@ -5,11 +5,27 @@
 >
 
 <mapper namespace="com.spring.main.dao.QuestionDAO">
+	
 	<select id="question_list" resultType="question">
 		SELECT queidx,id,subject,reg_date,ansstatus FROM question ORDER BY reg_date DESC
 	</select>
 	
-	<insert id="question_write" parameterType="question">
+	
+	<!-- <select id="question_list" resultType="question">
+		SELECT queidx, id,subject,content,reg_date, rnum
+		FROM (
+			SELECT queidx, id,subject,content,reg_date, 
+			ROW_NUMBER() OVER(ORDER BY queidx DESC) AS rnum FROM question
+		)
+	WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>-->
+	
+	
+	<insert id="question_write" 
+		useGeneratedKeys="true"
+		keyProperty="queIdx"
+		keyColumn="queIdx"
+		parameterType="question">
 		INSERT INTO QUESTION(queIdx,id,subject,content,ansstatus,type) 
 			VALUES(queIdx_seq.NEXTVAL,#{id},#{subject},#{content},#{ansstatus},#{type})
 	</insert>
@@ -25,4 +41,17 @@
 	<delete id="question_delete">
 		DELETE FROM question WHERE queidx=#{param1}
 	</delete>
+	
+	<select id="allCount" resultType="Integer">
+		SELECT COUNT(queidx) FROM question
+	</select>
+	
+	<insert id="writeFile"> 
+		INSERT INTO questionphoto(quephotoidx,queidx,orifilename,newfilename)
+			VALUES(quephotoidx_seq.NEXTVAL,#{param1},#{param2},#{param3})
+	</insert>
+	
+	<select id="fileList" resultType="Qphoto">
+		SELECT * FROM questionphoto WHERE queidx=#{param1}
+	</select>
 </mapper>

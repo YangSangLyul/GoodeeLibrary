@@ -5,11 +5,46 @@
 >
 
 <mapper namespace="com.spring.main.dao.BookDAO">
-	<select id="bookManageList" resultType="book">
-		SELECT * FROM book ORDER BY bookIdx DESC
+		<resultMap type="reserveBook" id="reserveBook">
+			<id column="reserveBookIdx" property="reserveBookIdx"/>
+			<result column="id" property="id"/>
+			<result column="reg_date" property="reg_date"/>
+			<result column="bookIdx " property="bookIdx"/>
+			<result column="RESERVEBOOKSTATE" property="bookState"/>
+		</resultMap>
+		
+		<resultMap type="book" id="book">
+			<id column="bookIdx" property="bookIdx"/>
+			<result column="bookName" property="bookName"/>
+			<result column="bookImg" property="bookImg"/>
+			<result column="writer" property="writer"/>
+			<result column="story" property="story"/>
+			<result column="publisher" property="publisher"/>
+			<result column="reg_date" property="reg_date"/>
+			<result column="bookState" property="bookState"/>
+			<collection property="reserveBook" resultMap="reserveBook"/>
+	</resultMap>
+	<select id="bookManageList" resultMap="book">
+	SELECT 
+		b.BOOKIDX
+		, b.BOOKNAME
+		, b.BOOKIMG
+		, b.WRITER
+		, b.STORY
+		, b.PUBLISHER
+		, b.BOOKSTATE
+		, r.RESERVEBOOKIDX
+		, r.BOOKSTATE AS RESERVEBOOKSTATE
+		, r.ID
+		, r.REG_DATE
+    FROM book b
+    		, reserveBook r 
+    WHERE b.bookidx = r.bookidx(+) 
+    ORDER BY b.BOOKIDX DESC, r.REG_DATE DESC
 	</select>
 	
-	<select id="normalBookFilter" parameterType="list" resultType="book">
+	
+	<select id="normalBookFilter" parameterType="list" resultType="reserveBook">
 		SELECT * FROM book WHERE bookstate IN
 			<foreach collection="list" item="item" open="(" separator="," close=")">
 					#{item}
@@ -19,5 +54,14 @@
 	<update id="bookStateChange" parameterType="hashMap">
 		UPDATE book SET bookState = #{bookState} WHERE bookIdx = #{bookIdx}
 	</update>
+	
+<!-- 	<update id="reserveApproval" parameterType="hashMap">
+		UPDATE reserveBook SET bookState = 'R002' WHERE bookIdx = #{bookIdx}
+	</update> -->
+	
+	<insert id="userReserveNotification" parameterType="hashMap">
+		INSERT INTO notification(noticeIdx, id, notype, content, mem_type)
+			VALUES(noticeIdx_seq.NEXTVAL, #{id}, 'N005', #{bookName}||' 도서 예약이 가능합니다', '회원')
+	</insert>
 	
 </mapper>

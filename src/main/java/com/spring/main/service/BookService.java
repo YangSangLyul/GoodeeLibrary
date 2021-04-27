@@ -2,6 +2,7 @@ package com.spring.main.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,11 @@ public class BookService {
 		
 		ArrayList<BookDTO> list = dao.bookManageList(); 
 		logger.info("list size : " + list.size());
-		mav.addObject("list", list);
+		
+		HashSet<BookDTO> set = new HashSet<BookDTO>(list);
+		logger.info("set size : " + set.size());
+		
+		mav.addObject("list", set);
 		mav.setViewName("/BookManage/normalBookManage");
 		return mav;
 	}
@@ -46,6 +51,22 @@ public class BookService {
 		map.put("success", success);
 		
 		
+		return map;
+	}
+
+	public HashMap<String, Object> reserveApproval(HashMap<String, String> params) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int success = dao.reserveApproval(params);
+		map.put("success", success);
+		return null;
+	}
+
+	public HashMap<String, Object> userReserveNotification(HashMap<String, String> params) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int success = dao.userReserveNotification(params);
+		map.put("success", success);
 		return map;
 	}
 

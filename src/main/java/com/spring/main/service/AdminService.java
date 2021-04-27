@@ -24,15 +24,26 @@ public class AdminService {
 		ModelAndView mav = new ModelAndView();		
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<AdminDTO> ReviewKing = dao.ReviewKing();
-		//ArrayList<AdminDTO> manyUp = dao.manyUp();
-		map.put("ReviewKing", ReviewKing);
-		//map.put("manyUp", manyUp);
+		ArrayList<AdminDTO> manyUp = dao.manyUp();
+		ArrayList<AdminDTO> manyReview = dao.manyReview();
+		map.put("manyUp", manyUp);
+		map.put("manyReview", manyReview);
 		
 		mav.addObject("king", map);		
 		mav.setViewName("adminReviewKing");
 
 		return mav;
+	}
+
+	public int selectKing(HashMap<String, Object> params) {
+		logger.info("리뷰왕 INSERT 쿼리 요청");
+		ModelAndView mav = new ModelAndView();
+	    int success = dao.selectKing(params);
+	    //map.put("map", dao.selectKing(params));
+	    if(success>0) {
+	    	mav.setViewName("redirect:/ReviewKing");	    	
+	    }	     
+	    return success;
 	}
 	
 	

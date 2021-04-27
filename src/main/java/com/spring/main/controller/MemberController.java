@@ -45,7 +45,7 @@ public class MemberController {
 		page = "joinForm";
 		msg = "회원가입에 실패하였습니다.";
 		if(service.join(params)>0) {
-			page = "memLogin";
+			page = "redirect:/memLogin";
 			msg = "회원가입을 축하드립니다.";
 		}
 		model.addAttribute("msg",msg);
@@ -55,50 +55,37 @@ public class MemberController {
 	@RequestMapping(value = "/memOverlay", method = RequestMethod.GET)
 	public @ResponseBody String memOverlay(@RequestParam String id) {
 		logger.info("중복확인 아이디: "+id);
-		String str ="";
-		int idcheck = service.memOverlay(id);
-		if(idcheck==1) {
-			str = "no";
-		}else {
-			str = "yes";
-		}
-		return str;
+		return service.memOverlay(id);
 	}
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Model model,@RequestParam String id, @RequestParam String pw) {
-		logger.info(id+"/"+pw);
+	public String login(Model model,@RequestParam HashMap<String, String> params,
+			HttpSession session) {
+		logger.info("login : "+params);
+		
+		String loginId = "";
 		
 		msg= "아이디 비밀번호를 확인해 주세요";
 		page = "memLogin";
-		if(service.login(id,pw)) {
-			msg= "로그인에 성공 했습니다.";
-			page = "main";
+		
+		if(service.login(params)) {
+			loginId = params.get("id");
+			logger.info(loginId+" 로그인 성공");
+			session.setAttribute("loginId", loginId);
+			page="main";
 		}
 		model.addAttribute("msg", msg);
 		return page;
 	}
 	
-	/*@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Model model,@RequestParam String id, @RequestParam String pw,
-			HttpSession session) {
-		logger.info(id+"/"+pw);
-		
-		msg= "아이디 비밀번호를 확인해 주세요";
-		page = "memLogin";
-		
-		//String loginId = (String) session.getAttribute("loginId");
-		String loginId = service.login(id,pw);
-		
-		if(loginId!=null && service.login(id,pw)) {
-			msg= "로그인에 성공 했습니다.";
-			page = "main";
-			session.setAttribute("loginId", loginId);
-		}
-		model.addAttribute("msg", msg);
-		logger.info("로그인아이디:"+loginId);
-		return page;
-	}*/
+	@RequestMapping(value = "/memLogout", method = RequestMethod.GET)
+	public String memLogout(HttpSession session) {
+		logger.info("로그아웃 요청");
+		session.removeAttribute("loginId");
+		return "main";
+	}
+	
+	//------------계정찾기관련 영역----------------------------------------
 	
 	@RequestMapping(value = "/find", method = RequestMethod.GET)
 	public String find(Model model) {
@@ -111,35 +98,33 @@ public class MemberController {
 		logger.info("아이디찾기 페이지 이동");
 		return "memFindId";
 	}
+
+	@RequestMapping(value = "/findId", method = RequestMethod.POST)
+	public ModelAndView findId(@RequestParam String name,@RequestParam int phone
+			,HttpSession session) {
+		logger.info("입력한 "+name+"/"+phone);
+		return service.findId(name,phone,session);
+	}
 	
 	@RequestMapping(value = "/memFindPw", method = RequestMethod.GET)
 	public String memFindPw(Model model) {
-		logger.info("패스워드찾기 페이지 이동");
+		logger.info("비밀번호찾기 페이지 이동");
 		return "memFindPw";
 	}
 	
-	@RequestMapping(value = "/memFinId", method = RequestMethod.GET)
-	public String memFinId(Model model) {
-		logger.info("아이디찾기 결과 페이지 이동");
-		return "memFinId";
+	@RequestMapping(value = "/findPw", method = RequestMethod.POST)
+	public ModelAndView findPw(@RequestParam HashMap<String, String> params
+			,HttpSession session) {
+		logger.info("입력한 params:"+params);
+		return service.findPw(params,session);
 	}
 	
-	@RequestMapping(value = "/memReId", method = RequestMethod.GET)
-	public String memReId(Model model) {
-		logger.info("아이디찾기 결과 페이지 이동");
-		return "memReId";
+	@RequestMapping(value = "/newPw", method = RequestMethod.POST)
+	public String newPw(Model model,@RequestParam String newPw) {
+		logger.info("새로바꿀 비밀번호:"+newPw);
+		return service.newPw(newPw);
 	}
 	
-	@RequestMapping(value = "/memNewPw", method = RequestMethod.GET)
-	public String memNewPw(Model model) {
-		logger.info("새로운 비밀번호 페이지 이동");
-		return "memNewPw";
-	}
-	
-//	@RequestMapping(value = "/memFindId", method = RequestMethod.GET)
-//	public ModelAndView memFindId(@RequestParam HashMap<String, String> params) {
-//		logger.info("아이디찾기 요청");
-//		return service.memFindId(params);
-//	}
+	//------------마이라이브러리 내 영역----------------------------------------
 	
 }

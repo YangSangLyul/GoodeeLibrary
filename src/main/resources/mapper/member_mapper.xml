@@ -14,9 +14,16 @@
 	SELECT count(id) FROM member WHERE id=#{id}
 </select>
 
-<select id="login" resultType="String">
-	SELECT pw FROM member WHERE id=#{param1}
+ <select id="login" resultType="String">
+	SELECT pw FROM member WHERE id=#{id}
+</select> 
+
+<select id="findId" resultType="String">
+	SELECT id FROM member WHERE name=#{param1} and phone=#{param2}
 </select>
 
+<select id="findPw" resultType="String">
+	SELECT id FROM member WHERE id=#{id} and name=#{name} and email=#{email}
+</select>
 
 </mapper>

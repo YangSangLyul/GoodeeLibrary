@@ -6,20 +6,29 @@
 
 <mapper namespace="com.spring.main.dao.AdminDAO">
 
-	<!-- 이 달의 리뷰왕 -->
-	<select id="ReviewKing" resultType="com.spring.main.dto.AdminDTO" parameterType="list">
+	<!-- 리뷰 추천 수 많은 유저 -->
+	<select id="manyUp" resultType="com.spring.main.dto.AdminDTO" parameterType="list">
 		<![CDATA[
 			SELECT * FROM (
-			    SELECT ROW_NUMBER() OVER(ORDER BY COUNT(r.id) DESC) AS rnum, r.id, COUNT(r.id) "up" FROM ReviewRecommend c JOIN review r 
+			    SELECT ROW_NUMBER() OVER(ORDER BY COUNT(r.id) DESC) AS rnum, r.id, COUNT(r.id) "cnt" FROM ReviewRecommend c JOIN review r 
 			    ON c.reviewIdx = r.reviewIdx AND TO_CHAR(c.recom_date,'YYYYMM') = TO_CHAR(add_months(sysdate,-1), 'YYYYMM') GROUP BY r.id
 			) WHERE rnum <= 3
-			UNION
+		]]>
+	</select>
+	
+	<!-- 리뷰 많이 작성한 유저 -->
+	<select id="manyReview" resultType="com.spring.main.dto.AdminDTO" parameterType="list">
+		<![CDATA[
 			SELECT * FROM (
 			    SELECT ROW_NUMBER() OVER(ORDER BY COUNT(id) DESC) AS rnum,
-			        id, COUNT(id) AS "reviewcnt" FROM review WHERE TO_CHAR(reg_date,'YYYYMM') = TO_CHAR(add_months(sysdate,-1), 'YYYYMM')
+			        id, COUNT(id) AS "cnt" FROM review WHERE TO_CHAR(reg_date,'YYYYMM') = TO_CHAR(add_months(sysdate,-1), 'YYYYMM')
 			        GROUP BY id
 			) WHERE rnum <= 3
 		]]>
 	</select>
+	
+	<insert id="selectKing" parameterType="HashMap">
+		INSERT INTO bestreview(id, month_rcnt) VALUES(#{id}, #{cnt})
+	</insert>
 	
 </mapper>
