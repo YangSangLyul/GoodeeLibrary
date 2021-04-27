@@ -1,6 +1,7 @@
 package com.spring.main.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,16 @@ public class BookService {
 		mav.setViewName("/BookManage/normalBookManage");
 		
 		return mav;
+	}
+
+	public HashMap<String, Object> bookStateChange(HashMap<String, String> params) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int success = dao.bookStateChange(params);
+		map.put("success", success);
+		
+		
+		return map;
 	}
 
 }

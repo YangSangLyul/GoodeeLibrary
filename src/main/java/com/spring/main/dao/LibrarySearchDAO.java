@@ -19,4 +19,6 @@ public interface  LibrarySearchDAO {
 
 	BookDTO searchResultDetail(String bookIdx);
 
+	Integer reserveChk(String bookIdx);
+
 }

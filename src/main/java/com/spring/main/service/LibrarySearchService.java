@@ -57,9 +57,18 @@ public class LibrarySearchService {
 	public ModelAndView searchResultDetail(String bookIdx) {
 		ModelAndView mav = new ModelAndView();
 		
+		int reserveCnt = 0;
+		
 		BookDTO book = dao.searchResultDetail(bookIdx);
 		if(book != null) {
 			mav.addObject("searchDetail",book);
+			if(dao.reserveChk(bookIdx) != null) {
+				reserveCnt = dao.reserveChk(bookIdx);
+			}
+			
+			logger.info("현재 예약 인원 수 : {} 명",reserveCnt);
+			
+			mav.addObject("reserveCnt",reserveCnt);
 		}
 		
 		logger.info("상세도서 불러오기 결과ㅣ : {}",book);

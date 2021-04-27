@@ -18,20 +18,20 @@
             }
 
             .searchBookName{
+            	position: relative;
                 font-size: 30px;
                 font-weight: 600;
-                padding: 5px;
-                width: 350px;
-                position: absolute;
+                width: 700px;
                 left: 25%;
-                top: 15%;
+               	margin-top: -200px;
             }
 
-            
+ 
             table{
                 margin-left: 250px;
-                margin-top: -130px;
+                
                 width: 70%;
+                height: 60%;
                 border-radius: 5px;
             }
 
@@ -39,14 +39,13 @@
                 border: 1px solid gray;
                 border-collapse: collapse;
                 text-align: center;
-                padding: 10px;
             }
 
             table th{
                 background-color: #c5d8f1ff;
             }
 
-            button{
+            #container button{
                 background-color: #c5d8f1ff;
                 border: 1px solid gray;
                 border-radius: 5px;
@@ -57,6 +56,12 @@
                 margin-top: 30px;
                 margin-left: 50px;
                 left: 40%;
+            }
+            
+           #loginOffBox{
+                
+                
+                margin-top: -80px;
             }
 
             a:link { 
@@ -73,8 +78,6 @@
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script>
-            var menu3 = window.parent.document.getElementById("search");
-            menu3.css('background-color','blue');
         </script>
     </head>
     <body>
@@ -110,25 +113,33 @@
                 </tr>
                 <tr>
                     <th>예약인원</th>
-                    <td>1 / 3</td>
+                    <td>${reserveCnt} / 3</td>
                 </tr>
                 <tr>
                     <th>도서상태</th>
-                    <td><c:if test="${searchDetail.bookState eq 'B001'}">
+                    <td><c:if test="${searchDetail.bookState eq 'B001' || reserveCnt < 3}">
 		                <p>예약가능</p>
 		                </c:if>
-		                <c:if test="${searchDetail.bookState eq 'B002'}">
+		                <c:if test="${searchDetail.bookState eq 'B002' || reserveCnt eq 3}">
 		                <p>예약불가</p>
 		                </c:if>
                 	</td>
                 </tr>
             </table>
-            <button id="reserve">도서예약</button>
+            <c:if test="${searchDetail.bookState eq 'B001' || reserveCnt < 3}">
+		                <button id="reserve">도서예약</button>
+		    </c:if>
+            
             <button id="back">이전으로</button>
         </div>
         
 
     </body>
+    <script>
+    	$("#back").click(function() {
+    		location.href = 'booksSearch';
+    	});
+    </script>
 
 
 </html>

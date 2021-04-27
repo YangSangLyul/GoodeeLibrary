@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.AdminService;
 
@@ -17,10 +18,11 @@ public class AdminController {
 	
 	@Autowired AdminService service;
 	
-//	@RequestMapping(value = "/", method = RequestMethod.GET)
-//	public String home(Model model) {
-//		return "adminReviewKing";
-//	}
+	@RequestMapping(value = "/ReviewKing", method = RequestMethod.GET)
+	public ModelAndView ReviewKing(Model model) {
+		logger.info("이달의리뷰왕 요청");
+		return service.reviewkingList();
+	}
 	
 
 }

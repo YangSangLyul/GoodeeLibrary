@@ -66,7 +66,7 @@
 </head>
 <body>
     <div id="qdBackground">
-        <form action="">
+        <form action="question_edit" method="POST">
             <table>
                 <tr>
                     <td>
@@ -75,11 +75,11 @@
                     </td>
                     <td>
                         문의유형<br>
-                        <select name="" id="selbox">
-                            <option value="">도서</option>
-                            <option value="">열람실</option>
-                            <option value="">서비스</option>
-                            <option value="">기타</option>
+                        <select name="Qtype" id="selbox">
+                            <option value="Q001">열람실</option>
+                            <option value="Q002">도서</option>
+                            <option value="Q003">서비스</option>
+                            <option value="Q004">기타</option>
                         </select>
                     </td>
                 </tr>
