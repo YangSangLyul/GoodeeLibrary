@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html lang="en">
 
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	
 </head>
 <style>
     #qwBackground{
@@ -74,12 +73,26 @@
                     </select>
                 </div>
             <input type="text" placeholder="제목을 작성해주세요"  class="gw3">
-            <textarea name="" id="" cols="30" rows="10" placeholder="문의사항을 작성해 주십시ㅇ"  class="gw4"></textarea>
-            <input type="button" value="사진업로드"  class="gw5">
+            <textarea id="editable" contenteditable="true" cols="30" rows="10" placeholder="문의사항을 작성해 주세요"  class="gw4"></textarea>
+            <input id="content" type="text" name="content" value=""/>
+            <input type="button" value="사진업로드"  class="gw5" onclick="fileUp()"/>
             <label class="gw6"><input type="checkbox" name="" id="" value="">비밀글</label>
-            <input type="button" value="작성완료"  class="gw7">
+            <input id="save" type="button" value="작성완료"  class="gw7"/>
         </form>
     </div>
 </body>
+<script>
 
+$("#save").click(function(){
+	//editable 에 있는 내용을 content의 value 넣기
+	$("#editable a").find("b").remove();
+	$("#editable a").removeAttr('onclick');
+	$('#content').val($('#editable').html());
+	$('form').submit();
+});
+
+function fileUp(){
+	window.open('uploadForm','fileupload','width=60','height=40');
+}
+</script>
 </html>
