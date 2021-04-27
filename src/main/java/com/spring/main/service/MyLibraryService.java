@@ -38,7 +38,7 @@ public class MyLibraryService {
 
 		QuestionDTO dto = dao.detail(idx);// 상세 보기
 		if (dto != null) {// 상세보기 정보를 정상적으로 가져왔다면...
-			page = "detail";
+			page = "myLib_question_detail";
 			mav.addObject("question_info", dto);
 		}
 
@@ -51,7 +51,7 @@ public class MyLibraryService {
 		ModelAndView mav = new ModelAndView();
 		logger.info("문의글 수정 요청");
 		int success = dao.edit(dto);
-		String page = "myLib_question_detail";
+		String page = "myLib_question_edit";
 		if (success > 0) {
 			logger.info("글수정 성공");
 			page = "redirect:/";
