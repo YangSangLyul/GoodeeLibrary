@@ -12,4 +12,8 @@ public interface MemberDAO {
 
 	String findId(String name, int phone);
 
+	String findPw(HashMap<String, String> params);
+
+	boolean newPw(String newPw);
+
 }

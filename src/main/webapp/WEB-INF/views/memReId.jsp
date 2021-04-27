@@ -62,7 +62,7 @@
       </div>
         <div id="find_btn">
           <button class="find_button" onclick="location.href='memLogin'">로그인</button>
-          <button class="find_button" onclick="location.href='memfindPw'">비밀번호 찾기</button>
+          <button class="find_button" onclick="location.href='memFindPw'">비밀번호 찾기</button>
         </div>
     </div>
 </body>

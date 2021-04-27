@@ -63,19 +63,19 @@ button {
 		<div id="find_img">
 			<img src="./image/lock.png">
 		</div>
-		<form action="join" method="POST">
+		<form action="findPw" method="POST">
 			<table id="findFields">
 				<tr>
 					<td id="title">아이디</td>
-					<td><input type="text" name="name" placeholder="이름을 입력해주세요." /></td>
+					<td><input type="text" name="id" id="id" placeholder="아이디를 입력해주세요." /></td>
 				</tr>
 				<tr>
 					<td id="title">이름</td>
-					<td><input type="text" name="name" placeholder="이름을 입력해주세요." /></td>
+					<td><input type="text" name="name" id="name" placeholder="이름을 입력해주세요." /></td>
 				</tr>
 				<tr>
-					<th>이메일</th>
-					<td><input type="text" name="phone" placeholder="휴대폰번호를 입력해주세요." /></td>
+					<td id="title">이메일</td>
+					<td><input type="text" name="email" id="email" placeholder="이메일을 입력해주세요." /></td>
 				</tr>
 			</table>
 		</form>
@@ -97,22 +97,16 @@ $(document).ready(function(){
 	});
 });
 
-$(document).ready(function(){
-	$("input[name=phone]").keyup(function(event){ 
-	if (!(event.keyCode >=37 && event.keyCode<=40)) {
-		var inputVal = $(this).val();
-		$(this).val(inputVal.replace(/[^0-9-]/gi,''));
-		}
-	});
-});
-
-function findChk() {
-	if($('#name').val() == '') {
+function findChk2() {
+	if($('#id').val() == '') {
+		alert('아이디를 입력해 주세요.');
+		$('#id').focus();
+	}else if($('#name').val() == ''){
 		alert('이름을 입력해 주세요.');
 		$('#name').focus();
-	}else if($('#phone').val() == ''){
-		alert('휴대폰 번호를 입력해 주세요.');
-		$('#phone').focus();
+	}else if($('#email').val() == ''){
+		alert('이메일을 입력해 주세요.');
+		$('#email').focus();
 	}else{
 		$('form').submit();
 	}

@@ -55,14 +55,7 @@ public class MemberController {
 	@RequestMapping(value = "/memOverlay", method = RequestMethod.GET)
 	public @ResponseBody String memOverlay(@RequestParam String id) {
 		logger.info("중복확인 아이디: "+id);
-		String str ="";
-		int idcheck = service.memOverlay(id);
-		if(idcheck==1) {
-			str = "no";
-		}else {
-			str = "yes";
-		}
-		return str;
+		return service.memOverlay(id);
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -110,68 +103,28 @@ public class MemberController {
 	public ModelAndView findId(@RequestParam String name,@RequestParam int phone
 			,HttpSession session) {
 		logger.info("입력한 "+name+"/"+phone);
-		ModelAndView mav = new ModelAndView();
-		
-		String id = service.findId(name,phone);
-		logger.info("아이디찾기:"+id);
-		
-		page = "memFindId";
-		msg = "해당 정보와 일치하는 아이디는 없습니다.";
-		if(id!=null) {
-			page="redirect:/memReId";
-			session.setAttribute("name", name);
-			session.setAttribute("findId", id);
-		}
-		mav.addObject("msg", msg);
-		mav.setViewName(page);
-		return mav;
+		return service.findId(name,phone,session);
 	}
 	
 	@RequestMapping(value = "/memFindPw", method = RequestMethod.GET)
 	public String memFindPw(Model model) {
-		logger.info("패스워드찾기 페이지 이동");
+		logger.info("비밀번호찾기 페이지 이동");
 		return "memFindPw";
 	}
 	
-	@RequestMapping(value = "/findPw", method = RequestMethod.GET)
-	public ModelAndView findPw(@RequestParam HashMap<String, String> params) {
-		logger.info("params:"+params);
-		ModelAndView mav = new ModelAndView();
-		
-		String pw = service.findPw(params);
-		
-		page = "memFindId";
-		msg = "입력한 값을 다시 확인해주세요.";
-		if(pw!=null) {
-			page="memNewPw";
-		}
-		mav.addObject("msg", msg);
-		mav.setViewName(page);
-		return mav;
+	@RequestMapping(value = "/findPw", method = RequestMethod.POST)
+	public ModelAndView findPw(@RequestParam HashMap<String, String> params
+			,HttpSession session) {
+		logger.info("입력한 params:"+params);
+		return service.findPw(params,session);
 	}
 	
-	@RequestMapping(value = "/memFinId", method = RequestMethod.GET)
-	public String memFinId(Model model) {
-		logger.info("아이디찾기 결과 페이지 이동");
-		return "memFinId";
+	@RequestMapping(value = "/newPw", method = RequestMethod.POST)
+	public String newPw(Model model,@RequestParam String newPw) {
+		logger.info("새로바꿀 비밀번호:"+newPw);
+		return service.newPw(newPw);
 	}
 	
-	@RequestMapping(value = "/memReId", method = RequestMethod.GET)
-	public String memReId(Model model) {
-		logger.info("아이디찾기 결과 페이지 이동");
-		return "memReId";
-	}
-	
-	@RequestMapping(value = "/memNewPw", method = RequestMethod.GET)
-	public String memNewPw(Model model) {
-		logger.info("새로운 비밀번호 페이지 이동");
-		return "memNewPw";
-	}
-	
-//	@RequestMapping(value = "/memFindId", method = RequestMethod.GET)
-//	public ModelAndView memFindId(@RequestParam HashMap<String, String> params) {
-//		logger.info("아이디찾기 요청");
-//		return service.memFindId(params);
-//	}
+	//------------마이라이브러리 내 영역----------------------------------------
 	
 }
