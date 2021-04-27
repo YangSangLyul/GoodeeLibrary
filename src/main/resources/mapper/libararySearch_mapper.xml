@@ -5,6 +5,10 @@
 >
 
 <mapper namespace="com.spring.main.dao.LibrarySearchDAO">
+	<select id="reserveChk" resultType="int">
+		SELECT bookidx FROM reservebook WHERE bookidx = #{param1} AND bookstate = 'R001'
+	</select>
+
 	<insert id="reserveBook">
 		INSERT INTO ReserveBook(reserveBookIdx,bookIdx,id)
 			VALUES(reserveBookIdx_seq.NEXTVAL,#{param1},'test')
@@ -27,10 +31,10 @@
 		SELECT * FROM book
 		<where>
 	 	<if test="search == '도서명'">
-	 		bookname LIKE '%'||#{searchContent}||'%'
+	 		bookname LIKE '%'||#{searchContent}||'%' AND bookstate NOT IN ('B005', 'B006', 'B007')
 	 	</if>
 	 	<if test="search == '저자명'">
-	 		writer LIKE '%'||#{search}||'%'
+	 		writer LIKE '%'||#{search}||'%' AND bookstate NOT IN ('B005', 'B006', 'B007')
 	 	</if>
 	 	</where>
 		
