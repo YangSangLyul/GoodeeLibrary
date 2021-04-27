@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.BookService;
@@ -37,5 +38,13 @@ public class BookController {
 		
 		return service.normalBookFilter(filter);
 	}
+	
+	@RequestMapping(value = "/bookStateChange", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> bookStateChange(@RequestParam HashMap<String, String> params) {
+		logger.info("도서 상태 변환 : {}",params);
+		
+		return service.bookStateChange(params);
+	}
+	
 	
 }

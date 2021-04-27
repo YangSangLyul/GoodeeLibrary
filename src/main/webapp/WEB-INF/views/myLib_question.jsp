@@ -69,21 +69,6 @@
 					<td>${list.ansstatus}</td>
 				</tr>
 				</c:forEach>
-                
-                <tr>
-                    <td class="n1">2</td>
-                    <td class="n2">예제예제제목입니달ㅇㄴ마ㅣ릉ㄴㅁ리ㅏㄴㅁㅇㅇㅇㄴㄴㅇ</td>
-                    <td>테스트2</td>
-                    <td>2022-22-22</td>
-                    <td>x</td>
-                </tr>
-                <tr>
-                    <td class="n1">3</td>
-                    <td class="n2">예제예제제목입니달ㅇㄴ마ㅣ릉ㄴㅁ리ㅏㄴㅁㅇㅇㅇㄴㄴㅇ</td>
-                    <td>테스트1</td>
-                    <td>2022-22-22</td>
-                    <td>x</td>
-                </tr>
             </table>
         </div>
     </div>

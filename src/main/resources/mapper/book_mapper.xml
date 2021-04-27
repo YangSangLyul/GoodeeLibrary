@@ -16,4 +16,8 @@
 			</foreach>
 	</select>
 	
+	<update id="bookStateChange" parameterType="hashMap">
+		UPDATE book SET bookState = #{bookState} WHERE bookIdx = #{bookIdx}
+	</update>
+	
 </mapper>

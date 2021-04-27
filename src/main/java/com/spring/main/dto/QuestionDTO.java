@@ -2,6 +2,9 @@ package com.spring.main.dto;
 
 import java.sql.Date;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("question")
 public class QuestionDTO {
 	private int queidx;
 	private String id;
