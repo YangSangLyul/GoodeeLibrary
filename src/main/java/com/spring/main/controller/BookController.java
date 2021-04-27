@@ -46,5 +46,17 @@ public class BookController {
 		return service.bookStateChange(params);
 	}
 	
+	@RequestMapping(value = "/reserveApproval", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> reserveApproval(@RequestParam HashMap<String, String> params) {
+		logger.info("예약 승인 : {}",params);
+		
+		return service.reserveApproval(params);
+	}
+	@RequestMapping(value = "/userReserveNotification", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> userReserveNotification(@RequestParam HashMap<String, String> params) {
+		logger.info("유저 예약 알림 : {}",params);
+		
+		return service.userReserveNotification(params);
+	}
 	
 }
