@@ -12,9 +12,16 @@ public class BookDTO {
 	private String writer;
 	private String story;
 	private String publisher;
-	private Date reg_date ;
+	private Date reg_date;
 	private String bookState;
+	private ReserveBookDTO reserveBook;
 	
+	public ReserveBookDTO getReserveBookDTO() {
+		return reserveBook;
+	}
+	public void setReserveBookDTO(ReserveBookDTO reserveBookDTO) {
+		this.reserveBook = reserveBookDTO;
+	}
 	public int getBookIdx() {
 		return bookIdx;
 	}

@@ -44,8 +44,9 @@ table, th, td {
 				<table>
 					<c:forEach items="${list}" var="book">
 						<tr>
-							<td rowspan="3"><img src="${book.bookImg}" width="100px"
-								height="100px" /></td>
+							<td rowspan="4">
+								<img src="${book.bookImg}" width="100px" height="100px" />
+							</td>
 							<th>${book.bookName}</th>
 							<c:if test="${book.bookState eq 'B001'}">
 								<td><select id="bookState" name="bookState">
@@ -54,9 +55,10 @@ table, th, td {
 										<option value="B005">훼손</option>
 										<option value="B006">분실</option>
 										<option value="B007">기타</option>
-								</select> <input type="button" value="변경"
-									onclick="bookStateChange(${book.bookIdx})" /></td>
+								</select> 
+								<input type="button" value="변경"onclick="bookStateChange(${book.bookIdx})" /></td>
 							</c:if>
+
 						</tr>
 						<tr>
 							<td colspan="3">${book.writer}</td>
@@ -64,6 +66,49 @@ table, th, td {
 						<tr>
 							<td colspan="3">${book.publisher}</td>
 						</tr>
+						<c:if test="${book.reserveBookDTO.id eq null}">
+						<tr>
+							<td colspan="3">
+								<c:if test="${book.bookState eq 'B001'}">
+									예약가능
+								</c:if>
+								<c:if test="${book.bookState eq 'B002'}">
+									예약불가
+								</c:if>
+								<c:if test="${book.bookState eq 'B003'}">
+									대여가능
+								</c:if>
+								<c:if test="${book.bookState eq 'B004'}">
+									대여중
+								</c:if>
+								<c:if test="${book.bookState eq 'B005'}">
+									훼손
+								</c:if>
+								<c:if test="${book.bookState eq 'B006'}">
+									분실
+								</c:if>
+								<c:if test="${book.bookState eq 'B007'}">
+									기타
+								</c:if>
+							</td>
+						</tr>
+						</c:if>
+						<c:if test="${book.reserveBookDTO.id ne null }">
+							<tr>
+								<td colspan="3">
+								<c:if test="${book.reserveBookDTO.bookState eq 'R001'}">
+									예약중 : ${book.reserveBookDTO.id}<button onclick="userReserveNotification('${book.bookName}', '${book.reserveBookDTO.id}')">예약승인</button>
+								</c:if>
+								<c:if test="${book.reserveBookDTO.bookState eq 'R002'}">
+									대여중
+								</c:if>
+								<c:if test="${book.reserveBookDTO.bookState eq 'R003'}">
+									반납완료
+								</c:if>
+								</td>
+							</tr>
+						</c:if>
+
 					</c:forEach>
 				</table>
 			</c:if>
@@ -74,6 +119,59 @@ table, th, td {
 	</div>
 </body>
 <script>
+		function userReserveNotification(bookName, id){
+			console.log(bookName, id);
+			
+			var params = {};
+			params.bookName = id;
+			params.id = id;
+			
+			$.ajax({
+				type : 'get',
+				url : 'userReserveNotification',
+				data : params,
+				dataType : 'JSON',
+				success : function(data){
+					console.log(data);
+					if(data.success > 0) {
+						alert('예약승인이 완료 되었습니다.');
+					} else {
+						alert('잠시 후 다시 시도해 주세요.');
+					}
+				},
+				error : function(e) {
+					console.log(e);
+				}
+			});
+		}
+
+// 예약 승인했을 때 대여중으로 바꿔주는 함수
+/* 	function reservePerson(bookIdx, id){
+		console.log(bookIdx, id);
+		
+		var params = {};
+		params.bookIdx = bookIdx;
+		params.id = id;
+		
+		$.ajax({
+			type : 'get',
+			url : 'reserveApproval',
+			data : params,
+			dataType : 'JSON',
+			success : function(data){
+				console.log(data);
+				if(data.success > 0) {
+					alert('예약승인이 완료 되었습니다.');
+				} else {
+					alert('잠시 후 다시 시도해 주세요.');
+				}
+			},
+			error : function(e) {
+				console.log(e);
+			}
+		});
+	} */
+
 	var bookState = '';
 	$("select[name='bookState']").change(function(){
 		bookState = $(this).val();

@@ -16,8 +16,8 @@ public class AdminDTO {
    
    private DATE recom_date;
    private int rnum;
-   private int up;
-   
+   private int upHit;
+   private int reviewCnt;   
    
 	public int getReviewIdx() {
 		return reviewIdx;
@@ -85,11 +85,17 @@ public class AdminDTO {
 	public void setRnum(int rnum) {
 		this.rnum = rnum;
 	}
-	public int getUp() {
-		return up;
+	public int getUpHit() {
+		return upHit;
 	}
-	public void setUp(int up) {
-		this.up = up;
+	public void setUpHit(int upHit) {
+		this.upHit = upHit;
+	}
+	public int getReviewCnt() {
+		return reviewCnt;
+	}
+	public void setReviewCnt(int reviewCnt) {
+		this.reviewCnt = reviewCnt;
 	}
    
 }
