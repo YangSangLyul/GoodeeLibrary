@@ -45,7 +45,7 @@ public class MemberController {
 		page = "joinForm";
 		msg = "회원가입에 실패하였습니다.";
 		if(service.join(params)>0) {
-			page = "memLogin";
+			page = "redirect:/memLogin";
 			msg = "회원가입을 축하드립니다.";
 		}
 		model.addAttribute("msg",msg);
@@ -64,41 +64,35 @@ public class MemberController {
 		}
 		return str;
 	}
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Model model,@RequestParam String id, @RequestParam String pw) {
-		logger.info(id+"/"+pw);
+	public String login(Model model,@RequestParam HashMap<String, String> params,
+			HttpSession session) {
+		logger.info("login : "+params);
+		
+		String loginId = "";
 		
 		msg= "아이디 비밀번호를 확인해 주세요";
 		page = "memLogin";
-		if(service.login(id,pw)) {
-			msg= "로그인에 성공 했습니다.";
-			page = "main";
+		
+		if(service.login(params)) {
+			loginId = params.get("id");
+			logger.info(loginId+" 로그인 성공");
+			session.setAttribute("loginId", loginId);
+			page="main";
 		}
 		model.addAttribute("msg", msg);
 		return page;
 	}
 	
-	/*@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Model model,@RequestParam String id, @RequestParam String pw,
-			HttpSession session) {
-		logger.info(id+"/"+pw);
-		
-		msg= "아이디 비밀번호를 확인해 주세요";
-		page = "memLogin";
-		
-		//String loginId = (String) session.getAttribute("loginId");
-		String loginId = service.login(id,pw);
-		
-		if(loginId!=null && service.login(id,pw)) {
-			msg= "로그인에 성공 했습니다.";
-			page = "main";
-			session.setAttribute("loginId", loginId);
-		}
-		model.addAttribute("msg", msg);
-		logger.info("로그인아이디:"+loginId);
-		return page;
-	}*/
+	@RequestMapping(value = "/memLogout", method = RequestMethod.GET)
+	public String memLogout(HttpSession session) {
+		logger.info("로그아웃 요청");
+		session.removeAttribute("loginId");
+		return "main";
+	}
+	
+	//------------계정찾기관련 영역----------------------------------------
 	
 	@RequestMapping(value = "/find", method = RequestMethod.GET)
 	public String find(Model model) {
@@ -111,11 +105,49 @@ public class MemberController {
 		logger.info("아이디찾기 페이지 이동");
 		return "memFindId";
 	}
+
+	@RequestMapping(value = "/findId", method = RequestMethod.POST)
+	public ModelAndView findId(@RequestParam String name,@RequestParam int phone
+			,HttpSession session) {
+		logger.info("입력한 "+name+"/"+phone);
+		ModelAndView mav = new ModelAndView();
+		
+		String id = service.findId(name,phone);
+		logger.info("아이디찾기:"+id);
+		
+		page = "memFindId";
+		msg = "해당 정보와 일치하는 아이디는 없습니다.";
+		if(id!=null) {
+			page="redirect:/memReId";
+			session.setAttribute("name", name);
+			session.setAttribute("findId", id);
+		}
+		mav.addObject("msg", msg);
+		mav.setViewName(page);
+		return mav;
+	}
 	
 	@RequestMapping(value = "/memFindPw", method = RequestMethod.GET)
 	public String memFindPw(Model model) {
 		logger.info("패스워드찾기 페이지 이동");
 		return "memFindPw";
+	}
+	
+	@RequestMapping(value = "/findPw", method = RequestMethod.GET)
+	public ModelAndView findPw(@RequestParam HashMap<String, String> params) {
+		logger.info("params:"+params);
+		ModelAndView mav = new ModelAndView();
+		
+		String pw = service.findPw(params);
+		
+		page = "memFindId";
+		msg = "입력한 값을 다시 확인해주세요.";
+		if(pw!=null) {
+			page="memNewPw";
+		}
+		mav.addObject("msg", msg);
+		mav.setViewName(page);
+		return mav;
 	}
 	
 	@RequestMapping(value = "/memFinId", method = RequestMethod.GET)

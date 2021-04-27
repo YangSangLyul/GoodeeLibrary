@@ -59,6 +59,7 @@ input[type="button"] {
 	border: none;
 	background-color: white;
 	color: gray;
+	font-weight: 600;
 }
 
 .find {
@@ -72,18 +73,25 @@ input[type="button"] {
 	display: inline-block;
 	margin: auto;
 }
+
+.idSaveCheck{
+	float: left;
+	margin : -5px 0 20px 10px;
+	font-size: 15px;
+}
 </style>
 </head>
 <body>
 	<div class="main">
 		<h2>로그인</h2>
 		<hr />
-		<form action="login" method="POST">
+		<form action="login" id="loginForm" name="loginForm" method="POST">
 			<fieldset>
 				<div id="inputFields">
 					<p><input type="text" name="id" value="" placeholder="아이디를 입력해주세요." /></p>
 					<p><input type="password" name="pw" value="" placeholder="비밀번호를 입력해주세요." /></p>
-					<p><input type="submit" value="로그인" /></p>
+					<p><input type="submit" id="login" value="로그인" /></p>
+					<p class="idSaveCheck"><input type="checkbox" id="idSaveCheck" />아이디 기억하기</p>
 				</div>
 			</fieldset>
 
@@ -99,5 +107,60 @@ var msg = "${msg}";
 if(msg!=""){
 	alert(msg);
 }
+
+ $(function() {
+	//쿠키값 가져오기
+	var cookie_id = getLogin(); 
+	
+	if(cookie_id !=""){
+		$("#id").val(cookie_id);
+		$("#idSaveCheck").attr("checked",true);
+	}
+	
+	$("#idSaveCheck").on("click",function(){
+		var _this = this;
+		var isSave;
+		if($(_this).is(":checked")){
+			isSave = confirm("아이디 기억");
+		}
+	});
+	
+	$("#login").on("click",function(){
+		if($("#idSaveCheck").is(":checked")){
+			saveLogin($("#virtual_id").val());
+		}else{
+			saveLogin("");
+		}
+	});
+});
+
+function saveLogin(id) {
+	if(id!=""){
+		setSave("userId",id,7);
+	}else{
+		setSave("userId",id,-1);
+	}
+}
+
+function setSave(name, value, expiredays) {
+	var today = new Date();
+	today.setDate(today.getDate() + expirehours);
+	document.cookie = name + "=" + escape(value) + "; path=/; expires="
+			+ todayDate.toGMTString() + ";"
+}
+
+function getLogin(){
+	var cook = document.cookie+",";
+	var idx = cook.indexOf("userId",0);
+	var val = "";
+	
+	if(idx != -1){
+		cook = cook.substring(idx,cook.length);
+		begin = cook.indexOf("=",0)+1;
+		end = cook.indexOf(",",begin);
+		val = unescape(cook.substring(begin,end));
+	}
+	return val;
+} 
 </script>
 </html>

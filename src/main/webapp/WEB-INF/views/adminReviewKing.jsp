@@ -50,18 +50,20 @@
             <tr>
                 <th>번호</th>
                 <th>아이디</th>
-                <th>추천수</th>
-                <th>리뷰수</th>
+                <th>추천수/리뷰수</th>
+                <!-- <th>리뷰수</th> -->
                 <th>선정</th>
             </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><input type="checkbox" id="king"/></td>
-            </tr>
-        </table>        
+            <c:forEach items="${king.ReviewKing}" var="list">
+	            <tr>
+	                <td>${list.rnum}</td>
+	                <td>${list.id}</td>
+	                <td>${list.up}</td>
+	                <%-- <td>${list.up}</td> --%>
+	                <td><input type="checkbox" id="king"/></td>
+	            </tr>
+            </c:forEach>
+        </table>   
         <!-- 3명까지만 선택 가능하도록 -->
         <input type="button" value="리뷰왕 선정" id="decision"/>
     </body>
