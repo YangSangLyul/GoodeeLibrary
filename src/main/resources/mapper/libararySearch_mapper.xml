@@ -6,7 +6,7 @@
 
 <mapper namespace="com.spring.main.dao.LibrarySearchDAO">
 	<select id="reserveChk" resultType="int">
-		SELECT bookidx FROM reservebook WHERE bookidx = #{param1} AND bookstate = 'R001'
+		SELECT COUNT(bookidx) FROM reservebook WHERE bookidx = #{param1} AND bookstate = 'R001'
 	</select>
 
 	<insert id="reserveBook">
