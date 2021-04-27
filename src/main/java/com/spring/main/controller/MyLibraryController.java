@@ -13,13 +13,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dto.QuestionDTO;
 import com.spring.main.service.MyLibraryService;
 
-@Controller
+//@Controller
+@RestController
 public class MyLibraryController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -27,29 +29,37 @@ public class MyLibraryController {
 	
 	
 	/*
-	 * @RequestMapping(value = "/MyLibrary", method = RequestMethod.GET) public
-	 * ModelAndView home() { logger.info("나의 문의"); ModelAndView mav = new
-	 * ModelAndView(); mav.setViewName("myLib_question"); return mav; }
-	 */
+	  @RequestMapping(value = "/MyLibrary")
+	  public ModelAndView MyLibrary() { 
+		  logger.info("나의 문의이동"); 
+		  ModelAndView mav = new ModelAndView(); 
+		  mav.setViewName("myLib_question"); 
+		  return mav; 
+	  }*/
+	 
+	  
+	  @RequestMapping(value = "/MyLibrary")
+	  public ModelAndView question_list() {
+		  logger.info("나의 문의 페이지"); 
+		  return service.question_list(); 
+		  }
 	 
 	
-	@RequestMapping(value = "/MyLibrary")
-	public ModelAndView question_list() {
-		logger.info("나의 문의 페이지");
-		return service.question_list();
-	}
-	
-	/*
-	 * @RequestMapping(value = "/MyLibrary/{page}", method = RequestMethod.GET)
-	 * public HashMap<String,Object> question_list(@PathVariable int
-	 * pagePerCnt, @PathVariable int page) { logger.info("나의 문의 페이지");
-	 * logger.info("pagePerCnt : {}, page : {}", pagePerCnt, page);
-	 * 
-	 * return service.question_list(page,pagePerCnt); }
-	 */
+
+	  @RequestMapping(value = "/myLib_question/5/{page}", method = RequestMethod.GET)
+	  public HashMap<String,Object> question_list( 
+			  @PathVariable int page) { 
+		  logger.info("나의 문의 페이지");
+		  logger.info(" page : {}",  page);
+	  
+	  return service.page_list(page); 
+	  }
+	 
 	
 	@RequestMapping(value = "/question_detail")
 	public ModelAndView question_detail(@RequestParam String idx) {
+	//public HashMap<String, Object> question_detail(@RequestParam String idx) {	
+		
 		logger.info("나의 문의 상세페이지");
 		return service.question_detail(idx);
 	}

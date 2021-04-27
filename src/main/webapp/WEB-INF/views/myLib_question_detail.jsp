@@ -60,8 +60,8 @@
         </tr>
         <tr>
             <td colspan="2">답변내용<hr/><br/>
-               ${question_info.ansstatus}
-            
+              <%--  ${question_info.content} --%>
+            	${question_info.answer}
             </td>
         </tr>
      
