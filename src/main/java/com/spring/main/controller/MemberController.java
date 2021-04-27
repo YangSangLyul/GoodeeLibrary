@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.MemberService;
@@ -27,11 +28,13 @@ public class MemberController {
 	
 	@RequestMapping(value = "/memLogin", method = RequestMethod.GET)
 	public String home(Model model) {
+		logger.info("로그인 페이지 이동");
 		return "memLogin";
 	}
 	
 	@RequestMapping(value = "/memJoinForm", method = RequestMethod.GET)
 	public String joinForm(Model model) {
+		logger.info("회원가입 페이지 이동");
 		return "memJoinForm";
 	}
 	
@@ -50,12 +53,19 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/memOverlay", method = RequestMethod.GET)
-	public int memOverlay(Model model,@RequestParam String id) {
+	public @ResponseBody String memOverlay(@RequestParam String id) {
 		logger.info("중복확인 아이디: "+id);
-		return service.memOverlay(id);
+		String str ="";
+		int idcheck = service.memOverlay(id);
+		if(idcheck==1) {
+			str = "no";
+		}else {
+			str = "yes";
+		}
+		return str;
 	}
 	
-	/*@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Model model,@RequestParam String id, @RequestParam String pw) {
 		logger.info(id+"/"+pw);
 		
@@ -67,26 +77,28 @@ public class MemberController {
 		}
 		model.addAttribute("msg", msg);
 		return page;
-	}*/
+	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Model model,@RequestParam String id, @RequestParam String pw, HttpSession session) {
+	/*@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(Model model,@RequestParam String id, @RequestParam String pw,
+			HttpSession session) {
 		logger.info(id+"/"+pw);
-		boolean loginId = false;
-		logger.info(loginId+" 로그인 성공");
 		
 		msg= "아이디 비밀번호를 확인해 주세요";
 		page = "memLogin";
 		
-		if(service.login(id,pw)) {
-			session.setAttribute("loginId", loginId);
+		//String loginId = (String) session.getAttribute("loginId");
+		String loginId = service.login(id,pw);
+		
+		if(loginId!=null && service.login(id,pw)) {
 			msg= "로그인에 성공 했습니다.";
 			page = "main";
-			
+			session.setAttribute("loginId", loginId);
 		}
 		model.addAttribute("msg", msg);
+		logger.info("로그인아이디:"+loginId);
 		return page;
-	}
+	}*/
 	
 	@RequestMapping(value = "/find", method = RequestMethod.GET)
 	public String find(Model model) {
