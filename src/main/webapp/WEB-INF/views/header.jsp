@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%
+	String loginId = (String) request.getSession().getAttribute("loginId");
+%>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -70,7 +73,6 @@
                 margin-top: -80px;
             }
             #loginOnBox{
-                display: none;
                 float: right;
                 margin-top: -80px;
             }
@@ -154,8 +156,8 @@
         </c:if>
         <c:if test="${sessionScope.loginId ne null}">
         <div id="loginOnBox">
-            	님 반갑습니다. | 
-            <a href="#"> 로그아웃</a>
+            	${sessionScope.loginId} 님 반갑습니다. | 
+            <a href="memLogout"> 로그아웃</a>
         </div>
         </c:if>
         <br/>

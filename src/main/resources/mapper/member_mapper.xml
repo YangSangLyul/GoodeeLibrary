@@ -14,9 +14,8 @@
 	SELECT count(id) FROM member WHERE id=#{id}
 </select>
 
-<select id="login" resultType="String">
-	SELECT pw FROM member WHERE id=#{param1}
-</select>
-
+ <select id="login" resultType="String">
+	SELECT pw FROM member WHERE id=#{id}
+</select> 
 
 </mapper>
