@@ -11,5 +11,21 @@
 	
 <select id="noticeDetail" resultType="com.spring.main.dto.LibraryInfoDTO">
 		SELECT NOTICEIDX ,ID ,SUBJECT ,CONTENT ,REG_DATE ,NOTICESTATUS FROM notice WHERE NOTICEIDX = #{param1}
-	</select> 
+	</select>
+	
+<select id="searchList" parameterType="hashmap" resultType="com.spring.main.dto.LibraryInfoDTO">
+		SELECT NOTICEIDX ,ID ,SUBJECT ,CONTENT ,REG_DATE ,NOTICESTATUS FROM notice
+		<where>
+		<!-- searchSelect=전체,제목,내용 search -->
+			<if test="searchSelect.equals('전체')">
+			 content LIKE '%'||#{search}||'%' OR subject LIKE '%'||#{search}||'%'
+			</if>
+			<if test="searchSelect.equals('제목')">
+			subject LIKE '%'||#{search}||'%'
+			</if>
+			<if test="searchSelect.equals('내용')">
+			content LIKE '%'||#{search}||'%'
+			</if>
+		</where>
+	</select>
 </mapper>

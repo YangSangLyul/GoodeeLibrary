@@ -32,7 +32,7 @@ public class MyLibraryController {
 		return service.question_list();
 	}
 	
-	@RequestMapping(value = "/question_detail", method = RequestMethod.GET)
+	@RequestMapping(value = "/question_detail")
 	public ModelAndView question_detail(@RequestParam String idx) {
 		logger.info("나의 문의 상세페이지");
 		return service.question_detail(idx);
@@ -46,6 +46,14 @@ public class MyLibraryController {
 		return service.question_edit(dto);
 	}
 
+	@RequestMapping(value = "/question_delete", method = RequestMethod.POST)
+	public ModelAndView question_delete(@RequestParam String idx) {
+		logger.info("나의 문의내역 삭제");
+		logger.info("삭제할 문의번호"+idx);
+		
+		return service.question_delete(idx);
+	}
+	
 	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
 	public String uploadForm(Model model) {
 		logger.info("파일 업로드 페이지로 이동");
