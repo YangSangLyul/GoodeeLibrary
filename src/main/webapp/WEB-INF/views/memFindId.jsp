@@ -1,94 +1,117 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-    <title>아이디 찾기</title>
-    <style>
-      .main {
-        width: 400px;
-        height: 300px;
-        margin: 200px auto;
-      }
-      h3 {
-        text-align: center;
-        color: #0070c0;
-      }
+<title>아이디 찾기</title>
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<style>
+.main {
+	width: 400px;
+	height: 300px;
+	margin: 200px auto;
+}
 
-      img{
-        width: 160px;
-        margin: 24px;
-      }
+h3 {
+	text-align: center;
+	color: #0070c0;
+}
 
-      div{
-        text-align: center;
-      }
+img {
+	width: 160px;
+	margin: 24px;
+}
 
-      .what{
-        margin: 6px;
-        font-size: 20px;
-        color: gray;
-      }
+div {
+	text-align: center;
+}
 
-      #find_btn{
-        margin-top: 20px;
-      }
+.what {
+	margin: 6px;
+	font-size: 20px;
+	color: gray;
+}
 
-      input[type="text"]{
-        width: 110%;
-        height: 30px;
-        padding: 5px;
-        margin: 10px;
-      }
+#find_btn {
+	margin-top: 20px;
+}
 
-      button {
-        width: 100px;
-        height: 40px;
-        margin: 20px 5px;
-        font-size: 15px;
-        background-color: #c5d8f1;
-        color: #0070c0;
-        border: none;
-        border-radius: 5px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="main">
-      <h3>아이디 찾기</h3>
-      <hr />
-      <div id="find_img">
-        <img src="./image/lock.png">
-      </div>
-      <form action="join" method="POST">
-        <table id="findFields">
-          <tr>
-            <td id="title">이름</td>
-            <td>
-              <input
-                type="text"
-                name="name"
-                value=""
-                placeholder="이름을 입력해주세요."
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>휴대폰번호</th>
-            <td>
-              <input
-                type="text"
-                name="phone"
-                value=""
-                placeholder="휴대폰번호를 입력해주세요."
-              />
-            </td>
-          </tr>
-        </table>
-      </form>
-      <button class="find_button" onclick="location.href='memReId'">확인</button>
-        </div>
-    </div>
+input[type="text"] {
+	width: 110%;
+	height: 30px;
+	padding: 5px;
+	margin: 10px;
+}
+
+button {
+	width: 100px;
+	height: 40px;
+	margin: 20px 5px;
+	font-size: 15px;
+	background-color: #c5d8f1;
+	color: #0070c0;
+	border: none;
+	border-radius: 5px;
+}
+</style>
+</head>
+<body>
+	<div class="main">
+		<h3>아이디 찾기</h3>
+		<hr />
+		<div id="find_img">
+			<img src="./image/lock.png">
+		</div>
+		<form action="findId" method="POST">
+			<table id="findFields">
+				<tr>
+					<td id="title">이름</td>
+					<td><input type="text" name="name" id="name" placeholder="이름을 입력해주세요." /></td>
+				</tr>
+				<tr>
+					<th>휴대폰번호</th>
+					<td><input type="text" name="phone" id="phone" placeholder="휴대폰번호를 입력해주세요." /></td>
+				</tr>
+			</table>
+			</form>
+		<button class="find_button" onclick="findChk()">확인</button>
+	</div>
 </body>
+<script>
+var msg = "${msg}";
+if(msg!=""){
+	alert(msg);
+}
+
+$(document).ready(function(){
+	$("input[name=name]").keyup(function(event){ 
+	if (!(event.keyCode >=37 && event.keyCode<=40)) {
+		var inputVal = $(this).val();
+		$(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+		}
+	});
+});
+
+$(document).ready(function(){
+	$("input[name=phone]").keyup(function(event){ 
+	if (!(event.keyCode >=37 && event.keyCode<=40)) {
+		var inputVal = $(this).val();
+		$(this).val(inputVal.replace(/[^0-9-]/gi,''));
+		}
+	});
+});
+
+function findChk() {
+	if($('#name').val() == '') {
+		alert('이름을 입력해 주세요.');
+		$('#name').focus();
+	}else if($('#phone').val() == ''){
+		alert('휴대폰 번호를 입력해 주세요.');
+		$('#phone').focus();
+	}else{
+		$('form').submit();
+	}
+}
+</script>
 </html>

@@ -10,4 +10,6 @@ public interface MemberDAO {
 
 	String login(String id);
 
+	String findId(String name, int phone);
+
 }

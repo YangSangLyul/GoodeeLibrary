@@ -2,6 +2,8 @@ package com.spring.main.service;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.omg.CORBA.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,8 @@ public class MemberService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired MemberDAO dao;
+	String page="";
+	String msg="";
 	
 	public int join(HashMap<String, String> params) {
 		String plain = params.get("userPw");
@@ -45,10 +49,12 @@ public class MemberService {
 	
 //------------계정찾기관련 영역----------------------------------------
 	
-	public ModelAndView memFindId(HashMap<String, String> params) {
-		logger.info("params:"+params);
-		
-		
+	public String findId(String name, int phone) {
+		return dao.findId(name, phone);
+	}
+
+	public String findPw(HashMap<String, String> params) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
