@@ -73,4 +73,8 @@
 		SELECT COUNT(*) FROM reserveBook WHERE bookIdx = #{param1}
 	</select>
 
+	<insert id="insertRecommendBook" parameterType="hashMap">
+		INSERT INTO recommendBook(bookIdx, reason) VALUES(#{bookIdx},#{reason})
+	</insert>
+
 </mapper>

@@ -72,4 +72,10 @@ public class BookController {
 		return "/BookManage/recommendBookManage";
 	}
 	
+	@RequestMapping(value = "/insertRecommendBook", method = RequestMethod.POST)
+	public  String insertRecommendBook(@RequestParam HashMap<String,String> params, Model model) {
+		logger.info("사서의 추천도서 추가 : " + params);
+		return service.insertRecommendBook(params);
+	}
+	
 }
