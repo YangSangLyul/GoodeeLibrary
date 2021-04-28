@@ -11,27 +11,35 @@
 	</select>
 	
 	
-	<!-- <select id="question_list" resultType="question">
-		SELECT queidx, id,subject,content,reg_date, rnum
+	<select id="page_list" resultType="question">
+		SELECT queidx, id,subject,content,reg_date,ansstatus, rnum
 		FROM (
-			SELECT queidx, id,subject,content,reg_date, 
+			SELECT queidx, id,subject,content,reg_date, ansstatus, 
 			ROW_NUMBER() OVER(ORDER BY queidx DESC) AS rnum FROM question
 		)
 	WHERE rnum BETWEEN #{param1} AND #{param2}
-	</select>-->
+	</select>
 	
-	
-	<insert id="question_write" 
+	<!-- <insert id="question_write" 
 		useGeneratedKeys="true"
 		keyProperty="queIdx"
 		keyColumn="queIdx"
 		parameterType="question">
 		INSERT INTO QUESTION(queIdx,id,subject,content,ansstatus,type) 
 			VALUES(queIdx_seq.NEXTVAL,#{id},#{subject},#{content},#{ansstatus},#{type})
-	</insert>
+	</insert> -->
 	
-	<select id="question_detail" resultType="question">
-		SELECT queidx,id,subject,content,reg_date,ansstatus,type FROM question WHERE queidx=#{param1}
+	<select id="question_detail" parameterType="hashMap" resultType="question">
+	<!-- <select id="question_detail" resultType="hashMap"> -->
+	<if test="ansstatus.equals('TRUE')">
+		SELECT q.queidx,q.id,q.subject,q.content,q.reg_date,q.ansstatus,q.type,a.content AS answer,a.reg_date 
+		FROM question q INNER JOIN answer a ON q.queidx=a.queidx AND q.queidx=#{idx}
+	</if>
+	<if test="ansstatus.equals('FALSE')">
+		SELECT queidx,id,subject,content,reg_date,ansstatus,type 
+		FROM question WHERE queidx=#{idx}
+	
+	</if>
 	</select>
 	
 	<update id="question_edit" parameterType="question">
@@ -46,12 +54,12 @@
 		SELECT COUNT(queidx) FROM question
 	</select>
 	
-	<insert id="writeFile"> 
+	<!-- <insert id="writeFile"> 
 		INSERT INTO questionphoto(quephotoidx,queidx,orifilename,newfilename)
 			VALUES(quephotoidx_seq.NEXTVAL,#{param1},#{param2},#{param3})
-	</insert>
+	</insert> -->
 	
-	<select id="fileList" resultType="Qphoto">
+	<!-- <select id="fileList" resultType="Qphoto">
 		SELECT * FROM questionphoto WHERE queidx=#{param1}
-	</select>
+	</select> -->
 </mapper>
