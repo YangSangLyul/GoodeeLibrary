@@ -2,7 +2,6 @@ package com.spring.main.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,10 +27,7 @@ public class BookService {
 		ArrayList<BookDTO> list = dao.bookManageList();
 		logger.info("list size : " + list.size());
 		
-		HashSet<BookDTO> set = new HashSet<BookDTO>(list);
-		logger.info("set size : " + set.size());
-		
-		mav.addObject("list", set);
+		mav.addObject("list", list);
 		mav.setViewName("/BookManage/normalBookManage");
 		return mav;
 	}

@@ -9,10 +9,14 @@ import com.spring.main.dto.LibraryInfoDTO;
 
 public interface LibraryInfoDAO {
 
-	ArrayList<LibraryInfoDTO> list();
-
 	LibraryInfoDTO noticeDetail(String idx);
 
 	ArrayList<LibraryInfoDTO> searchList(HashMap<String, Object> params);
+
+	int allCount();
+
+	ArrayList<LibraryInfoDTO> list(int start, int end);
+
+	int searchCount(HashMap<String, Object> params);
 
 }
