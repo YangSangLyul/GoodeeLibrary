@@ -6,25 +6,57 @@
 
 <mapper namespace="com.spring.main.dao.LibraryInfoDAO">
 	<select id="list" resultType="com.spring.main.dto.LibraryInfoDTO">
-		SELECT NOTICEIDX ,ID ,SUBJECT ,CONTENT ,REG_DATE ,NOTICESTATUS FROM notice
+		SELECT  NOTICEIDX ,ID ,SUBJECT ,CONTENT ,REG_DATE ,NOTICESTATUS ,rnum
+		FROM(
+				SELECT NOTICEIDX ,ID ,SUBJECT ,CONTENT ,REG_DATE ,NOTICESTATUS,
+				ROW_NUMBER() OVER(ORDER BY NOTICEIDX DESC) AS rnum FROM notice		
+			)
+		WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
+	
+	<select id="allCount" resultType="int">
+		SELECT COUNT(NOTICEIDX) FROM notice
+	</select>
+	
 	
 <select id="noticeDetail" resultType="com.spring.main.dto.LibraryInfoDTO">
 		SELECT NOTICEIDX ,ID ,SUBJECT ,CONTENT ,REG_DATE ,NOTICESTATUS FROM notice WHERE NOTICEIDX = #{param1}
 	</select>
 	
-<select id="searchList" parameterType="hashmap" resultType="com.spring.main.dto.LibraryInfoDTO">
-		SELECT NOTICEIDX ,ID ,SUBJECT ,CONTENT ,REG_DATE ,NOTICESTATUS FROM notice
+	
+<select id="searchList" parameterType="hashmap"  resultType="com.spring.main.dto.LibraryInfoDTO">
+	SELECT  NOTICEIDX ,ID ,SUBJECT ,CONTENT ,REG_DATE ,NOTICESTATUS ,rnum
+		FROM(
+				SELECT NOTICEIDX ,ID ,SUBJECT ,CONTENT ,REG_DATE ,NOTICESTATUS,
+				ROW_NUMBER() OVER(ORDER BY NOTICEIDX DESC) AS rnum FROM (
+				
+				SELECT NOTICEIDX ,ID ,SUBJECT ,CONTENT ,REG_DATE ,NOTICESTATUS FROM notice
 		<where>
-		<!-- searchSelect=전체,제목,내용 search -->
 			<if test="searchSelect.equals('전체')">
-			 content LIKE '%'||#{search}||'%' OR subject LIKE '%'||#{search}||'%'
+			 content LIKE '%'||#{search}||'%' OR subject LIKE '%'||#{search}||'%'))
 			</if>
 			<if test="searchSelect.equals('제목')">
-			subject LIKE '%'||#{search}||'%'
+			subject LIKE '%'||#{search}||'%'))
 			</if>
 			<if test="searchSelect.equals('내용')">
-			content LIKE '%'||#{search}||'%'
+			content LIKE '%'||#{search}||'%'))
+			</if>
+		</where>	
+		WHERE rnum BETWEEN #{start} AND #{end}
+	</select>
+	
+ 	<select id="searchCount" parameterType="hashmap" resultType="int">
+ 	
+		SELECT COUNT(NOTICEIDX) FROM (SELECT NOTICEIDX ,ID ,SUBJECT ,CONTENT ,REG_DATE ,NOTICESTATUS FROM notice
+		<where>
+			<if test="searchSelect.equals('전체')">
+			 content LIKE '%'||#{search}||'%' OR subject LIKE '%'||#{search}||'%')
+			</if>
+			<if test="searchSelect.equals('제목')">
+			subject LIKE '%'||#{search}||'%')
+			</if>
+			<if test="searchSelect.equals('내용')">
+			content LIKE '%'||#{search}||'%')
 			</if>
 		</where>
 	</select>

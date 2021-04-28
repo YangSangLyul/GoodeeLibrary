@@ -9,12 +9,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.main.dto.MemberDTO;
 import com.spring.main.service.MemberService;
 
 @Controller
@@ -100,8 +102,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/findId", method = RequestMethod.POST)
-	public ModelAndView findId(@RequestParam String name,@RequestParam int phone
-			,HttpSession session) {
+	public ModelAndView findId(@RequestParam String name,@RequestParam int phone, HttpSession session) {
 		logger.info("입력한 "+name+"/"+phone);
 		return service.findId(name,phone,session);
 	}
@@ -113,18 +114,47 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/findPw", method = RequestMethod.POST)
-	public ModelAndView findPw(@RequestParam HashMap<String, String> params
-			,HttpSession session) {
+	public ModelAndView findPw(@RequestParam HashMap<String, String> params, HttpSession session) {
 		logger.info("입력한 params:"+params);
 		return service.findPw(params,session);
 	}
 	
 	@RequestMapping(value = "/newPw", method = RequestMethod.POST)
-	public String newPw(Model model,@RequestParam String newPw) {
-		logger.info("새로바꿀 비밀번호:"+newPw);
-		return service.newPw(newPw);
+	public ModelAndView newPw(@RequestParam String newPw,HttpSession session) {
+		return service.newPw(newPw,session);
 	}
 	
 	//------------마이라이브러리 내 영역----------------------------------------
 	
+	@RequestMapping(value = "/myLib_Update")
+	public String myLib_Update(Model model) {
+		logger.info("회원정보 수정/탈퇴 페이지 이동");
+		return "myLib_Update";
+	}
+	
+//	@RequestMapping(value = "/myLib_mem")
+//	public String memUpdate(Model model,@RequestParam String pw,HttpSession session) {
+//		logger.info("비밀번호 확인:"+pw);
+//		return service.mylib_mem(pw);
+//	}
+	
+	@RequestMapping(value = "/myLib_UpdateForm")
+	public String myLib_UpdateForm(Model model,HttpSession session) {
+		String page = "myLib_UpdateForm";
+		logger.info("회원정보 수정페이지 이동");
+		model.addAttribute("dto", service.myLib_UpdateForm(session));			
+		return page;
+	}
+	
+	@RequestMapping(value = "/memUpdate")
+	public ModelAndView memUpdate(@ModelAttribute MemberDTO dto,HttpSession session) {
+		logger.info("회원정보 수정요청");
+		return service.memUpdate(dto,session);
+	}
+	
+	@RequestMapping(value = "/memWithdraw", method = RequestMethod.GET)
+	public ModelAndView memWithdraw(Model model,HttpSession session) {
+		return service.memWithdraw(session);
+	}
+
 }

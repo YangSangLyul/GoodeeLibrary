@@ -36,12 +36,12 @@ public class MyLibraryService {
 	  }
 	 
 
-	public ModelAndView question_detail(String idx) {
+	public ModelAndView question_detail(HashMap<String, Object> params) {
 	//public HashMap<String, Object> question_detail(String idx) {
 		ModelAndView mav = new ModelAndView();
 		logger.info("상세보기 요청");
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		QuestionDTO dto = dao.question_detail(idx);// 상세 보기
+		//HashMap<String, Object> map = new HashMap<String, Object>();
+		QuestionDTO dto = dao.question_detail(params);// 상세 보기
 		//HashMap<String, Object> dto = dao.question_detail(idx);
 		//map.put("question_info",dto);
 		mav.addObject("question_info", dto);

@@ -9,9 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.MemberDAO;
+import com.spring.main.dto.MemberDTO;
 
 @Service
 public class MemberService {
@@ -83,17 +85,100 @@ public class MemberService {
 		return mav;
 	}
 
-	public String newPw(String newPw) {
-		
-		boolean success = dao.newPw(newPw);
-		page = "memNewPw";
-		msg = "비밀번호를 다시 입력해주세요.";
-		
-		if(success==true) {
+    public ModelAndView newPw(String newPw,HttpSession session) {
+
+        logger.info("새로바꿀 비밀번호:"+newPw);    
+        String id = (String) session.getAttribute("findId");
+        logger.info("해당 id:"+id);
+        MemberDTO dto = new MemberDTO();
+        dto.setId(id); //dto에 해당 id를 넣는다.
+
+        logger.info("변경전 비밀번호:"+dao.login(id)); // 1. 현재 비밀번호 확인
+    	
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        ModelAndView mav = new ModelAndView();
+        
+        page = "memNewPw";
+
+		if(dao.login(id)!=null) { //2.비밀번호가 null이 아니면 
+			String encrypt = encoder.encode(newPw);
+			dto.setPw(encrypt); //새로운 비밀번호를 dto에 담는다(암호화된)
+			dao.newPw(dto); //담은 비밀번호를 dao에 다시 담는다
 			page = "memLogin";
-			msg = "비밀번호를 재설정하였습니다. 다시 로그인해주세요.";
-		}
-		return null;
+			msg= "비밀번호가 재설정되었습니다. 로그인 해주시기 바랍니다.";
+		}	
+		logger.info("변경 후 비밀번호:"+dto.getPw());
+		mav.addObject("msg", msg);
+		mav.setViewName(page);
+		session.removeAttribute("findId"); //id 확인 후 세션값 지움 
+		return mav; 
 	}
+
+	//------------마이라이브러리 내 영역----------------------------------------	
+
+//	public String mylib_mem(String pw) {
+//
+//		msg = "비밀번호를 다시 입력해주세요.";
+//
+//		
+//		if(success==true) {
+//			page = "memLogin";
+//			msg = "비밀번호를 재설정하였습니다. 다시 로그인해주세요.";
+//		}
+//		return null;
+//	}
+	
+	public MemberDTO myLib_UpdateForm(HttpSession session) {
+		String id = (String) session.getAttribute("loginId");
+		logger.info("수정할 회원 id:"+id);
+		return dao.myLib_UpdateForm(id);
+	}
+	
+	public ModelAndView memUpdate(@ModelAttribute MemberDTO dto,HttpSession session) {
+		logger.info("수정할 params:"+dto.getName()+"/"+dto.getPhone()+"/"+dto.getPhone());
+
+		ModelAndView mav = new ModelAndView();
+		int success = dao.memUpdate(dto);
+		page = "redirect:/myLib_UpdateForm";
+		msg = "회원정보 수정에 실패하였습니다.";
+		
+		if(success>0) {
+			dto.getId();
+			msg = "회원정보를 수정하였습니다.";
+			page = "myLib_UpdateForm";
+		}
+		logger.info("수정성공여부:"+success);
+		mav.addObject("msg", msg);
+		mav.setViewName(page);
+		return mav;
+	}
+	
+	
+	public ModelAndView memWithdraw(HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("탈퇴할 회원 id:"+loginId);
+		
+		ModelAndView mav = new ModelAndView();
+		int success = dao.memWithdraw(loginId);
+		
+		page = "redirect:/myLib_Update";
+		if(success>0) {
+			page="main";
+			msg = "회원탈퇴시 회원님의 모든 정보가 사라지며 복구 할 수 없습니다.\r\n" + 
+					"그래도 탈퇴하시겠습니까?\r\n";
+		}
+		logger.info("탈퇴성공여부:"+success);
+		mav.addObject("msg", msg);
+		mav.setViewName(page);
+		session.removeAttribute("loginId");
+		return mav;
+	}
+
+
+
+
+	
+
+
 
 }
