@@ -51,15 +51,17 @@ button {
 </style>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
+<jsp:include page="mySidebar.jsp"/>
 	<div id="main">
 		<div class="subject">
 			<h3>회원 정보 수정</h3>
 		</div>
-		<form action="memUpdate" method="POST">
+		<form action="mylib_mem" method="POST">
 			<table id="findFields">
 				<tr>
 					<td id="title">비밀번호</td>
-					<td><input type="password" name="pw" id="pw" iplaceholder="비밀번호를 입력해주세요." /> 
+					<td><input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요." /> 
 					<br /> 
 					<span></span>
 					</td>
@@ -90,7 +92,7 @@ $("#update").click(function(){
    }else{
    	$.ajax({
 			type:'get'
-			,url:'myLib_UpdateForm'
+			,url:'"memUpdate"'
 			,data: {"pw":$("#pw").val()}
 			,dataType:'test'
 			,success:function(data){

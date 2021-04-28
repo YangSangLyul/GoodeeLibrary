@@ -9,12 +9,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.main.dto.MemberDTO;
 import com.spring.main.service.MemberService;
 
 @Controller
@@ -131,16 +133,29 @@ public class MemberController {
 		return "myLib_Update";
 	}
 	
-	@RequestMapping(value = "/myLib_UpdateForm")
-	public String myLib_UpdateForm(Model model) {
-		logger.info("회원정보 수정페이지 이동");
-		return "myLib_UpdateForm";
+	@RequestMapping(value = "/mylib_mem")
+	public String memUpdate(Model model,@RequestParam String pw,HttpSession session) {
+		logger.info("비밀번호 확인:"+pw);
+		return service.mylib_mem(pw);
 	}
 	
-	@RequestMapping(value = "/memWithdraw", method = RequestMethod.POST)
-	public String memWithdraw(Model model,HttpSession session) {
-		String loginId = (String) session.getAttribute("loginId");
-		logger.info("탈퇴할 회원 id:"+loginId);
-		return service.memWithdraw(loginId);
+	@RequestMapping(value = "/myLib_UpdateForm")
+	public String myLib_UpdateForm(Model model,HttpSession session) {
+		String page = "myLib_UpdateForm";
+		logger.info("회원정보 수정페이지 이동");
+		model.addAttribute("dto", service.myLib_UpdateForm(session));			
+		return page;
 	}
+	
+	@RequestMapping(value = "/memUpdate")
+	public ModelAndView memUpdate(@ModelAttribute MemberDTO dto,HttpSession session) {
+		logger.info("회원정보 수정요청");
+		return service.memUpdate(dto,session);
+	}
+	
+	@RequestMapping(value = "/memWithdraw", method = RequestMethod.GET)
+	public ModelAndView memWithdraw(Model model,HttpSession session) {
+		return service.memWithdraw(session);
+	}
+	
 }

@@ -18,5 +18,11 @@ public interface MemberDAO {
 
 	int newPw(MemberDTO dto);
 
+	int memWithdraw(String loginId);
+
+	MemberDTO myLib_UpdateForm(String id);
+
+	int memUpdate(MemberDTO dto);
+
 
 }

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.MemberDAO;
@@ -112,9 +113,64 @@ public class MemberService {
 		return mav; 
 	}
 
-	public String memWithdraw(String loginId) {
+	//------------마이라이브러리 내 영역----------------------------------------	
+
+	public String mylib_mem(String pw) {
 		
 		return null;
 	}
+	
+	public MemberDTO myLib_UpdateForm(HttpSession session) {
+		String id = (String) session.getAttribute("loginId");
+		logger.info("수정할 회원 id:"+id);
+		return dao.myLib_UpdateForm(id);
+	}
+	
+	public ModelAndView memUpdate(@ModelAttribute MemberDTO dto,HttpSession session) {
+		logger.info("수정할 params:"+dto.getName()+"/"+dto.getPhone()+"/"+dto.getPhone());
+
+		ModelAndView mav = new ModelAndView();
+		int success = dao.memUpdate(dto);
+		page = "redirect:/myLib_UpdateForm";
+		msg = "회원정보 수정에 실패하였습니다.";
+		
+		if(success>0) {
+			dto.getId();
+			msg = "회원정보를 수정하였습니다.";
+			page = "myLib_UpdateForm";
+		}
+		logger.info("수정성공여부:"+success);
+		mav.addObject("msg", msg);
+		mav.setViewName(page);
+		return mav;
+	}
+	
+	
+	public ModelAndView memWithdraw(HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("탈퇴할 회원 id:"+loginId);
+		
+		ModelAndView mav = new ModelAndView();
+		int success = dao.memWithdraw(loginId);
+		
+		page = "redirect:/myLib_Update";
+		if(success>0) {
+			page="main";
+			msg = "회원탈퇴시 회원님의 모든 정보가 사라지며 복구 할 수 없습니다.\r\n" + 
+					"그래도 탈퇴하시겠습니까?\r\n";
+		}
+		logger.info("탈퇴성공여부:"+success);
+		mav.addObject("msg", msg);
+		mav.setViewName(page);
+		session.removeAttribute("loginId");
+		return mav;
+	}
+
+
+
+
+	
+
+
 
 }
