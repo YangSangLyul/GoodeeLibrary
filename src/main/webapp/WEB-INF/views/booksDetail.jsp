@@ -127,7 +127,7 @@
                 </tr>
             </table>
             <c:if test="${searchDetail.bookState eq 'B001' || reserveCnt < 3}">
-		                <button id="reserve">도서예약</button>
+		                <button onclick="location.href='reserveBook?booksIdx=${searchDetail.bookIdx}&id=${sessionScope.loginId}'">도서 예약</button>
 		    </c:if>
             
             <button id="back">이전으로</button>
