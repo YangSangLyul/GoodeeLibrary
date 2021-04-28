@@ -40,23 +40,27 @@ table, th, td {
 		</div>
 		<button>도서 등록</button>
 		<div>
-			<c:if test="${list.size() ne 0}">
+	 	<c:if test="${list.size() ne 0}">
 				<table>
-					<c:forEach items="${list}" var="book">
-						<c:forEach items="${book.reserveBookDTO}" var="reserveBook">
+					<c:forEach items="${list}" var="book" varStatus="status">
 							<tr>
-								<td rowspan="4"><img src="${book.bookImg}" width="100px"
-									height="100px" /></td>
-								<th><a href="bookManageDetail?bookIdx=${book.bookIdx}">${book.bookName}</a></th>
+								<td>
+									<img src="${book.bookImg}" width="100px" height="100px" />
+								</td>
+								<th>
+									<a href="bookManageDetail?bookIdx=${book.bookIdx}">${book.bookName}</a>
+								</th>
 								<c:if test="${book.bookState eq 'B001'}">
-									<td><select id="bookState" name="bookState">
+									<td>
+									<select id="bookState" name="bookState">
 											<option value="">선택</option>
 											<option value="B001">예약가능</option>
 											<option value="B005">훼손</option>
 											<option value="B006">분실</option>
 											<option value="B007">기타</option>
 									</select> 
-									<input type="button" value="변경" onclick="bookStateChange(${book.bookIdx})" /></td>
+										<input type="button" value="변경" onclick="bookStateChange(${book.bookIdx})" />
+									</td>
 								</c:if>
 							</tr>
 							<tr>
@@ -65,26 +69,26 @@ table, th, td {
 							<tr>
 								<td colspan="3">${book.publisher}</td>
 							</tr>
-							<c:if test="${reserveBook.id eq null}">
 								<tr>
-									<td colspan="3"><c:if test="${book.bookState eq 'B001'}">
-									예약가능
-								</c:if> <c:if test="${book.bookState eq 'B002'}">
-									예약불가
-								</c:if> <c:if test="${book.bookState eq 'B003'}">
-									대여가능
-								</c:if> <c:if test="${book.bookState eq 'B004'}">
-									대여중
-								</c:if> <c:if test="${book.bookState eq 'B005'}">
-									훼손
-								</c:if> <c:if test="${book.bookState eq 'B006'}">
-									분실
-								</c:if> <c:if test="${book.bookState eq 'B007'}">
-									기타
-								</c:if></td>
+									<td colspan="3">
+									<c:if test="${book.bookState eq 'B001'}">
+										예약가능
+									</c:if> <c:if test="${book.bookState eq 'B002'}">
+										예약불가
+									</c:if> <c:if test="${book.bookState eq 'B003'}">
+										대여가능
+									</c:if> <c:if test="${book.bookState eq 'B004'}">
+										대여중
+									</c:if> <c:if test="${book.bookState eq 'B005'}">
+										훼손
+									</c:if> <c:if test="${book.bookState eq 'B006'}">
+										분실
+									</c:if> <c:if test="${book.bookState eq 'B007'}">
+										기타
+									</c:if>
+									</td>
 								</tr>
-							</c:if>
-
+						<c:forEach items="${book.reserveBookDTO}" var="reserveBook">
 							<c:if test="${reserveBook.id ne null }">
 								<tr>
 									<td colspan="3">
@@ -100,7 +104,7 @@ table, th, td {
 								</c:if></td>
 								</tr>
 							</c:if>
-						</c:forEach>
+					 </c:forEach>
 					</c:forEach>
 				</table>
 			</c:if>

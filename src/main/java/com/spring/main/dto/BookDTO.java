@@ -1,6 +1,8 @@
 package com.spring.main.dto;
 
 import java.sql.Date;
+import java.util.HashSet;
+
 import org.apache.ibatis.type.Alias;
 
 @Alias("book")
@@ -14,13 +16,13 @@ public class BookDTO {
 	private String publisher;
 	private Date reg_date;
 	private String bookState;
-	private ReserveBookDTO reserveBook;
+	private HashSet<ReserveBookDTO> reserveBookDTO;
 	
-	public ReserveBookDTO getReserveBookDTO() {
-		return reserveBook;
+	public HashSet<ReserveBookDTO> getReserveBookDTO() {
+		return reserveBookDTO;
 	}
-	public void setReserveBookDTO(ReserveBookDTO reserveBookDTO) {
-		this.reserveBook = reserveBookDTO;
+	public void setReserveBookDTO(HashSet<ReserveBookDTO> reserveBookDTO) {
+		this.reserveBookDTO = reserveBookDTO;
 	}
 	public int getBookIdx() {
 		return bookIdx;

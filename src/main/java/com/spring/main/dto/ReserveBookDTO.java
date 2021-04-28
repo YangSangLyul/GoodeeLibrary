@@ -1,6 +1,7 @@
 package com.spring.main.dto;
 
 import java.sql.Date;
+import java.util.Objects;
 
 import org.apache.ibatis.type.Alias;
 
@@ -41,6 +42,15 @@ public class ReserveBookDTO {
 	}
 	public void setBookState(String bookState) {
 		this.bookState = bookState;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		ReserveBookDTO dto = (ReserveBookDTO)obj;
+		return (dto.bookIdx == this.bookIdx);
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(bookIdx);
 	}
 	
 }

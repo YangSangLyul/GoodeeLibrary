@@ -2,7 +2,6 @@ package com.spring.main.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.BookService;
-import com.spring.main.service.LibrarySearchService;
 
 
 @Controller
