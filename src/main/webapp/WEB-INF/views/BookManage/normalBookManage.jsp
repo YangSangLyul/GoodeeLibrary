@@ -43,72 +43,64 @@ table, th, td {
 			<c:if test="${list.size() ne 0}">
 				<table>
 					<c:forEach items="${list}" var="book">
-						<tr>
-							<td rowspan="4">
-								<img src="${book.bookImg}" width="100px" height="100px" />
-							</td>
-							<th>${book.bookName}</th>
-							<c:if test="${book.bookState eq 'B001'}">
-								<td><select id="bookState" name="bookState">
-										<option value="">선택</option>
-										<option value="B001">예약가능</option>
-										<option value="B005">훼손</option>
-										<option value="B006">분실</option>
-										<option value="B007">기타</option>
-								</select> 
-								<input type="button" value="변경"onclick="bookStateChange(${book.bookIdx})" /></td>
+						<c:forEach items="${book.reserveBookDTO}" var="reserveBook">
+							<tr>
+								<td rowspan="4"><img src="${book.bookImg}" width="100px"
+									height="100px" /></td>
+								<th>${book.bookName}</th>
+								<c:if test="${book.bookState eq 'B001'}">
+									<td><select id="bookState" name="bookState">
+											<option value="">선택</option>
+											<option value="B001">예약가능</option>
+											<option value="B005">훼손</option>
+											<option value="B006">분실</option>
+											<option value="B007">기타</option>
+									</select> <input type="button" value="변경"
+										onclick="bookStateChange(${book.bookIdx})" /></td>
+								</c:if>
+							</tr>
+							<tr>
+								<td colspan="3">${book.writer}</td>
+							</tr>
+							<tr>
+								<td colspan="3">${book.publisher}</td>
+							</tr>
+							<c:if test="${reserveBook.id eq null}">
+								<tr>
+									<td colspan="3"><c:if test="${book.bookState eq 'B001'}">
+									예약가능
+								</c:if> <c:if test="${book.bookState eq 'B002'}">
+									예약불가
+								</c:if> <c:if test="${book.bookState eq 'B003'}">
+									대여가능
+								</c:if> <c:if test="${book.bookState eq 'B004'}">
+									대여중
+								</c:if> <c:if test="${book.bookState eq 'B005'}">
+									훼손
+								</c:if> <c:if test="${book.bookState eq 'B006'}">
+									분실
+								</c:if> <c:if test="${book.bookState eq 'B007'}">
+									기타
+								</c:if></td>
+								</tr>
 							</c:if>
 
-						</tr>
-						<tr>
-							<td colspan="3">${book.writer}</td>
-						</tr>
-						<tr>
-							<td colspan="3">${book.publisher}</td>
-						</tr>
-						<c:if test="${book.reserveBookDTO.id eq null}">
-						<tr>
-							<td colspan="3">
-								<c:if test="${book.bookState eq 'B001'}">
-									예약가능
-								</c:if>
-								<c:if test="${book.bookState eq 'B002'}">
-									예약불가
-								</c:if>
-								<c:if test="${book.bookState eq 'B003'}">
-									대여가능
-								</c:if>
-								<c:if test="${book.bookState eq 'B004'}">
-									대여중
-								</c:if>
-								<c:if test="${book.bookState eq 'B005'}">
-									훼손
-								</c:if>
-								<c:if test="${book.bookState eq 'B006'}">
-									분실
-								</c:if>
-								<c:if test="${book.bookState eq 'B007'}">
-									기타
-								</c:if>
-							</td>
-						</tr>
-						</c:if>
-						<c:if test="${book.reserveBookDTO.id ne null }">
-							<tr>
-								<td colspan="3">
-								<c:if test="${book.reserveBookDTO.bookState eq 'R001'}">
-									예약중 : ${book.reserveBookDTO.id}<button onclick="userReserveNotification('${book.bookName}', '${book.reserveBookDTO.id}')">예약승인</button>
-								</c:if>
-								<c:if test="${book.reserveBookDTO.bookState eq 'R002'}">
-									대여중
-								</c:if>
-								<c:if test="${book.reserveBookDTO.bookState eq 'R003'}">
+							<c:if test="${reserveBook.id ne null }">
+								<tr>
+									<td colspan="3">
+									<c:if test="${reserveBook.bookState eq 'R001'}">
+										예약중 : ${reserveBook.id} 
+										<button onclick="userReserveNotification('${book.bookName}', '${reserveBook.id}')">예약승인</button>
+									</c:if> 
+									<c:if test="${reserveBook.bookState eq 'R002'}">
+										대여중
+									</c:if> 
+								<c:if test="${reserveBook.bookState eq 'R003'}">
 									반납완료
-								</c:if>
-								</td>
-							</tr>
-						</c:if>
-
+								</c:if></td>
+								</tr>
+							</c:if>
+						</c:forEach>
 					</c:forEach>
 				</table>
 			</c:if>
