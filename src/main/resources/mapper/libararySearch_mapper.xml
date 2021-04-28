@@ -10,8 +10,8 @@
 	</select>
 
 	<insert id="reserveBook">
-		INSERT INTO ReserveBook(reserveBookIdx,bookIdx,id)
-			VALUES(reserveBookIdx_seq.NEXTVAL,#{param1},'test')
+		INSERT INTO reserveBook(reserveBookIdx,bookIdx,id)
+			VALUES(reserveBookIdx_seq.NEXTVAL,#{booksIdx},#{id})
 	</insert>
 	
 	<delete id="reserveBookCancel">

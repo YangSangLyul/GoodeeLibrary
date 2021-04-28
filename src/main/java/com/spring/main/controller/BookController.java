@@ -2,6 +2,7 @@ package com.spring.main.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,6 +58,20 @@ public class BookController {
 		logger.info("유저 예약 알림 : {}",params);
 		
 		return service.userReserveNotification(params);
+	}
+	
+	@RequestMapping(value = "/bookManageDetail", method = RequestMethod.GET)
+	public  ModelAndView bookManageDetail(@RequestParam String bookIdx) {
+		logger.info("도서 관리 상세보기 : " + bookIdx);
+		
+		return service.bookManageDetail(bookIdx);
+	}
+	
+	@RequestMapping(value = "/recommendBook", method = RequestMethod.GET)
+	public  String bookManageDetail(@RequestParam HashMap<String,String> params, Model model) {
+		logger.info("사서의 추천도서 페이지 이동 : " + params);
+		model.addAttribute("params", params);
+		return "/BookManage/recommendBookManage";
 	}
 	
 }

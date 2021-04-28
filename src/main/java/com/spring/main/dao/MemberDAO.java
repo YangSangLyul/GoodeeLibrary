@@ -23,6 +23,4 @@ public interface MemberDAO {
 	MemberDTO myLib_UpdateForm(String id);
 
 	int memUpdate(MemberDTO dto);
-
-
 }

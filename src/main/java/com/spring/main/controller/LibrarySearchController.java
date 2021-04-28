@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.service.LibrarySearchService;
 
@@ -21,18 +22,19 @@ public class LibrarySearchController {
 	
 	@Autowired LibrarySearchService service;
 	
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public String test() {
-		return "BookManage/test";
-	}
-	
 	@RequestMapping(value = "/reserveBook", method = RequestMethod.GET)
-	public String reserveBook(@RequestParam String bookIdx) {
-		logger.info("예약하기");
-		int success = service.reserveBook(bookIdx);
-		logger.info("예약 성공 여부 : " + success);
+	public String reserveBook(@RequestParam HashMap<String, String> params) {
+		logger.info("예약하기 : " + params);
+		System.out.println(params.get("id") == "");
+		if(params.get("id") == "") {
+			params.put("id", "test");
+		}
 		
-		return "BookManage/test";
+		int success = service.reserveBook(params);
+		logger.info("예약 성공 여부 : " + success);
+		String bookIdx = params.get("booksIdx");
+		logger.info("bookIdx : " + bookIdx);
+		return "redirect:/searchResultDetail?bookIdx="+bookIdx;
 	}
 	
 	@RequestMapping(value = "/reserveBookCancel", method = RequestMethod.GET)

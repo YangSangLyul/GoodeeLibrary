@@ -21,8 +21,8 @@ public class LibrarySearchService {
 	@Autowired LibrarySearchDAO dao;
 	
 	
-	public int reserveBook(String bookIdx) {
-		return dao.reserveBook(bookIdx);
+	public int reserveBook(HashMap<String, String> params) {
+		return dao.reserveBook(params);
 	}
 	
 	public int reserveBookCancel(String reserveBookIdx) {

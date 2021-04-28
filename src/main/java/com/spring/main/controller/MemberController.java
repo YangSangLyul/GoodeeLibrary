@@ -124,7 +124,6 @@ public class MemberController {
 		return service.newPw(newPw,session);
 	}
 	
-	
 	//------------마이라이브러리 내 영역----------------------------------------
 	
 	@RequestMapping(value = "/myLib_Update")
@@ -133,11 +132,11 @@ public class MemberController {
 		return "myLib_Update";
 	}
 	
-	@RequestMapping(value = "/mylib_mem")
-	public String memUpdate(Model model,@RequestParam String pw,HttpSession session) {
-		logger.info("비밀번호 확인:"+pw);
-		return service.mylib_mem(pw);
-	}
+//	@RequestMapping(value = "/myLib_mem")
+//	public String memUpdate(Model model,@RequestParam String pw,HttpSession session) {
+//		logger.info("비밀번호 확인:"+pw);
+//		return service.mylib_mem(pw);
+//	}
 	
 	@RequestMapping(value = "/myLib_UpdateForm")
 	public String myLib_UpdateForm(Model model,HttpSession session) {
@@ -157,5 +156,5 @@ public class MemberController {
 	public ModelAndView memWithdraw(Model model,HttpSession session) {
 		return service.memWithdraw(session);
 	}
-	
+
 }

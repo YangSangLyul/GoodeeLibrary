@@ -19,4 +19,8 @@ public interface BookDAO {
 
 	int userReserveNotification(HashMap<String, String> params);
 
+	BookDTO bookManageDetail(String bookIdx);
+
+	int reserveCnt(String bookIdx);
+
 }
