@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dto.MemberDTO;
 import com.spring.main.service.MemberService;
@@ -75,6 +76,7 @@ public class MemberController {
 			logger.info(loginId+" 로그인 성공");
 			session.setAttribute("loginId", loginId);
 			page="main";
+			msg = loginId+"님 반갑습니다.";
 		}
 		model.addAttribute("msg", msg);
 		return page;
@@ -156,5 +158,12 @@ public class MemberController {
 	public ModelAndView memWithdraw(Model model,HttpSession session) {
 		return service.memWithdraw(session);
 	}
+	
+	@RequestMapping(value = "/myLib_UpdatePwForm")
+	public String myLib_UpdatePwForm(Model model) {
+		logger.info("회원 비밀번호 변경 페이지로 이동");
+		return "myLib_UpdatePwF";
+	}
+	
 
 }
