@@ -42,10 +42,10 @@
     <div id="mysidenav" class="sidenav">
         <div id="titleMenu"><a href="">도서관메뉴</a></div>
         <div class="menu">
-            <p>리뷰 모아보기</p>
+            <p>1</p>
         </div>
         <div class="menu">
-            <p>열람실 좌석 예약</p>
+            <p>2</p>
         </div>
     </div>
 
@@ -65,7 +65,7 @@
        
         $(".menu:eq(1)").click(function () {
             console.log("1번")
-            location.href = 'reserveSeatForm';
+            location.href = '';
         })
     </script>
 </body>

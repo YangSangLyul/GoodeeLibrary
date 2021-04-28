@@ -8,6 +8,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+   <!-- 제이쿼리 -->		
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<!-- 부트스트랩 이있다. -->
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		
+	<!-- 페이징 라이브러리  (제이쿼리 반드시 필요 ,버전도 맞아야함..)-->
+		<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
     <style>
         #noticeBackground{
             background-color: blanchedalmond;
@@ -52,37 +60,134 @@
             width: 70%;
             height: 10%;
         }
+        #list{
+        	width: 50px;
+        	height: 50px;
+        }
     </style>
 </head>
 <body>
-    <div id="noticeBackground">
-        <div id="search">
-            <form action="noticeSearch" method="get">
+   <div id="noticeBackground">
+   
+     <div id="search">
                 <select name="searchSelect" id="searchSelect">
-                    <option value="전체" selected>전체</option>
+                    <option value="전체" >전체</option>
                     <option value="제목">제목</option>
                     <option value="내용">내용</option>
                 </select>
-                <input type="text" name="search" placeholder="검색해주세요">
-                <input type="submit" value="검색">
-            </form>
+                <input type="text" name="search" id="searchName" placeholder="검색해주세요">
+               <!--  <input type="button" id="request" value="검색"> -->
+                <button onclick=" listCall(showPage)" id="request">검색</button>
         </div>
-        <div id="noticeTable">
-            <table>
-                <tr>
-                    <th class="n1">글번호</th>
-                    <th class="n2">제목</th>
-                    <th>등록일</th>
-                </tr>
-                <c:forEach items="${list}" var="dto">
-                	<tr>
-                		<td class="n1">${dto.noticeidx}</td>
-                		<td class="n2"><a href=/main/noticeDetail/${dto.noticeidx}>${dto.subject}</a></td>
-                		<td>${dto.reg_date}</td>
-                	</tr>
-                </c:forEach>
-            </table>
-        </div>
-    </div>
+        
+        <table>
+			<thead>
+				<tr>
+					<td>번호</td>
+					<td>제목</td>
+					<td>작성일</td>
+				</tr>
+			</thead>
+			<tbody id="list">
+				<!-- 불러온 데이터 뿌리는 영역   이번엔 c태그없이 할것이다 ..-->
+			</tbody>
+			<tr id="pa1">
+				<td id="paging" colspan="3">
+				<!-- 플러그인사용 -->
+				<div class="container">
+					<nav aria-label="page navigation" style="text-align:center">
+						<ul class="pagination" id="pagination">
+						
+						</ul>
+					</nav>
+				</div>
+				</td>
+			</tr>
+			
+		</table>
+        
+ </div> 
+        
+        
 </body>
+<script type="text/javascript">
+
+ var showPage=1;
+
+ listCall(showPage); 
+
+/*  $("#request").click(function(reqPage){
+	var params = {
+			searchSelect:$("#searchSelect").val()
+			,search:$("#searchName").val()
+	}
+	$.ajax({
+		url:'./notice',
+		type:'GET',
+		data:params,
+		dataType:'JSON',
+		success:function(data){
+			console.log(data);
+		},
+		error:function(error){
+			console.log(error);
+		}
+	});	
+
+	
+ }) */
+ 
+ function listCall(reqPage){
+	 var params = {
+				searchSelect:$("#searchSelect").val()
+				,search:$("#searchName").val()
+				
+		}
+	var reqUrl = './notice/'+reqPage;
+	 
+		$.ajax({
+			url:reqUrl,
+			type:'GET',
+			data:params,
+			dataType:'JSON',
+			success:function(data){
+				console.log(data);
+				showPage = data.currPage;
+				listPrint(data.list);
+				$("#pagination").twbsPagination({
+					startPage:data.currPage, //시작페이지
+					totalPages:data.range,//생성 가능 최대 페이지
+					visiblePages:10,//10개씩 보여주겟다.
+					onPageClick:function(evt,page){
+						listCall(page);
+					}
+				})
+
+			},
+			error:function(error){
+				console.log(error);
+			}
+		});	
+	}
+
+	
+function listPrint(list){
+	var content="";
+	
+	for(var i =0;i<list.length;i++){
+		var b= list[i].noticeidx;
+		content +="<tr>"
+		content +="<td class='n1'>"+list[i].noticeidx+"</td>"
+		content +="<td class='n2'>"+"<a href='noticeDetail/"+b+"'>"+list[i].subject+"</a></td>"
+		var date = new Date(list[i].reg_date);
+		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
+		content +="</tr>"
+	}
+	
+	$("#list").empty();  /* empty는 안의 내용만 버리기    remove는 #list자체를 지우는것 */
+	$("#list").append(content);
+}
+	
+
+</script>
 </html>
