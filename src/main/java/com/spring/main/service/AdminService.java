@@ -51,6 +51,15 @@ public class AdminService {
 		logger.info("서비스 success: "+success);
 	    return success;
 	}
+
+	public ArrayList<String> hideBtn() {
+		logger.info("현재날짜와 매치 요청");
+		ArrayList<String> hide = dao.hideBtn();
+		if(hide.size()>0) {
+			logger.info("버튼 숨겨라");
+		}
+		return hide;
+	}
 	
 	
 }

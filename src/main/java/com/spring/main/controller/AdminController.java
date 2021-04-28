@@ -25,12 +25,14 @@ public class AdminController {
 	
 	@Autowired AdminService service;
 	
+	//이 달의 리뷰왕 리스트 
 	@RequestMapping(value = "/ReviewKing", method = RequestMethod.GET)
 	public ModelAndView ReviewKing(Model model) {
 		logger.info("이달의리뷰왕 요청");
 		return service.reviewkingList();
 	}
 	
+	//이 달의 리뷰왕 선정
 	@RequestMapping(value = "/selectKing", method = RequestMethod.POST)
 	public String selectKing(@RequestParam  HashMap<String, Object> tdArr, RedirectAttributes attr) {
 		logger.info("이달의리뷰왕: "+tdArr);	
@@ -56,5 +58,19 @@ public class AdminController {
 		 */ 
 		//attr.addFlashAttribute("msg", msg); 
 		return "redirect:/ReviewKing";
+	}
+	
+	//리뷰왕 선정 시 다음 달 까지 버튼 숨김
+	@RequestMapping(value = "/hideBtn", method = RequestMethod.GET)
+	public ModelAndView hideBtn(Model model) {
+		logger.info("버튼숨김 요청");
+		ModelAndView mav = new ModelAndView();
+		int success = 0;
+		if(service.hideBtn().size()>0) {
+			success = 1;
+		}
+		mav.addObject("hide", success);
+		mav.setViewName("redirect:/ReviewKing");
+		return mav;
 	}
 }
