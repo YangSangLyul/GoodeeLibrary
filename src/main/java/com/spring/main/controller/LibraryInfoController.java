@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.LibraryInfoService;
@@ -28,12 +29,20 @@ public class LibraryInfoController {
 		return "wayFind";
 	}
 	
-	@RequestMapping(value = "/notice", method = RequestMethod.GET)
-	public String notice(Model model) {
-		
-		service.list_infoNotice(model);
-		
-		return "notice";
+	@RequestMapping(value = "/noticea", method = RequestMethod.GET)
+	public ModelAndView noticea(Model model) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("notice");
+		return mav;
+	}
+	
+	
+	@RequestMapping(value = "/notice/{page}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> notice(@PathVariable int page ,@RequestParam HashMap<String, Object> params) {
+		int pagePerCnt = 10;
+		logger.info(""+page);
+		logger.info(""+params);
+		return service.list_infoNotice(pagePerCnt, page, params);
 	}
 	
 	@RequestMapping(value = "/noticeDetail/{idx}", method = RequestMethod.GET)
@@ -45,11 +54,16 @@ public class LibraryInfoController {
 		return "noticeDetail";
 	}
 	
-	@RequestMapping(value = "/noticeSearch", method = RequestMethod.GET)
-	public ModelAndView noticeSearch(@RequestParam HashMap<String, Object> params) {
-		logger.info("검색조건 파람 으로 받기"+params);
+	@RequestMapping(value = "/faq", method = RequestMethod.GET)
+	public ModelAndView noticeFAQ() {
+	
+		ModelAndView mav = new ModelAndView();
 		
-		return service.noticeSearch(params);
+		mav.setViewName("FAQ");
+		return mav;
 	}
+	
+	
+
 	
 }

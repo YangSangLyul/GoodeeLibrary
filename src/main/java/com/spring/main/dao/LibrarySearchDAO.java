@@ -7,7 +7,7 @@ import com.spring.main.dto.BookDTO;
 
 public interface  LibrarySearchDAO {
 
-	int reserveBook(String bookIdx);
+	int reserveBook(HashMap<String, String> params);
 
 	int reserveBookCancel(String reserveBookIdx);
 

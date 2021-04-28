@@ -47,42 +47,40 @@
             <button>블라인드 리스트</button>
         </div>
         <br/>
-        <!-- <form action="selectKing" method="POST"> -->
-	        <table>
+        <table>
+            <tr>
+                <th>번호</th>
+                <th>아이디</th>
+                <th>추천수</th>
+                <th>선정</th>
+            </tr>
+            <c:forEach items="${king.manyUp}" var="list">
 	            <tr>
-	                <th>번호</th>
-	                <th>아이디</th>
-	                <th>추천수</th>
-	                <th>선정</th>
+	                <td>${list.rnum}</td>
+	                <td><a href="[리뷰모아보기]?id=${list.id}">${list.id}</a></td>
+	                <td>${list.cnt}</td>
+	                <td><input type="checkbox" onclick="count_ck(this)" name="chk"/></td>
 	            </tr>
-	            <c:forEach items="${king.manyUp}" var="list">
-		            <tr>
-		                <td>${list.rnum}</td>
-		                <td><a href="[리뷰모아보기]?id=${list.id}">${list.id}</a></td>
-		                <td>${list.cnt}</td>
-		                <td><input type="checkbox" onclick="count_ck(this)" name="chk"/></td>
-		            </tr>
-	            </c:forEach>
-	        </table>
-	        <br/>
-	        <table>
+            </c:forEach>
+        </table>
+        <br/>
+        <table>
+            <tr>
+                <th>번호</th>
+                <th>아이디</th>
+                <th>리뷰수</th>
+                <th>선정</th>
+            </tr>
+            <c:forEach items="${king.manyReview}" var="list2">
 	            <tr>
-	                <th>번호</th>
-	                <th>아이디</th>
-	                <th>리뷰수</th>
-	                <th>선정</th>
+	                <td>${list2.rnum}</td>
+	                <td><a href="[리뷰모아보기]?id=${list2.id}" id="userId">${list2.id}</a></td>
+	                <td>${list2.cnt}</td>
+	                <td><input type="checkbox" onclick="count_ck(this)" name="chk"/></td>
 	            </tr>
-	            <c:forEach items="${king.manyReview}" var="list2">
-		            <tr>
-		                <td>${list2.rnum}</td>
-		                <td><a href="[리뷰모아보기]?id=${list2.id}" id="userId">${list2.id}</a></td>
-		                <td>${list2.cnt}</td>
-		                <td><input type="checkbox" onclick="count_ck(this)" name="chk"/></td>
-		            </tr>
-	            </c:forEach>
-	        </table>
-	        <input type="button" value="리뷰왕 선정" id="decision"/>
-       <!--  </form> -->
+            </c:forEach>
+        </table>
+        <input type="button" value="리뷰왕 선정" id="decision"/>
     </body>
     <script>
     	//alert
@@ -122,34 +120,55 @@
     			alert("이 달의 리뷰왕 3명을 선택 해주세요.");
     			return false;
     		}else{    			
-    			var ckData = new Array();
-    			//var tdArr = new Array();
+    			//var ckData = [];
+    			var tdArr = [];
+    			var test = {};
     			var ckBox = $("input[name=chk]:checked");
     			
     			//체크 된 체크박스의 값 가져오기
-    			ckBox.each(function(i){
-    				
+    			ckBox.each(function(i){    				
     				//ckBox.parent() : ckBox의 부모는 <td>
     				//ckBox.parent().parent() : <td>의 부모이므로 <tr>
     				var tr = ckBox.parent().parent().eq(i);
-    				var td = tr.children();
-    				
+    				var td = tr.children();    				
     				//체크된 row의 모든 값 배열에 담기
-    				ckData.push(tr.text());
-    				
-    				//var num = td.eq(0).text();
-    				var userId = td.eq(1).text();
-    				var cnt = td.eq(2).text();
-    				
-    				//tdArr.push(userId,cnt);
-    				//tdArr.push(userId);
-    				//tdArr.push(cnt);    	
-    				
-    			console.log("userId: "+userId);
-    			console.log("cnt: "+cnt);
-    			
-    			location.href = 'selectKing?id='+userId+'&cnt='+cnt;   
+    				//ckData.push(tr.text());
+    				//test = new Object; //첫번째방법
+    				var id = td.eq(1).text();
+    				var cnt = td.eq(2).text();    				
+	    			console.log("id: "+id);
+	    			console.log("cnt: "+cnt);
+    				//test.put(id,cnt);
+    				//test.id = id;
+    				//test.cnt = cnt;
+    				tdArr.push({"id":id,"cnt":cnt}); //두번째방법
+    				//tdArr.push(id);
+    				//tdArr.push(cnt);
     			});
+    			console.log("tdArr: "+tdArr);
+    			//console.log("tdArr.id: "+tdArr[id]);
+    			//console.log("tdArr.cnt: "+tdArr[cnt]);
+    			//console.log(test);
+    			//location.href = 'selectKing?id='+id+'&cnt='+cnt;
+    			$.ajax({ 
+    				url :'selectKing', 
+    				type : 'POST', 
+    				dataType : 'text', 
+    				data : { 
+    					'tdArr':tdArr
+   					}, 
+   					success: function(data){ 
+   						//console.log(data);
+						//location.href='/ReviewKing';
+   						alert("이 달의 리뷰왕 선정을 완료했습니다.");
+					},
+					error: function(e){
+						console.log(e);
+					}
+				});
+    			
+    			
+    			
     		}
     	});
     </script>

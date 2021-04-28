@@ -18,38 +18,38 @@
             <table>
                 <tr>
                     <td rowspan="8">
-                        이미지 넣을 위치
+                        <img src="${dto.bookImg}" width="300px" height="300px"/>
                     </td>
                 </tr>
                 <tr>
-                    <th colspan="2">자바 스크립트~~ 책 제목</th>
+                    <th colspan="2">${dto.bookName}</th>
                 </tr>
                 <tr>
                     <th>저자명</th>
-                    <td>이름</td>
+                    <td>${dto.writer}</td>
                 </tr>
                 <tr>
                     <th>출판사</th>
-                    <td>출판</td>
+                    <td>${dto.publisher}</td>
                 </tr>
                 <tr>
                     <th>등록번호</th>
-                    <td>?</td>
+                    <td>${dto.bookIdx}</td>
                 </tr>
                 <tr>
                     <th>책소개</th>
-                    <td>..</td>
+                    <td>${dto.story}</td>
                 </tr>
                 <tr>
                     <th>예약인원</th>
-                    <td>1/3</td>
+                    <td>${reserveCnt}</td>
                 </tr>
                 <tr>
                     <th>도서상태</th>
-                    <td>대여중(예약가능)</td>
+                    <td>${dto.bookState}</td>
                 </tr>
             </table>
-            <button>사서의 추천도서 추가하기</button>
+            <button onclick="location.href='recommendBook?bookIdx=${dto.bookIdx}&bookName=${dto.bookName}'">사서의 추천도서 추가하기</button>
             <button>목록</button>
         </div>
     </body>

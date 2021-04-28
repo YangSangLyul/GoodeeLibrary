@@ -2,10 +2,8 @@ package com.spring.main.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 import com.spring.main.dto.BookDTO;
-import com.spring.main.dto.ReserveBookDTO;
 
 public interface BookDAO {
 
@@ -18,5 +16,11 @@ public interface BookDAO {
 	int reserveApproval(HashMap<String, String> params);
 
 	int userReserveNotification(HashMap<String, String> params);
+
+	BookDTO bookManageDetail(String bookIdx);
+
+	int reserveCnt(String bookIdx);
+
+	int insertRecommendBook(HashMap<String, String> params);
 
 }

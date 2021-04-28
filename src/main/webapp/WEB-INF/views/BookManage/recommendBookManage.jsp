@@ -12,15 +12,15 @@
     <body>
         <div>
             <h2>사서 추천 도서</h2>
-            <form>
+            <form action="insertRecommendBook" method="POST">
+            	<input type="hidden" name="bookIdx" value="${params.bookIdx}">
                 <table>
                     <tr>
-                        <th>도서명</th>
-                        <td><input type="text" name="" placeholder="책 제목을 입력해 주세요."></td>
+                        <th colspan="2">${params.bookName}</th>
                     </tr>
                     <tr>
                         <th>추천 사유</th>
-                        <td><textarea placeholder="추천 사유를 입력해 주세요." style="resize: none;"></textarea></td>
+                        <td><textarea name="reason" placeholder="추천 사유를 입력해 주세요." style="resize: none;"></textarea></td>
                     </tr>
                     <tr>
                         <th colspan="2"><input type="submit" value="등록"></th>

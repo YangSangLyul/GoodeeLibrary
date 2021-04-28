@@ -18,37 +18,50 @@ public class LibraryInfoService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired LibraryInfoDAO dao;
-	public void list_infoNotice(Model model) {
-		logger.info("현재위치는 notice의 service 입니다");
+	
+	
+	public HashMap<String, Object> list_infoNotice(int pagePerCnt, int page, HashMap<String, Object> params) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String txt = (String) params.get("search");
 		
-		ArrayList<LibraryInfoDTO> list = dao.list();
+		if(txt != "" || !txt.equals("")) {
+			logger.info("검색값 있음");
+			int end =page*pagePerCnt;
+			int start= end - pagePerCnt+1;
+			params.put("start", start);
+			params.put("end", end);
+			logger.info("값"+params);
+			map.put("list", dao.searchList(params));
+			int allCnt = dao.searchCount(params);
+			logger.info("올카"+allCnt);
+			int range=(int) (allCnt%pagePerCnt >0 ?Math.ceil(allCnt/pagePerCnt)+1:Math.ceil(allCnt/pagePerCnt));
+			logger.info("렌지"+range);
+			map.put("range", range);
+
+		} else{
+			logger.info("검색값 없음");
+			int end =page*pagePerCnt;
+			int start= end - pagePerCnt+1;
+			map.put("list", dao.list(start,end));	
+			int allCnt = dao.allCount();
+			logger.info("올카"+allCnt);
+			int range=(int) (allCnt%pagePerCnt >0 ?Math.ceil(allCnt/pagePerCnt)+1:Math.ceil(allCnt/pagePerCnt));
+			logger.info(""+range);
+			map.put("range", range);
+		}
 		
-		model.addAttribute("list",list);
-		
+		logger.info(""+page);
+		return map;
 	}
+	
 	public void detail_infoNotice(Model model, String idx) {
 		logger.info("현재위치는 noticeDetail의 service 입니다");
+
 		
 		LibraryInfoDTO dto=dao.noticeDetail(idx);
 		
 		model.addAttribute("dto",dto);	
 	}
-	
-	public ModelAndView noticeSearch(HashMap<String, Object> params) {
-		logger.info("현재위치는 noticeSearch의 service 입니다.");
-		
-		ArrayList<LibraryInfoDTO> list = dao.searchList(params);
-		
-		ModelAndView mav = new ModelAndView();
-		
-		String msg = "검색조건에 맞는 결과물이 없습니다.";
-		if(list != null) {
-			msg="검색에맞는 조건을 불러왔습니다";
-		}		
-		mav.addObject("msg",msg);
-		mav.addObject("list",list);
-		mav.setViewName("notice");
-		return mav;
-	}
+
 
 }

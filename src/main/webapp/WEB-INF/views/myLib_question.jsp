@@ -118,16 +118,18 @@ function listCall(reqPage){
          listPrint(data.page_list);
          pagePrint(data.range);//플러그인 미사용 페이징 처리!
          //플러그인 사용
-         /*$("#pagination").twbsPagination({
+         /*
+         $("#pagination").twbsPagination({
       	   startPage:data.currPage,//시작페이지
       	   totalPages:data.range,//총 페이지
       	   visiblePages:5,//5개씩 보여주겠다.(1~5)
       	   onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
-      		   //console.log(evt);
-      		   //console.log(page); 
+      		   console.log(evt);
+      		   console.log(page); 
       		   listCall(page);
       	   } 
-         });*/
+         });
+         */
       }
       ,error:function(error){
          console.log(error);
@@ -180,7 +182,7 @@ function listPrint(page_list){
 		content += "<tr>"
 		content += "<td class='n1'>"+page_list[i].queidx+"</td>"
 		//Idx 값 불러오는거 수정하기!!
-		content += "<td class='n2'><a href='./question_detail?idx=50'>"+page_list[i].subject+"</a></td>"
+		content += "<td class='n2'><a href='./question_detail?idx="+page_list[i].queidx+"&&ansstatus="+page_list[i].ansstatus+"'>"+page_list[i].subject+"</a></td>"
 		content += "<td>"+page_list[i].id+"</td>"
 		var date = new Date(page_list[i].reg_date);
 		content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"

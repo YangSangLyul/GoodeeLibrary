@@ -128,6 +128,7 @@
             </table>
             <c:if test="${reserveCnt ne 3}">
 		                <button id="reserve">도서예약</button>
+
 		    </c:if>
             
             <button id="back">이전으로</button>

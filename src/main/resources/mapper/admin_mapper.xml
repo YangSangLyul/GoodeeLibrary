@@ -27,8 +27,8 @@
 		]]>
 	</select>
 	
-	<insert id="selectKing" parameterType="HashMap">
-		INSERT INTO bestreview(id, month_rcnt) VALUES(#{id}, #{cnt})
+	<insert id="selectKing" parameterType="list">
+		INSERT INTO bestreview(id, month_rcnt) VALUES(#{param1}, #{param2})
 	</insert>
 	
 </mapper>

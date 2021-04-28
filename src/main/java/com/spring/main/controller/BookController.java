@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.BookService;
-import com.spring.main.service.LibrarySearchService;
 
 
 @Controller
@@ -57,6 +56,26 @@ public class BookController {
 		logger.info("유저 예약 알림 : {}",params);
 		
 		return service.userReserveNotification(params);
+	}
+	
+	@RequestMapping(value = "/bookManageDetail", method = RequestMethod.GET)
+	public  ModelAndView bookManageDetail(@RequestParam String bookIdx) {
+		logger.info("도서 관리 상세보기 : " + bookIdx);
+		
+		return service.bookManageDetail(bookIdx);
+	}
+	
+	@RequestMapping(value = "/recommendBook", method = RequestMethod.GET)
+	public  String bookManageDetail(@RequestParam HashMap<String,String> params, Model model) {
+		logger.info("사서의 추천도서 페이지 이동 : " + params);
+		model.addAttribute("params", params);
+		return "/BookManage/recommendBookManage";
+	}
+	
+	@RequestMapping(value = "/insertRecommendBook", method = RequestMethod.POST)
+	public  String insertRecommendBook(@RequestParam HashMap<String,String> params, Model model) {
+		logger.info("사서의 추천도서 추가 : " + params);
+		return service.insertRecommendBook(params);
 	}
 	
 }

@@ -11,7 +11,7 @@ public interface AdminDAO {
 	
 	ArrayList<AdminDTO> manyReview();
 
-	int selectKing(HashMap<String, Object> params);
+	int selectKing(String id, String cnt);
 
 
 }

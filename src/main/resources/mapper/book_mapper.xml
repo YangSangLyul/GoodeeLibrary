@@ -22,25 +22,25 @@
 			<result column="publisher" property="publisher"/>
 			<result column="reg_date" property="reg_date"/>
 			<result column="bookState" property="bookState"/>
-			<collection property="reserveBook" resultMap="reserveBook"/>
+			<collection property="reserveBookDTO" resultMap="reserveBook"/>
 	</resultMap>
 	<select id="bookManageList" resultMap="book">
-	SELECT 
-		b.BOOKIDX
-		, b.BOOKNAME
-		, b.BOOKIMG
-		, b.WRITER
-		, b.STORY
-		, b.PUBLISHER
-		, b.BOOKSTATE
-		, r.RESERVEBOOKIDX
-		, r.BOOKSTATE AS RESERVEBOOKSTATE
-		, r.ID
-		, r.REG_DATE
-    FROM book b
-    		, reserveBook r 
-    WHERE b.bookidx = r.bookidx(+) 
-    ORDER BY b.BOOKIDX DESC, r.REG_DATE DESC
+		SELECT
+			b.BOOKIDX
+			, b.BOOKNAME
+			, b.BOOKIMG
+			, b.WRITER
+			, b.STORY
+			, b.PUBLISHER
+			, b.BOOKSTATE
+			, r.RESERVEBOOKIDX
+			, r.BOOKSTATE AS RESERVEBOOKSTATE
+			, r.ID
+			, r.REG_DATE
+		FROM book b FULL OUTER JOIN reserveBook r
+		ON b.bookidx = r.bookidx
+        WHERE r.bookstate = 'R001' AND b.bookstate IN('B001','B002','B003','B004','B005','B006','B007') OR r.bookstate IS NULL
+		ORDER BY b.bookIdx DESC, r.REG_DATE ASC
 	</select>
 	
 	
@@ -64,4 +64,17 @@
 			VALUES(noticeIdx_seq.NEXTVAL, #{id}, 'N005', #{bookName}||' 도서 예약이 가능합니다', '회원')
 	</insert>
 	
+	<select id="bookManageDetail" resultType="book">
+		SELECT bookIdx, bookName, bookImg, writer, publisher, story, bookState FROM book
+			WHERE bookIdx = #{param1}
+	</select>
+	
+	<select id="reserveCnt" resultType="int">
+		SELECT COUNT(*) FROM reserveBook WHERE bookIdx = #{param1}
+	</select>
+
+	<insert id="insertRecommendBook" parameterType="hashMap">
+		INSERT INTO recommendBook(bookIdx, reason) VALUES(#{bookIdx},#{reason})
+	</insert>
+
 </mapper>
