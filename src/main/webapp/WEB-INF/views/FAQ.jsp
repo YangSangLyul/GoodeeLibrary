@@ -54,6 +54,7 @@
 </head>
 
 <body>
+<jsp:include page="bookuseSidebar.jsp"/>
     <div id="FAQback">
         <div id="search">
             <form action="FAQSearch">

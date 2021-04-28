@@ -45,9 +45,6 @@ public class LibraryInfoController {
 		return service.list_infoNotice(pagePerCnt, page, params);
 	}
 	
-	
-	
-	
 	@RequestMapping(value = "/noticeDetail/{idx}", method = RequestMethod.GET)
 	public String noticeDetail(Model model , @PathVariable String idx) {
 		logger.info(idx);
@@ -55,6 +52,15 @@ public class LibraryInfoController {
 		service.detail_infoNotice(model,idx);
 		
 		return "noticeDetail";
+	}
+	
+	@RequestMapping(value = "/faq", method = RequestMethod.GET)
+	public ModelAndView noticeFAQ() {
+	
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("FAQ");
+		return mav;
 	}
 	
 	

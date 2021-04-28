@@ -63,6 +63,8 @@
     </style>
 </head>
 <body>
+ <jsp:include page="bookuseSidebar.jsp"></jsp:include>
+
     <div id="noticeBackground">
        
                 <select  id="searchSelect">
