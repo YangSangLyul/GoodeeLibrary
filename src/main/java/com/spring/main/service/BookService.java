@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.BookDAO;
@@ -82,6 +83,13 @@ public class BookService {
 		mav.setViewName("/BookManage/bookManageDetail");
 
 		return mav;
+	}
+
+	public String insertRecommendBook(HashMap<String, String> params) {
+		int success = dao.insertRecommendBook(params);
+		
+		
+		return "redirect:/bookManageDetail?bookIdx="+params.get("bookIdx");
 	}
 
 }

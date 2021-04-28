@@ -35,14 +35,20 @@ public class AdminService {
 		return mav;
 	}
 
-	public int selectKing(HashMap<String, Object> params) {
+	public int selectKing(ArrayList<String> idList, ArrayList<String> cntList) {
 		logger.info("리뷰왕 INSERT 쿼리 요청");
-		ModelAndView mav = new ModelAndView();
-	    int success = dao.selectKing(params);
-	    //map.put("map", dao.selectKing(params));
-	    if(success>0) {
-	    	mav.setViewName("redirect:/ReviewKing");	    	
-	    }	     
+		String id = "";
+		String cnt = "";
+		int success = 0;
+		
+		for (int i = 0; i < idList.size(); i++) {
+			id = idList.get(i);
+			logger.info("idList: "+idList.get(i));
+			cnt = cntList.get(i);
+			logger.info("cntList: "+cntList.get(i));
+			success = dao.selectKing(id,cnt);
+		}				
+		logger.info("서비스 success: "+success);
 	    return success;
 	}
 	

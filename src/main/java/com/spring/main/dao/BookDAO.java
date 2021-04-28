@@ -21,4 +21,6 @@ public interface BookDAO {
 
 	int reserveCnt(String bookIdx);
 
+	int insertRecommendBook(HashMap<String, String> params);
+
 }
