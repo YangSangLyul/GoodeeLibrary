@@ -79,6 +79,7 @@ public class MemberService {
 		if(id!=null) {
 			page="memNewPw";
 			session.setAttribute("findId", id);
+			msg = "";
 		}
 		mav.addObject("msg", msg);
 		mav.setViewName(page);
@@ -164,8 +165,7 @@ public class MemberService {
 		page = "redirect:/myLib_Update";
 		if(success>0) {
 			page="main";
-			msg = "회원탈퇴시 회원님의 모든 정보가 사라지며 복구 할 수 없습니다.\r\n" + 
-					"그래도 탈퇴하시겠습니까?\r\n";
+			msg = "회원탈퇴가 완료되었습니다.";
 		}
 		logger.info("탈퇴성공여부:"+success);
 		mav.addObject("msg", msg);

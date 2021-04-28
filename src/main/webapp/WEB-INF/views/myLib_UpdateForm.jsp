@@ -77,7 +77,7 @@ button {
 					<button class="find_button">수정</button>
 		</form>
 		<div>
-			<a href="myUpdatePw.html">비밀번호 변경하기</a>
+			<a href="myLib_UpdatePwForm">비밀번호 변경하기</a>
 		</div>
 		<button class="find_button" onclick="location.href='./'">취소</button>
 		</div>

@@ -9,9 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <style>
-        #titleMenu {
+         #titleMenu {
             border: 1px solid black;
             background-color: blue;
             width: 200px;
@@ -27,31 +26,31 @@
             height: 38px;
             text-align: center;
             padding-bottom: 20px;
-        }
-        a{
+        } 
+         a{
             color:white
         }
         a:link,a:visited{
-            color: white;
+            color: black;
             text-decoration: none;
-        }
+        } 
     </style>
 </head>
 
 <body>
     <div id="mysidenav" class="sidenav">
-        <div id="titleMenu"><a href="">도서관메뉴</a></div>
+        <div id="titleMenu"><a href="">도서관이용안내</a></div>
         <div class="menu">
-            <p>1</p>
+            <p>찾아오는길</p>
         </div>
         <div class="menu">
-            <p>2</p>
+            <p>공지사항</p>
         </div>
         <div class="menu">
-            <p>3</p>
+            <p>FAQ</p>
         </div>
         <div class="menu">
-            <p>4</p>
+            <p>묻고답하기</p>
         </div>
     </div>
 
@@ -65,14 +64,25 @@
        //여기 누르면 경로 지정 예시 ;
         //여기 누르면 경로 지정;
         $(".menu:eq(0)").click(function () {
-           console.log("0번")
-           location.href = '';
+           console.log("1번")
+           location.href = 'LibraryInfo';
        })
        
         $(".menu:eq(1)").click(function () {
-            console.log("1번")
+            console.log("2번")
+            location.href = 'noticea';
+        })
+        
+        $(".menu:eq(2)").click(function () {
+            console.log("3번")
+            location.href = 'faq';
+        })
+        
+        $(".menu:eq(3)").click(function () {
+            console.log("4번")
             location.href = '';
         })
+        
     </script>
 </body>
 
