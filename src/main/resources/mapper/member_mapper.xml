@@ -26,4 +26,8 @@
 	SELECT id FROM member WHERE id=#{id} and name=#{name} and email=#{email}
 </select>
 
+<update id="newPw" parameterType="member">
+	UPDATE member SET pw=#{pw} WHERE id=#{id}
+</update>
+
 </mapper>

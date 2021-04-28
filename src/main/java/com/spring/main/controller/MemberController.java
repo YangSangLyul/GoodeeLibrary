@@ -100,8 +100,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/findId", method = RequestMethod.POST)
-	public ModelAndView findId(@RequestParam String name,@RequestParam int phone
-			,HttpSession session) {
+	public ModelAndView findId(@RequestParam String name,@RequestParam int phone, HttpSession session) {
 		logger.info("입력한 "+name+"/"+phone);
 		return service.findId(name,phone,session);
 	}
@@ -113,18 +112,35 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/findPw", method = RequestMethod.POST)
-	public ModelAndView findPw(@RequestParam HashMap<String, String> params
-			,HttpSession session) {
+	public ModelAndView findPw(@RequestParam HashMap<String, String> params, HttpSession session) {
 		logger.info("입력한 params:"+params);
 		return service.findPw(params,session);
 	}
 	
 	@RequestMapping(value = "/newPw", method = RequestMethod.POST)
-	public String newPw(Model model,@RequestParam String newPw) {
-		logger.info("새로바꿀 비밀번호:"+newPw);
-		return service.newPw(newPw);
+	public ModelAndView newPw(@RequestParam String newPw,HttpSession session) {
+		return service.newPw(newPw,session);
 	}
+	
 	
 	//------------마이라이브러리 내 영역----------------------------------------
 	
+	@RequestMapping(value = "/myLib_Update")
+	public String myLib_Update(Model model) {
+		logger.info("회원정보 수정/탈퇴 페이지 이동");
+		return "myLib_Update";
+	}
+	
+	@RequestMapping(value = "/myLib_UpdateForm")
+	public String myLib_UpdateForm(Model model) {
+		logger.info("회원정보 수정페이지 이동");
+		return "myLib_UpdateForm";
+	}
+	
+	@RequestMapping(value = "/memWithdraw", method = RequestMethod.POST)
+	public String memWithdraw(Model model,HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("탈퇴할 회원 id:"+loginId);
+		return service.memWithdraw(loginId);
+	}
 }

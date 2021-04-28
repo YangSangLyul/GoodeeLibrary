@@ -2,6 +2,8 @@ package com.spring.main.dao;
 
 import java.util.HashMap;
 
+import com.spring.main.dto.MemberDTO;
+
 public interface MemberDAO {
 
 	int join(HashMap<String, String> params);
@@ -14,6 +16,7 @@ public interface MemberDAO {
 
 	String findPw(HashMap<String, String> params);
 
-	boolean newPw(String newPw);
+	int newPw(MemberDTO dto);
+
 
 }
