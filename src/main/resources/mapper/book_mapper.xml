@@ -67,5 +67,14 @@
 		VALUES(noticeIdx_seq.NEXTVAL, #{id}, 'N005', #{bookName}||' 도서 예약이
 		가능합니다', '회원')
 	</insert>
+	
+	<select id="bookManageDetail" resultType="book">
+		SELECT bookIdx, bookName, bookImg, writer, publisher, story, bookState FROM book
+			WHERE bookIdx = #{param1}
+	</select>
+	
+	<select id="reserveCnt" resultType="int">
+		SELECT COUNT(*) FROM reserveBook WHERE bookIdx = #{param1}
+	</select>
 
 </mapper>

@@ -47,7 +47,7 @@ table, th, td {
 							<tr>
 								<td rowspan="4"><img src="${book.bookImg}" width="100px"
 									height="100px" /></td>
-								<th>${book.bookName}</th>
+								<th><a href="bookManageDetail?bookIdx=${book.bookIdx}">${book.bookName}</a></th>
 								<c:if test="${book.bookState eq 'B001'}">
 									<td><select id="bookState" name="bookState">
 											<option value="">선택</option>
@@ -55,8 +55,8 @@ table, th, td {
 											<option value="B005">훼손</option>
 											<option value="B006">분실</option>
 											<option value="B007">기타</option>
-									</select> <input type="button" value="변경"
-										onclick="bookStateChange(${book.bookIdx})" /></td>
+									</select> 
+									<input type="button" value="변경" onclick="bookStateChange(${book.bookIdx})" /></td>
 								</c:if>
 							</tr>
 							<tr>

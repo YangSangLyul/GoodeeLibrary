@@ -15,8 +15,7 @@
             <form>
                 <table>
                     <tr>
-                        <th>도서명</th>
-                        <td><input type="text" name="" placeholder="책 제목을 입력해 주세요."></td>
+                        <th>${params.bookName}</th>
                     </tr>
                     <tr>
                         <th>추천 사유</th>
