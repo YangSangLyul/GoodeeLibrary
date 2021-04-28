@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.MemberDAO;
+import com.spring.main.dto.MemberDTO;
 
 @Service
 public class MemberService {
@@ -83,16 +84,36 @@ public class MemberService {
 		return mav;
 	}
 
-	public String newPw(String newPw) {
+	public ModelAndView newPw(String newPw,HttpSession session) {
 		
-		boolean success = dao.newPw(newPw);
+		logger.info("새로바꿀 비밀번호:"+newPw);	
+		String id = (String) session.getAttribute("findId");
+		logger.info("해당 id:"+id);
+		MemberDTO dto = new MemberDTO();
+		dto.setId(id); //dto에 해당 id를 넣는다.
+
+		logger.info("변경전 비밀번호:"+dao.login(id)); // 1. 현재 비밀번호 확인
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		ModelAndView mav = new ModelAndView();
+		
 		page = "memNewPw";
-		msg = "비밀번호를 다시 입력해주세요.";
-		
-		if(success==true) {
+		if(dao.login(id)!=null) { //2.비밀번호가 null이 아니면 
+			String encrypt = encoder.encode(newPw);
+			dto.setPw(encrypt); //새로운 비밀번호를 dto에 담는다(암호화된)
+			dao.newPw(dto); //담은 비밀번호를 dao에 다시 담는다
 			page = "memLogin";
-			msg = "비밀번호를 재설정하였습니다. 다시 로그인해주세요.";
-		}
+			msg= "비밀번호가 재설정되었습니다. 로그인 해주시기 바랍니다.";
+		}	
+		logger.info("변경 후 비밀번호:"+dto.getPw());
+		mav.addObject("msg", msg);
+		mav.setViewName(page);
+		session.removeAttribute("findId"); //id 확인 후 세션값 지움 
+		return mav; 
+	}
+
+	public String memWithdraw(String loginId) {
+		
 		return null;
 	}
 
