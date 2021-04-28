@@ -5,28 +5,27 @@
 >
 
 <mapper namespace="com.spring.main.dao.BookDAO">
-	
-	<resultMap type="book" id="book">
-		<id column="bookIdx" property="bookIdx" />
-		<result column="bookName" property="bookName" />
-		<result column="bookImg" property="bookImg" />
-		<result column="writer" property="writer" />
-		<result column="story" property="story" />
-		<result column="publisher" property="publisher" />
-		<result column="reg_date" property="reg_date" />
-		<result column="bookState" property="bookState" />
+		<resultMap type="reserveBook" id="reserveBook">
+			<id column="reserveBookIdx" property="reserveBookIdx"/>
+			<result column="id" property="id"/>
+			<result column="reg_date" property="reg_date"/>
+			<result column="bookIdx " property="bookIdx"/>
+			<result column="RESERVEBOOKSTATE" property="bookState"/>
+		</resultMap>
 		
-		<collection property="reserveBookDTO" column="bookIdx" ofType="reserveBook">
-			<id column="reserveBookIdx" property="reserveBookIdx" />
-			<result column="id" property="id" />
-			<result column="bookIdx" property="bookIdx" />
-			<result column="reg_date" property="reg_date" />
-			<result column="bookIdx " property="bookIdx" />
-			<result column="reserveBookState" property="bookState" />
-		</collection> 
+		<resultMap type="book" id="book">
+			<id column="bookIdx" property="bookIdx"/>
+			<result column="bookName" property="bookName"/>
+			<result column="bookImg" property="bookImg"/>
+			<result column="writer" property="writer"/>
+			<result column="story" property="story"/>
+			<result column="publisher" property="publisher"/>
+			<result column="reg_date" property="reg_date"/>
+			<result column="bookState" property="bookState"/>
+			<collection property="reserveBook" resultMap="reserveBook"/>
 	</resultMap>
 	<select id="bookManageList" resultMap="book">
-		SELECT
+	SELECT 
 		b.BOOKIDX
 		, b.BOOKNAME
 		, b.BOOKIMG
@@ -38,34 +37,31 @@
 		, r.BOOKSTATE AS RESERVEBOOKSTATE
 		, r.ID
 		, r.REG_DATE
-		FROM book b LEFT OUTER JOIN reserveBook r
-		ON b.bookidx = r.bookidx
-		WHERE r.bookstate = 'R001' AND b.bookstate IN('B001','B002','B003','B004','B005','B006','B007') OR r.bookstate IS NULL
-		ORDER BY b.BOOKIDX DESC, r.REG_DATE ASC
+    FROM book b
+    		, reserveBook r 
+    WHERE b.bookidx = r.bookidx(+) 
+    ORDER BY b.BOOKIDX DESC, r.REG_DATE DESC
 	</select>
-
-	<select id="normalBookFilter" parameterType="list"
-		resultType="reserveBook">
+	
+	
+	<select id="normalBookFilter" parameterType="list" resultType="reserveBook">
 		SELECT * FROM book WHERE bookstate IN
-		<foreach collection="list" item="item" open="(" separator=","
-			close=")">
-			#{item}
-		</foreach>
+			<foreach collection="list" item="item" open="(" separator="," close=")">
+					#{item}
+			</foreach>
 	</select>
-
+	
 	<update id="bookStateChange" parameterType="hashMap">
-		UPDATE book SET
-		bookState = #{bookState} WHERE bookIdx = #{bookIdx}
+		UPDATE book SET bookState = #{bookState} WHERE bookIdx = #{bookIdx}
 	</update>
-
-	<!-- <update id="reserveApproval" parameterType="hashMap"> UPDATE reserveBook 
-		SET bookState = 'R002' WHERE bookIdx = #{bookIdx} </update> -->
-
+	
+<!-- 	<update id="reserveApproval" parameterType="hashMap">
+		UPDATE reserveBook SET bookState = 'R002' WHERE bookIdx = #{bookIdx}
+	</update> -->
+	
 	<insert id="userReserveNotification" parameterType="hashMap">
-		INSERT INTO
-		notification(noticeIdx, id, notype, content, mem_type)
-		VALUES(noticeIdx_seq.NEXTVAL, #{id}, 'N005', #{bookName}||' 도서 예약이
-		가능합니다', '회원')
+		INSERT INTO notification(noticeIdx, id, notype, content, mem_type)
+			VALUES(noticeIdx_seq.NEXTVAL, #{id}, 'N005', #{bookName}||' 도서 예약이 가능합니다', '회원')
 	</insert>
-
+	
 </mapper>

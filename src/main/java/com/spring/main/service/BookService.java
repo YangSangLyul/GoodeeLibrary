@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.BookDAO;
 import com.spring.main.dto.BookDTO;
-import com.spring.main.dto.ReserveBookDTO;
 
 @Service
 public class BookService {
@@ -27,7 +26,10 @@ public class BookService {
 		ArrayList<BookDTO> list = dao.bookManageList(); 
 		logger.info("list size : " + list.size());
 		
-		mav.addObject("list", list);
+		HashSet<BookDTO> set = new HashSet<BookDTO>(list);
+		logger.info("set size : " + set.size());
+		
+		mav.addObject("list", set);
 		mav.setViewName("/BookManage/normalBookManage");
 		return mav;
 	}

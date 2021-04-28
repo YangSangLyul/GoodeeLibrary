@@ -2,9 +2,6 @@ package com.spring.main.dto;
 
 import java.sql.Date;
 
-import org.apache.ibatis.type.Alias;
-
-@Alias("member")
 public class MemberDTO {
 
 	private String id;
