@@ -117,16 +117,16 @@
                 </tr>
                 <tr>
                     <th>도서상태</th>
-                    <td><c:if test="${reserveCnt ne 3}">
+                    <td><c:if test="${searchDetail.bookState eq 'B001' || reserveCnt < 3}">
 		                <p>예약가능</p>
 		                </c:if>
-		                <c:if test="${reserveCnt eq 3}">
+		                <c:if test="${searchDetail.bookState eq 'B002' || reserveCnt eq 3}">
 		                <p>예약불가</p>
 		                </c:if>
                 	</td>
                 </tr>
             </table>
-            <c:if test="${reserveCnt ne 3}">
+            <c:if test="${searchDetail.bookState eq 'B001' || reserveCnt < 3}">
 		                <button id="reserve">도서예약</button>
 		    </c:if>
             

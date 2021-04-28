@@ -61,7 +61,6 @@
             <button>기타</button>
             <button class="writebox" onclick="location.href='questionWrite'">글쓰기</button>
         </div>
-
         <div id="QuestionTable">
             <table>
                 <tr>
@@ -74,7 +73,7 @@
              <tbody id="question_list">
              
              </tbody>
-                <%-- <c:forEach items="${questionList}" var="list">
+                <c:forEach items="${questionList}" var="list">
 				<tr>
 					<td class="n1">${list.queidx}</td>
 					<td class="n2"><a href="./question_detail?idx=${list.queidx}">${list.subject}</a></td>
@@ -82,11 +81,11 @@
 					<td>${list.reg_date}</td>
 					<td>${list.ansstatus}</td>
 				</tr>
-				</c:forEach> --%>
-			<tr>
+				</c:forEach>
+				<tr>
 				
 			<!-- 페이징 번호 보여주기 -->
-            <td id="paging" colspan="5">
+            <td id="paging" colspan="6">
             	<!-- 플러그인 사용 -->
             	<div class="container">
             		<nav aria-label="page navigation" style="text-align:center">
@@ -101,43 +100,6 @@
 </body>
 <script>
 var showPage=1;
-//listCall('./myLib_question/5/1');//시작하자 마자 이 함수를 호출
-listCall(showPage);
-
-function listCall(reqPage){         
-
-	var reqUrl ='./myLib_question/'+5+"/"+reqPage;
-   $.ajax({
-      url: reqUrl
-      ,type:'get'
-      ,data:{}
-      ,dataType:'JSON'
-      ,success:function(data){
-         console.log(data);
-         showPage = data.currPage;
-         listPrint(data.page_list);
-         //pagePrint(data.range);//플러그인 미사용 페이징 처리!
-         //플러그인 사용
-         ///*
-         $("#pagination").twbsPagination({
-      	   startPage:data.currPage,//시작페이지
-      	   totalPages:data.range,//총 페이지
-      	   visiblePages:5,//5개씩 보여주겠다.(1~5)
-      	   onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
-      		   console.log(evt);
-      		   console.log(page); 
-      		   listCall(page);
-      	   } 
-         });
-         //*/
-      }
-      ,error:function(error){
-         console.log(error);
-         
-      }
-   });
-}
-
 
 function pagePrint(range){
 	  console.log("생성 가능 페이지 : "+range);
@@ -175,18 +137,17 @@ function pagePrint(range){
 }
 
 
-function listPrint(page_list){
+function listPrint(question_list){
 	  var content="";
 	  
-	  for(var i=0; i<page_list.length;i++){
+	  for(var i=0; i<question_list.length;i++){
 		content += "<tr>"
-		content += "<td class='n1'>"+page_list[i].queidx+"</td>"
-		//Idx 값 불러오는거 수정하기!!
-		content += "<td class='n2'><a href='./question_detail?idx=50'>"+page_list[i].subject+"</a></td>"
-		content += "<td>"+page_list[i].id+"</td>"
-		var date = new Date(page_list[i].reg_date);
+		content += "<td>"+question_list[i].queidx+"</td>"
+			content += "<td>"+question_list[i].subject+"</td>"
+		content += "<td>"+question_list[i].id+"</td>"
+		var date = new Date(question_list[i].reg_date);
 		content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
-		content += "<td>"+page_list[i].ansstatus+"</td>"
+		content += "<td>"+question_list[i].ansstatus+"</td>"
 		  	content += "</tr>"
 	    		  
 	  }

@@ -8,6 +8,13 @@
         <meta charset="UTF-8">
         <title>navgation bar</title>
         <style>
+            table,td,th{
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 5px 10px;
+                background-color: #c5d8f1ff;
+                color: blue;
+            }
             #home{
                 font-size: 50;
                 color: blue;
@@ -94,11 +101,11 @@
             <div id="userMenu">
             <ul>
                 <li class="topMenuLi"> 
-                    <button id="libraryInfo">도서관 이용안내</button>
+                    <button id="libraryInfo" onclick="location.href='noticeA'">도서관 이용안내</button>
                 </li>
     
                 <li class="topMenuLi">
-                    <button id="libraryService" onclick="location.href='reserveSeatForm'">도서관 서비스</button>
+                    <button id="libraryService">도서관 서비스</button>
                 </li>
     
                 <li class="topMenuLi">

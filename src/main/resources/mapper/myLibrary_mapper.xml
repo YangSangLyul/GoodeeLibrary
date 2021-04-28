@@ -11,28 +11,27 @@
 	</select>
 	
 	
-	<select id="page_list" resultType="question">
-		SELECT queidx, id,subject,content,reg_date,ansstatus, rnum
+	<!-- <select id="question_list" resultType="question">
+		SELECT queidx, id,subject,content,reg_date, rnum
 		FROM (
-			SELECT queidx, id,subject,content,reg_date, ansstatus, 
+			SELECT queidx, id,subject,content,reg_date, 
 			ROW_NUMBER() OVER(ORDER BY queidx DESC) AS rnum FROM question
 		)
 	WHERE rnum BETWEEN #{param1} AND #{param2}
-	</select>
+	</select>-->
 	
-	<!-- <insert id="question_write" 
+	
+	<insert id="question_write" 
 		useGeneratedKeys="true"
 		keyProperty="queIdx"
 		keyColumn="queIdx"
 		parameterType="question">
 		INSERT INTO QUESTION(queIdx,id,subject,content,ansstatus,type) 
 			VALUES(queIdx_seq.NEXTVAL,#{id},#{subject},#{content},#{ansstatus},#{type})
-	</insert> -->
+	</insert>
 	
 	<select id="question_detail" resultType="question">
-	<!-- <select id="question_detail" resultType="hashMap"> -->
-		SELECT q.queidx,q.id,q.subject,q.content,q.reg_date,q.ansstatus,q.type,a.content AS answer,a.reg_date 
-		FROM question q INNER JOIN answer a ON q.queidx=a.queidx AND q.queidx=#{param1}
+		SELECT queidx,id,subject,content,reg_date,ansstatus,type FROM question WHERE queidx=#{param1}
 	</select>
 	
 	<update id="question_edit" parameterType="question">
@@ -47,12 +46,12 @@
 		SELECT COUNT(queidx) FROM question
 	</select>
 	
-	<!-- <insert id="writeFile"> 
+	<insert id="writeFile"> 
 		INSERT INTO questionphoto(quephotoidx,queidx,orifilename,newfilename)
 			VALUES(quephotoidx_seq.NEXTVAL,#{param1},#{param2},#{param3})
-	</insert> -->
+	</insert>
 	
-	<!-- <select id="fileList" resultType="Qphoto">
+	<select id="fileList" resultType="Qphoto">
 		SELECT * FROM questionphoto WHERE queidx=#{param1}
-	</select> -->
+	</select>
 </mapper>
