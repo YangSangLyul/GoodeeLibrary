@@ -57,11 +57,12 @@ public class MyLibraryController {
 	 
 	
 	@RequestMapping(value = "/question_detail")
-	public ModelAndView question_detail(@RequestParam String idx) {
+	public ModelAndView question_detail(@RequestParam HashMap<String, Object> params) {
 	//public HashMap<String, Object> question_detail(@RequestParam String idx) {	
 		
 		logger.info("나의 문의 상세페이지");
-		return service.question_detail(idx);
+		logger.info("params:{}",params);
+		return service.question_detail(params);
 	}
 	
 	@RequestMapping(value = "/question_edit")
