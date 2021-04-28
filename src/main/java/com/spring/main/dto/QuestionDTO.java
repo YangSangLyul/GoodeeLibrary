@@ -15,6 +15,14 @@ public class QuestionDTO {
 	private String ansstatus;
 	private String type;
 	
+	private String answer;
+	
+	public String getAnswer() {
+		return answer;
+	}
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
 	public int getQueidx() {
 		return queidx;
 	}

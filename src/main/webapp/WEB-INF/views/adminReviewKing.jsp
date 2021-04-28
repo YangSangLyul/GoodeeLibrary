@@ -85,6 +85,13 @@
        <!--  </form> -->
     </body>
     <script>
+    	//alert
+	    var msg = "${msg}";
+		if(msg != ""){
+			alert(msg);
+		}
+		
+		//리뷰왕 3명초과 제한
    		var chkbox = document.getElementsByName("chk");
     	function count_ck(obj){
     		var chkCnt = 0;
@@ -100,6 +107,7 @@
     			return false;
     		}
     	}
+    	
     	//리뷰왕선정
     	$("#decision").click(function() {
     		var chkCnt = 0;
@@ -109,13 +117,13 @@
     				chkCnt++;
     			}
     		}
+    		//리뷰왕 3명 미만 제한
     		if(chkCnt < 3){
     			alert("이 달의 리뷰왕 3명을 선택 해주세요.");
     			return false;
-    		}else{
-    			
+    		}else{    			
     			var ckData = new Array();
-    			var tdArr = new Array();
+    			//var tdArr = new Array();
     			var ckBox = $("input[name=chk]:checked");
     			
     			//체크 된 체크박스의 값 가져오기
@@ -133,18 +141,15 @@
     				var userId = td.eq(1).text();
     				var cnt = td.eq(2).text();
     				
-    				tdArr.push(userId,cnt);
+    				//tdArr.push(userId,cnt);
     				//tdArr.push(userId);
     				//tdArr.push(cnt);    	
     				
     			console.log("userId: "+userId);
     			console.log("cnt: "+cnt);
     			
-    			location.href = 'selectKing?id='+userId+'&cnt='+cnt;
-    			
+    			location.href = 'selectKing?id='+userId+'&cnt='+cnt;   
     			});
-    			console.log("체크된 데이터 : "+ckData);
-    			console.log("tdArr: "+tdArr);
     		}
     	});
     </script>

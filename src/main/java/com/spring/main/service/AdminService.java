@@ -37,14 +37,13 @@ public class AdminService {
 
 	public int selectKing(HashMap<String, Object> params) {
 		logger.info("리뷰왕 INSERT 쿼리 요청");
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("map", dao.selectKing(params));
-		
-		int success = 1;
-		if(map.size()>0) {
-			success = 0;
-		}
-		return success;
+		ModelAndView mav = new ModelAndView();
+	    int success = dao.selectKing(params);
+	    //map.put("map", dao.selectKing(params));
+	    if(success>0) {
+	    	mav.setViewName("redirect:/ReviewKing");	    	
+	    }	     
+	    return success;
 	}
 	
 	

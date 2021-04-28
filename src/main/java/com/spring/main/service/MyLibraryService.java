@@ -1,29 +1,17 @@
 package com.spring.main.service;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.HashMap;
-
-import javax.servlet.http.HttpSession;
 
 import com.spring.main.dao.QuestionDAO;
 import com.spring.main.dto.QuestionDTO;
-import com.spring.main.dto.QuestionPhotoDTO;
 
 @Service
 public class MyLibraryService {
@@ -36,10 +24,12 @@ public class MyLibraryService {
 	
 	  public ModelAndView question_list() {
 	  
-	  logger.info("나의 문의내역 요청"); ModelAndView mav = new ModelAndView();
+	  logger.info("나의 문의내역 요청"); 
+	  ModelAndView mav = new ModelAndView();
 	  
 	  ArrayList<QuestionDTO> list = dao.question_list();
-	  mav.addObject("questionList", list); mav.setViewName("myLib_question");
+	  mav.addObject("questionList", list); 
+	  mav.setViewName("myLib_question");
 	  
 	  return mav;
 	  
@@ -47,16 +37,21 @@ public class MyLibraryService {
 	 
 
 	public ModelAndView question_detail(String idx) {
+	//public HashMap<String, Object> question_detail(String idx) {
 		ModelAndView mav = new ModelAndView();
 		logger.info("상세보기 요청");
-
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		QuestionDTO dto = dao.question_detail(idx);// 상세 보기
-		ArrayList<QuestionPhotoDTO> fileList = dao.fileList(idx);
+		//HashMap<String, Object> dto = dao.question_detail(idx);
+		//map.put("question_info",dto);
 		mav.addObject("question_info", dto);
-		mav.addObject("fileList",fileList);
 		mav.setViewName("myLib_question_detail");
 		
+		//ArrayList<QuestionPhotoDTO> fileList = dao.fileList(idx);
+		//mav.addObject("fileList",fileList);
+		
 		return mav;
+		//return map;
 	}
 
 	public ModelAndView question_edit(QuestionDTO dto) {
@@ -164,30 +159,31 @@ public class MyLibraryService {
 	}*/
 
 
-	/*public HashMap<String, Object> question_list(int page, int pagePerCnt) {
+	public HashMap<String, Object> page_list(int page) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		//pagePerCnt 의 기준으로 몇페이지나 만들 수 있는가?
+		//5개 기준으로 몇페이지나 만들 수 있는가?
 		int allCnt = dao.allCount();
+		logger.info("allCnt:"+allCnt);
 		//게시글 수 : 21개, 페이지당 보여줄 수 : 5 = 최대 생성 가능한 페이지 : 5
 		//예: 21/5 = 4.1 이면 소숫점을 버리고 1을 더해 5가 된다. 아니면 있는 그대로...
-		int range = allCnt%pagePerCnt > 0? Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
-		
+		int range = allCnt%5 > 0? Math.round(allCnt/5)+1 : Math.round(allCnt/5);
+		logger.info("만들수있는 페이지~"+range);
 		
 		//생성 가능한 페이지보다 현재페이지가 클 경우... 현재페이지를 생성 가능한 페이지로 맞춰준다.
 		page = page>range? range:page;
 		
 		//시작, 끝
-		int end = page * pagePerCnt;
-		int start = end - pagePerCnt+1;
-		map.put("question_list",dao.question_list(start,end));
+		int end = page * 5;
+		int start = end - 5+1;
+		map.put("page_list",dao.page_list(start,end));
 		
 		map.put("range", range);
 		map.put("currPage",page);
-		
+		logger.info("map:{}",map);
 		//전체 게시글 수 
 		//map.put("totalCnt",dao.allCount());
 		return map;
-	}*/
+	}
 
 }

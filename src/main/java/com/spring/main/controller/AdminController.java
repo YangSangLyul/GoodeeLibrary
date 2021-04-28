@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.service.AdminService;
 
@@ -28,9 +29,15 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/selectKing", method = RequestMethod.GET)
-	public int selectKing(@RequestParam HashMap<String, Object> params) {
-		logger.info("이달의리뷰왕: "+params);
-		return service.selectKing(params);
+	public String selectKing(@RequestParam HashMap<String, Object> params, RedirectAttributes attr) {
+		logger.info("이달의리뷰왕: "+params);		
+		String msg = "";
+		int success = service.selectKing(params);
+		if(success>0) {
+			msg = "이 달의 리뷰왕 선정을 완료했습니다.";
+		}
+		attr.addFlashAttribute("msg", msg);
+		return "redirect:/ReviewKing";
 	}
 	
 
