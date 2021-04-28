@@ -28,28 +28,28 @@ public class MyLibraryController {
 	@Autowired MyLibraryService service;
 	
 	
-	/*
+	
 	  @RequestMapping(value = "/MyLibrary")
 	  public ModelAndView MyLibrary() { 
 		  logger.info("나의 문의이동"); 
 		  ModelAndView mav = new ModelAndView(); 
 		  mav.setViewName("myLib_question"); 
 		  return mav; 
-	  }*/
+	  }
 	 
-	  
+	/*
 	  @RequestMapping(value = "/MyLibrary")
 	  public ModelAndView question_list() {
-		  logger.info("나의 문의 페이지"); 
+		  logger.info("나의 문의 페이지1"); 
 		  return service.question_list(); 
-		  }
+		  }*/
 	 
 	
 
 	  @RequestMapping(value = "/myLib_question/5/{page}", method = RequestMethod.GET)
 	  public HashMap<String,Object> question_list( 
 			  @PathVariable int page) { 
-		  logger.info("나의 문의 페이지");
+		  logger.info("나의 문의 페이지2");
 		  logger.info(" page : {}",  page);
 	  
 	  return service.page_list(page); 

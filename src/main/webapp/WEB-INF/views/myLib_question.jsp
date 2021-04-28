@@ -116,18 +116,20 @@ function listCall(reqPage){
          console.log(data);
          showPage = data.currPage;
          listPrint(data.page_list);
-         pagePrint(data.range);//플러그인 미사용 페이징 처리!
+         //pagePrint(data.range);//플러그인 미사용 페이징 처리!
          //플러그인 사용
-         /*$("#pagination").twbsPagination({
+         ///*
+         $("#pagination").twbsPagination({
       	   startPage:data.currPage,//시작페이지
       	   totalPages:data.range,//총 페이지
       	   visiblePages:5,//5개씩 보여주겠다.(1~5)
       	   onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
-      		   //console.log(evt);
-      		   //console.log(page); 
+      		   console.log(evt);
+      		   console.log(page); 
       		   listCall(page);
       	   } 
-         });*/
+         });
+         //*/
       }
       ,error:function(error){
          console.log(error);
