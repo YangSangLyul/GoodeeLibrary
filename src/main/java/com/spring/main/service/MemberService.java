@@ -118,18 +118,6 @@ public class MemberService {
 
 	//------------마이라이브러리 내 영역----------------------------------------	
 
-//	public String mylib_mem(String pw) {
-//
-//		msg = "비밀번호를 다시 입력해주세요.";
-//
-//		
-//		if(success==true) {
-//			page = "memLogin";
-//			msg = "비밀번호를 재설정하였습니다. 다시 로그인해주세요.";
-//		}
-//		return null;
-//	}
-	
 	public MemberDTO myLib_UpdateForm(HttpSession session) {
 		String loginId = (String) session.getAttribute("loginId");
 		logger.info("수정할 회원 id:"+loginId);
@@ -155,7 +143,6 @@ public class MemberService {
 		return mav;
 	}
 	
-	
 	public ModelAndView memWithdraw(HttpSession session) {
 		String loginId = (String) session.getAttribute("loginId");
 		logger.info("탈퇴할 회원 id:"+loginId);
@@ -175,6 +162,37 @@ public class MemberService {
 		return mav;
 	}
 
+//	public ModelAndView myLib_UpdatePw(String newPw, HttpSession session) {
+//        logger.info("새로바꿀 비밀번호:"+newPw);    
+//        String loginId = (String) session.getAttribute("loginId");
+//        logger.info("해당 id:"+loginId);
+//        MemberDTO dto = new MemberDTO();
+//        dto.setId(loginId); //dto에 해당 id를 넣는다.
+//
+//        logger.info("변경전 비밀번호:"+dao.login(loginId)); // 1. 현재 비밀번호 확인
+//    	
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        ModelAndView mav = new ModelAndView();
+//        
+//		if(dao.login(loginId)!=null) { //2.비밀번호가 null이 아니면 
+//			String encrypt = encoder.encode(newPw);
+//			dto.setPw(encrypt); //새로운 비밀번호를 dto에 담는다(암호화된)
+//			dao.newPw(dto); //담은 비밀번호를 dao에 다시 담는다
+//			page = "myLib_Update";
+//			msg= "비밀번호가 변경되었습니다.";
+//		}else if(dao.login(loginId).equals(dto.getPw())) {
+//			msg= "이전과 동일한 비밀번호입니다. 다시 입력해주세요.";
+//			page = "myLib_UpdatePwForm";
+//		}else {
+//	        msg = "입력한 값을 다시 확인해주세요.";
+//		}
+//		logger.info("변경 후 비밀번호:"+dto.getPw());
+//		mav.addObject("msg", msg);
+//		mav.setViewName(page);
+//		session.removeAttribute("loginId"); //id 확인 후 세션값 지움 
+//		return mav; 
+//	}
+	
 	public ModelAndView myLib_UpdatePw(String newPw, HttpSession session) {
         logger.info("새로바꿀 비밀번호:"+newPw);    
         String loginId = (String) session.getAttribute("loginId");
@@ -186,22 +204,26 @@ public class MemberService {
     	
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         ModelAndView mav = new ModelAndView();
-        
         msg = "입력한 값을 다시 확인해주세요.";
-
-		if(dao.login(loginId)!=null) { //2.비밀번호가 null이 아니면 
-			String encrypt = encoder.encode(newPw);
+        logger.info(dao.login(loginId)+"/"+dto.getPw());
+        if(dao.login(loginId).equals(dto.getPw())) {
+        	msg= "이전과 동일한 비밀번호입니다. 다시 입력해주세요.";
+			page = "myLib_UpdatePwForm";
+        }else {
+        	String encrypt = encoder.encode(newPw);
 			dto.setPw(encrypt); //새로운 비밀번호를 dto에 담는다(암호화된)
 			dao.newPw(dto); //담은 비밀번호를 dao에 다시 담는다
 			page = "myLib_Update";
 			msg= "비밀번호가 변경되었습니다.";
-		}	
+        }
 		logger.info("변경 후 비밀번호:"+dto.getPw());
 		mav.addObject("msg", msg);
 		mav.setViewName(page);
 		session.removeAttribute("loginId"); //id 확인 후 세션값 지움 
 		return mav; 
 	}
+
+
 
 
 
