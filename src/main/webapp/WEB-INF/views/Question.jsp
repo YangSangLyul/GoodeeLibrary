@@ -112,7 +112,7 @@ function listCall(reqPage){
 				$("#pagination").twbsPagination({
 					startPage:data.currPage, //시작페이지
 					totalPages:data.range,//생성 가능 최대 페이지
-					visiblePages:10,//10개씩 보여주겟다.
+					visiblePages:5,//10개씩 보여주겟다.
 					onPageClick:function(evt,page){
 						 listCall(page); 
 					}

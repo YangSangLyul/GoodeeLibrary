@@ -96,5 +96,42 @@
 	<select id="questionAll_Count" resultType="int">
 	SELECT COUNT(QUEIDX) FROM (SELECT * FROM QUESTION)
 	</select>
+	
+	<select id="questionList"  parameterType="int" resultType="com.spring.main.dto.LibraryInfoDTO">
+		SELECT  QUEIDX,ID,SUBJECT,CONTENT,REG_DATE,SHOWSTATUS,ANSSTATUS, TYPE ,rnum
+		FROM(
+				SELECT QUEIDX,ID,SUBJECT,CONTENT,REG_DATE,SHOWSTATUS,ANSSTATUS,TYPE,
+				ROW_NUMBER() OVER(ORDER BY QUEIDX DESC) AS rnum FROM (
+				SELECT QUEIDX,ID,SUBJECT,CONTENT,REG_DATE,SHOWSTATUS,ANSSTATUS,TYPE FROM QUESTION
+				<where>
+				<if test="param3==1">
+				TYPE ='Q001'
+				</if>
+				<if test="param3==2">
+				TYPE ='Q002'
+				</if>
+				<if test="param3==3">
+				TYPE ='Q003'
+				</if>
+				<if test="param3==4">
+				TYPE ='Q004'
+				</if>
+				</where>	
+		)	
+			) WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	<select id="question_roomCount"  resultType="int">
+	SELECT COUNT(QUEIDX) FROM (SELECT * FROM QUESTION WHERE TYPE = 'Q001')
+	</select>
+	<select id="question_bookCount"  resultType="int">
+	SELECT COUNT(QUEIDX) FROM (SELECT * FROM QUESTION WHERE TYPE = 'Q002')
+	</select>
+	<select id="question_serviceCount"  resultType="int">
+	SELECT COUNT(QUEIDX) FROM (SELECT * FROM QUESTION WHERE TYPE = 'Q003')
+	</select>
+	<select id="question_guitarCount"  resultType="int">
+	SELECT COUNT(QUEIDX) FROM (SELECT * FROM QUESTION WHERE TYPE = 'Q004')
+	</select>
 
 </mapper>

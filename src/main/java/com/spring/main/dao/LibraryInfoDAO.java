@@ -27,6 +27,14 @@ public interface LibraryInfoDAO {
 
 	int questionAll_Count();
 
+	ArrayList<LibraryInfoDTO> questionList(int start, int end, int status);
 
+	int question_roomCount();
+
+	int question_bookCount();
+	
+	int question_serviceCount();
+	
+	int question_guitarCount();
 
 }

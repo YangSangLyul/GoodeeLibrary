@@ -90,13 +90,6 @@ public class LibraryInfoService {
 		
 	}
 
-	public HashMap<String, Object> question_pageing(int page, String call) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-	
-		return map;
-	}
-
 	public HashMap<String, Object> question_pageing(int page) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -112,25 +105,66 @@ public class LibraryInfoService {
 		return map;
 	}
 
-	public HashMap<String, Object> question_roomPageing(int page) {
+	public HashMap<String, Object> question_bookPageing(int page) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int pagePerCnt = 10;
 		
-		return null;
+		int end =page*pagePerCnt;
+		int start= end - pagePerCnt+1;
+		int status =2;
+		map.put("list", dao.questionList(start,end,status));
+		int allCnt = dao.question_bookCount();
+		int range=(int) (allCnt%pagePerCnt >0 ?Math.ceil(allCnt/pagePerCnt)+1:Math.ceil(allCnt/pagePerCnt));
+		map.put("range", range);
+		
+		return map;
+	}
+	
+	public HashMap<String, Object> question_roomPageing(int page) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int pagePerCnt = 10;
+		
+		int end =page*pagePerCnt;
+		int start= end - pagePerCnt+1;
+		int status =1;
+		map.put("list", dao.questionList(start,end,status));
+		int allCnt = dao.question_roomCount();
+		int range=(int) (allCnt%pagePerCnt >0 ?Math.ceil(allCnt/pagePerCnt)+1:Math.ceil(allCnt/pagePerCnt));
+		map.put("range", range);
+		
+		return map;
 	}
 
 	public HashMap<String, Object> question_servicePageing(int page) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int pagePerCnt = 10;
 		
-		return null;
+		int end =page*pagePerCnt;
+		int start= end - pagePerCnt+1;
+		int status =3;
+		map.put("list", dao.questionList(start,end,status));
+		int allCnt = dao.question_serviceCount();
+		int range=(int) (allCnt%pagePerCnt >0 ?Math.ceil(allCnt/pagePerCnt)+1:Math.ceil(allCnt/pagePerCnt));
+		map.put("range", range);
+		
+		return map;
 	}
 
 	public HashMap<String, Object> question_guitarPageing(int page) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int pagePerCnt = 10;
 		
-		return null;
+		int end =page*pagePerCnt;
+		int start= end - pagePerCnt+1;
+		int status =4;
+		map.put("list", dao.questionList(start,end,status));
+		int allCnt = dao.question_guitarCount();
+		int range=(int) (allCnt%pagePerCnt >0 ?Math.ceil(allCnt/pagePerCnt)+1:Math.ceil(allCnt/pagePerCnt));
+		map.put("range", range);
+		
+		return map;
 	}
 
-	public HashMap<String, Object> question_bookPageing(int page) {
-		
-		return null;
-	}
 
 
 
