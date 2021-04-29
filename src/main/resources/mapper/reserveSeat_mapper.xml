@@ -9,4 +9,8 @@
 	<select id="seatList" resultType="seat">
 		SELECT * FROM seat
 	</select>
+	
+	<select id="reserveList" resultType="seat">
+		SELECT * FROM reserveseat
+	</select>
 </mapper>

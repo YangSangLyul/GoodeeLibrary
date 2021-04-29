@@ -8,4 +8,6 @@ public interface ReserveSeatDAO {
 
 	ArrayList<ReserveSeatDTO> seatList();
 
+	ArrayList<ReserveSeatDTO> reserveList();
+
 }
