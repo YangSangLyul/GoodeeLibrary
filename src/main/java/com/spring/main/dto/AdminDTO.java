@@ -10,13 +10,13 @@ public class AdminDTO {
    private DATE reg_date;
    private int reportCnt;
    private String blind_status;
-   private int cnt;
+   private int cnt; //리뷰수,추천수
    private int month_rcnt;
    private int bookIdx;
    
    private DATE recom_date;
    private int rnum;
-   private int upHit;
+   //private int upHit;
    private int reviewCnt;   
    
 	public int getReviewIdx() {
@@ -84,12 +84,6 @@ public class AdminDTO {
 	}
 	public void setRnum(int rnum) {
 		this.rnum = rnum;
-	}
-	public int getUpHit() {
-		return upHit;
-	}
-	public void setUpHit(int upHit) {
-		this.upHit = upHit;
 	}
 	public int getReviewCnt() {
 		return reviewCnt;

@@ -80,7 +80,9 @@
 	            </tr>
             </c:forEach>
         </table>
+        <%-- <c:if test="${hide == 0}"> --%>
         <input type="button" value="리뷰왕 선정" id="decision"/>
+        <%-- </c:if> --%>
     </body>
     <script>
     	//alert
@@ -159,16 +161,14 @@
    					}, 
    					success: function(data){ 
    						//console.log(data);
-						//location.href='/ReviewKing';
-   						alert("이 달의 리뷰왕 선정을 완료했습니다.");
+   						//alert("이 달의 리뷰왕 선정을 완료했습니다.");
+   						location.href = 'hideBtn';
+   						console.log(data.hide)
 					},
 					error: function(e){
 						console.log(e);
 					}
 				});
-    			
-    			
-    			
     		}
     	});
     </script>

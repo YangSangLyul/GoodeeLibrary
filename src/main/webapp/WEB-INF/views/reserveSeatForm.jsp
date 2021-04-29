@@ -132,9 +132,24 @@
         		height:550px;
         		overflow-y: auto; 
         	}
+        	
+        	input[type="checkbox"]{
+        		width:100%;
+        		height:100%;
+        	}
+        	
+       	#test:checked~tr{
+       	background-color:red;
+       	}
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        
+        <script>
+	    function check(it) {
+	    	  tr = it.parentNode.parentNode;
+	    	  console.log("셀"+tr);
+	    	  tr.style.backgroundColor = (it.checked) ? "gold" : "white";
+	    	}
+        </script>
     </head>
     <body>
         <!-- 헤더 영역 -->
@@ -189,207 +204,111 @@
 				</tr>
 			</table>
 			<div id="tbl">
+			<form name="dragchkform" method="GET">
 			<table id="tblMain" style="background-color: white;">	
 				<tr>
-					<th><input type="radio" value="1"/>1</th>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<th>1<input type="radio" class="seatChk" name="seatNum"  value="1" onclick="resetChk(this)"/></th>
+					<td><input type="checkbox" class="timeChk" name="seatTime" onclick="check(this)" value="9"/></td>
+					<td><input type="checkbox" class="timeChk" name="seatTime" onclick="whatRowNumber(this)" value="10"/></td>
+					<td><input type="checkbox" class="timeChk" name="seatTime" onclick="check(this)" value="11"/></td>
+					<td><input type="checkbox" class="timeChk" name="seatTime" onclick="check(this)" value="12"/></td>
+					<td><input type="checkbox" class="timeChk" name="seatTime" onclick="check(this)" value="13"/></td>
+					<td><input type="checkbox" class="timeChk" name="seatTime" onclick="check(this)" value="14"/></td>
+					<td><input type="checkbox" class="timeChk" name="seatTime" onclick="check(this)" value="15"/></td>
+					<td><input type="checkbox" class="timeChk" name="seatTime" onclick="check(this)" value="16"/></td>
+					<td><input type="checkbox" class="timeChk" name="seatTime" onclick="check(this)" value="17"/></td>
 				</tr>
 				
-								<tr>
-					<th>2</th>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				
-								<tr>
-					<th>3</th>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				
-								<tr>
-					<th>4</th>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				
-								<tr>
-					<th>5</th>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				
-								<tr>
-					<th>6</th>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				
-								<tr>
-					<th>7</th>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				
-								<tr>
-					<th>8</th>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				
-								<tr>
-					<th>9</th>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				
-								<tr>
-					<th>10</th>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				
-								<tr>
-					<th>11</th>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				
-								<tr>
-					<th>12</th>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				
-								<tr>
-					<th>13</th>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				
-								<tr>
-					<th>14</th>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				
-								<tr>
-					<th>15</th>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
 			</table>
+			</form>
 			</div>
 			
 		</div>
 
     </body>
+    <script>
+    	//체크박스 드래그
+	    var dragchkstat = "off"; 
+	    function dragchkNOOP() { return false; } 
+	    function dragchkOnMouseDown() { 
+	            if (this.checked) { 
+	                    dragchkstat = "uncheck"; this.checked = false; 
+	            } else { 
+	                    dragchkstat = "check"; this.checked = true; 
+	            } 
+	            return false; 
+	    } 
+	    function dragchkOnMouseOver() { 
+	            switch (dragchkstat) { 
+	                    case "off": 
+	                            break; 
+	                    case "check": 
+	                            this.focus(); this.checked = true; break; 
+	                    case "uncheck": 
+	                            this.focus(); this.checked = false; break; 
+	            } 
+	            return false; 
+	    } 
+	    function dragchkOnMouseUp() { dragchkstat = "off"; return true; } 
+	    for (i = 0; i < document.dragchkform.seatTime.length; i++) { 
+	            document.dragchkform.seatTime[i].onclick = dragchkNOOP; 
+	            document.dragchkform.seatTime[i].onmousedown = dragchkOnMouseDown; 
+	            document.dragchkform.seatTime[i].onmouseover = dragchkOnMouseOver; 
+	            document.onmouseup = dragchkOnMouseUp; 
+	    } 
+	    
+	    //연속으로 선택할수만 있게
+	    $(function(){
+	        $(".timeChk").click(function(){
+	            var timeChk = new Array();
+	            var i=0;
+	            $(".timeChk").each(function(index){
+	                if($(this).is(":checked")){
+	                	timeChk[i]=index;
+	                    i++;
+	                }
+	            });
+	            if(timeChk.length != 1){
+	                var temp = timeChk[0];
+	                for(var k=1; k<timeChk.length; k++){
+	                    if(temp+k != timeChk[k]){
+	                        alert("연속으로 체크하셔야 합니다.");
+	                        if($(this).is(":checked"))
+	                            $(this).is(":checked",false);
+	                        else
+	                            $(this).is(":checked",true);
+	                        return false;
+	                    }
+	                }
+	            }
+	        });    
+	    });
+	    
+	    function whatRowNumber(dis){
+	    	
+	    	
+	    	var chk = dis.parentNode.parentNode.rowIndex;
+
+		    
+		    console.log(radioIdx+"/"+chk);
+	    	
+	    }
+	    
+		function resetChk(chk){
+				  const checkboxes 
+				       = document.getElementsByName('seatTime');
+				  
+				  checkboxes.forEach((checkbox) => {
+				    checkbox.checked = false;
+				  });
+				
+			
+		}
+	    
+
+
+    
+    </script>
 
 
 </html>
