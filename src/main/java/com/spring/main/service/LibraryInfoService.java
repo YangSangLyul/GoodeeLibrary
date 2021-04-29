@@ -1,7 +1,9 @@
 package com.spring.main.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.LibraryInfoDAO;
 import com.spring.main.dto.LibraryInfoDTO;
@@ -61,6 +64,58 @@ public class LibraryInfoService {
 		LibraryInfoDTO dto=dao.noticeDetail(idx);
 		
 		model.addAttribute("dto",dto);	
+	}
+
+	public void faq_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> dto = dao.faq_infoNotice();
+		model.addAttribute("dto",dto);
+	}
+
+	public ModelAndView faqSearch_infoNotice(HashMap<String, Object> params, RedirectAttributes rAttr) {
+		logger.info(""+params);
+		
+		ArrayList<LibraryInfoDTO> dto = dao.faqSearch_infoNotice(params);
+		ModelAndView mav = new ModelAndView();
+		 String page ="redirect:/faq";
+		 String msg ="찾으시는 자주묻는 질문이 없습니다."; 
+		if(dto.size() >0) {
+			msg="찾으시는 질문입니다."; 
+			page="FAQ";
+			mav.addObject("dto",dto);
+			mav.addObject("msg",msg);
+		}
+		rAttr.addFlashAttribute("msg",msg);
+		mav.setViewName(page);
+		return mav;
+		
+	}
+ // if문으로 하나로 할껄 그랫나봄;;;
+	public void question_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.question_infoNotice(model);
+		model.addAttribute("list",list);
+	}
+
+	public void questionRoom_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.questionRoom_infoNotice(model);
+		model.addAttribute("list",list);
+	}
+
+	public void questionBook_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.questionBook_infoNotice(model);
+		model.addAttribute("list",list);
+		
+	}
+
+	public void questionService_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.questionService_infoNotice(model);
+		model.addAttribute("list",list);
+		
+	}
+
+	public void questionGuitar_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.questionGuitar_infoNotice(model);
+		model.addAttribute("list",list);
+		
 	}
 
 

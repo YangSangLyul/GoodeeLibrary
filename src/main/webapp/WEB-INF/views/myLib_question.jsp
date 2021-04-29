@@ -43,7 +43,7 @@
             height: 10px;
         }
         .n2{
-            width: 400px;
+            width: 300px;
             height: 30px;
         }
     </style>
@@ -52,13 +52,15 @@
 <body>
 	<!-- 헤더 영역 -->
     <jsp:include page="header.jsp"/>
+   	<div>
+   	<jsp:include page="mySidebar.jsp"/>
     <div id="QBack">
         <div id="buttonBox">
-            <button>전체</button>
-            <button>열람실</button>
-            <button>도서</button>
-            <button>서비스</button>
-            <button>기타</button>
+            <button onclick="location.href='QAll'">전체</button>
+            <button onclick="location.href='QRoom'">열람실</button>
+            <button onclick="location.href='QBook'">도서</button>
+            <button onclick="location.href='QService'">서비스</button>
+            <button onclick="location.href='QOthers'">기타</button>
             <button class="writebox" onclick="location.href='questionWrite'">글쓰기</button>
         </div>
 
@@ -82,7 +84,7 @@
 					<td>${list.reg_date}</td>
 					<td>${list.ansstatus}</td>
 				</tr>
-				</c:forEach> --%>
+				</c:forEach> --%>     	
 			<tr>
 				
 			<!-- 페이징 번호 보여주기 -->
@@ -98,10 +100,13 @@
             </table>
         </div>
     </div>
+    </div>
 </body>
 <script>
 var showPage=1;
 //listCall('./myLib_question/5/1');//시작하자 마자 이 함수를 호출
+
+//Q001버튼 눌렀을 때 이게 바로 실행되서 서비스버튼 클릭시 서비스에 관한 문의를 보여주지 못함;;;
 listCall(showPage);
 
 function listCall(reqPage){         
@@ -182,11 +187,17 @@ function listPrint(page_list){
 		content += "<tr>"
 		content += "<td class='n1'>"+page_list[i].queidx+"</td>"
 		//Idx 값 불러오는거 수정하기!!
-		content += "<td class='n2'><a href='./question_detail?idx="+page_list[i].queidx+"&&ansstatus="+page_list[i].ansstatus+"'>"+page_list[i].subject+"</a></td>"
+		content += "<td class='n2'><a href='./myLib_question_detail?idx="+page_list[i].queidx+"&&ansstatus="+page_list[i].ansstatus+"'>"+page_list[i].subject+"</a></td>"
 		content += "<td>"+page_list[i].id+"</td>"
 		var date = new Date(page_list[i].reg_date);
 		content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
-		content += "<td>"+page_list[i].ansstatus+"</td>"
+		
+		if(page_list[i].ansstatus == 'FALSE'){
+			content += "<td>답변대기중</td>";
+		}else if(page_list[i].ansstatus == 'TRUE'){
+			content += "<td>답변완료</td>";
+		}
+		
 		  	content += "</tr>"
 	    		  
 	  }

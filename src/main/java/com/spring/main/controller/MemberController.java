@@ -76,7 +76,7 @@ public class MemberController {
 			logger.info(loginId+" 로그인 성공");
 			session.setAttribute("loginId", loginId);
 			page="main";
-			msg = loginId+"님 반갑습니다.";
+			msg = "";
 		}
 		model.addAttribute("msg", msg);
 		return page;
@@ -153,16 +153,22 @@ public class MemberController {
 		logger.info("회원정보 수정요청");
 		return service.memUpdate(dto,session);
 	}
-	
-	@RequestMapping(value = "/memWithdraw", method = RequestMethod.GET)
-	public ModelAndView memWithdraw(Model model,HttpSession session) {
+
+	@RequestMapping(value = "/memWithdraw", method = RequestMethod.POST)
+	public ModelAndView memWithdraw(HttpSession session) {
 		return service.memWithdraw(session);
 	}
 	
 	@RequestMapping(value = "/myLib_UpdatePwForm")
 	public String myLib_UpdatePwForm(Model model) {
 		logger.info("회원 비밀번호 변경 페이지로 이동");
-		return "myLib_UpdatePwF";
+		return "myLib_UpdatePwForm";
+	}
+	
+	@RequestMapping(value = "/myLib_UpdatePw")
+	public ModelAndView myLib_UpdatePw(@RequestParam String newPw,HttpSession session) {
+		logger.info("회원 비밀번호 변경 요청");
+		return service.myLib_UpdatePw(newPw,session);
 	}
 	
 

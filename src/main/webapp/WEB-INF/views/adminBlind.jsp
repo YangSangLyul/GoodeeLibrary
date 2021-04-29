@@ -41,29 +41,51 @@
         <!-- 상단 네비게이션 자리 -->
         <hr/>
         <div id="tabMenu">
-            <button>이달의 리뷰왕</button>
-            <button>신고 리스트</button>
-            <button>블라인드 리스트</button>
+            <button onclick="location.href='ReviewKing'">이달의 리뷰왕</button>
+            <button onclick="location.href='ReportList'">신고 리스트</button>
+            <button onclick="location.href='BlindList'">블라인드 리스트</button>
         </div>
         <br/>
         <table>
             <tr>
-                <th>신고번호</th>
+                <th>번호</th>
                 <th>신고사유</th>
                 <th>블라인드사유</th>
                 <th>등록날짜</th>
                 <th>해제</th>
             </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <input type="button" id="blind" value="블라인드 해제"/>
-                </td>
-            </tr>
+            <c:forEach items="${blind}" var="blind">
+	            <tr>
+	                <td>${blind.blindIdx}</td>
+	                <td><a class="reason" href="[신고 상세페이지]?idx=${blind.reportIdx}">${blind.reportReason}</a></td>
+	                <td>${blind.blindReason}</td>
+	                <td>${blind.blind_date}</td>
+	                <td>
+	                    <input type="button" id="blind" value="블라인드 해제"/>
+	                </td>
+	            </tr>
+            </c:forEach>
         </table>
         <!-- 페이징 처리 자리 -->
     </body>
+    <script>
+    	//10자 초과 시 ...로 표시
+	    var txt = document.getElementsByClassName("reason");
+	    function textLengthOverCut(text, len, lastTxt) {
+    		if (len == "" || len == null) { // 기본값
+	            len = 10;
+	        }
+	        if (lastTxt == "" || lastTxt == null) { // 기본값
+	            lastTxt = "...";
+	        }
+    		for (var i=0; i < txt.length; i++) {
+		        if (txt[i].innerText.length > len) {
+		            txt[i].innerText = txt[i].innerText.substr(0, len) + lastTxt;
+		        }
+			}
+    		return txt;
+	    }
+	    textLengthOverCut();
+    
+    </script>
 </html>

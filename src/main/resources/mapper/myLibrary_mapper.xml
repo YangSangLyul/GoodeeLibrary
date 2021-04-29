@@ -14,8 +14,8 @@
 	<select id="page_list" resultType="question">
 		SELECT queidx, id,subject,content,reg_date,ansstatus, rnum
 		FROM (
-			SELECT queidx, id,subject,content,reg_date, ansstatus, 
-			ROW_NUMBER() OVER(ORDER BY queidx DESC) AS rnum FROM question
+			SELECT queidx, id,subject,content,reg_date, ansstatus, type,
+			ROW_NUMBER() OVER(ORDER BY queidx DESC) AS rnum FROM question WHERE id='user1'
 		)
 	WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
@@ -29,7 +29,7 @@
 			VALUES(queIdx_seq.NEXTVAL,#{id},#{subject},#{content},#{ansstatus},#{type})
 	</insert> -->
 	
-	<select id="question_detail" parameterType="hashMap" resultType="question">
+	<select id="myLib_question_detail" parameterType="hashMap" resultType="question">
 	<!-- <select id="question_detail" resultType="hashMap"> -->
 	<if test="ansstatus.equals('TRUE')">
 		SELECT q.queidx,q.id,q.subject,q.content,q.reg_date,q.ansstatus,q.type,a.content AS answer,a.reg_date 
@@ -42,16 +42,22 @@
 	</if>
 	</select>
 	
-	<update id="question_edit" parameterType="question">
-		UPDATE question SET subject=#{subject}, type=#{type}, content=#{content} WHERE queIdx=6 
+	<select id="question_editForm" parameterType="hashMap" resultType="question">
+		SELECT queidx,id,subject,content,reg_date,ansstatus,type 
+		FROM question WHERE queidx=#{idx}
+		</select>
+		
+	<update id="question_edit" parameterType="hashMap">
+		UPDATE question SET subject=#{subject}, type=#{Qtype}, content=#{content} WHERE queIdx=#{idx} 
 	</update>
 	
 	<delete id="question_delete">
 		DELETE FROM question WHERE queidx=#{param1}
 	</delete>
 	
+	<!-- 세션값 아이디 파라미터로 가져오기! -->
 	<select id="allCount" resultType="Integer">
-		SELECT COUNT(queidx) FROM question
+		SELECT COUNT(queidx) FROM question WHERE id='user1'
 	</select>
 	
 	<!-- <insert id="writeFile"> 
@@ -62,4 +68,23 @@
 	<!-- <select id="fileList" resultType="Qphoto">
 		SELECT * FROM questionphoto WHERE queidx=#{param1}
 	</select> -->
+	
+	<select id="question_infoNotice" resultType="question">
+		SELECT * FROM Question WHERE id='test4' ORDER BY QUEIDX DESC
+	</select>
+	
+	<!-- 로그인 세션 id값 받아오기 -->
+	<select id="questionRoom_infoNotice" resultType="question">
+	SELECT * FROM Question WHERE TYPE='Q001' AND id='user1' ORDER BY QUEIDX DESC
+	</select>
+	<select id="questionBook_infoNotice" resultType="question">
+	SELECT * FROM Question WHERE TYPE='Q002' AND id='user1' ORDER BY QUEIDX DESC
+	</select>
+	<select id="questionService_infoNotice" resultType="question">
+	SELECT * FROM Question WHERE TYPE='Q003' AND id='user1' ORDER BY QUEIDX DESC
+	</select>
+	<select id="questionOthers_infoNotice" resultType="com.spring.main.dto.LibraryInfoDTO">
+	SELECT * FROM Question WHERE TYPE='Q004' AND id='user1' ORDER BY QUEIDX DESC
+	</select>
+	
 </mapper>

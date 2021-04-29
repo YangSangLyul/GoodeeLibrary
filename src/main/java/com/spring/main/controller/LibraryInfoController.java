@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.service.LibraryInfoService;
 
@@ -55,15 +56,55 @@ public class LibraryInfoController {
 	}
 	
 	@RequestMapping(value = "/faq", method = RequestMethod.GET)
-	public ModelAndView noticeFAQ() {
-	
-		ModelAndView mav = new ModelAndView();
+	public String noticeFAQ(Model model) {
 		
-		mav.setViewName("FAQ");
-		return mav;
+		service.faq_infoNotice(model);
+		
+		return "FAQ";
+	}
+	
+	@RequestMapping(value = "/FAQSearch", method = RequestMethod.GET)
+	public ModelAndView noticeFAQsearch(@RequestParam HashMap<String, Object> params,RedirectAttributes rAttr) {	
+		
+		return service.faqSearch_infoNotice(params,rAttr);
+	}
+	
+	//전체 or 이동해올때는 이걸 탄다.
+	@RequestMapping(value = "/QuestionAll", method = RequestMethod.GET)
+	public String noticeQuestionAll(Model model) {
+		service.question_infoNotice(model);
+		return "Question";
+	}
+	
+	//방
+	@RequestMapping(value = "/QuestionRoom", method = RequestMethod.GET)
+	public String noticeQuestionRoom(Model model) {
+		service.questionRoom_infoNotice(model);
+		
+		return "Question";
+	}
+	
+	//북
+	@RequestMapping(value = "/QuestionBook", method = RequestMethod.GET)
+	public String noticeQuestionBook(Model model) {
+		service.questionBook_infoNotice(model);
+		return "Question";
+	}
+	
+	//서비스
+	@RequestMapping(value = "/QuestionService", method = RequestMethod.GET)
+	public String noticeQuestionService (Model model) {
+		service.questionService_infoNotice(model);
+		return "Question";
+	}
+	
+	//기타
+	@RequestMapping(value = "/QuestionGuitar", method = RequestMethod.GET)
+	public String noticeQuestionGuitar(Model model) {
+		service.questionGuitar_infoNotice(model);
+		return "Question";
 	}
 	
 	
-
 	
 }

@@ -3,14 +3,18 @@ package com.spring.main.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.QuestionDAO;
+import com.spring.main.dto.LibraryInfoDTO;
 import com.spring.main.dto.QuestionDTO;
 
 @Service
@@ -36,12 +40,12 @@ public class MyLibraryService {
 	  }
 	 
 
-	public ModelAndView question_detail(HashMap<String, Object> params) {
+	public ModelAndView myLib_question_detail(HashMap<String, Object> params) {
 	//public HashMap<String, Object> question_detail(String idx) {
 		ModelAndView mav = new ModelAndView();
 		logger.info("상세보기 요청");
 		//HashMap<String, Object> map = new HashMap<String, Object>();
-		QuestionDTO dto = dao.question_detail(params);// 상세 보기
+		QuestionDTO dto = dao.myLib_question_detail(params);// 상세 보기
 		//HashMap<String, Object> dto = dao.question_detail(idx);
 		//map.put("question_info",dto);
 		mav.addObject("question_info", dto);
@@ -54,14 +58,20 @@ public class MyLibraryService {
 		//return map;
 	}
 
-	public ModelAndView question_edit(QuestionDTO dto) {
+	public ModelAndView question_edit(HashMap<String, Object> params) {
 		ModelAndView mav = new ModelAndView();
 		logger.info("문의글 수정 요청");
-		int success = dao.question_edit(dto);
-		String page = "myLib_question_edit";
-		if (success > 0) {
-			logger.info("글수정 성공");
-			page = "redirect:/";
+		
+		int success = dao.question_edit(params);
+		logger.info("params:{}",params);
+		logger.info("params idx:{}",params.get("idx"));
+		logger.info("success:{}",success);
+
+		String page="redirect:/";
+		if (success >0) { 
+			logger.info("글수정 성공"); 
+			//page="myLib_question_detail";//idx="+params.get("idx")+"&&ansstatus='FALSE'";
+			page="myLib_question";
 		}
 		mav.setViewName(page);
 		return mav;
@@ -159,7 +169,7 @@ public class MyLibraryService {
 	}*/
 
 
-	public HashMap<String, Object> page_list(int page) {
+	public HashMap<String, Object> page_list(int page, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		//5개 기준으로 몇페이지나 만들 수 있는가?
@@ -176,6 +186,7 @@ public class MyLibraryService {
 		//시작, 끝
 		int end = page * 5;
 		int start = end - 5+1;
+		
 		map.put("page_list",dao.page_list(start,end));
 		
 		map.put("range", range);
@@ -184,6 +195,54 @@ public class MyLibraryService {
 		//전체 게시글 수 
 		//map.put("totalCnt",dao.allCount());
 		return map;
+	}
+
+
+	public ModelAndView question_editForm(HashMap<String, Object> params) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("수정페이지 요청");
+		//HashMap<String, Object> map = new HashMap<String, Object>();
+		QuestionDTO dto = dao.question_editForm(params);// 상세 보기
+		//HashMap<String, Object> dto = dao.question_detail(idx);
+		//map.put("question_info",dto);
+		mav.addObject("question_info", dto);
+		mav.setViewName("myLib_question_edit");
+		
+		//ArrayList<QuestionPhotoDTO> fileList = dao.fileList(idx);
+		//mav.addObject("fileList",fileList);
+		
+		return mav;
+	}
+
+
+	public void question_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.question_infoNotice(model);
+		logger.info("전체보여주기");
+		model.addAttribute("page_list",list);
+	}
+
+
+	public void questionRoom_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.questionRoom_infoNotice(model);
+		model.addAttribute("page_list",list);
+	}
+
+
+	public void questionBook_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.questionBook_infoNotice(model);
+		model.addAttribute("page_list",list);
+	}
+
+
+	public void questionService_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.questionService_infoNotice(model);
+		model.addAttribute("page_list",list);
+	}
+
+
+	public void questionOthers_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.questionOthers_infoNotice(model);
+		model.addAttribute("page_list",list);
 	}
 
 }

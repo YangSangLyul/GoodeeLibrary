@@ -42,9 +42,9 @@
         <!-- 상단 네비게이션 자리 -->
         <hr/>
         <div id="tabMenu">
-            <button>이달의 리뷰왕</button>
-            <button>신고 리스트</button>
-            <button>블라인드 리스트</button>
+            <button onclick="location.href='ReviewKing'">이달의 리뷰왕</button>
+            <button onclick="location.href='ReportList'">신고 리스트</button>
+            <button onclick="location.href='BlindList'">블라인드 리스트</button>
         </div>
         <br/>
         <table>
@@ -80,17 +80,9 @@
 	            </tr>
             </c:forEach>
         </table>
-        <%-- <c:if test="${hide == 0}"> --%>
-        <input type="button" value="리뷰왕 선정" id="decision"/>
-        <%-- </c:if> --%>
+       	<input type="button" value="리뷰왕 선정" id="decision"/>
     </body>
     <script>
-    	//alert
-	    var msg = "${msg}";
-		if(msg != ""){
-			alert(msg);
-		}
-		
 		//리뷰왕 3명초과 제한
    		var chkbox = document.getElementsByName("chk");
     	function count_ck(obj){
@@ -110,8 +102,43 @@
     	
     	//리뷰왕선정
     	$("#decision").click(function() {
+    		$.ajax({ 
+				url :'hideBtn', 
+				type : 'GET', 
+				//async: false,
+				dataType : 'JSON', 
+				data : {}, 
+				success:function(data){
+					console.log(data);
+					//console.log(data.hide.length);
+					 if(data.hide.length==0){
+						$.ajax({ 
+		    				url :'selectKing', 
+		    				type : 'POST', 
+		    				//async: false,
+		    				dataType : 'text', 
+		    				data : { 
+		    					'tdArr':tdArr
+		   					}, 
+		   					success: function(data){ 
+		   						console.log(data);
+		   						//location.href = 'hideBtn';
+		   						alert("이 달의 리뷰왕 선정을 완료했습니다.");
+							},
+							error: function(e){
+								console.log(e);
+							}
+						});
+					}else{
+						alert("이미 이달의 리뷰왕을 선정했습니다.");
+					}
+				},
+				error: function(e){
+					console.log(e);
+				}
+			});
+    		//체크한 체크박스의 개수 가져오기
     		var chkCnt = 0;
-    		var id = $('#userId').val();
     		for(var i=0;i<chkbox.length; i++){
     			if(chkbox[i].checked){
     				chkCnt++;
@@ -130,45 +157,18 @@
     			//체크 된 체크박스의 값 가져오기
     			ckBox.each(function(i){    				
     				//ckBox.parent() : ckBox의 부모는 <td>
-    				//ckBox.parent().parent() : <td>의 부모이므로 <tr>
     				var tr = ckBox.parent().parent().eq(i);
     				var td = tr.children();    				
     				//체크된 row의 모든 값 배열에 담기
     				//ckData.push(tr.text());
-    				//test = new Object; //첫번째방법
     				var id = td.eq(1).text();
     				var cnt = td.eq(2).text();    				
 	    			console.log("id: "+id);
 	    			console.log("cnt: "+cnt);
     				//test.put(id,cnt);
-    				//test.id = id;
-    				//test.cnt = cnt;
-    				tdArr.push({"id":id,"cnt":cnt}); //두번째방법
-    				//tdArr.push(id);
-    				//tdArr.push(cnt);
+    				tdArr.push({"id":id,"cnt":cnt});
     			});
-    			console.log("tdArr: "+tdArr);
-    			//console.log("tdArr.id: "+tdArr[id]);
-    			//console.log("tdArr.cnt: "+tdArr[cnt]);
-    			//console.log(test);
     			//location.href = 'selectKing?id='+id+'&cnt='+cnt;
-    			$.ajax({ 
-    				url :'selectKing', 
-    				type : 'POST', 
-    				dataType : 'text', 
-    				data : { 
-    					'tdArr':tdArr
-   					}, 
-   					success: function(data){ 
-   						//console.log(data);
-   						//alert("이 달의 리뷰왕 선정을 완료했습니다.");
-   						location.href = 'hideBtn';
-   						console.log(data.hide)
-					},
-					error: function(e){
-						console.log(e);
-					}
-				});
     		}
     	});
     </script>

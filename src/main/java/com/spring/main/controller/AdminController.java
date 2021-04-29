@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +33,7 @@ public class AdminController {
 	
 	//이 달의 리뷰왕 선정
 	@RequestMapping(value = "/selectKing", method = RequestMethod.POST)
-	public String selectKing(@RequestParam  HashMap<String, Object> tdArr, RedirectAttributes attr) {
+	public String selectKing(@RequestParam  HashMap<String, Object> tdArr) {
 		logger.info("이달의리뷰왕: "+tdArr);	
 		//logger.info(tdArr.get(key));
 		logger.info(""+tdArr.get("tdArr[0][id]"));
@@ -50,27 +49,30 @@ public class AdminController {
 		cntList.add((String) tdArr.get("tdArr[2][cnt]"));
 		logger.info("cntList: "+cntList);
 		
-		//String msg = ""; 
 		int success = service.selectKing(idList,cntList); 
 		logger.info("success: "+success);
-		/*
-		 * if(success>0) { msg = "이 달의 리뷰왕 선정을 완료했습니다."; }
-		 */ 
-		//attr.addFlashAttribute("msg", msg); 
 		return "redirect:/ReviewKing";
 	}
 	
-	//리뷰왕 선정 시 다음 달 까지 버튼 숨김
+	//리뷰왕 선정 이미 했으면 다음 달 까지 버튼 숨김
 	@RequestMapping(value = "/hideBtn", method = RequestMethod.GET)
-	public ModelAndView hideBtn(Model model) {
+	public @ResponseBody HashMap<String, Object> hideBtn(Model model, RedirectAttributes attr) {
 		logger.info("버튼숨김 요청");
-		ModelAndView mav = new ModelAndView();
-		int success = 0;
-		if(service.hideBtn().size()>0) {
-			success = 1;
-		}
-		mav.addObject("hide", success);
-		mav.setViewName("redirect:/ReviewKing");
-		return mav;
+		return service.hideBtn();
 	}
+	
+	//리뷰 신고리스트
+	@RequestMapping(value = "/ReportList", method = RequestMethod.GET)
+	public ModelAndView ReportList(Model model) {
+		logger.info("신고리스트 요청");
+		return service.ReportList();
+	}
+	
+	//블라인드 리스트
+	@RequestMapping(value = "/BlindList", method = RequestMethod.GET)
+	public ModelAndView BlindList(Model model) {
+		logger.info("블라인드리스트 요청");
+		return service.BlindList();
+	}
+	
 }
