@@ -66,12 +66,22 @@
 	</select>
 	
 	
+	<select id="faqSearch_infoNotice" parameterType="hashmap" resultType="com.spring.main.dto.LibraryInfoDTO">
+		SELECT * FROM faq
+		<where>
+			<if test="searchSelect.equals('전체')">
+			 content LIKE '%'||#{search}||'%' OR anwser LIKE '%'||#{search}||'%'
+			</if>
+			<if test="searchSelect.equals('제목')">
+			anwser LIKE '%'||#{search}||'%'
+			</if>
+		<!-- 	<if test="searchSelect.equals('답변')">
+			content LIKE '%'||#{search}||'%'
+			</if> -->
+		</where>
+		ORDER BY FAQIDX ASC
+	</select>
 	
-	
-	
-	
-	
-	
-	
+
 	
 </mapper>

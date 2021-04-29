@@ -1,7 +1,9 @@
 package com.spring.main.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.LibraryInfoDAO;
 import com.spring.main.dto.LibraryInfoDTO;
@@ -66,6 +69,25 @@ public class LibraryInfoService {
 	public void faq_infoNotice(Model model) {
 		ArrayList<LibraryInfoDTO> dto = dao.faq_infoNotice();
 		model.addAttribute("dto",dto);
+	}
+
+	public ModelAndView faqSearch_infoNotice(HashMap<String, Object> params, RedirectAttributes rAttr) {
+		logger.info(""+params);
+		
+		ArrayList<LibraryInfoDTO> dto = dao.faqSearch_infoNotice(params);
+		ModelAndView mav = new ModelAndView();
+		 String page ="redirect:/faq";
+		 String msg ="찾으시는 자주묻는 질문이 없습니다."; 
+		if(dto.size() >0) {
+			msg="찾으시는 질문입니다."; 
+			page="FAQ";
+			mav.addObject("dto",dto);
+			mav.addObject("msg",msg);
+		}
+		rAttr.addFlashAttribute("msg",msg);
+		mav.setViewName(page);
+		return mav;
+		
 	}
 
 

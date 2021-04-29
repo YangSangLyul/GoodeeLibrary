@@ -63,7 +63,7 @@
                 <select name="searchSelect" id="searchSelect">
                     <option value="전체" selected>전체</option>
                     <option value="제목">제목</option>
-                    <option value="내용">내용</option>
+                    <!-- <option value="답변">답변</option> -->
                 </select>
                 <input type="text" name="search" placeholder="검색해주세요">
                 <input type="submit" value="검색하기">
@@ -103,6 +103,13 @@
                         }
                     })
                 })
+                
+                
+                
+                 var msg = "${msg}";
+   				 if(msg!=""){
+    						alert(msg);
+   				 }
                 </script>
         
     </div>

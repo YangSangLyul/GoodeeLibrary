@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.service.LibraryInfoService;
 
@@ -58,10 +59,22 @@ public class LibraryInfoController {
 	public String noticeFAQ(Model model) {
 		
 		service.faq_infoNotice(model);
+		
 		return "FAQ";
 	}
 	
+	@RequestMapping(value = "/FAQSearch", method = RequestMethod.GET)
+	public ModelAndView noticeFAQsearch(@RequestParam HashMap<String, Object> params,RedirectAttributes rAttr) {	
+		
+		return service.faqSearch_infoNotice(params,rAttr);
+	}
 	
-
+	
+	
+	
+	
+	
+	
+	
 	
 }
