@@ -89,34 +89,49 @@ public class LibraryInfoService {
 		return mav;
 		
 	}
- // if문으로 하나로 할껄 그랫나봄;;;
-	public void question_infoNotice(Model model) {
-		ArrayList<LibraryInfoDTO> list = dao.question_infoNotice(model);
-		model.addAttribute("list",list);
-	}
 
-	public void questionRoom_infoNotice(Model model) {
-		ArrayList<LibraryInfoDTO> list = dao.questionRoom_infoNotice(model);
-		model.addAttribute("list",list);
-	}
-
-	public void questionBook_infoNotice(Model model) {
-		ArrayList<LibraryInfoDTO> list = dao.questionBook_infoNotice(model);
-		model.addAttribute("list",list);
+	public HashMap<String, Object> question_pageing(int page, String call) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		
+	
+		return map;
 	}
 
-	public void questionService_infoNotice(Model model) {
-		ArrayList<LibraryInfoDTO> list = dao.questionService_infoNotice(model);
-		model.addAttribute("list",list);
+	public HashMap<String, Object> question_pageing(int page) {
 		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int pagePerCnt = 10;
+		
+		int end =page*pagePerCnt;
+		int start= end - pagePerCnt+1;
+		map.put("list", dao.questionAll_List(start, end));
+		int allCnt = dao.questionAll_Count();
+		int range=(int) (allCnt%pagePerCnt >0 ?Math.ceil(allCnt/pagePerCnt)+1:Math.ceil(allCnt/pagePerCnt));
+		map.put("range", range);
+		
+		return map;
 	}
 
-	public void questionGuitar_infoNotice(Model model) {
-		ArrayList<LibraryInfoDTO> list = dao.questionGuitar_infoNotice(model);
-		model.addAttribute("list",list);
+	public HashMap<String, Object> question_roomPageing(int page) {
 		
+		return null;
 	}
+
+	public HashMap<String, Object> question_servicePageing(int page) {
+		
+		return null;
+	}
+
+	public HashMap<String, Object> question_guitarPageing(int page) {
+		
+		return null;
+	}
+
+	public HashMap<String, Object> question_bookPageing(int page) {
+		
+		return null;
+	}
+
 
 
 }

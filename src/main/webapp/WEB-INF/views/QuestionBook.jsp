@@ -52,7 +52,7 @@
 </head>
 <body>
     <div id="QBack">
-       <div id="buttonBox">
+        <div id="buttonBox">
             <button onclick="location.href='QuestionAll'">전체</button>
             <button onclick="location.href='QuestionRoom'">열람실</button>
             <button onclick="location.href='QuestionBook'">도서</button>
@@ -97,7 +97,7 @@ listCall(showPage);
 
 function listCall(reqPage){
 	
-		var reqUrl = './Question/'+reqPage;
+		var reqUrl = './QuestionBook/'+reqPage;
 		
 		$.ajax({
 			url:reqUrl,

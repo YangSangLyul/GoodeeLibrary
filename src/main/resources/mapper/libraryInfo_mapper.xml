@@ -82,20 +82,19 @@
 		ORDER BY FAQIDX ASC
 	</select>
 	
-	<select id="question_infoNotice" resultType="com.spring.main.dto.LibraryInfoDTO">
-	SELECT * FROM Question ORDER BY QUEIDX DESC
-	</select>
-	<select id="questionRoom_infoNotice" resultType="com.spring.main.dto.LibraryInfoDTO">
-	SELECT * FROM Question WHERE TYPE='Q001' ORDER BY QUEIDX DESC
-	</select>
-	<select id="questionBook_infoNotice" resultType="com.spring.main.dto.LibraryInfoDTO">
-	SELECT * FROM Question WHERE TYPE='Q002' ORDER BY QUEIDX DESC
-	</select>
-	<select id="questionService_infoNotice" resultType="com.spring.main.dto.LibraryInfoDTO">
-	SELECT * FROM Question WHERE TYPE='Q003' ORDER BY QUEIDX DESC
-	</select>
-	<select id="questionGuitar_infoNotice" resultType="com.spring.main.dto.LibraryInfoDTO">
-	SELECT * FROM Question WHERE TYPE='Q004' ORDER BY QUEIDX DESC
-	</select>
 	
+	<select id="questionAll_List"  parameterType="int" resultType="com.spring.main.dto.LibraryInfoDTO">
+		SELECT  QUEIDX,ID,SUBJECT,CONTENT,REG_DATE,SHOWSTATUS,ANSSTATUS, TYPE ,rnum
+		FROM(
+				SELECT QUEIDX,ID,SUBJECT,CONTENT,REG_DATE,SHOWSTATUS,ANSSTATUS,TYPE,
+				ROW_NUMBER() OVER(ORDER BY QUEIDX DESC) AS rnum FROM (
+				SELECT QUEIDX,ID,SUBJECT,CONTENT,REG_DATE,SHOWSTATUS,ANSSTATUS,TYPE FROM QUESTION		
+		)	
+			) WHERE rnum BETWEEN #{param1} AND #{param2}
+		
+	</select>
+	<select id="questionAll_Count" resultType="int">
+	SELECT COUNT(QUEIDX) FROM (SELECT * FROM QUESTION)
+	</select>
+
 </mapper>

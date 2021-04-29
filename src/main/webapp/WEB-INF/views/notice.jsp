@@ -62,7 +62,7 @@
         }
     </style>
 </head>
-<body>
+<body onload=listCall(showPage);>
  <jsp:include page="bookuseSidebar.jsp"></jsp:include>
 
     <div id="noticeBackground">
@@ -75,7 +75,7 @@
                 </select>
                 
                 <input id="searchName"  type="text"  placeholder="검색해주세요" name="searchName">
-                <button onclick="listCall(1)">검색</button>
+                <button onclick="aCall()">검색</button>
        
       
            <table>
@@ -111,8 +111,13 @@
 
  var showPage=1;
 
- listCall(showPage); 
+/*  listCall(showPage);  */
 
+ function aCall(){
+	 var showPage=1;
+	 
+	 listCall(showPage); 
+ }
  
  function listCall(reqPage){
 	 var params = {
