@@ -21,4 +21,6 @@ public interface LibraryInfoDAO {
 
 	ArrayList<LibraryInfoDTO> faq_infoNotice();
 
+	ArrayList<LibraryInfoDTO> faqSearch_infoNotice(HashMap<String, Object> params);
+
 }
