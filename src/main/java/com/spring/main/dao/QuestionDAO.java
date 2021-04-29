@@ -3,6 +3,9 @@ package com.spring.main.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.springframework.ui.Model;
+
+import com.spring.main.dto.LibraryInfoDTO;
 import com.spring.main.dto.QuestionDTO;
 import com.spring.main.dto.QuestionPhotoDTO;
 
@@ -29,6 +32,16 @@ public interface QuestionDAO {
 	ArrayList<QuestionDTO> page_list(int start, int end);
 
 	QuestionDTO question_editForm(HashMap<String, Object> params);
+
+	ArrayList<LibraryInfoDTO> question_infoNotice(Model model);
+
+	ArrayList<LibraryInfoDTO> questionRoom_infoNotice(Model model);
+
+	ArrayList<LibraryInfoDTO> questionBook_infoNotice(Model model);
+
+	ArrayList<LibraryInfoDTO> questionService_infoNotice(Model model);
+
+	ArrayList<LibraryInfoDTO> questionOthers_infoNotice(Model model);
 
 	//HashMap<String, Object> question_detail(String idx);
 

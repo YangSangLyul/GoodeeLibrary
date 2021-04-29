@@ -53,7 +53,55 @@ public class MyLibraryController {
 	  return service.page_list(page,session); 
 	  }
 	 
+  //전체 or 이동해올때는 이걸 탄다.
+	@RequestMapping(value = "/QAll", method = RequestMethod.GET)
+	public ModelAndView noticeQAll(Model model) {
+		service.question_infoNotice(model);
+		logger.info("전체보여주기");
+		ModelAndView mav = new ModelAndView(); 
+	  mav.setViewName("myLib_question"); 
+	  return mav; 
+	}
+  
+	//방
+	@RequestMapping(value = "/QRoom", method = RequestMethod.GET)
+	public ModelAndView noticeQRoom(Model model) {
+		service.questionRoom_infoNotice(model);
+		logger.info("열람실 문의 보여주기");
+		ModelAndView mav = new ModelAndView(); 
+		mav.setViewName("myLib_question"); 
+		return mav; 
+	}
+  
+	//책
+	@RequestMapping(value = "/QBook", method = RequestMethod.GET)
+	public ModelAndView noticeQBook(Model model) {
+		service.questionBook_infoNotice(model);
+		logger.info("도서 문의 보여주기");
+		ModelAndView mav = new ModelAndView(); 
+		mav.setViewName("myLib_question"); 
+		return mav; 
+	}
 	
+	//서비스
+	@RequestMapping(value = "/QService", method = RequestMethod.GET)
+	public ModelAndView noticeQService (Model model) {
+		logger.info("서비스 문의 보여주기");
+		service.questionService_infoNotice(model);
+		ModelAndView mav = new ModelAndView(); 
+		mav.setViewName("myLib_question"); 
+		return mav; 
+	}
+	
+	//기타
+	@RequestMapping(value = "/QOthers", method = RequestMethod.GET)
+	public ModelAndView noticeQOthers(Model model) {
+		service.questionOthers_infoNotice(model);
+		ModelAndView mav = new ModelAndView(); 
+		mav.setViewName("myLib_question"); 
+		return mav; 
+	}
+
 	@RequestMapping(value = "/myLib_question_detail")
 	public ModelAndView question_detail(@RequestParam HashMap<String, Object> params) {
 	//public HashMap<String, Object> question_detail(@RequestParam String idx) {	

@@ -41,7 +41,11 @@
                <td>제목<hr/><br/>
                ${question_info.subject}</td>
                	<td>유형<hr/><br/>
-				${question_info.type}</td>
+				<c:if test="${question_info.type eq 'Q001'}">열람실</c:if> 
+				<c:if test="${question_info.type eq 'Q002'}">도서</c:if> 
+				<c:if test="${question_info.type eq 'Q003'}">서비스</c:if> 
+				<c:if test="${question_info.type eq 'Q004'}">기타</c:if> 
+				</td>
            </tr>
            <tr>
             <td>작성자<hr/><br/>

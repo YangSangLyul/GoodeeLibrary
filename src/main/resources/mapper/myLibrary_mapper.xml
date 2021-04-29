@@ -14,10 +14,10 @@
 	<select id="page_list" resultType="question">
 		SELECT queidx, id,subject,content,reg_date,ansstatus, rnum
 		FROM (
-			SELECT queidx, id,subject,content,reg_date, ansstatus, 
-			ROW_NUMBER() OVER(ORDER BY queidx DESC) AS rnum FROM question
+			SELECT queidx, id,subject,content,reg_date, ansstatus, type,
+			ROW_NUMBER() OVER(ORDER BY queidx DESC) AS rnum FROM question WHERE id='user1'
 		)
-	WHERE <!-- id=#{param1}  AND--> rnum BETWEEN #{param1} AND #{param2}
+	WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
 	
 	<!-- <insert id="question_write" 
@@ -55,8 +55,9 @@
 		DELETE FROM question WHERE queidx=#{param1}
 	</delete>
 	
+	<!-- 세션값 아이디 파라미터로 가져오기! -->
 	<select id="allCount" resultType="Integer">
-		SELECT COUNT(queidx) FROM question
+		SELECT COUNT(queidx) FROM question WHERE id='user1'
 	</select>
 	
 	<!-- <insert id="writeFile"> 
@@ -67,4 +68,23 @@
 	<!-- <select id="fileList" resultType="Qphoto">
 		SELECT * FROM questionphoto WHERE queidx=#{param1}
 	</select> -->
+	
+	<select id="question_infoNotice" resultType="question">
+		SELECT * FROM Question WHERE id='test4' ORDER BY QUEIDX DESC
+	</select>
+	
+	<!-- 로그인 세션 id값 받아오기 -->
+	<select id="questionRoom_infoNotice" resultType="question">
+	SELECT * FROM Question WHERE TYPE='Q001' AND id='user1' ORDER BY QUEIDX DESC
+	</select>
+	<select id="questionBook_infoNotice" resultType="question">
+	SELECT * FROM Question WHERE TYPE='Q002' AND id='user1' ORDER BY QUEIDX DESC
+	</select>
+	<select id="questionService_infoNotice" resultType="question">
+	SELECT * FROM Question WHERE TYPE='Q003' AND id='user1' ORDER BY QUEIDX DESC
+	</select>
+	<select id="questionOthers_infoNotice" resultType="com.spring.main.dto.LibraryInfoDTO">
+	SELECT * FROM Question WHERE TYPE='Q004' AND id='user1' ORDER BY QUEIDX DESC
+	</select>
+	
 </mapper>
