@@ -52,6 +52,8 @@
 <body>
 	<!-- 헤더 영역 -->
     <jsp:include page="header.jsp"/>
+   	<div>
+   	<jsp:include page="mySidebar.jsp"/>
     <div id="QBack">
         <div id="buttonBox">
             <button>전체</button>
@@ -97,6 +99,7 @@
          </tr>
             </table>
         </div>
+    </div>
     </div>
 </body>
 <script>
@@ -182,7 +185,7 @@ function listPrint(page_list){
 		content += "<tr>"
 		content += "<td class='n1'>"+page_list[i].queidx+"</td>"
 		//Idx 값 불러오는거 수정하기!!
-		content += "<td class='n2'><a href='./question_detail?idx="+page_list[i].queidx+"&&ansstatus="+page_list[i].ansstatus+"'>"+page_list[i].subject+"</a></td>"
+		content += "<td class='n2'><a href='./myLib_question_detail?idx="+page_list[i].queidx+"&&ansstatus="+page_list[i].ansstatus+"'>"+page_list[i].subject+"</a></td>"
 		content += "<td>"+page_list[i].id+"</td>"
 		var date = new Date(page_list[i].reg_date);
 		content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"

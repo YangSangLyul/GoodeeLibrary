@@ -15,7 +15,7 @@ public interface QuestionDAO {
 	//int question_edit(HashMap<String, Object> params);
 	int question_edit(HashMap<String, Object> params);
 	
-	QuestionDTO question_detail(HashMap<String, Object> params);
+	QuestionDTO myLib_question_detail(HashMap<String, Object> params);
 
 	int question_delete(String idx);
 

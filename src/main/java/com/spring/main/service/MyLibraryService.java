@@ -3,6 +3,8 @@ package com.spring.main.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +38,12 @@ public class MyLibraryService {
 	  }
 	 
 
-	public ModelAndView question_detail(HashMap<String, Object> params) {
+	public ModelAndView myLib_question_detail(HashMap<String, Object> params) {
 	//public HashMap<String, Object> question_detail(String idx) {
 		ModelAndView mav = new ModelAndView();
 		logger.info("상세보기 요청");
 		//HashMap<String, Object> map = new HashMap<String, Object>();
-		QuestionDTO dto = dao.question_detail(params);// 상세 보기
+		QuestionDTO dto = dao.myLib_question_detail(params);// 상세 보기
 		//HashMap<String, Object> dto = dao.question_detail(idx);
 		//map.put("question_info",dto);
 		mav.addObject("question_info", dto);
@@ -77,13 +79,15 @@ public class MyLibraryService {
 		logger.info("문의글 수정 요청");
 		
 		int success = dao.question_edit(params);
+		logger.info("params:{}",params);
+		logger.info("params idx:{}",params.get("idx"));
 		logger.info("success:{}",success);
 
-		String page="myLib_question_edit";
+		String page="redirect:/";
 		if (success >0) { 
 			logger.info("글수정 성공"); 
+			//page="myLib_question_detail";//idx="+params.get("idx")+"&&ansstatus='FALSE'";
 			page="myLib_question";
-		
 		}
 		mav.setViewName(page);
 		return mav;
@@ -181,7 +185,7 @@ public class MyLibraryService {
 	}*/
 
 
-	public HashMap<String, Object> page_list(int page) {
+	public HashMap<String, Object> page_list(int page, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		//5개 기준으로 몇페이지나 만들 수 있는가?
@@ -198,6 +202,7 @@ public class MyLibraryService {
 		//시작, 끝
 		int end = page * 5;
 		int start = end - 5+1;
+		
 		map.put("page_list",dao.page_list(start,end));
 		
 		map.put("range", range);

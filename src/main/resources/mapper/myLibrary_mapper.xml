@@ -17,7 +17,7 @@
 			SELECT queidx, id,subject,content,reg_date, ansstatus, 
 			ROW_NUMBER() OVER(ORDER BY queidx DESC) AS rnum FROM question
 		)
-	WHERE rnum BETWEEN #{param1} AND #{param2}
+	WHERE <!-- id=#{param1}  AND--> rnum BETWEEN #{param1} AND #{param2}
 	</select>
 	
 	<!-- <insert id="question_write" 
@@ -29,7 +29,7 @@
 			VALUES(queIdx_seq.NEXTVAL,#{id},#{subject},#{content},#{ansstatus},#{type})
 	</insert> -->
 	
-	<select id="question_detail" parameterType="hashMap" resultType="question">
+	<select id="myLib_question_detail" parameterType="hashMap" resultType="question">
 	<!-- <select id="question_detail" resultType="hashMap"> -->
 	<if test="ansstatus.equals('TRUE')">
 		SELECT q.queidx,q.id,q.subject,q.content,q.reg_date,q.ansstatus,q.type,a.content AS answer,a.reg_date 

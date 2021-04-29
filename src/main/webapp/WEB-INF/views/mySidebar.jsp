@@ -6,8 +6,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <style>
@@ -29,12 +27,12 @@
             padding-bottom: 20px;
         }
         a{
-            color:white
+            color:black;
         }
         a:link,a:visited{
-            color: white;
+            color: black;
             text-decoration: none;
-        }
+        } 
     </style>
 </head>
 
@@ -42,22 +40,22 @@
     <div id="mysidenav" class="sidenav">
         <div id="titleMenu"><a href="">도서관메뉴</a></div>
         <div class="menu">
-            <p>1</p>
+            <p>입실|퇴실 내역</p>
         </div>
         <div class="menu">
-            <p>2</p>
+            <p>도서 예약 내역</p>
         </div>
         <div class="menu">
-            <p>3</p>
+            <p>희망 도서 신청 내역</p>
         </div>
         <div class="menu">
-            <p>4</p>
+            <p>내 리뷰내역</p>
         </div>
         <div class="menu">
-            <p>5</p>
+            <a href="MyLibrary">내 문의내역</a>
         </div>
         <div class="menu">
-            <a href="find">6</a>
+            <p>회원정보 수정/탈퇴</p>
         </div>
     </div>
 

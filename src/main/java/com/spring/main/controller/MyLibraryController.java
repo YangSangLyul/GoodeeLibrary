@@ -46,21 +46,21 @@ public class MyLibraryController {
 
 	  @RequestMapping(value = "/myLib_question/5/{page}", method = RequestMethod.GET)
 	  public HashMap<String,Object> question_list( 
-			  @PathVariable int page) { 
+			  @PathVariable int page,HttpSession session) { 
 		  logger.info("나의 문의 페이지2");
-		  logger.info(" page : {}",  page);
+		  logger.info(" page : {}, session Id: {}",  page,session);
 	  
-	  return service.page_list(page); 
+	  return service.page_list(page,session); 
 	  }
 	 
 	
-	@RequestMapping(value = "/question_detail")
+	@RequestMapping(value = "/myLib_question_detail")
 	public ModelAndView question_detail(@RequestParam HashMap<String, Object> params) {
 	//public HashMap<String, Object> question_detail(@RequestParam String idx) {	
 		
 		logger.info("나의 문의 상세페이지");
 		logger.info("params:{}",params);
-		return service.question_detail(params);
+		return service.myLib_question_detail(params);
 	}
 	
 	@RequestMapping(value = "/editForm")
