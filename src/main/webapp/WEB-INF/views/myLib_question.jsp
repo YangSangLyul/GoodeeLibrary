@@ -43,7 +43,7 @@
             height: 10px;
         }
         .n2{
-            width: 400px;
+            width: 300px;
             height: 30px;
         }
     </style>

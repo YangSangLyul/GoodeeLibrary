@@ -12,8 +12,9 @@ public interface QuestionDAO {
 
 	//int question_write(QuestionDTO dto);
 
-	int question_edit(QuestionDTO dto);
-
+	//int question_edit(HashMap<String, Object> params);
+	int question_edit(HashMap<String, Object> params);
+	
 	QuestionDTO question_detail(HashMap<String, Object> params);
 
 	int question_delete(String idx);
@@ -26,6 +27,8 @@ public interface QuestionDAO {
 
 
 	ArrayList<QuestionDTO> page_list(int start, int end);
+
+	QuestionDTO question_editForm(HashMap<String, Object> params);
 
 	//HashMap<String, Object> question_detail(String idx);
 
