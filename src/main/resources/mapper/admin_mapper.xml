@@ -32,7 +32,7 @@
 	</insert>
 	
 	<select id="hideBtn" resultType="com.spring.main.dto.AdminDTO" parameterType="list">
-		SELECT reg_date FROM bestreview WHERE TO_CHAR(reg_date,'YYYYMM') = TO_CHAR(SYSDATE, 'YYYYMM')
+		SELECT id FROM bestreview WHERE TO_CHAR(reg_date,'YYYYMM') = TO_CHAR(SYSDATE, 'YYYYMM')
 	</select>
 	
 </mapper>

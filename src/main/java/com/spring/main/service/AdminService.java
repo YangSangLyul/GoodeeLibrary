@@ -52,13 +52,16 @@ public class AdminService {
 	    return success;
 	}
 
-	public ArrayList<String> hideBtn() {
+	public HashMap<String, Object> hideBtn() {
 		logger.info("현재날짜와 매치 요청");
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<String> hide = dao.hideBtn();
-		if(hide.size()>0) {
+		map.put("hide",hide);
+		logger.info("map: "+map);
+		if(map.size()>0) {
 			logger.info("버튼 숨겨라");
 		}
-		return hide;
+		return map;
 	}
 	
 	
