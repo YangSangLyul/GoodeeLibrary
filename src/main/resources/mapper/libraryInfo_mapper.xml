@@ -82,6 +82,20 @@
 		ORDER BY FAQIDX ASC
 	</select>
 	
-
+	<select id="question_infoNotice" resultType="com.spring.main.dto.LibraryInfoDTO">
+	SELECT * FROM Question ORDER BY QUEIDX DESC
+	</select>
+	<select id="questionRoom_infoNotice" resultType="com.spring.main.dto.LibraryInfoDTO">
+	SELECT * FROM Question WHERE TYPE='Q001' ORDER BY QUEIDX DESC
+	</select>
+	<select id="questionBook_infoNotice" resultType="com.spring.main.dto.LibraryInfoDTO">
+	SELECT * FROM Question WHERE TYPE='Q002' ORDER BY QUEIDX DESC
+	</select>
+	<select id="questionService_infoNotice" resultType="com.spring.main.dto.LibraryInfoDTO">
+	SELECT * FROM Question WHERE TYPE='Q003' ORDER BY QUEIDX DESC
+	</select>
+	<select id="questionGuitar_infoNotice" resultType="com.spring.main.dto.LibraryInfoDTO">
+	SELECT * FROM Question WHERE TYPE='Q004' ORDER BY QUEIDX DESC
+	</select>
 	
 </mapper>

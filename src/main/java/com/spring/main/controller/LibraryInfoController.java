@@ -69,11 +69,41 @@ public class LibraryInfoController {
 		return service.faqSearch_infoNotice(params,rAttr);
 	}
 	
+	//전체 or 이동해올때는 이걸 탄다.
+	@RequestMapping(value = "/QuestionAll", method = RequestMethod.GET)
+	public String noticeQuestionAll(Model model) {
+		service.question_infoNotice(model);
+		return "Question";
+	}
 	
+	//방
+	@RequestMapping(value = "/QuestionRoom", method = RequestMethod.GET)
+	public String noticeQuestionRoom(Model model) {
+		service.questionRoom_infoNotice(model);
+		
+		return "Question";
+	}
 	
+	//북
+	@RequestMapping(value = "/QuestionBook", method = RequestMethod.GET)
+	public String noticeQuestionBook(Model model) {
+		service.questionBook_infoNotice(model);
+		return "Question";
+	}
 	
+	//서비스
+	@RequestMapping(value = "/QuestionService", method = RequestMethod.GET)
+	public String noticeQuestionService (Model model) {
+		service.questionService_infoNotice(model);
+		return "Question";
+	}
 	
-	
+	//기타
+	@RequestMapping(value = "/QuestionGuitar", method = RequestMethod.GET)
+	public String noticeQuestionGuitar(Model model) {
+		service.questionGuitar_infoNotice(model);
+		return "Question";
+	}
 	
 	
 	

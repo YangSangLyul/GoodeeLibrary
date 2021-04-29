@@ -13,6 +13,39 @@ public class LibraryInfoDTO {
 	private int faqidx; //faq의  게시글번호
 	private String anwser; //질문에대한답변
 	
+	private int queidx; //질문의 게시글번호
+	private String showstatus; //보여지는상태값 트펄 nvarchar2
+	private String ansstatus; // 질문을 해준것과안해준것
+	private String type; //타입 q001/~~4까지
+	
+	
+	public int getQueidx() {
+		return queidx;
+	}
+	public void setQueidx(int queidx) {
+		this.queidx = queidx;
+	}
+	public String getShowstatus() {
+		return showstatus;
+	}
+	public void setShowstatus(String showstatus) {
+		this.showstatus = showstatus;
+	}
+	public String getAnsstatus() {
+		return ansstatus;
+	}
+	public void setAnsstatus(String ansstatus) {
+		this.ansstatus = ansstatus;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	//여까지 추가된 question의 dto
+	
 	public int getFaqidx() {
 		return faqidx;
 	}

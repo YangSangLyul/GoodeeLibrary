@@ -80,7 +80,7 @@
         
         $(".menu:eq(3)").click(function () {
             console.log("4번")
-            location.href = '';
+            location.href = 'QuestionAll';
         })
         
     </script>
