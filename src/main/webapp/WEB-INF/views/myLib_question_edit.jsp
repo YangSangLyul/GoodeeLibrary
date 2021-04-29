@@ -65,13 +65,15 @@
 </style>
 </head>
 <body>
+	<jsp:include page="header.jsp"/>
     <div id="qdBackground">
         <form action="question_edit" method="POST">
             <table>
+            	<input type="hidden" name="idx" value="${question_info.queidx}"/>
                 <tr>
                     <td>
                         제목
-                        <input type="text" value="제목수정해주세욥">
+                        <input type="text" name="subject" value="${question_info.subject}">
                     </td>
                     <td>
                         문의유형<br>
@@ -85,15 +87,15 @@
                 </tr>
                 <tr>
                     <td>작성자<br>
-                        <p>도고정입니다</p>
+                        <p>${question_info.id}</p>
                     </td>
                     <td>날짜<br>
-                        <p>도고정입니다</p>
+                        <p>${question_info.reg_date}</p>
                     </td>
                 </tr>
                 <tr> 
                     <td colspan="2">문의내용
-                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                        <textarea name="content" id="" cols="30" rows="10">${question_info.content}</textarea>
                     </td>
                 </tr>
                 <tr>
@@ -102,9 +104,13 @@
                     </td>
                 </tr>
             </table>
-        </form>
             <button id="b1">저장</button>
+        </form>
             <button id="b2">취소</button>
+            <!-- <button id="b2" onclick="location.href='./question_detail?idx='">취소</button> -->
         </div>
     </body>
-    </html>
+    <script>
+    
+    </script>
+</html>

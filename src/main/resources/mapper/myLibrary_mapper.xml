@@ -42,8 +42,13 @@
 	</if>
 	</select>
 	
-	<update id="question_edit" parameterType="question">
-		UPDATE question SET subject=#{subject}, type=#{type}, content=#{content} WHERE queIdx=6 
+	<select id="question_editForm" parameterType="hashMap" resultType="question">
+		SELECT queidx,id,subject,content,reg_date,ansstatus,type 
+		FROM question WHERE queidx=#{idx}
+		</select>
+		
+	<update id="question_edit" parameterType="hashMap">
+		UPDATE question SET subject=#{subject}, type=#{Qtype}, content=#{content} WHERE queIdx=#{idx} 
 	</update>
 	
 	<delete id="question_delete">
