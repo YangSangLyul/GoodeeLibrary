@@ -214,6 +214,5 @@ function joinChk() {
 		}
 }
 
-
 </script>
 </html>

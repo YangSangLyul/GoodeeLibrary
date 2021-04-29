@@ -79,7 +79,7 @@ button {
 		<div>
 			<a href="myLib_UpdatePwForm">비밀번호 변경하기</a>
 		</div>
-		<button class="find_button" onclick="location.href='./'">취소</button>
+		<button class="find_button" onclick="location.href='myLib_Update'">취소</button>
 		</div>
 </body>
 <script>
