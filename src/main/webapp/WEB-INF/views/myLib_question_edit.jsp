@@ -104,13 +104,16 @@
                     </td>
                 </tr>
             </table>
-            <button id="b1">저장</button>
+            <input id="save" type="button" value="저장"/>
+	        <input id="cancel" type="button" value="취소" onclick="location.href='./question_detail?idx=${question_info.queidx}&&ansstatus=FALSE'"/>
         </form>
-            <button id="b2">취소</button>
-            <!-- <button id="b2" onclick="location.href='./question_detail?idx='">취소</button> -->
-        </div>
-    </body>
-    <script>
-    
-    </script>
+        <!-- <button id="b2" onclick="location.href='./question_detail?idx='">취소</button> -->
+    </div>
+</body>
+<script>
+$("#save").click(function(){
+	//$('#content').val($('#editable').html());
+	$('form').submit();
+});
+</script>
 </html>
