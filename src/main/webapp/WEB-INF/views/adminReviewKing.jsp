@@ -42,9 +42,9 @@
         <!-- 상단 네비게이션 자리 -->
         <hr/>
         <div id="tabMenu">
-            <button>이달의 리뷰왕</button>
-            <button>신고 리스트</button>
-            <button>블라인드 리스트</button>
+            <button onclick="location.href='ReviewKing'">이달의 리뷰왕</button>
+            <button onclick="location.href='ReportList'">신고 리스트</button>
+            <button onclick="location.href='BlindList'">블라인드 리스트</button>
         </div>
         <br/>
         <table>
