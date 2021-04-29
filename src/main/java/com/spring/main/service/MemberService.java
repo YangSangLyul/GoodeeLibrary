@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -153,7 +154,7 @@ public class MemberService {
 		page = "redirect:/myLib_Update";
 		if(success>0) {
 			page="main";
-			msg = "회원탈퇴가 완료되었습니다.";
+			msg = "정상적으로 탈퇴처리 되었습니다. ";
 		}
 		logger.info("탈퇴성공여부:"+success);
 		mav.addObject("msg", msg);

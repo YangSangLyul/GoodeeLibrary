@@ -27,10 +27,6 @@ div {
 	text-align: center;
 }
 
-#find_btn {
-	margin-top: 20px;
-}
-
 input[type="password"] {
 	width: 110%;
 	height: 30px;
@@ -38,7 +34,7 @@ input[type="password"] {
 	margin: 10px;
 }
 
-button {
+input[type="button"] {
 	width: 100px;
 	height: 40px;
 	margin: 20px 5px;
@@ -57,24 +53,46 @@ button {
 		<div class="subject">
 			<h3>회원 정보 수정</h3>
 		</div>
-		<form action="myLib_mem" method="POST">
+		<form name="form" action="myLib_mem" method="POST">
 			<table id="findFields">
 				<tr>
 					<td id="title">비밀번호</td>
-					<td><input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요." /> 
-						<br /> 
-						<c:if test="${msg == false }">
-							<span> 비밀번호를 다시 확인해주세요.</span>
-						</c:if>
+					<td><input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요." /></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div>${msg}</div>
+						<input type="button" value="수정" id="update"/>
+						<input type="button" value="탈퇴" id="withdraw"/>
 					</td>
 				</tr>
 			</table>
 		</form>
-		<button class="find_button" id="update" onclick="location.href='myLib_UpdateForm'">수정</button>
-		<button class="find_button" id="withdraw" onclick="location.href='memWithdraw'">탈퇴</button>
 	</div>
 </body>
 <script>
+var msg = "${msg}";
+if(msg!=""){
+	alert(msg);
+}
+
+$(document).ready(function() {
+	$("#update").click(function() {
+			document.form.action = "myLib_UpdateForm";
+			document.form.submit();
+	});
+});
+
+$(document).ready(function() {
+	$("#withdraw").click(function() {
+		if(confirm("회원탈퇴시 회원님의 모든 정보가 사라지며 복구 할 수 없습니다. "+"그래도 탈퇴하시겠습니까?")){
+			document.form.action = "memWithdraw";
+			document.form.submit();
+		}
+	});
+});
+
+
 /* $("#update").on("click", function(){
     if($("#pw").val()==""){
         alert("비밀번호를 입력해주세요.");

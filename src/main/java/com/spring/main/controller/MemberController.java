@@ -76,7 +76,7 @@ public class MemberController {
 			logger.info(loginId+" 로그인 성공");
 			session.setAttribute("loginId", loginId);
 			page="main";
-			msg = loginId+"님 반갑습니다.";
+			msg = "";
 		}
 		model.addAttribute("msg", msg);
 		return page;
@@ -153,8 +153,8 @@ public class MemberController {
 		logger.info("회원정보 수정요청");
 		return service.memUpdate(dto,session);
 	}
-	
-	@RequestMapping(value = "/memWithdraw", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/memWithdraw", method = RequestMethod.POST)
 	public ModelAndView memWithdraw(HttpSession session) {
 		return service.memWithdraw(session);
 	}
