@@ -23,4 +23,14 @@ public interface LibraryInfoDAO {
 
 	ArrayList<LibraryInfoDTO> faqSearch_infoNotice(HashMap<String, Object> params);
 
+	ArrayList<LibraryInfoDTO> question_infoNotice(Model model);
+
+	ArrayList<LibraryInfoDTO> questionRoom_infoNotice(Model model);
+
+	ArrayList<LibraryInfoDTO> questionBook_infoNotice(Model model);
+
+	ArrayList<LibraryInfoDTO> questionService_infoNotice(Model model);
+
+	ArrayList<LibraryInfoDTO> questionGuitar_infoNotice(Model model);
+
 }

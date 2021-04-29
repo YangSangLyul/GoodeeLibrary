@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>로그인 화면</title>
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 <style>
 .main {
 	width: 400px;
@@ -88,7 +89,7 @@ input[type="button"] {
 		<form action="login" id="loginForm" name="loginForm" method="POST">
 			<fieldset>
 				<div id="inputFields">
-					<p><input type="text" name="id" value="" placeholder="아이디를 입력해주세요." /></p>
+					<p><input type="text" name="id" id="id" placeholder="아이디를 입력해주세요." /></p>
 					<p><input type="password" name="pw" value="" placeholder="비밀번호를 입력해주세요." /></p>
 					<p><input type="submit" id="login" value="로그인" /></p>
 					<p class="idSaveCheck"><input type="checkbox" id="idSaveCheck" />아이디 기억하기</p>
@@ -108,59 +109,58 @@ if(msg!=""){
 	alert(msg);
 }
 
- $(function() {
-	//쿠키값 가져오기
-	var cookie_id = getLogin(); 
-	
-	if(cookie_id !=""){
-		$("#id").val(cookie_id);
-		$("#idSaveCheck").attr("checked",true);
-	}
-	
-	$("#idSaveCheck").on("click",function(){
-		var _this = this;
-		var isSave;
-		if($(_this).is(":checked")){
-			isSave = confirm("아이디 기억");
-		}
-	});
-	
-	$("#login").on("click",function(){
-		if($("#idSaveCheck").is(":checked")){
-			saveLogin($("#virtual_id").val());
-		}else{
-			saveLogin("");
-		}
-	});
+$(document).ready(function(){
+	 
+    // 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
+    var key = getCookie("key");
+    $("#id").val(key); 
+     
+    if($("#id").val() != ""){ // 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
+        $("#idSaveCheck").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
+    }
+     
+    $("#idSaveCheck").change(function(){ // 체크박스에 변화가 있다면,
+        if($("#idSaveCheck").is(":checked")){ // ID 저장하기 체크했을 때,
+            setCookie("key", $("#id").val(), 7); // 7일 동안 쿠키 보관
+        }else{ // ID 저장하기 체크 해제 시,
+            deleteCookie("key");
+        }
+    });
+     
+    // ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
+    $("#id").keyup(function(){ // ID 입력 칸에 ID를 입력할 때,
+        if($("#idSaveCheck").is(":checked")){ // ID 저장하기를 체크한 상태라면,
+            setCookie("key", $("#userId").val(), 7); // 7일 동안 쿠키 보관
+        }
+    });
 });
-
-function saveLogin(id) {
-	if(id!=""){
-		setSave("userId",id,7);
-	}else{
-		setSave("userId",id,-1);
-	}
+ 
+function setCookie(cookieName, value, exdays){
+    var exdate = new Date();
+    exdate.setDate(exdate.getDate() + exdays);
+    var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+    document.cookie = cookieName + "=" + cookieValue;
+}
+ 
+function deleteCookie(cookieName){
+    var expireDate = new Date();
+    expireDate.setDate(expireDate.getDate() - 1);
+    document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+}
+ 
+function getCookie(cookieName) {
+    cookieName = cookieName + '=';
+    var cookieData = document.cookie;
+    var start = cookieData.indexOf(cookieName);
+    var cookieValue = '';
+    if(start != -1){
+        start += cookieName.length;
+        var end = cookieData.indexOf(';', start);
+        if(end == -1)end = cookieData.length;
+        cookieValue = cookieData.substring(start, end);
+    }
+    return unescape(cookieValue);
 }
 
-function setSave(name, value, expiredays) {
-	var today = new Date();
-	today.setDate(today.getDate() + expirehours);
-	document.cookie = name + "=" + escape(value) + "; path=/; expires="
-			+ todayDate.toGMTString() + ";"
-}
-
-function getLogin(){
-	var cook = document.cookie+",";
-	var idx = cook.indexOf("userId",0);
-	var val = "";
-	
-	if(idx != -1){
-		cook = cook.substring(idx,cook.length);
-		begin = cook.indexOf("=",0)+1;
-		end = cook.indexOf(",",begin);
-		val = unescape(cook.substring(begin,end));
-	}
-	return val;
-} 
 </script>
 </html>

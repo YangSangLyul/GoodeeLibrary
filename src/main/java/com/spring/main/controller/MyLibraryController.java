@@ -7,14 +7,12 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dto.QuestionDTO;
@@ -65,12 +63,25 @@ public class MyLibraryController {
 		return service.question_detail(params);
 	}
 	
-	@RequestMapping(value = "/question_edit")
-	public ModelAndView question_edit(@RequestParam QuestionDTO dto) {
-		logger.info("나의 문의 상세페이지 수정");
-		logger.info(dto.getQueidx()+"/"+dto.getSubject()+"/"+dto.getContent()+"/"+dto.getType());
+	@RequestMapping(value = "/editForm")
+	public ModelAndView question_edit(Model model,HttpSession session,@RequestParam HashMap<String, Object> params) {
 		
-		return service.question_edit(dto);
+		logger.info("나의 문의 수정페이지");
+		logger.info("params:{}",params);
+		return service.question_editForm(params);
+	  }
+	
+	
+	@RequestMapping(value = "/question_edit")
+	//public HashMap<String, Object> question_edit(@RequestParam HashMap<String, Object> params) {
+	public ModelAndView question_edit(@RequestParam HashMap<String, Object> params) {
+		
+		logger.info("나의 문의 상세페이지 수정");
+		logger.info("params:{}",params);
+		//HashMap<String, Object> map = new HashMap<String, Object>();
+		//map.put("", value)
+		return service.question_edit(params);
+		
 	}
 
 	@RequestMapping(value = "/question_delete")

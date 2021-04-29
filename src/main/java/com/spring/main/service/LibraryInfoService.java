@@ -89,6 +89,34 @@ public class LibraryInfoService {
 		return mav;
 		
 	}
+ // if문으로 하나로 할껄 그랫나봄;;;
+	public void question_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.question_infoNotice(model);
+		model.addAttribute("list",list);
+	}
+
+	public void questionRoom_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.questionRoom_infoNotice(model);
+		model.addAttribute("list",list);
+	}
+
+	public void questionBook_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.questionBook_infoNotice(model);
+		model.addAttribute("list",list);
+		
+	}
+
+	public void questionService_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.questionService_infoNotice(model);
+		model.addAttribute("list",list);
+		
+	}
+
+	public void questionGuitar_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.questionGuitar_infoNotice(model);
+		model.addAttribute("list",list);
+		
+	}
 
 
 }

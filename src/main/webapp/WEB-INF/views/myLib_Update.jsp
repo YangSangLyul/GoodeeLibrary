@@ -57,13 +57,15 @@ button {
 		<div class="subject">
 			<h3>회원 정보 수정</h3>
 		</div>
-		<form action="mylib_mem" method="POST">
+		<form action="myLib_mem" method="POST">
 			<table id="findFields">
 				<tr>
 					<td id="title">비밀번호</td>
 					<td><input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요." /> 
-					<br /> 
-					<span></span>
+						<br /> 
+						<c:if test="${msg == false }">
+							<span> 비밀번호를 다시 확인해주세요.</span>
+						</c:if>
 					</td>
 				</tr>
 			</table>
@@ -73,28 +75,41 @@ button {
 	</div>
 </body>
 <script>
-var msg = "${msg}"; 
-if (msg != "") {  
-	confirm(msg); 
-}
+/* $("#update").on("click", function(){
+    if($("#pw").val()==""){
+        alert("비밀번호를 입력해주세요.");
+        $("#pw").focus();
+        return false;
+    }
+    $.ajax({
+        url : "myLib_UpdateForm",
+        type : "POST",
+        dataType : "text",
+        data :  {"pw":$("#pw").val()}
+        success: function(data){
+            if(data==0){
+                alert("패스워드가 틀렸습니다.");
+                return;
+            }else{
+                if(confirm("회원탈퇴하시겠습니까?")){
+                    $("#delForm").submit();
+                }
+            }
+        }
+    })
 
-/* $("button").click(function(){
-	 if($("#pw").val()==""){
-	 	alert("비밀번호를 입력해주세요");
-	 }else{
-		 $("form").submit();
-	} 
-}); */
+});
 
-$("#update").click(function(){
+
+$("#withdraw").click(function(){
 	if($("#pw").val()==''){
 		alert('비밀번호를 입력해주세요.');
    }else{
    	$.ajax({
-			type:'get'
-			,url:'"memUpdate"'
+			type:'POST'
+			,url:'"memWithdraw"'
 			,data: {"pw":$("#pw").val()}
-			,dataType:'test'
+			,dataType:'text'
 			,success:function(data){
 				console.log(data);
 				if(data == true){//입력값이 맞다면
@@ -109,6 +124,6 @@ $("#update").click(function(){
 			}
 		});
    }
-}); 
+});  */
 </script>
 </html>
