@@ -16,6 +16,7 @@
     <link href="/static/css/main.a583af82.chunk.css" rel="stylesheet">
     <!--highlight.js cdn-->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/styles/default.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/highlight.min.js"></script>
     <!--bootstrapcdn-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -216,11 +217,50 @@
             cursor: default;
             color: #777;
         }
+        #titleMenu {
+            border: 1px solid black;
+            background-color: blue;
+            width: 200px;
+            height: 50px;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .menu{
+            border: 1px solid black;
+            background-color: white;
+            width: 200px;
+            height: 38px;
+            text-align: center;
+            padding-bottom: 20px;
+        } 
+         a{
+            color:white
+        }
+        a:link,a:visited{
+            color: black;
+            text-decoration: none;
+        } 
     </style>
 </head>
 
 <body>
-	<jsp:include page="bookuseSidebar.jsp"/>
+<div id="mysidenav" class="sidenav">
+        <div id="titleMenu"><a href="">도서관이용안내</a></div>
+        <div class="menu">
+            <p>찾아오는길</p>
+        </div>
+        <div class="menu">
+            <p>공지사항</p>
+        </div>
+        <div class="menu">
+            <p>FAQ</p>
+        </div>
+        <div class="menu">
+            <p>묻고답하기</p>
+        </div>
+    </div>
+	
 	
     <div class="container">
         <div class="map_wrap">
@@ -488,7 +528,38 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>  
+        
+        <script>
+        $(".menu").hover(function () {
+            $(this).css("backgroundColor", "red");
+        }, function () {
+            $(this).css("backgroundColor", "white");
+        })
+
+       //여기 누르면 경로 지정 예시 ;
+        //여기 누르면 경로 지정;
+        $(".menu:eq(0)").click(function () {
+           console.log("1번")
+           location.href = 'main/LibraryInfo';
+       })
+       
+        $(".menu:eq(1)").click(function () {
+            console.log("2번")
+            location.href = 'main/noticea';
+        })
+        
+        $(".menu:eq(2)").click(function () {
+            console.log("3번")
+            location.href = 'main/faq';
+        })
+        
+        $(".menu:eq(3)").click(function () {
+            console.log("4번")
+            location.href = '';
+        })
+        
+    </script>
     <script>
         hljs.initHighlightingOnLoad();
     </script>
