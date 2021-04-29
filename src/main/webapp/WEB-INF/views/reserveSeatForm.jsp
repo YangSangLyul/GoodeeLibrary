@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -184,7 +186,7 @@
 			</div>
 			
 			<div id="reserveBtn">
-				<button>예약하기</button>
+				<button id="reserveSubmit">예약하기</button>
 			</div>
 			
 			<!-- 예약 테이블 -->
@@ -205,20 +207,67 @@
 			</table>
 			<div id="tbl">
 			<form name="dragchkform" method="GET">
+			
 			<table id="tblMain" style="background-color: white;">	
+			
+			<c:forEach items="${list}" var="seat">
+			
 				<tr>
-					<th>1<input type="radio" class="seatChk" name="seatNum"  value="1" onclick="resetChk(this)"/></th>
-					<td><input type="checkbox" class="timeChk" name="seatTime" onclick="check(this)" value="9"/></td>
-					<td><input type="checkbox" class="timeChk" name="seatTime" onclick="whatRowNumber(this)" value="10"/></td>
-					<td><input type="checkbox" class="timeChk" name="seatTime" onclick="check(this)" value="11"/></td>
-					<td><input type="checkbox" class="timeChk" name="seatTime" onclick="check(this)" value="12"/></td>
-					<td><input type="checkbox" class="timeChk" name="seatTime" onclick="check(this)" value="13"/></td>
-					<td><input type="checkbox" class="timeChk" name="seatTime" onclick="check(this)" value="14"/></td>
-					<td><input type="checkbox" class="timeChk" name="seatTime" onclick="check(this)" value="15"/></td>
-					<td><input type="checkbox" class="timeChk" name="seatTime" onclick="check(this)" value="16"/></td>
-					<td><input type="checkbox" class="timeChk" name="seatTime" onclick="check(this)" value="17"/></td>
+					<th>${seat.seatNumber}<input type="radio" class="seatChk" name="seatNum"  value="${seat.seatNumber}" onclick="resetChk(this)"/></th>
+					
+					<c:forEach items="${reserveList}" var="reserve" varStatus="status">
+					<fmt:formatDate var="start" value="${reserve.reserveStart}" pattern="HH"/>
+					<fmt:formatDate var="end" value="${reserve.reserveEnd}" pattern="HH"/>
+					<fmt:parseNumber var="intStart" value="${start}" integerOnly="true"/>
+					<fmt:parseNumber var="intEnd" value="${end}" integerOnly="true"/>
+					<td>
+					<c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '09' || intEnd < '09')}">
+					<input type="checkbox" class="timeChk" name="seatTime" value="09"/>
+					</c:if>
+					</td>
+					
+					<td>					
+					<c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '10' || intEnd < '10')}">
+					<input type="checkbox" class="timeChk" name="seatTime" value="10"/>
+					</c:if>
+					</td>
+					<td>
+					<c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '11' || intEnd < '11')}">
+					<input type="checkbox" class="timeChk" name="seatTime" value="11"/>
+					</c:if>
+					</td>
+					<td>
+					<c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '12' || intEnd < '12')}">
+					<input type="checkbox" class="timeChk" name="seatTime" value="12"/>
+					</c:if>
+					</td>
+					<td>					
+					<c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '13' || intEnd < '13')}">
+					<input type="checkbox" class="timeChk" name="seatTime" value="13"/>
+					</c:if>
+					</td>
+					<td>					
+					<c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '14' || intEnd < '14')}">
+					<input type="checkbox" class="timeChk" name="seatTime" value="14"/>
+					</c:if>
+					</td>
+					<td>					
+					<c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '15' || intEnd < '15')}">
+					<input type="checkbox" class="timeChk" name="seatTime" value="15"/>
+					</c:if>
+					</td>
+					<td>					
+					<c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '16' || intEnd < '16')}">
+					<input type="checkbox" class="timeChk" name="seatTime" value="16"/>
+					</c:if>
+					</td>
+					<td>					
+					<c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '17' || intEnd < '17')}">
+					<input type="checkbox" class="timeChk" name="seatTime" value="17"/>
+					</c:if></td>
+					</c:forEach>
 				</tr>
-				
+			</c:forEach>
 			</table>
 			</form>
 			</div>
@@ -256,6 +305,37 @@
 	            document.dragchkform.seatTime[i].onmouseover = dragchkOnMouseOver; 
 	            document.onmouseup = dragchkOnMouseUp; 
 	    } 
+	    
+	    
+	    $("#reserveSubmit").click(function(){
+	    	console.log($('input:checkbox[name=seatTime]:checked'));
+	    	
+	    	//1차 조건 : 좌석 체크 여부
+	    	if($('input:radio[name=seatNum]:checked').length > 0){
+	    		
+	    		//2차 조건 시간 선택 여부
+		    	if($('input:checkbox[name=seatTime]:checked').length > 0){
+		    		//자바스크립트의 경우 tr의 행 주소값을 가져올때 rowIndex를 사용하고 제이쿼리는 index를 사용함
+		    		//새로운 조건 추가
+		    		console.log($('input:radio[name=seatNum]:checked').parent().parent().index());
+		    		if($('input:radio[name=seatNum]:checked').parent().parent().index() != $('input:checkbox[name=seatTime]:checked').parent().parent().index()){
+		    			alert('현재 선택한 좌석외의 좌석의 시간은 선택할 수 없습니다!!!');
+		    			for(var i=0;i<=$('input:checkbox[name=seatTime]').length;i++){
+		    				$('input:checkbox[name=seatTime]')[i].checked = false;	
+		    			}
+		    			
+		    		}
+		    		console.log($('input:checkbox[name=seatTime]:checked').parent().parent().index());
+		    		alert('1개 이상 선택 되었음');
+		    	}else{
+		    		alert('좌석 시간을 체크해주세요');	    	
+		    	}
+	    	}else{
+	    		alert('좌석을 체크해야합니다.');
+	    	}
+	    	
+
+	    });
 	    
 	    //연속으로 선택할수만 있게
 	    $(function(){

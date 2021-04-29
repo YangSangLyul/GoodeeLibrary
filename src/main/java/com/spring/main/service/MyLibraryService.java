@@ -10,9 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.QuestionDAO;
+import com.spring.main.dto.LibraryInfoDTO;
 import com.spring.main.dto.QuestionDTO;
 
 @Service
@@ -56,24 +58,6 @@ public class MyLibraryService {
 		//return map;
 	}
 
-	/*public HashMap<String, Object> question_edit(HashMap<String, Object> params) {
-		//ModelAndView mav = new ModelAndView();
-		logger.info("문의글 수정 요청");
-		//int success = dao.question_edit(params);
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		int success = dao.question_edit(params);
-
-		logger.info("success:{}",success);
-		
-		if (success >0) { 
-			logger.info("글수정 성공"); 
-			map.put("param", success);
-		}
-		//mav.setViewName(page);
-		return map;
-	}*/
-	
 	public ModelAndView question_edit(HashMap<String, Object> params) {
 		ModelAndView mav = new ModelAndView();
 		logger.info("문의글 수정 요청");
@@ -228,6 +212,37 @@ public class MyLibraryService {
 		//mav.addObject("fileList",fileList);
 		
 		return mav;
+	}
+
+
+	public void question_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.question_infoNotice(model);
+		logger.info("전체보여주기");
+		model.addAttribute("page_list",list);
+	}
+
+
+	public void questionRoom_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.questionRoom_infoNotice(model);
+		model.addAttribute("page_list",list);
+	}
+
+
+	public void questionBook_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.questionBook_infoNotice(model);
+		model.addAttribute("page_list",list);
+	}
+
+
+	public void questionService_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.questionService_infoNotice(model);
+		model.addAttribute("page_list",list);
+	}
+
+
+	public void questionOthers_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> list = dao.questionOthers_infoNotice(model);
+		model.addAttribute("page_list",list);
 	}
 
 }
