@@ -115,10 +115,9 @@
 
  function aCall(){
 	 var showPage=1;
-	 
+	$("#pagination").twbsPagination('destroy');
 	 listCall(showPage); 
  }
- 
  function listCall(reqPage){
 	 var params = {
 				searchSelect:$("#searchSelect").val()
