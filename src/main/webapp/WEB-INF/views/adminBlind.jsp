@@ -48,21 +48,23 @@
         <br/>
         <table>
             <tr>
-                <th>신고번호</th>
+                <th>번호</th>
                 <th>신고사유</th>
                 <th>블라인드사유</th>
                 <th>등록날짜</th>
                 <th>해제</th>
             </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <input type="button" id="blind" value="블라인드 해제"/>
-                </td>
-            </tr>
+            <c:forEach items="${blind}" var="blind">
+	            <tr>
+	                <td>${blind.blindIdx}</td>
+	                <td>${blind.reportReason}</td>
+	                <td>${blind.blindReason}</td>
+	                <td>${blind.blind_date}</td>
+	                <td>
+	                    <input type="button" id="blind" value="블라인드 해제"/>
+	                </td>
+	            </tr>
+            </c:forEach>
         </table>
         <!-- 페이징 처리 자리 -->
     </body>

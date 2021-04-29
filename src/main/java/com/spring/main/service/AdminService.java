@@ -53,15 +53,33 @@ public class AdminService {
 	}
 
 	public HashMap<String, Object> hideBtn() {
-		logger.info("현재날짜와 매치 요청");
+		logger.info("현재날짜와 매치 쿼리 요청");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<String> hide = dao.hideBtn();
 		map.put("hide",hide);
 		logger.info("map: "+map);
 		if(map.size()>0) {
-			logger.info("버튼 숨겨라");
+			logger.info("이미 리뷰왕 선정 했음");
 		}
 		return map;
+	}
+
+	public ModelAndView ReportList() {
+		logger.info("신고리스트 쿼리 요청");
+		ModelAndView mav = new ModelAndView();
+		ArrayList<AdminDTO> ReportList = dao.ReportList();
+		mav.addObject("report", ReportList);
+		mav.setViewName("adminReport");
+		return mav;
+	}
+
+	public ModelAndView BlindList() {
+		logger.info("블라인드 리스트 쿼리 요청");
+		ModelAndView mav = new ModelAndView();
+		ArrayList<AdminDTO> BlindList = dao.BlindList();
+		mav.addObject("blind", BlindList);
+		mav.setViewName("adminBlind");
+		return mav;
 	}
 	
 	
