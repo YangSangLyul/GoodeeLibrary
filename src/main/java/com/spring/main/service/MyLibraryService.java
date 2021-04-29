@@ -54,14 +54,36 @@ public class MyLibraryService {
 		//return map;
 	}
 
-	public ModelAndView question_edit(QuestionDTO dto) {
+	/*public HashMap<String, Object> question_edit(HashMap<String, Object> params) {
+		//ModelAndView mav = new ModelAndView();
+		logger.info("문의글 수정 요청");
+		//int success = dao.question_edit(params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int success = dao.question_edit(params);
+
+		logger.info("success:{}",success);
+		
+		if (success >0) { 
+			logger.info("글수정 성공"); 
+			map.put("param", success);
+		}
+		//mav.setViewName(page);
+		return map;
+	}*/
+	
+	public ModelAndView question_edit(HashMap<String, Object> params) {
 		ModelAndView mav = new ModelAndView();
 		logger.info("문의글 수정 요청");
-		int success = dao.question_edit(dto);
-		String page = "myLib_question_edit";
-		if (success > 0) {
-			logger.info("글수정 성공");
-			page = "redirect:/";
+		
+		int success = dao.question_edit(params);
+		logger.info("success:{}",success);
+
+		String page="myLib_question_edit";
+		if (success >0) { 
+			logger.info("글수정 성공"); 
+			page="myLib_question";
+		
 		}
 		mav.setViewName(page);
 		return mav;
@@ -184,6 +206,23 @@ public class MyLibraryService {
 		//전체 게시글 수 
 		//map.put("totalCnt",dao.allCount());
 		return map;
+	}
+
+
+	public ModelAndView question_editForm(HashMap<String, Object> params) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("수정페이지 요청");
+		//HashMap<String, Object> map = new HashMap<String, Object>();
+		QuestionDTO dto = dao.question_editForm(params);// 상세 보기
+		//HashMap<String, Object> dto = dao.question_detail(idx);
+		//map.put("question_info",dto);
+		mav.addObject("question_info", dto);
+		mav.setViewName("myLib_question_edit");
+		
+		//ArrayList<QuestionPhotoDTO> fileList = dao.fileList(idx);
+		//mav.addObject("fileList",fileList);
+		
+		return mav;
 	}
 
 }

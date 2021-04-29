@@ -42,15 +42,14 @@
         }
     </style>
 </head>
-
 <body>
     <div id="QBack">
         <div id="buttonBox">
-            <button>전체</button>
-            <button>열람실</button>
-            <button>도서</button>
-            <button>서비스</button>
-            <button>기타</button>
+            <button onclick="location.href='QuestionAll'">전체</button>
+            <button onclick="location.href='QuestionRoom'">열람실</button>
+            <button onclick="location.href='QuestionBook'">도서</button>
+            <button onclick="location.href='QuestionService'">서비스</button>
+            <button onclick="location.href='QuestionGuitar'">기타</button><!--etc-->
             <button class="writebox">글쓰기</button>
         </div>
         <div id="QuestionTable">
@@ -62,76 +61,18 @@
                     <th>작성일</th>
                     <th>답변</th>
                 </tr>
+                <c:forEach items="${list}" var="dto">
                 <tr>
-                    <td class="n1">1</td>
-                    <td class="n2">예제예제제목입니달ㅇㄴ마ㅣ릉ㄴㅁ리ㅏㄴㅁㅇㅇㅇㄴㄴㅇ</td>
-                    <td>테스트1</td>
-                    <td>2022-22-22</td>
-                    <td>x</td>
-                </tr>
-                <tr>
-                    <td class="n1">2</td>
-                    <td class="n2">예제예제제목입니달ㅇㄴ마ㅣ릉ㄴㅁ리ㅏㄴㅁㅇㅇㅇㄴㄴㅇ</td>
-                    <td>테스트2</td>
-                    <td>2022-22-22</td>
-                    <td>x</td>
-                </tr>
-                <tr>
-                    <td class="n1">3</td>
-                    <td class="n2">예제예제제목입니달ㅇㄴ마ㅣ릉ㄴㅁ리ㅏㄴㅁㅇㅇㅇㄴㄴㅇ</td>
-                    <td>테스트1</td>
-                    <td>2022-22-22</td>
-                    <td>x</td>
-                </tr>
-                <tr>
-                    <td class="n1">4</td>
-                    <td class="n2">예제예제제목입니달ㅇㄴ마ㅣ릉ㄴㅁ리ㅏㄴㅁㅇㅇㅇㄴㄴㅇ</td>
-                    <td>테스트1</td>
-                    <td>2022-22-22</td>
-                    <td>x</td>
-                </tr>
-                <tr>
-                    <td class="n1">5</td>
-                    <td class="n2">예제예제제목입니달ㅇㄴ마ㅣ릉ㄴㅁ리ㅏㄴㅁㅇㅇㅇㄴㄴㅇ</td>
-                    <td>테스트1</td>
-                    <td>2022-22-22</td>
-                    <td>x</td>
-                </tr>
-                <tr>
-                    <td class="n1">6</td>
-                    <td class="n2">예제예제제목입니달ㅇㄴ마ㅣ릉ㄴㅁ리ㅏㄴㅁㅇㅇㅇㄴㄴㅇ</td>
-                    <td>테스트1</td>
-                    <td>2022-22-22</td>
-                    <td>x</td>
-                </tr>
-                <tr>
-                    <td class="n1">7</td>
-                    <td class="n2">예제예제제목입니달ㅇㄴ마ㅣ릉ㄴㅁ리ㅏㄴㅁㅇㅇㅇㄴㄴㅇ</td>
-                    <td>테스트1</td>
-                    <td>2022-22-22</td>
-                    <td>x</td>
-                </tr>
-                <tr>
-                    <td class="n1">8</td>
-                    <td class="n2">예제예제제목입니달ㅇㄴ마ㅣ릉ㄴㅁ리ㅏㄴㅁㅇㅇㅇㄴㄴㅇ</td>
-                    <td>테스트1</td>
-                    <td>2022-22-22</td>
-                    <td>x</td>
-                </tr>
-                <tr>
-                    <td class="n1">9</td>
-                    <td class="n2">예제예제제목입니달ㅇㄴ마ㅣ릉ㄴㅁ리ㅏㄴㅁㅇㅇㅇㄴㄴㅇ</td>
-                    <td>테스트1</td>
-                    <td>2022-22-22</td>
-                    <td>x</td>
-                </tr>
-                <tr>
-                    <td class="n1">10</td>
-                    <td class="n2">예제예제제목입니달ㅇㄴ마ㅣ릉ㄴㅁ리ㅏㄴㅁㅇㅇㅇㄴㄴㅇ</td>
-                    <td>테스트1</td>
-                    <td>2022-22-22</td>
-                    <td>x</td>
-                </tr>
+                    <td class="n1">${dto.queidx}</td>
+                    <td class="n2">${dto.subject}</td>
+                    <td>${dto.id}</td>
+                    <td>${dto.reg_date}</td>
+<c:choose>
+<c:when test="${dto.ansstatus =='FALSE'}"><td>답변대기중</td></c:when>
+<c:when test="${dto.ansstatus =='TRUE'}"><td>답변완료</td></c:when>       	
+</c:choose> 
+                </tr>                
+                </c:forEach>
             </table>
         </div>
     </div>

@@ -1,23 +1,33 @@
 package com.spring.main.dto;
 
-import oracle.sql.DATE;
+import java.sql.Date;
 
 public class AdminDTO {
-	
+
+	//Review
    private int reviewIdx;
    private String content;
    private String id;
-   private DATE reg_date;
+   private Date reg_date;
    private int reportCnt;
    private String blind_status;
    private int cnt; //리뷰수,추천수
    private int month_rcnt;
-   private int bookIdx;
+   private int bookIdx;  
+   private Date recom_date; //ReviewRecommend 선정날짜
+   private int rnum; //순위 정렬
    
-   private DATE recom_date;
-   private int rnum;
-   //private int upHit;
-   private int reviewCnt;   
+   //ReviewReport
+   private int reportIdx;
+   private String reportId;
+   private Date reportdate;
+   private String reportReason;
+   private String reportStatus;
+   
+   //ReviewBlind
+   private int blindIdx;
+   private String blindReason;
+   private Date blind_date;
    
 	public int getReviewIdx() {
 		return reviewIdx;
@@ -37,10 +47,10 @@ public class AdminDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public DATE getReg_date() {
+	public Date getReg_date() {
 		return reg_date;
 	}
-	public void setReg_date(DATE reg_date) {
+	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}
 	public int getReportCnt() {
@@ -73,10 +83,10 @@ public class AdminDTO {
 	public void setBookIdx(int bookIdx) {
 		this.bookIdx = bookIdx;
 	}
-	public DATE getRecom_date() {
+	public Date getRecom_date() {
 		return recom_date;
 	}
-	public void setRecom_date(DATE recom_date) {
+	public void setRecom_date(Date recom_date) {
 		this.recom_date = recom_date;
 	}
 	public int getRnum() {
@@ -85,11 +95,53 @@ public class AdminDTO {
 	public void setRnum(int rnum) {
 		this.rnum = rnum;
 	}
-	public int getReviewCnt() {
-		return reviewCnt;
+	public int getReportIdx() {
+		return reportIdx;
 	}
-	public void setReviewCnt(int reviewCnt) {
-		this.reviewCnt = reviewCnt;
+	public void setReportIdx(int reportIdx) {
+		this.reportIdx = reportIdx;
+	}
+	public String getReportId() {
+		return reportId;
+	}
+	public void setReportId(String reportId) {
+		this.reportId = reportId;
+	}
+	public Date getReportdate() {
+		return reportdate;
+	}
+	public void setReportdate(Date reportdate) {
+		this.reportdate = reportdate;
+	}
+	public String getReportReason() {
+		return reportReason;
+	}
+	public void setReportReason(String reportReason) {
+		this.reportReason = reportReason;
+	}
+	public String getReportStatus() {
+		return reportStatus;
+	}
+	public void setReportStatus(String reportStatus) {
+		this.reportStatus = reportStatus;
+	}
+	public Date getBlind_date() {
+		return blind_date;
+	}
+	public void setBlind_date(Date blind_date) {
+		this.blind_date = blind_date;
+	}
+	public int getBlindIdx() {
+		return blindIdx;
+	}
+	public void setBlindIdx(int blindIdx) {
+		this.blindIdx = blindIdx;
+	}
+	public String getBlindReason() {
+		return blindReason;
+	}
+	public void setBlindReason(String blindReason) {
+		this.blindReason = blindReason;
 	}
    
 }

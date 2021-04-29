@@ -34,6 +34,7 @@
    }
 </style>
 <body>
+	<jsp:include page="header.jsp"/>
     <div id="qdBackground">
         <table>
            <tr>
@@ -66,12 +67,17 @@
         </tr>
      
         </table>
-        <!-- if 관리자 답변이 있을 경우 -->
-		<button class="btn" onclick="location.href='./question_edit?idx=${question_info.queidx}'">수정</button>
-		<!-- 문의 내역 끝나면 위치 변경 수정필요! -->
-		<button class="btn" onclick="location.href=./MyLibrary">목록</button>
-        <button class="btn" onclick="location.href='./question_delete?idx=${question_info.queidx}'">삭제</button>
-        <!-- 관리자 답변 없을 경우 숨김처리 -->
+        <!-- 목록으로 가는 url 수정필요~ -->
+		<c:if test="${question_info.ansstatus eq 'TRUE'}">
+			<button class="btn" onclick="location.href='./MyLibrary'">목록</button>
+		</c:if>
+        <!-- if 관리자 답변이 없을 경우 -->
+        <c:if test="${question_info.ansstatus eq 'FALSE'}">
+			<button class="btn" onclick="location.href='./editForm?idx=${question_info.queidx}'">수정</button>
+	        <button class="btn" onclick="location.href='./MyLibrary'">목록</button>
+	        <button class="btn" onclick="location.href='./question_delete?idx=${question_info.queidx}'">삭제</button>
+        
+        </c:if>
     </div>
 </body>
 </html>

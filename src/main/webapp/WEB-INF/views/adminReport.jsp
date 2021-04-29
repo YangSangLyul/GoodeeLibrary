@@ -49,19 +49,23 @@
         <table>
             <tr>
                 <th>신고번호</th>
+                <th>신고ID</th>
                 <th>신고사유</th>
                 <th>신고날짜</th>
                 <th>처리여부</th>
             </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <input type="button" id="blind" value="블라인드"/>
-                    <input type="button" id="ignore" value="무시"/>
-                </td>
-            </tr>
+            <c:forEach items="${report}" var="report">
+	            <tr>
+	                <td>${report.reportIdx}</td>
+	                <td>${report.reportId}</td>
+	                <td>${report.reportReason}</td>
+	                <td>${report.reportdate}</td>
+	                <td>
+	                    <input type="button" id="blind" value="블라인드"/>
+	                    <input type="button" id="ignore" value="무시"/>
+	                </td>
+	            </tr>
+            </c:forEach>
         </table>
         <!-- 페이징 처리 자리 -->
     </body>
