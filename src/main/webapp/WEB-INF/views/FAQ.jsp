@@ -49,7 +49,9 @@
         input{
             font-size: large;
         }
-       
+       .librarian{
+       		display: none;
+       }
      </style>
 </head>
 
@@ -72,126 +74,16 @@
                     <th>번호</th>
                     <th>제목</th>
                 </tr>
+                <c:forEach items="${dto}" var="dto">
                 <tr class="client">
-                    <td>1번</td>
-                    <td>~~~~~~~~~~~~~~~~~~~~~~~~~</td>
+                    <td>${dto.faqidx}번</td>
+                    <td>${dto.content}</td>
                 </tr>
                 <tr class="librarian">
                     <td>답변</td>
-                    <td>Coral reefs are amongst the most productive areas of the ocean. Each coral contains microscopic algae
-                        within its tissue that are able to capture the energy of the Sun and convert it into food. The
-                        corals benefit from this, and this helps support a whole community of life. There’s a tight
-                        recycling of nutrients through the food web, every species being food for another, all
-                        interconnected like a jigsaw puzzle.</td>
+                    <td>${dto.anwser}</td>
                 </tr>
-                <tr class="client">
-                    <td>2번</td>
-                    <td>~~~~~~~~~~~~~~~~~~~~~~~~~</td>
-                </tr>
-                <tr class="librarian">
-                    <td>답변</td>
-                    <td>Coral reefs are amongst the most productive areas of the ocean. Each coral contains microscopic algae
-                        within its tissue that are able to capture the energy of the Sun and convert it into food. The
-                        corals benefit from this, and this helps support a whole community of life. There’s a tight
-                        recycling of nutrients through the food web, every species being food for another, all
-                        interconnected like a jigsaw puzzle.</td>
-                </tr>
-                <tr class="client">
-                    <td>3번</td>
-                    <td>~~~~~~~~~~~~~~~~~~~~~~~~~</td>
-                </tr>
-                <tr class="librarian">
-                    <td>답변</td>
-                    <td>Coral reefs are amongst the most productive areas of the ocean. Each coral contains microscopic algae
-                        within its tissue that are able to capture the energy of the Sun and convert it into food. The
-                        corals benefit from this, and this helps support a whole community of life. There’s a tight
-                        recycling of nutrients through the food web, every species being food for another, all
-                        interconnected like a jigsaw puzzle.</td>
-                </tr>
-                <tr class="client">
-                    <td>4번</td>
-                    <td>~~~~~~~~~~~~~~~~~~~~~~~~~</td>
-                </tr>
-                <tr class="librarian">
-                    <td>답변</td>
-                    <td>Coral reefs are amongst the most productive areas of the ocean. Each coral contains microscopic algae
-                        within its tissue that are able to capture the energy of the Sun and convert it into food. The
-                        corals benefit from this, and this helps support a whole community of life. There’s a tight
-                        recycling of nutrients through the food web, every species being food for another, all
-                        interconnected like a jigsaw puzzle.</td>
-                </tr>
-                <tr class="client">
-                    <td>5번</td>
-                    <td>~~~~~~~~~~~~~~~~~~~~~~~~~</td>
-                </tr>
-                <tr class="librarian">
-                    <td>답변</td>
-                    <td>Coral reefs are amongst the most productive areas of the ocean. Each coral contains microscopic algae
-                        within its tissue that are able to capture the energy of the Sun and convert it into food. The
-                        corals benefit from this, and this helps support a whole community of life. There’s a tight
-                        recycling of nutrients through the food web, every species being food for another, all
-                        interconnected like a jigsaw puzzle.</td>
-                </tr>
-                <tr class="client">
-                    <td>6번</td>
-                    <td>~~~~~~~~~~~~~~~~~~~~~~~~~</td>
-                </tr>
-                <tr class="librarian">
-                    <td>답변</td>
-                    <td>Coral reefs are amongst the most productive areas of the ocean. Each coral contains microscopic algae
-                        within its tissue that are able to capture the energy of the Sun and convert it into food. The
-                        corals benefit from this, and this helps support a whole community of life. There’s a tight
-                        recycling of nutrients through the food web, every species being food for another, all
-                        interconnected like a jigsaw puzzle.</td>
-                </tr>
-                <tr class="client">
-                    <td>7번</td>
-                    <td>~~~~~~~~~~~~~~~~~~~~~~~~~</td>
-                </tr>
-                <tr class="librarian">
-                    <td>답변</td>
-                    <td>Coral reefs are amongst the most productive areas of the ocean. Each coral contains microscopic algae
-                        within its tissue that are able to capture the energy of the Sun and convert it into food. The
-                        corals benefit from this, and this helps support a whole community of life. There’s a tight
-                        recycling of nutrients through the food web, every species being food for another, all
-                        interconnected like a jigsaw puzzle.</td>
-                </tr>
-                <tr class="client">
-                    <td>8번</td>
-                    <td>~~~~~~~~~~~~~~~~~~~~~~~~~</td>
-                </tr>
-                <tr class="librarian">
-                    <td>답변</td>
-                    <td>Coral reefs are amongst the most productive areas of the ocean. Each coral contains microscopic algae
-                        within its tissue that are able to capture the energy of the Sun and convert it into food. The
-                        corals benefit from this, and this helps support a whole community of life. There’s a tight
-                        recycling of nutrients through the food web, every species being food for another, all
-                        interconnected like a jigsaw puzzle.</td>
-                </tr>
-                <tr class="client">
-                    <td>9번</td>
-                    <td>~~~~~~~~~~~~~~~~~~~~~~~~~</td>
-                </tr>
-                <tr class="librarian">
-                    <td>답변</td>
-                    <td>Coral reefs are amongst the most productive areas of the ocean. Each coral contains microscopic algae
-                        within its tissue that are able to capture the energy of the Sun and convert it into food. The
-                        corals benefit from this, and this helps support a whole community of life. There’s a tight
-                        recycling of nutrients through the food web, every species being food for another, all
-                        interconnected like a jigsaw puzzle.</td>
-                </tr>
-                <tr class="client">
-                    <td>10번</td>
-                    <td>~~~~~~~~~~~~~~~~~~~~~~~~~</td>
-                </tr>
-                <tr class="librarian">
-                    <td>답변</td>
-                    <td>Coral reefs are amongst the most productive areas of the ocean. Each coral contains microscopic algae
-                        within its tissue that are able to capture the energy of the Sun and convert it into food. The
-                        corals benefit from this, and this helps support a whole community of life. There’s a tight
-                        recycling of nutrients through the food web, every species being food for another, all
-                        interconnected like a jigsaw puzzle.</td>
-                </tr>
+                </c:forEach>
             </table>
             
             
@@ -204,8 +96,8 @@
                     $('.client').on('click', function (e) {
                         var displaySrc = $(this).next('.librarian').css('display');
                         if (displaySrc == 'none') {
-                            $('.librarian').slideUp(10);
-                            $(this).next('.librarian').slideDown(10);
+                            $('.librarian').slideUp(300);
+                            $(this).next('.librarian').slideDown(300);
                             $('.client').removeClass('selected');
                             $(this).addClass('selected');
                         }

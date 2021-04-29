@@ -63,5 +63,10 @@ public class LibraryInfoService {
 		model.addAttribute("dto",dto);	
 	}
 
+	public void faq_infoNotice(Model model) {
+		ArrayList<LibraryInfoDTO> dto = dao.faq_infoNotice();
+		model.addAttribute("dto",dto);
+	}
+
 
 }

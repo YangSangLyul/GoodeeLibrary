@@ -55,12 +55,10 @@ public class LibraryInfoController {
 	}
 	
 	@RequestMapping(value = "/faq", method = RequestMethod.GET)
-	public ModelAndView noticeFAQ() {
-	
-		ModelAndView mav = new ModelAndView();
+	public String noticeFAQ(Model model) {
 		
-		mav.setViewName("FAQ");
-		return mav;
+		service.faq_infoNotice(model);
+		return "FAQ";
 	}
 	
 	

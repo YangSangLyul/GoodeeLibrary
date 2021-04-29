@@ -155,14 +155,20 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/memWithdraw", method = RequestMethod.GET)
-	public ModelAndView memWithdraw(Model model,HttpSession session) {
+	public ModelAndView memWithdraw(HttpSession session) {
 		return service.memWithdraw(session);
 	}
 	
 	@RequestMapping(value = "/myLib_UpdatePwForm")
 	public String myLib_UpdatePwForm(Model model) {
 		logger.info("회원 비밀번호 변경 페이지로 이동");
-		return "myLib_UpdatePwF";
+		return "myLib_UpdatePwForm";
+	}
+	
+	@RequestMapping(value = "/myLib_UpdatePw")
+	public ModelAndView myLib_UpdatePw(@RequestParam String newPw,HttpSession session) {
+		logger.info("회원 비밀번호 변경 요청");
+		return service.myLib_UpdatePw(newPw,session);
 	}
 	
 
