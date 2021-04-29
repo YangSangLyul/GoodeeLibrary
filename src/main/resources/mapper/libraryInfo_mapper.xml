@@ -60,4 +60,18 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="faq_infoNotice" resultType="com.spring.main.dto.LibraryInfoDTO">
+		SELECT * FROM FAQ ORDER BY FAQIDX ASC
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

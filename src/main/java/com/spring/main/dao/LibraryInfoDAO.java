@@ -19,4 +19,6 @@ public interface LibraryInfoDAO {
 
 	int searchCount(HashMap<String, Object> params);
 
+	ArrayList<LibraryInfoDTO> faq_infoNotice();
+
 }
