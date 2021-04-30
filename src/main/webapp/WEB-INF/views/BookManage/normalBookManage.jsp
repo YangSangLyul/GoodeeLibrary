@@ -38,7 +38,7 @@ table, th, td {
 				</div>
 			</form>
 		</div>
-		<button>도서 등록</button>
+		<button onclick="location.href='bookManageInsert'">도서 등록</button>
 		<div>
 	 	<c:if test="${list.size() ne 0}">
 				<table>
