@@ -81,6 +81,11 @@ public class AdminService {
 		mav.setViewName("adminBlind");
 		return mav;
 	}
+
+	public AdminDTO reportDetail(String idx) {
+		logger.info("신고 상세보기 쿼리 요청");
+		return dao.reportDetail(idx);
+	}
 	
 	
 }

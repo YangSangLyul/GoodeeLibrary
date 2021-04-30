@@ -58,7 +58,7 @@
 	            <tr>
 	                <td>${report.reportIdx}</td>
 	                <td>${report.reportId}</td>
-	                <td><a class="reason" href="[신고 상세페이지]?idx=${report.reportIdx}">${report.reportReason}</a></td>
+	                <td><a class="reason" href="reportDetail?idx=${report.reportIdx}">${report.reportReason}</a></td>
 	                <td>${report.reportdate}</td>
 	                <td>
 	                    <input type="button" id="blind" value="블라인드"/>
