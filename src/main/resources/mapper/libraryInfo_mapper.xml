@@ -136,12 +136,14 @@
 	<insert id="questionWriting" parameterType="hashmap">
 	<!-- loginId=, type=Q003, subject=가입인사드립니다/., content=sdfsafsdaf, false=FALSE -->
 	INSERT INTO QUESTION (QUEIDX,ID,SUBJECT,CONTENT,REG_DATE,SHOWSTATUS,ANSSTATUS,TYPE) VALUES 
-	<if test="false.equals('FALSE')">
-	(QUEIDX_seq.NEXTVAL,#{loginId},#{subject},#{content},SYSDATE,#{false},'FALSE',#{type})
-	</if>
-	<if test="!false.equals('FALSE')">
-	(QUEIDX_seq.NEXTVAL,#{loginId},#{subject},#{content},SYSDATE,'TRUE','FALSE',#{type})
-	</if>
+	<choose>
+		<when test="false.equals('FALSE')">
+		(QUEIDX_seq.NEXTVAL,#{loginId},#{subject},#{content},SYSDATE,#{false},'FALSE',#{type})
+		</when>
+		<otherwise>
+		(QUEIDX_seq.NEXTVAL,#{loginId},#{subject},#{content},SYSDATE,#{false},'FALSE',#{type})
+		</otherwise>
+	</choose>
 	</insert>
 
 </mapper>
