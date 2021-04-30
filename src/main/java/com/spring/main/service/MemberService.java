@@ -1,6 +1,7 @@
 package com.spring.main.service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -125,6 +126,15 @@ public class MemberService {
 		return dao.myLib_UpdateForm(loginId);
 	}
 	
+	public boolean checkPw(String pw, HttpSession session) { //수정,탈퇴 전 비밀번호 일치여부 체크
+		logger.info("입력한 비밀번호:"+pw);
+		String id = (String) session.getAttribute("loginId");
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encrypt_pass  = dao.login(id);
+		logger.info("현재 비밀번호:"+encrypt_pass);
+		return encoder.matches(pw, encrypt_pass);
+	}
+
 	public ModelAndView memUpdate(@ModelAttribute MemberDTO dto,HttpSession session) {
 		logger.info("수정할 params:"+dto.getName()+"/"+dto.getPhone()+"/"+dto.getPhone());
 
@@ -147,6 +157,7 @@ public class MemberService {
 	public ModelAndView memWithdraw(HttpSession session) {
 		String loginId = (String) session.getAttribute("loginId");
 		logger.info("탈퇴할 회원 id:"+loginId);
+		
 		
 		ModelAndView mav = new ModelAndView();
 		int success = dao.memWithdraw(loginId);
@@ -192,14 +203,5 @@ public class MemberService {
 		mav.setViewName(page);
 		return mav; 
 	}
-
-
-
-
-
-
-	
-
-
 
 }

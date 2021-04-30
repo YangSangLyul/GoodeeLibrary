@@ -40,7 +40,7 @@ public class MemberController {
 		logger.info("회원가입 페이지 이동");
 		return "memJoinForm";
 	}
-	
+
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String join(Model model,@RequestParam HashMap<String, String> params) {
 		logger.info("params:"+params);
@@ -133,17 +133,23 @@ public class MemberController {
 		logger.info("회원정보 수정/탈퇴 페이지 이동");
 		return "myLib_Update";
 	}
-	
-//	@RequestMapping(value = "/myLib_mem")
-//	public String memUpdate(Model model,@RequestParam String pw,HttpSession session) {
-//		logger.info("비밀번호 확인:"+pw);
-//		return service.mylib_mem(pw);
-//	}
+
+	@RequestMapping(value = "/checkPw") //수정,탈퇴 전 비밀번호 일치여부 체크
+	public @ResponseBody String checkPw(HttpSession session, @RequestParam String pw) {
+		String str ="";
+		boolean success = service.checkPw(pw,session);
+		if(success==true) {
+			str = "yes";
+		}else {
+			str = "no";
+		}
+		return str;
+	}
 	
 	@RequestMapping(value = "/myLib_UpdateForm")
 	public String myLib_UpdateForm(Model model,HttpSession session) {
 		String page = "myLib_UpdateForm";
-		logger.info("회원정보 수정페이지 이동");
+		logger.info("회원정보 수정페이지로 이동");
 		model.addAttribute("dto", service.myLib_UpdateForm(session));			
 		return page;
 	}
@@ -156,6 +162,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/memWithdraw", method = RequestMethod.POST)
 	public ModelAndView memWithdraw(HttpSession session) {
+		logger.info("회원탈퇴 요청");
 		return service.memWithdraw(session);
 	}
 	
@@ -170,6 +177,5 @@ public class MemberController {
 		logger.info("회원 비밀번호 변경 요청");
 		return service.myLib_UpdatePw(newPw,session);
 	}
-	
 
 }
