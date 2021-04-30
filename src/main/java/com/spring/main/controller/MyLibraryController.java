@@ -25,25 +25,32 @@ public class MyLibraryController {
 	
 	@Autowired MyLibraryService service;
 	
-	
-	
 	  @RequestMapping(value = "/MyLibrary")
 	  public ModelAndView MyLibrary() { 
+		  logger.info("나의 도서예약 내역 이동"); 
+		  ModelAndView mav = new ModelAndView(); 
+		  mav.setViewName("myLib_Rbook"); 
+		  return mav; 
+	  }
+	  
+	  @RequestMapping(value = "/myLib_Rbook/5/{page}", method = RequestMethod.GET)
+	  public HashMap<String,Object> reserveBook_list( 
+			  @PathVariable int page,HttpSession session) { 
+		  String loginId = (String) session.getAttribute("loginId");
+		  logger.info("나의 도서예약 ");
+		  logger.info(" page : {}, session Id: {}",  page,loginId);
+	  
+	  return service.reserve_list(page,loginId); 
+	  }
+	 
+	  @RequestMapping(value = "/MyQuestion")
+	  public ModelAndView MyQuestion() { 
 		  logger.info("나의 문의이동"); 
 		  ModelAndView mav = new ModelAndView(); 
 		  mav.setViewName("myLib_question"); 
 		  return mav; 
 	  }
-	 
-	/*
-	  @RequestMapping(value = "/MyLibrary")
-	  public ModelAndView question_list() {
-		  logger.info("나의 문의 페이지1"); 
-		  return service.question_list(); 
-		  }*/
-	 
 	
-
 	  @RequestMapping(value = "/myLib_question/5/{page}", method = RequestMethod.GET)
 	  public HashMap<String,Object> question_list( 
 			  @PathVariable int page,HttpSession session) { 

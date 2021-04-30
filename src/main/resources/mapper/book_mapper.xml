@@ -87,4 +87,14 @@
 			VALUES(bookIdx_seq.NEXTVAL, #{bookName}, #{writer}, #{publisher}, #{story}, #{bookImg})
 	</insert>
 
+	<select id="allCount" resultType="Integer">
+		SELECT COUNT(bookIdx) FROM RESERVEBOOK WHERE id=#{param1}
+	</select>
+
+	<select id="reserve_list" resultType="hashMap">
+	SELECT  * FROM( 
+		SELECT ROW_NUMBER() OVER(ORDER BY b.bookidx DESC) AS rnum,b.bookstate "bstate",b.bookname,r.bookstate "rstate",r.id,r.reg_date  FROM book b FULL OUTER JOIN reserveBook r ON b.bookidx = r.bookidx WHERE id=#{param3}
+	)WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+
 </mapper>
