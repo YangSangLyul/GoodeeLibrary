@@ -9,11 +9,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    
     <style>
         #titleMenu {
             border: 1px solid black;
-            background-color: blue;
+            background-color: #eeece1ff;
             width: 200px;
             height: 50px;
             text-align: center;
@@ -27,13 +27,6 @@
             height: 38px;
             text-align: center;
             padding-bottom: 20px;
-        }
-        a{
-            color:white
-        }
-        a:link,a:visited{
-            color: white;
-            text-decoration: none;
         }
     </style>
 </head>

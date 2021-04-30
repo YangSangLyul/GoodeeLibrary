@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.service.reserveSeatService;
 
@@ -23,5 +25,14 @@ public class SeatController {
 		
 		logger.info("도서관 서비스 메뉴(좌석 예약) 진입");
 		return reserve.reserveSeatList();
+	}
+	
+	@RequestMapping(value = "/reserveSeatReq", method = RequestMethod.POST)
+	public String reserveSeatReq(@RequestParam String[] seatTime, @RequestParam int seatNum, @RequestParam String loginId, RedirectAttributes rAttr) {
+		
+		logger.info("좌석 예약 요청 : 좌석 ->"+seatNum+" 예약시간 ->"+seatTime[0]+" 종료시간 ->"+seatTime[seatTime.length-1]+" 요청대상 : "+loginId);
+		
+		
+		return reserve.reserveSeatReq(seatTime,seatNum,loginId, rAttr);
 	}
 }

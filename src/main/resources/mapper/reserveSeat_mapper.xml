@@ -13,4 +13,13 @@
 	<select id="reserveList" resultType="seat">
 		SELECT * FROM reserveseat
 	</select>
+	
+	<insert id="reserveSeatReq">
+		INSERT INTO reserveseat(reservenumber,reservestart,reserveend,seatnumber,id)
+		VALUES(reserveseat_seq.NEXTVAL,TO_DATE(#{param1},'hh24:mi'),TO_DATE(#{param2},'hh24:mi'),#{param3},#{param4})
+	</insert>
+	
+	<select id="reserSeatChk" resultType="String">
+		SELECT id FROM reserveseat WHERE id=#{param1} AND seatstatus = 'S002'
+	</select>
 </mapper>

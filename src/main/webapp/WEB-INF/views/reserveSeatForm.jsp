@@ -40,7 +40,7 @@
         	
         	#reserveNoState{
         		background-color: #666666ff;
-        		color: white;
+        		
         	}
         	
         	#stateList{
@@ -140,21 +140,12 @@
         		height:100%;
         	}
         	
-       	#test:checked~tr{
-       	background-color:red;
-       	}
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script>
-	    function check(it) {
-	    	  tr = it.parentNode.parentNode;
-	    	  console.log("셀"+tr);
-	    	  tr.style.backgroundColor = (it.checked) ? "gold" : "white";
-	    	}
-        </script>
     </head>
     <body>
         <!-- 헤더 영역 -->
+       
         <jsp:include page="header.jsp"/>
         
         <!-- 사이드바 영역 -->
@@ -206,8 +197,8 @@
 				</tr>
 			</table>
 			<div id="tbl">
-			<form name="dragchkform" method="GET">
-			
+			<form action="reserveSeatReq" name="dragchkform" method="POST" id="seatForm">
+			<input type="hidden" name="loginId" value="${loginId}"/>
 			<table id="tblMain" style="background-color: white;">	
 			
 			<c:forEach items="${list}" var="seat">
@@ -215,57 +206,57 @@
 				<tr>
 					<th>${seat.seatNumber}<input type="radio" class="seatChk" name="seatNum"  value="${seat.seatNumber}" onclick="resetChk(this)"/></th>
 					
-					<c:forEach items="${reserveList}" var="reserve" varStatus="status">
-					<fmt:formatDate var="start" value="${reserve.reserveStart}" pattern="HH"/>
-					<fmt:formatDate var="end" value="${reserve.reserveEnd}" pattern="HH"/>
-					<fmt:parseNumber var="intStart" value="${start}" integerOnly="true"/>
-					<fmt:parseNumber var="intEnd" value="${end}" integerOnly="true"/>
+					
+
 					<td>
-					<c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '09' || intEnd < '09')}">
+					<%-- <c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '09' || intEnd < '09')}"> --%>
 					<input type="checkbox" class="timeChk" name="seatTime" value="09"/>
-					</c:if>
+					
 					</td>
 					
 					<td>					
-					<c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '10' || intEnd < '10')}">
 					<input type="checkbox" class="timeChk" name="seatTime" value="10"/>
-					</c:if>
 					</td>
+					
+					
 					<td>
-					<c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '11' || intEnd < '11')}">
+			
+					
 					<input type="checkbox" class="timeChk" name="seatTime" value="11"/>
-					</c:if>
+					
 					</td>
+					
 					<td>
-					<c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '12' || intEnd < '12')}">
 					<input type="checkbox" class="timeChk" name="seatTime" value="12"/>
-					</c:if>
 					</td>
+					
 					<td>					
-					<c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '13' || intEnd < '13')}">
+					
 					<input type="checkbox" class="timeChk" name="seatTime" value="13"/>
-					</c:if>
+					
 					</td>
+					
 					<td>					
-					<c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '14' || intEnd < '14')}">
+					
 					<input type="checkbox" class="timeChk" name="seatTime" value="14"/>
-					</c:if>
+					
 					</td>
+					
 					<td>					
-					<c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '15' || intEnd < '15')}">
+					
 					<input type="checkbox" class="timeChk" name="seatTime" value="15"/>
-					</c:if>
+					
 					</td>
 					<td>					
-					<c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '16' || intEnd < '16')}">
+					
 					<input type="checkbox" class="timeChk" name="seatTime" value="16"/>
-					</c:if>
+					
 					</td>
 					<td>					
-					<c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '17' || intEnd < '17')}">
+					
 					<input type="checkbox" class="timeChk" name="seatTime" value="17"/>
-					</c:if></td>
-					</c:forEach>
+					</td>
+					
 				</tr>
 			</c:forEach>
 			</table>
@@ -276,6 +267,11 @@
 
     </body>
     <script>
+    	var msg = "${msg}";
+    	if(msg != ""){
+    		alert(msg);
+    	}
+    	
     	//체크박스 드래그
 	    var dragchkstat = "off"; 
 	    function dragchkNOOP() { return false; } 
@@ -308,7 +304,18 @@
 	    
 	    
 	    $("#reserveSubmit").click(function(){
+	    	
+	    	var id = "${loginId}"
+	    	
+	    	console.log('아이디 있나?',id);
+	    	if(id == ""){
+	    		alert('로그인 후 사용할 수 있는 기능입니다.');
+	    		return;
+	    	}
+	    	
 	    	console.log($('input:checkbox[name=seatTime]:checked'));
+	    	
+	    	var chkArray = new Array(); 
 	    	
 	    	//1차 조건 : 좌석 체크 여부
 	    	if($('input:radio[name=seatNum]:checked').length > 0){
@@ -317,7 +324,17 @@
 		    	if($('input:checkbox[name=seatTime]:checked').length > 0){
 		    		//자바스크립트의 경우 tr의 행 주소값을 가져올때 rowIndex를 사용하고 제이쿼리는 index를 사용함
 		    		//새로운 조건 추가
-		    		console.log($('input:radio[name=seatNum]:checked').parent().parent().index());
+		    		console.log("현재 라디오 버튼 인덱스 : "+$('input:radio[name=seatNum]:checked').parent().parent().index());
+		    		console.log("현재 체크된 인덱스 : "+$('input:checkbox[name=seatTime]:checked').parent().parent().index());
+		    		var chkIdx = $('input:checkbox[name=seatTime]:checked');
+		    		
+		    		chkIdx.each(function(i){
+		    			var tr = chkIdx.parent().parent().eq(i).index();
+		    			console.log('현재 체크된 박스의 부모 인덱스는..? ',tr);
+		    			console.log('현재 i의 값은 ? ',i);
+		    		})
+
+		    		
 		    		if($('input:radio[name=seatNum]:checked').parent().parent().index() != $('input:checkbox[name=seatTime]:checked').parent().parent().index()){
 		    			alert('현재 선택한 좌석외의 좌석의 시간은 선택할 수 없습니다!!!');
 		    			for(var i=0;i<=$('input:checkbox[name=seatTime]').length;i++){
@@ -326,7 +343,12 @@
 		    			
 		    		}
 		    		console.log($('input:checkbox[name=seatTime]:checked').parent().parent().index());
-		    		alert('1개 이상 선택 되었음');
+		    		$('input:checkbox[name=seatTime]:checked').each(function(){
+		    			chkArray.push(this.value);
+		    			console.log(chkArray.length);
+		    		});
+
+		    		$("#seatForm").submit();
 		    	}else{
 		    		alert('좌석 시간을 체크해주세요');	    	
 		    	}
@@ -384,6 +406,97 @@
 				
 			
 		}
+		
+		function reserveList(){
+			var tbl = $("#tblMain tr").length;
+			var i = 1;
+			var j = 0;
+			
+
+			
+			var list1 = new Array();
+			
+			<c:forEach items="${reserveList}" var="item1">
+
+			list1.push("${item1.seatNumber}");
+			
+			<fmt:formatDate var="start" value="${item1.reserveStart}" pattern="HH"/>
+			<fmt:formatDate var="end" value="${item1.reserveEnd}" pattern="HH"/>
+			<fmt:parseNumber var="intStart" value="${start}" integerOnly="true"/>
+			<fmt:parseNumber var="intEnd" value="${end}" integerOnly="true"/>
+			
+
+			list1.push("${intStart}");
+
+			list1.push("${intEnd}");
+			
+			</c:forEach>
+			
+			<%-- <c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '09' || intEnd < '09')}"> --%>
+			
+			
+			$('#tblMain tr').each(function(){
+				j = 0;
+				$(this).find('td').each(function(){
+					
+					if(list1[0] == i && !(parseInt(list1[1]) > 10 || parseInt(list1[2]) < 10)){
+						var temp = 1;
+						console.log('예약시간 IN');
+						$('tr:eq('+i+')>td:eq('+temp+')').html("예약중");
+						
+					}
+					if(list1[0] == i && !(parseInt(list1[1]) > 11 || parseInt(list1[2]) < 11)){
+						var temp = 2;
+						console.log('예약시간 IN');
+						$('tr:eq('+i+')>td:eq('+temp+')').html("예약중");
+						
+					}
+					if(list1[0] == i && !(parseInt(list1[1]) > 12 || parseInt(list1[2]) < 12)){
+						var temp = 3;
+						console.log('예약시간 IN');
+						$('tr:eq('+i+')>td:eq('+temp+')').html("예약중");
+						
+					}
+					if(list1[0] == i && !(parseInt(list1[1]) > 13 || parseInt(list1[2]) < 13)){
+						var temp = 4;
+						console.log('예약시간 IN');
+						$('tr:eq('+i+')>td:eq('+temp+')').html("예약중");
+						
+					}
+					if(list1[0] == i && !(parseInt(list1[1]) > 14 || parseInt(list1[2]) < 14)){
+						var temp = 5;
+						console.log('예약시간 IN');
+						$('tr:eq('+i+')>td:eq('+temp+')').html("예약중");
+						
+					}
+					
+					if(list1[0] == i && !(parseInt(list1[1]) > 15 || parseInt(list1[2]) < 15)){
+						var temp = 6;
+						console.log('예약시간 IN');
+						$('tr:eq('+i+')>td:eq('+temp+')').html("예약중");
+						
+					}
+					
+					if(list1[0] == i && !(parseInt(list1[1]) > 16 || parseInt(list1[2]) < 16)){
+						var temp = 7;
+						console.log('예약시간 IN');
+						$('tr:eq('+i+')>td:eq('+temp+')').html("예약중");
+						
+					}
+					
+
+					
+					
+					console.log(i+"/"+j);
+					j++;
+				});
+				i++;
+			});
+			
+			
+			console.log(tbl);
+		}
+		reserveList();
 	    
 
 

@@ -61,7 +61,7 @@
 	                <td><a class="reason" href="reportDetail?idx=${report.reportIdx}">${report.reportReason}</a></td>
 	                <td>${report.reportdate}</td>
 	                <td>
-	                    <input type="button" id="blind" value="블라인드"/>
+	                    <input type="button" id="blind" onclick="location.href='blindReason?reportIdx=${report.reportIdx}&reviewIdx=${report.reviewIdx}'" value="블라인드"/>
 	                    <input type="button" id="ignore" value="무시"/>
 	                </td>
 	            </tr>

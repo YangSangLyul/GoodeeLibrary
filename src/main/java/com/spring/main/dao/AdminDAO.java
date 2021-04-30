@@ -1,6 +1,7 @@
 package com.spring.main.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.spring.main.dto.AdminDTO;
 
@@ -18,7 +19,13 @@ public interface AdminDAO {
 
 	ArrayList<AdminDTO> BlindList();
 
-	AdminDTO reportDetail(String idx);
+	AdminDTO reportDetail(int idx);
+
+	AdminDTO blindReason(int reportIdx, int reviewIdx);
+
+	int blindReasonTxt(HashMap<String, Object> params);
+
+	int reportFal(HashMap<String, Object> params);
 
 
 }
