@@ -85,18 +85,17 @@
 					<td>${list.ansstatus}</td>
 				</tr>
 				</c:forEach> --%>     	
-			<tr>
-				
-			<!-- 페이징 번호 보여주기 -->
-            <td id="paging" colspan="5">
-            	<!-- 플러그인 사용 -->
-            	<div class="container">
-            		<nav aria-label="page navigation" style="text-align:center">
-            			<ul class="pagination" id="pagination"></ul>
-            		</nav>
-            	</div>
-            </td>
-         </tr>
+				<tr>
+					<!-- 페이징 번호 보여주기 -->
+		            <td id="paging" colspan="5">
+		            	<!-- 플러그인 사용 -->
+		            	<div class="container">
+		            		<nav aria-label="page navigation" style="text-align:center">
+		            			<ul class="pagination" id="pagination"></ul>
+		            		</nav>
+		            	</div>
+		            </td>
+		         </tr>
             </table>
         </div>
     </div>

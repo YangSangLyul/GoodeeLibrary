@@ -25,4 +25,8 @@ public interface BookDAO {
 
 	int bookInsert(BookDTO dto);
 
+	ArrayList<BookDTO> reserve_list(int start, int end, String loginId);
+
+	int allCount(String loginId);
+
 }

@@ -49,7 +49,7 @@
             <p>입실|퇴실 내역</p>
         </div>
         <div class="menu">
-            <p>도서 예약 내역</p>
+            <a href="MyLibrary">도서 예약 내역</a>
         </div>
         <div class="menu">
             <p>희망 도서 신청 내역</p>
@@ -58,7 +58,7 @@
             <p>내 리뷰내역</p>
         </div>
         <div class="menu">
-            <a href="MyLibrary">내 문의내역</a>
+            <a href="MyQuestion">내 문의내역</a>
         </div>
         <div class="menu">
             <p>회원정보 수정/탈퇴</p>

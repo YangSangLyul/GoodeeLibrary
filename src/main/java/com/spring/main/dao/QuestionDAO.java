@@ -33,16 +33,6 @@ public interface QuestionDAO {
 
 	QuestionDTO question_editForm(HashMap<String, Object> params);
 
-	ArrayList<LibraryInfoDTO> question_infoNotice(Model model);
-
-	ArrayList<LibraryInfoDTO> questionRoom_infoNotice(Model model);
-
-	ArrayList<LibraryInfoDTO> questionBook_infoNotice(Model model);
-
-	ArrayList<LibraryInfoDTO> questionService_infoNotice(Model model);
-
-	ArrayList<LibraryInfoDTO> questionOthers_infoNotice(Model model);
-
 	//HashMap<String, Object> question_detail(String idx);
 
 }
