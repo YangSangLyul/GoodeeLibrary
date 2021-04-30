@@ -77,4 +77,14 @@
 		INSERT INTO recommendBook(bookIdx, reason) VALUES(#{bookIdx},#{reason})
 	</insert>
 
+	<insert id="bookInsert"
+		useGeneratedKeys="true"
+		keyProperty="bookIdx"
+		keyColumn="bookIdx"
+		parameterType="book"
+	>
+		INSERT INTO book(bookIdx, bookName, writer, publisher, story, bookImg)
+			VALUES(bookIdx_seq.NEXTVAL, #{bookName}, #{writer}, #{publisher}, #{story}, #{bookImg})
+	</insert>
+
 </mapper>

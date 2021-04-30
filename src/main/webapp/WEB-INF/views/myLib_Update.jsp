@@ -61,7 +61,6 @@ input[type="button"] {
 				</tr>
 				<tr>
 					<td colspan="2">
-						<div>${msg}</div>
 						<input type="button" value="수정" id="update"/>
 						<input type="button" value="탈퇴" id="withdraw"/>
 					</td>
@@ -78,14 +77,22 @@ if(msg!=""){
 
 $(document).ready(function() {
 	$("#update").click(function() {
+		if($("#pw").val()==""){
+			 alert("비밀번호를 입력해주세요.");
+		     $("#pw").focus();
+		}else{
 			document.form.action = "myLib_UpdateForm";
 			document.form.submit();
+		}
 	});
 });
 
 $(document).ready(function() {
 	$("#withdraw").click(function() {
-		if(confirm("회원탈퇴시 회원님의 모든 정보가 사라지며 복구 할 수 없습니다. "+"그래도 탈퇴하시겠습니까?")){
+			if($("#pw").val()==""){
+				 alert("비밀번호를 입력해주세요.");
+			     $("#pw").focus();
+			}else if(confirm("회원탈퇴시 회원님의 모든 정보가 사라지며 복구 할 수 없습니다."+"그래도 탈퇴하시겠습니까?")){
 			document.form.action = "memWithdraw";
 			document.form.submit();
 		}

@@ -13,33 +13,27 @@
     <body>
         <div>
             <h2>신규 도서 등록</h2>
-            <form>
+            <form action="bookInsert" method="POST">
                 <table>
                     <tr>
                         <th>도서명</th>
-                        <td><input type="text" name="" placeholder="도서명을 입력해 주세요."></td>
+                        <td><input type="text" name="bookName" placeholder="도서명을 입력해 주세요."></td>
                     </tr>
                     <tr>
                         <th>저자명</th>
-                        <td><input type="text" name="" placeholder="저자명을 입력해 주세요."></td>
+                        <td><input type="text" name="writer" placeholder="저자명을 입력해 주세요."></td>
                     </tr>
                     <tr>
                         <th>출판사</th>
-                        <td><input type="text" name="" placeholder="출판사를 입력해 주세요."></td>
-                    </tr>
-                    <tr>
-                        <th>등록번호</th>
-                        <td><input type="text" name="" placeholder="등록번호를 입력해 주세요."></td>
+                        <td><input type="text" name="publisher" placeholder="출판사를 입력해 주세요."></td>
                     </tr>
                     <tr>
                         <th>책소개</th>
-                        <td><input type="text" name="" placeholder="책소개를 입력해 주세요."></td>
+                        <td><input type="text" name="story" placeholder="책소개를 입력해 주세요."></td>
                     </tr>
                     <tr>
-                        <th>표지</th>
-                        <td><input type="text" name="" placeholder="대표 사진을 넣어주세요.">
-                            <button>사진 업로드</button>
-                        </td>
+                        <th>표지 URL</th>
+                        <td><input type="text" name="bookImg" placeholder="대표 사진 경로를 넣어주세요."></td>
                     </tr>
                 </table>
                 <input type="submit" value="등록완료">
