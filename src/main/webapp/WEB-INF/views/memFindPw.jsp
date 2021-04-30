@@ -88,14 +88,14 @@ if(msg!=""){
 	alert(msg);
 }
 
-$(document).ready(function(){
-	$("input[name=name]").keyup(function(event){ 
+/* $(document).ready(function(){
+	$("input[name=id]").keyup(function(event){ 
 	if (!(event.keyCode >=37 && event.keyCode<=40)) {
 		var inputVal = $(this).val();
 		$(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
 		}
 	});
-});
+}); */
 
 function findChk2() {
 	if($('#id').val() == '') {
