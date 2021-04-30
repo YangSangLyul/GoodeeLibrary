@@ -18,5 +18,7 @@ public interface AdminDAO {
 
 	ArrayList<AdminDTO> BlindList();
 
+	AdminDTO reportDetail(String idx);
+
 
 }

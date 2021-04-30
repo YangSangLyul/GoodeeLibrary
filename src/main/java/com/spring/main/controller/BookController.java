@@ -8,12 +8,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.main.dto.BookDTO;
 import com.spring.main.service.BookService;
 
 
@@ -76,6 +78,19 @@ public class BookController {
 	public  String insertRecommendBook(@RequestParam HashMap<String,String> params, Model model) {
 		logger.info("사서의 추천도서 추가 : " + params);
 		return service.insertRecommendBook(params);
+	}
+	
+	@RequestMapping(value = "/bookManageInsert", method = RequestMethod.GET)
+	public  String bookManageInsert() {
+		logger.info("도서 추가 페이지 이동");
+		return "/BookManage/bookManageInsert";
+	}
+	
+	@RequestMapping(value = "/bookInsert", method = RequestMethod.POST)
+	public  String bookInsert(@ModelAttribute BookDTO dto) {
+		logger.info("도서 추가");
+		logger.info(dto.getBookName() + " / " + dto.getBookImg() + " / " + dto.getPublisher() + " / " + dto.getStory() + " / " + dto.getWriter());
+		return service.bookInsert(dto);
 	}
 	
 }
