@@ -10,4 +10,8 @@ public interface ReserveSeatDAO {
 
 	ArrayList<ReserveSeatDTO> reserveList();
 
+	int reserveSeatReq(String start, String end, int seatNum, String loginId);
+
+	ArrayList<ReserveSeatDTO> reserSeatChk(String loginId);
+
 }
