@@ -45,13 +45,18 @@ public class MemberService {
 		}
 		return str;
 	}
-	
+
 	public boolean login(HashMap<String, String> params) {
 		String encrypt_pass = dao.login(params.get("id"));
 		String pw = params.get("pw");
 		logger.info(pw+"=="+encrypt_pass);
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder.matches(pw, encrypt_pass);
+	}
+	
+	public String withdraw(HashMap<String, String> params) {
+		logger.info("회원탈퇴 여부");
+		return dao.withdrawChk(params);
 	}
 	
 //------------계정찾기관련 영역----------------------------------------
@@ -203,5 +208,4 @@ public class MemberService {
 		mav.setViewName(page);
 		return mav; 
 	}
-
 }

@@ -28,7 +28,6 @@ public class MemberController {
 	String page = "";
 	String msg = "";
 	
-	
 	@RequestMapping(value = "/memLogin", method = RequestMethod.GET)
 	public String home(Model model) {
 		logger.info("로그인 페이지 이동");
@@ -60,10 +59,10 @@ public class MemberController {
 		logger.info("중복확인 아이디: "+id);
 		return service.memOverlay(id);
 	}
-
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Model model,@RequestParam HashMap<String, String> params,
-			HttpSession session) {
+			HttpSession session, RedirectAttributes rAttr) {
 		logger.info("login : "+params);
 		
 		String loginId = "";
@@ -71,12 +70,21 @@ public class MemberController {
 		msg= "아이디 비밀번호를 확인해 주세요";
 		page = "memLogin";
 		
+		MemberDTO dto = new MemberDTO();
+	
 		if(service.login(params)) {
 			loginId = params.get("id");
+			dto.setId(loginId);
 			logger.info(loginId+" 로그인 성공");
 			session.setAttribute("loginId", loginId);
 			page="main";
 			msg = "";
+			
+			if(service.withdraw(params).equals("TRUE")) {
+				msg = "탈퇴한 회원입니다.";
+				rAttr.addFlashAttribute("msg", msg);
+				return "redirect:/memLogin";
+			}
 		}
 		model.addAttribute("msg", msg);
 		return page;

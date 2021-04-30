@@ -18,6 +18,10 @@
 	SELECT pw FROM member WHERE id=#{id}
 </select> 
 
+<select id="withdrawChk" resultType="String">
+	SELECT withdraw FROM member WHERE id=#{id}
+</select>
+
 <select id="findId" resultType="String">
 	SELECT id FROM member WHERE name=#{param1} and phone=#{param2}
 </select>
