@@ -60,13 +60,14 @@
         	}
         	
         	#time{
-        		font-size: 30px;
+        		font-size: 25px;
         		width: 400px;
-        		height: 50px;
+        		height: 40px;
         		border: 1px solid gray;
         		margin-right: 50px;
         		margin-top: 20px;
         		float: right;
+        		font-weight: 600;
         		text-align: center;
         	}
         	
@@ -140,10 +141,16 @@
         		height:100%;
         	}
         	
+        	span{
+        		width:100%;
+        		height:100%;
+        		margin: 0 auto;
+        	}
+        	
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
-    <body>
+    <body onload="printClock()">
         <!-- 헤더 영역 -->
        
         <jsp:include page="header.jsp"/>
@@ -168,7 +175,6 @@
 				</div>
 				
 				<div id="time">
-					현재 시간 : AM ?시 ??분
 				</div>
 			</div>
 			
@@ -267,6 +273,42 @@
 
     </body>
     <script>
+    //시계.. printClock, addZeros 함수 인용 출처 : https://bbaksae.tistory.com/23
+    function printClock() {
+
+        var clock = document.getElementById("time");            // 출력할 장소 선택
+        var currentDate = new Date();                                     // 현재시간
+        var calendar = currentDate.getFullYear() + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate() // 현재 날짜
+        var amPm = 'AM'; // 초기값 AM
+        var currentHours = addZeros(currentDate.getHours(),2); 
+        var currentMinute = addZeros(currentDate.getMinutes() ,2);
+        var currentSeconds =  addZeros(currentDate.getSeconds(),2);
+    
+        if(currentHours >= 12){ // 시간이 12보다 클 때 PM으로 세팅, 12를 빼줌
+            amPm = 'PM';
+            currentHours = addZeros(currentHours - 12,2);
+        }
+
+        if(currentSeconds >= 50){// 50초 이상일 때 색을 변환해 준다.
+        currentSeconds = '<span style="color:#de1951;">'+currentSeconds+'</span>'
+        }
+        clock.innerHTML = "현재 시간 : "+ amPm + " " + currentHours+"시 "+currentMinute+"분 "+currentSeconds+"초"; //날짜를 출력해 줌
+        
+        setTimeout("printClock()",1000);         // 1초마다 printClock() 함수 호출
+    }
+
+    function addZeros(num, digit) { // 자릿수 맞춰주기
+        var zero = '';
+        num = num.toString();
+        if (num.length < digit) {
+            for (i = 0; i < digit - num.length; i++) {
+            zero += '0';
+            }
+        }
+        return zero + num;
+    }
+    
+    	//예약 성공 실패 여부
     	var msg = "${msg}";
     	if(msg != ""){
     		alert(msg);
@@ -411,6 +453,8 @@
 			var tbl = $("#tblMain tr").length;
 			var i = 1;
 			var j = 0;
+			//예약 좌석 확인용 변수
+			var r = 0;
 			
 
 			
@@ -433,58 +477,79 @@
 			</c:forEach>
 			
 			<%-- <c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '09' || intEnd < '09')}"> --%>
-			
-			
+			console.log(parseInt(list1[r+1]));
 			$('#tblMain tr').each(function(){
 				j = 0;
 				$(this).find('td').each(function(){
 					
-					if(list1[0] == i && !(parseInt(list1[1]) > 10 || parseInt(list1[2]) < 10)){
+					if(j == 8){
+						r = r + 3;
+					}
+					
+					if(list1[r] != i){
+						return;
+					}
+					
+					if(list1[r] == i && !(parseInt(list1[r+1]) > 9 || parseInt(list1[r+2]) < 9)){
+						var temp = 0;
+						console.log('예약시간 IN');
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
+					}
+					
+					if(list1[r] == i && !(parseInt(list1[r+1]) > 10 || parseInt(list1[r+2]) < 10)){
 						var temp = 1;
 						console.log('예약시간 IN');
-						$('tr:eq('+i+')>td:eq('+temp+')').html("예약중");
-						
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
 					}
-					if(list1[0] == i && !(parseInt(list1[1]) > 11 || parseInt(list1[2]) < 11)){
+					if(list1[r] == i && !(parseInt(list1[r+1]) > 11 || parseInt(list1[r+2]) < 11)){
 						var temp = 2;
 						console.log('예약시간 IN');
-						$('tr:eq('+i+')>td:eq('+temp+')').html("예약중");
-						
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
 					}
-					if(list1[0] == i && !(parseInt(list1[1]) > 12 || parseInt(list1[2]) < 12)){
+					if(list1[r] == i && !(parseInt(list1[r+1]) > 12 || parseInt(list1[r+2]) < 12)){
 						var temp = 3;
 						console.log('예약시간 IN');
-						$('tr:eq('+i+')>td:eq('+temp+')').html("예약중");
-						
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
 					}
-					if(list1[0] == i && !(parseInt(list1[1]) > 13 || parseInt(list1[2]) < 13)){
+					if(list1[r] == i && !(parseInt(list1[r+1]) > 13 || parseInt(list1[r+2]) < 13)){
 						var temp = 4;
 						console.log('예약시간 IN');
-						$('tr:eq('+i+')>td:eq('+temp+')').html("예약중");
-						
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
 					}
-					if(list1[0] == i && !(parseInt(list1[1]) > 14 || parseInt(list1[2]) < 14)){
+					if(list1[r] == i && !(parseInt(list1[r+1]) > 14 || parseInt(list1[r+2]) < 14)){
 						var temp = 5;
 						console.log('예약시간 IN');
-						$('tr:eq('+i+')>td:eq('+temp+')').html("예약중");
-						
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
 					}
 					
-					if(list1[0] == i && !(parseInt(list1[1]) > 15 || parseInt(list1[2]) < 15)){
+					if(list1[r] == i && !(parseInt(list1[r+1]) > 15 || parseInt(list1[r+2]) < 15)){
 						var temp = 6;
 						console.log('예약시간 IN');
-						$('tr:eq('+i+')>td:eq('+temp+')').html("예약중");
-						
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
 					}
 					
-					if(list1[0] == i && !(parseInt(list1[1]) > 16 || parseInt(list1[2]) < 16)){
+					if(list1[r] == i && !(parseInt(list1[r+1]) > 16 || parseInt(list1[r+2]) < 16)){
 						var temp = 7;
 						console.log('예약시간 IN');
-						$('tr:eq('+i+')>td:eq('+temp+')').html("예약중");
-						
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
 					}
 					
-
+					if(list1[r] == i && !(parseInt(list1[r+1]) > 17 || parseInt(list1[r+2]) < 17)){
+						var temp = 8;
+						console.log('예약시간 IN');
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
+					}
+					
+					
 					
 					
 					console.log(i+"/"+j);
