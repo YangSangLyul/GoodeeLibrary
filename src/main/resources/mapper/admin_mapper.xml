@@ -44,4 +44,9 @@
 			ON b.reportidx = r.reportidx AND b.blind_status = 'TRUE'
 	</select>
 	
+	<select id="reportDetail" resultType="com.spring.main.dto.AdminDTO">
+		SELECT rr.reportidx, r.reg_date, r.id, r.content, rr.reportdate, rr.reportid, rr.reportreason FROM reviewreport rr JOIN review r 
+    		ON rr.reportIdx = #{param1} AND rr.reviewidx = r.reviewidx
+	</select>
+	
 </mapper>

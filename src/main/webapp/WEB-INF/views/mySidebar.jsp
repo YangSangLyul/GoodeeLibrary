@@ -8,6 +8,12 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- 부트스트랩 (반응형 디자인을 위한 css 라이브러리) -->
+   	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+     	
+	<!-- 페이징 라이브러리(제이쿼리 반드시 필요, 버전도 맞아야함!) -->
+	<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
     <style>
         #titleMenu {
             border: 1px solid black;

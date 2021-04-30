@@ -36,32 +36,32 @@
         <table>
             <tr>
                 <th>리뷰 작성일</th>
-                <td>2021-04-10</td>
+                <td>${detail.reg_date}</td>
             </tr>
             <tr>
                 <th>리뷰 작성자</th>
-                <td>이민희</td>
+                <td>${detail.id}</td>
             </tr>
             <tr>
                 <th>리뷰 내용</th>
-                <td>책이 아주 별로네</td>
+                <td>${detail.content}</td>
             </tr>
             <tr>
                 <th>신고일</th>
-                <td>2021-04-11</td>
+                <td>${detail.reportdate}</td>
             </tr>
             <tr>
                 <th>신고자</th>
-                <td>홍길동</td>
+                <td>${detail.reportId}</td>
             </tr>
             <tr>
                 <th>신고사유</th>
-                <td>신고할게요~</td>
+                <td>${detail.reportReason}</td>
             </tr>
         </table>
         <br/>
         <div id="btn">
-            <button>닫기</button>
+            <button onclick="history.go(-1)">닫기</button>
         </div>
     </body>
 </html>

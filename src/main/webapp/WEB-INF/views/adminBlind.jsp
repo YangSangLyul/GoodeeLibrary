@@ -57,7 +57,7 @@
             <c:forEach items="${blind}" var="blind">
 	            <tr>
 	                <td>${blind.blindIdx}</td>
-	                <td><a class="reason" href="[신고 상세페이지]?idx=${blind.reportIdx}">${blind.reportReason}</a></td>
+	                <td><a class="reason" href="reportDetail?idx=${blind.reportIdx}">${blind.reportReason}</a></td>
 	                <td>${blind.blindReason}</td>
 	                <td>${blind.blind_date}</td>
 	                <td>
