@@ -91,6 +91,12 @@
     </div>
 </body>
 <script type="text/javascript">
+var msg = "${msg}";
+if(msg!=""){
+	alert(msg);
+}
+
+
 var showPage=1;
 
 listCall(showPage); 

@@ -11,31 +11,24 @@
 .main {
 	width: 445px;
 	height: 300px;
-	margin: 200px auto;
+	margin: 150px auto;
+	text-align: center;
 }
 
-h3 {
+##loginTitle {
 	text-align: center;
 	color: #0070c0;
 }
 
-img {
+#find_img {
 	width: 160px;
 	margin: 24px;
-}
-
-div {
-	text-align: center;
 }
 
 .what {
 	margin: 6px;
 	font-size: 20px;
 	color: gray;
-}
-
-#find_btn {
-	margin-top: 20px;
 }
 
 #find_content {
@@ -49,7 +42,7 @@ input[type="password"] {
 	margin: 10px;
 }
 
-button {
+.find_button {
 	width: 100px;
 	height: 40px;
 	margin: 20px 5px;
@@ -62,11 +55,12 @@ button {
 </style>
 </head>
 <body>
+ <jsp:include page="header.jsp"></jsp:include>
 	<div class="main">
-		<h3>비밀번호 재설정</h3>
+		<h2 id="loginTitle">비밀번호 재설정</h2>
 		<hr />
-		<div id="find_img">
-			<img src="./image/lock.png">
+		<div>
+			<img id="find_img" src="./image/lock.png">
 		</div>
 		<div id="find_content">
 			<span class="what"><b style="color: #0070c0">${findId}</b> 님의

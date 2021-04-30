@@ -10,11 +10,11 @@
 <style>
 .main {
 	width: 600px;
-	height: 300px;
-	margin: 200px auto;
+	height: 650px;
+	margin: 150px auto 0;
 }
 
-h2 {
+#loginTitle {
 	text-align: center;
 	color: #0070c0;
 }
@@ -39,10 +39,10 @@ fieldset {
 	border: none;
 }
 
-input[type="button"],button {
-	width: 50%;
+.join {
+	width: 30%;
 	height: 50px;
-	margin-top: 15pX;
+	margin: 5pX 200px 0 200px;
 	font-size: 20px;
 	background-color: #c5d8f1;
 	color: #0070c0;
@@ -59,11 +59,13 @@ input[type="button"],button {
 	border: none;
 	border-radius: 5px;
 }
+
 </style>
 </head>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
 	<div class="main">
-		<h2>회원가입</h2>
+		<h2 id="loginTitle">회원가입</h2>
 		<hr />
 		<form action="join" method="POST">
 		<fieldset>
@@ -112,8 +114,7 @@ input[type="button"],button {
 			</table>
 		</fieldset>
 		</form>
-						<!-- <input type="submit" value="회원가입" onclick="joinChk()"/> -->
-						<button onclick="joinChk()">회원가입</button>
+			<button class="join" onclick="joinChk()">회원가입</button>
 	</div>
 </body>
 <script>
