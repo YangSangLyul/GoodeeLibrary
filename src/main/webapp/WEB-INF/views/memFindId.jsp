@@ -10,31 +10,18 @@
 .main {
 	width: 400px;
 	height: 300px;
-	margin: 200px auto;
+	margin: 150px auto;
+	text-align: center;
 }
 
-h3 {
+#loginTitle {
 	text-align: center;
 	color: #0070c0;
 }
 
-img {
+#find_img {
 	width: 160px;
 	margin: 24px;
-}
-
-div {
-	text-align: center;
-}
-
-.what {
-	margin: 6px;
-	font-size: 20px;
-	color: gray;
-}
-
-#find_btn {
-	margin-top: 20px;
 }
 
 input[type="text"] {
@@ -44,7 +31,7 @@ input[type="text"] {
 	margin: 10px;
 }
 
-button {
+.find_button {
 	width: 100px;
 	height: 40px;
 	margin: 20px 5px;
@@ -57,11 +44,12 @@ button {
 </style>
 </head>
 <body>
+ <jsp:include page="header.jsp"></jsp:include>
 	<div class="main">
-		<h3>아이디 찾기</h3>
+		<h2 id="loginTitle">아이디 찾기</h2>
 		<hr />
-		<div id="find_img">
-			<img src="./image/lock.png">
+		<div>
+			<img id="find_img" src="./image/lock.png">
 		</div>
 		<form action="findId" method="POST">
 			<table id="findFields">
@@ -70,7 +58,7 @@ button {
 					<td><input type="text" name="name" id="name" placeholder="이름을 입력해주세요." /></td>
 				</tr>
 				<tr>
-					<th>휴대폰번호</th>
+					<td id="title">휴대폰번호</td>
 					<td><input type="text" name="phone" id="phone" placeholder="휴대폰번호를 입력해주세요." /></td>
 				</tr>
 			</table>
