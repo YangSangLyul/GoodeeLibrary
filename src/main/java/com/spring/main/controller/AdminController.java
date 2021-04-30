@@ -79,7 +79,7 @@ public class AdminController {
 	
 	//신고 상세보기
 	@RequestMapping(value = "/reportDetail", method = RequestMethod.GET)
-	public String reportDetail(Model model, @RequestParam String idx) {
+	public String reportDetail(Model model, @RequestParam int idx) {
 		logger.info("신고 상세보기 할 idx: "+idx);
 		String page = "redirect:/ReviewKing";
 		AdminDTO dto = service.reportDetail(idx);
@@ -88,6 +88,24 @@ public class AdminController {
 			model.addAttribute("detail",dto);
 		}
 		return page;
+	}
+	
+	//블라인드 사유 페이지 이동
+	@RequestMapping(value = "/blindReason", method = RequestMethod.GET)
+	public String blindReason(Model model, @RequestParam int reportIdx, @RequestParam int reviewIdx) {
+		logger.info("블라인드 사유 입력: "+reportIdx+"/"+reviewIdx);
+		AdminDTO dto = service.blindReason(reportIdx,reviewIdx);
+		if(dto != null) {
+			model.addAttribute("info", dto);
+		}
+		return "adminReport_blindReason";
+	}
+	
+	//블라인드 사유 입력
+	@RequestMapping(value = "/blindReasonTxt", method = RequestMethod.POST)
+	public ModelAndView blindReasonTxt(Model model, @RequestParam HashMap<String, Object> params) {
+		logger.info("블라인드 사유 입력: "+params);
+		return service.blindReasonTxt(params);
 	}
 	
 }
