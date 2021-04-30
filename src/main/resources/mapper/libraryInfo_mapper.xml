@@ -145,5 +145,8 @@
 		</otherwise>
 	</choose>
 	</insert>
-
+	<select id="questionDetail" resultType="hashmap">
+	SELECT * FROM QUESTION WHERE QUEIDX = #{idx}
+	</select>
+	
 </mapper>

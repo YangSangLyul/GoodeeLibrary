@@ -39,6 +39,8 @@ public interface LibraryInfoDAO {
 	int question_guitarCount();
 
 	int questionWriting(HashMap<String, Object> params);
+
+	HashMap<String, Object> questionDetail(int idx);
 	 
 	
 
