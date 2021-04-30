@@ -78,6 +78,12 @@ public class LibraryInfoController {
 		mav.setViewName("Question");
 		return mav;
 	}
+	@RequestMapping(value = "/Question", method = RequestMethod.GET)
+	public ModelAndView noticeQuestion() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("Question");
+		return mav;
+	}
 	
 	@RequestMapping(value = "/Question/{page}", method = RequestMethod.GET)
 	public @ResponseBody HashMap<String, Object> noticeQuestionPageing(@PathVariable int page) {
@@ -165,6 +171,11 @@ public class LibraryInfoController {
 		return service.questionWriting(params);
 	}
 	
+	@RequestMapping(value = "/questionDetail/{idx}", method = RequestMethod.GET)
+	public ModelAndView noticeQuestionDetail(@PathVariable int idx,HttpSession session,RedirectAttributes rAttr) {
+		logger.info("이부분까지오냐?");
+		return service.questionDetail(idx,session,rAttr);
+	}
 	
 	
 }

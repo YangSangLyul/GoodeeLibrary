@@ -176,9 +176,37 @@ public class LibraryInfoService {
 		if(success > 0) {
 			msg="글작성에 성공하였씁니다.";
 		}
-		
-		logger.info(msg);
-		return null;
+		mav.addObject("msg", msg);
+		mav.setViewName("Question");
+		return mav;
+	}
+
+	public ModelAndView questionDetail(int idx, HttpSession session, RedirectAttributes rAttr) {
+		ModelAndView mav = new ModelAndView();
+		String loginId = (String) session.getAttribute("loginId");
+		 HashMap<String,Object> map=dao.questionDetail(idx);
+		 logger.info(""+map);
+		 logger.info(""+map.get("SHOWSTATUS"));
+		 logger.info(""+map.get("ID"));
+		 logger.info(""+loginId);
+		 String msg ="";
+		 String page ="";
+		if(map.get("SHOWSTATUS").equals("TRUE")) {
+			msg="전체공개입니다.";
+			page="questionDetail";
+		}else {
+			if(map.get("ID").equals(loginId)) {
+				msg="비공개글이지만 작성자이기에 보여집니다.";
+				page="questionDetail";
+			}else {
+				msg="볼수 있는권한이 있지않습니다.";
+				page="redirect:/Question";
+				rAttr.addFlashAttribute("msg",msg);
+			}
+		}
+		mav.addObject("msg", msg);
+		mav.setViewName(page);
+		return mav;
 	}
 
 
