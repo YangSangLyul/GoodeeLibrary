@@ -12,10 +12,10 @@
 .main {
 	width: 400px;
 	height: 300px;
-	margin: 200px auto;
+	margin: 150px auto;
 }
 
-h2 {
+#loginTitle {
 	text-align: center;
 	color: #0070c0;
 }
@@ -83,8 +83,9 @@ input[type="button"] {
 </style>
 </head>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
 	<div class="main">
-		<h2>로그인</h2>
+		<h2 id="loginTitle">로그인</h2>
 		<hr />
 		<form action="login" id="loginForm" name="loginForm" method="POST">
 			<fieldset>

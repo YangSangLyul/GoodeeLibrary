@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.main.dto.AdminDTO;
 import com.spring.main.service.AdminService;
 
 @Controller
@@ -35,7 +36,8 @@ public class AdminController {
 	@RequestMapping(value = "/selectKing", method = RequestMethod.POST)
 	public String selectKing(@RequestParam  HashMap<String, Object> tdArr) {
 		logger.info("이달의리뷰왕: "+tdArr);	
-		//logger.info(tdArr.get(key));
+		
+		//id와 cnt 분리
 		logger.info(""+tdArr.get("tdArr[0][id]"));
 		ArrayList<String> idList = new ArrayList<String>();
 		idList.add((String) tdArr.get("tdArr[0][id]"));
@@ -73,6 +75,37 @@ public class AdminController {
 	public ModelAndView BlindList(Model model) {
 		logger.info("블라인드리스트 요청");
 		return service.BlindList();
+	}
+	
+	//신고 상세보기
+	@RequestMapping(value = "/reportDetail", method = RequestMethod.GET)
+	public String reportDetail(Model model, @RequestParam int idx) {
+		logger.info("신고 상세보기 할 idx: "+idx);
+		String page = "redirect:/ReviewKing";
+		AdminDTO dto = service.reportDetail(idx);
+		if(dto != null) {
+			page = "adminReport_detail";
+			model.addAttribute("detail",dto);
+		}
+		return page;
+	}
+	
+	//블라인드 사유 페이지 이동
+	@RequestMapping(value = "/blindReason", method = RequestMethod.GET)
+	public String blindReason(Model model, @RequestParam int reportIdx, @RequestParam int reviewIdx) {
+		logger.info("블라인드 사유 입력: "+reportIdx+"/"+reviewIdx);
+		AdminDTO dto = service.blindReason(reportIdx,reviewIdx);
+		if(dto != null) {
+			model.addAttribute("info", dto);
+		}
+		return "adminReport_blindReason";
+	}
+	
+	//블라인드 사유 입력
+	@RequestMapping(value = "/blindReasonTxt", method = RequestMethod.POST)
+	public ModelAndView blindReasonTxt(Model model, @RequestParam HashMap<String, Object> params) {
+		logger.info("블라인드 사유 입력: "+params);
+		return service.blindReasonTxt(params);
 	}
 	
 }

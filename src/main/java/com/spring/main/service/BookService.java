@@ -92,4 +92,18 @@ public class BookService {
 		return "redirect:/bookManageDetail?bookIdx="+params.get("bookIdx");
 	}
 
+	public String bookInsert(BookDTO dto) {
+		
+		String page = "redirect:/bookManageInsert";
+		
+		int success = dao.bookInsert(dto);
+		if(success > 0) {
+			logger.info("도서 추가 성공 : " + dto.getBookIdx());
+			page = "redirect:/bookManageDetail?bookIdx="+dto.getBookIdx();
+		}
+		
+		
+		return page;
+	}
+
 }

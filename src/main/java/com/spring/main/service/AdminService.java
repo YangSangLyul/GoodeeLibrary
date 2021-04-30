@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.AdminDAO;
@@ -79,6 +80,25 @@ public class AdminService {
 		ArrayList<AdminDTO> BlindList = dao.BlindList();
 		mav.addObject("blind", BlindList);
 		mav.setViewName("adminBlind");
+		return mav;
+	}
+
+	public AdminDTO reportDetail(int idx) {
+		logger.info("신고 상세보기 쿼리 요청");
+		return dao.reportDetail(idx);
+	}
+
+	public AdminDTO blindReason(int reportIdx, int reviewIdx) {
+		logger.info("블라인드 사유 입력 요청");
+		return dao.blindReason(reportIdx,reviewIdx);
+	}
+
+	public ModelAndView blindReasonTxt(HashMap<String, Object> params) {
+		logger.info("블라인드 추가 요청");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("success", dao.blindReasonTxt(params));
+		mav.addObject("update", dao.reportFal(params));
+		mav.setViewName("redirect:/ReportList");
 		return mav;
 	}
 	

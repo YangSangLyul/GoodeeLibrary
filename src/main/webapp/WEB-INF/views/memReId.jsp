@@ -11,20 +11,18 @@
       .main {
         width: 400px;
         height: 300px;
-        margin: 200px auto;
+        margin: 150px auto;
+        text-align: center;
       }
-      h3 {
+      
+      #loginTitle {
         text-align: center;
         color: #0070c0;
       }
 
-      img{
+      #find_img{
         width: 160px;
         margin: 24px;
-      }
-
-      div{
-        text-align: center;
       }
 
       .what{
@@ -33,10 +31,7 @@
         color: gray;
       }
 
-      #find_btn{
-        margin-top: 20px;
-      }
-      button {
+      .find_button {
         width: 30%;
         height: 40px;
         margin: 20px 5px;
@@ -49,11 +44,12 @@
     </style>
   </head>
   <body>
+   <jsp:include page="header.jsp"></jsp:include>
     <div class="main">
-      <h3>아이디 찾기완료</h3>
+      <h2 id="loginTitle">아이디 찾기완료</h2>
       <hr />
-      <div id="find_img">
-        <img src="./image/lock.png">
+      <div>
+        <img id="find_img" src="./image/lock.png">
       </div>
       <div id="find_content">
         <span class="what"> <b style="color:black">${name}</b> 님의 아이디는</span>

@@ -23,4 +23,10 @@ public interface BookDAO {
 
 	int insertRecommendBook(HashMap<String, String> params);
 
+	int bookInsert(BookDTO dto);
+
+	ArrayList<BookDTO> reserve_list(int start, int end, String loginId);
+
+	int allCount(String loginId);
+
 }

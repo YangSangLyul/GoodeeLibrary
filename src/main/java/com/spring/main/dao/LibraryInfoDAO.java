@@ -29,12 +29,20 @@ public interface LibraryInfoDAO {
 
 	ArrayList<LibraryInfoDTO> questionList(int start, int end, int status);
 
+	
 	int question_roomCount();
-
+	 
 	int question_bookCount();
-	
+	 
 	int question_serviceCount();
-	
+	  
 	int question_guitarCount();
+
+	int questionWriting(HashMap<String, Object> params);
+
+	HashMap<String, Object> questionDetail(int idx);
+	 
+	
+
 
 }

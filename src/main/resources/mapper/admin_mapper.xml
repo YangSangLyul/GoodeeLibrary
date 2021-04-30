@@ -44,4 +44,22 @@
 			ON b.reportidx = r.reportidx AND b.blind_status = 'TRUE'
 	</select>
 	
+	<select id="reportDetail" resultType="com.spring.main.dto.AdminDTO">
+		SELECT rr.reportidx, r.reg_date, r.id, r.content, rr.reportdate, rr.reportid, rr.reportreason FROM reviewreport rr JOIN review r 
+    		ON rr.reportIdx = #{param1} AND rr.reviewidx = r.reviewidx
+	</select>
+	
+	<select id="blindReason" resultType="com.spring.main.dto.AdminDTO">
+		SELECT * FROM reviewreport WHERE reportIdx=#{param1} AND reviewIdx=#{param2}
+	</select>
+	
+	<insert id="blindReasonTxt" parameterType="HashMap">
+		INSERT INTO reviewblind(blindIdx, reportIdx, reviewIdx, blindReason) 
+			VALUES(BLIND_SEQ.NEXTVAL, #{reportIdx}, #{reviewIdx}, #{WhyBlind})
+	</insert>
+	
+	<update id="reportFal" parameterType="HashMap">
+		UPDATE reviewreport SET reportStatus='TRUE' WHERE reportIdx=#{reportIdx}
+	</update>
+		
 </mapper>

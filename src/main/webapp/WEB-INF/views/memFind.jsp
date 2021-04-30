@@ -9,9 +9,10 @@
       .main {
         width: 400px;
         height: 300px;
-        margin: 200px auto;
+        margin: 150px auto;
+        text-align: center;
       }
-      h3 {
+      #loginTitle {
         text-align: center;
         color: #0070c0;
       }
@@ -21,20 +22,13 @@
         margin: 24px;
       }
 
-      div{
-        text-align: center;
-      }
-
       .what{
         margin: 6px;
         font-size: 20px;
         color: gray;
       }
 
-      #find_btn{
-        margin-top: 20px;
-      }
-      button {
+      .find_button {
         width: 30%;
         height: 40px;
         margin: 20px 5px;
@@ -47,8 +41,9 @@
     </style>
   </head>
   <body>
+  <jsp:include page="header.jsp"></jsp:include>
     <div class="main">
-      <h3>계정 찾기</h3>
+      <h2 id="loginTitle">계정 찾기</h2>
       <hr />
       <div id="find_img">
         <img src="./image/lock.png">

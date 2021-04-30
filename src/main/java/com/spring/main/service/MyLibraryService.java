@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.main.dao.BookDAO;
 import com.spring.main.dao.QuestionDAO;
 import com.spring.main.dto.LibraryInfoDTO;
 import com.spring.main.dto.QuestionDTO;
@@ -23,6 +24,7 @@ public class MyLibraryService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired QuestionDAO dao;
+	@Autowired BookDAO bao;
 	@Value("#{config['Globals.root']}") String root;
 	
 	
@@ -169,11 +171,11 @@ public class MyLibraryService {
 	}*/
 
 
-	public HashMap<String, Object> page_list(int page, HttpSession session) {
+	public HashMap<String, Object> page_list(int page, String loginId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		//5개 기준으로 몇페이지나 만들 수 있는가?
-		int allCnt = dao.allCount();
+		int allCnt = dao.allCount(loginId);
 		logger.info("allCnt:"+allCnt);
 		//게시글 수 : 21개, 페이지당 보여줄 수 : 5 = 최대 생성 가능한 페이지 : 5
 		//예: 21/5 = 4.1 이면 소숫점을 버리고 1을 더해 5가 된다. 아니면 있는 그대로...
@@ -187,7 +189,7 @@ public class MyLibraryService {
 		int end = page * 5;
 		int start = end - 5+1;
 		
-		map.put("page_list",dao.page_list(start,end));
+		map.put("page_list",dao.page_list(start,end,loginId));
 		
 		map.put("range", range);
 		map.put("currPage",page);
@@ -215,34 +217,32 @@ public class MyLibraryService {
 	}
 
 
-	public void question_infoNotice(Model model) {
-		ArrayList<LibraryInfoDTO> list = dao.question_infoNotice(model);
-		logger.info("전체보여주기");
-		model.addAttribute("page_list",list);
-	}
-
-
-	public void questionRoom_infoNotice(Model model) {
-		ArrayList<LibraryInfoDTO> list = dao.questionRoom_infoNotice(model);
-		model.addAttribute("page_list",list);
-	}
-
-
-	public void questionBook_infoNotice(Model model) {
-		ArrayList<LibraryInfoDTO> list = dao.questionBook_infoNotice(model);
-		model.addAttribute("page_list",list);
-	}
-
-
-	public void questionService_infoNotice(Model model) {
-		ArrayList<LibraryInfoDTO> list = dao.questionService_infoNotice(model);
-		model.addAttribute("page_list",list);
-	}
-
-
-	public void questionOthers_infoNotice(Model model) {
-		ArrayList<LibraryInfoDTO> list = dao.questionOthers_infoNotice(model);
-		model.addAttribute("page_list",list);
+	public HashMap<String, Object> reserve_list(int page, String loginId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		//5개 기준으로 몇페이지나 만들 수 있는가?
+		int allCnt = bao.allCount(loginId);
+		logger.info("allCnt:"+allCnt);
+		//게시글 수 : 21개, 페이지당 보여줄 수 : 5 = 최대 생성 가능한 페이지 : 5
+		//예: 21/5 = 4.1 이면 소숫점을 버리고 1을 더해 5가 된다. 아니면 있는 그대로...
+		int range = allCnt%5 > 0? Math.round(allCnt/5)+1 : Math.round(allCnt/5);
+		logger.info("만들수있는 페이지~"+range);
+		
+		//생성 가능한 페이지보다 현재페이지가 클 경우... 현재페이지를 생성 가능한 페이지로 맞춰준다.
+		page = page>range? range:page;
+		
+		//시작, 끝
+		int end = page * 5;
+		int start = end - 5+1;
+		
+		map.put("reserve_list",bao.reserve_list(start,end,loginId));
+		logger.info("reserve_list",bao.reserve_list(start,end,loginId));
+		map.put("range", range);
+		map.put("currPage",page);
+		logger.info("map:{}",map);
+		//전체 게시글 수 
+		//map.put("totalCnt",dao.allCount());
+		return map;
 	}
 
 }

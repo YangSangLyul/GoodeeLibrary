@@ -25,82 +25,41 @@ public class MyLibraryController {
 	
 	@Autowired MyLibraryService service;
 	
-	
-	
 	  @RequestMapping(value = "/MyLibrary")
 	  public ModelAndView MyLibrary() { 
+		  logger.info("나의 도서예약 내역 이동"); 
+		  ModelAndView mav = new ModelAndView(); 
+		  mav.setViewName("myLib_Rbook"); 
+		  return mav; 
+	  }
+	  
+	  @RequestMapping(value = "/myLib_Rbook/5/{page}", method = RequestMethod.GET)
+	  public HashMap<String,Object> reserveBook_list( 
+			  @PathVariable int page,HttpSession session) { 
+		  String loginId = (String) session.getAttribute("loginId");
+		  logger.info("나의 도서예약 ");
+		  logger.info(" page : {}, session Id: {}",  page,loginId);
+	  
+	  return service.reserve_list(page,loginId); 
+	  }
+	 
+	  @RequestMapping(value = "/MyQuestion")
+	  public ModelAndView MyQuestion() { 
 		  logger.info("나의 문의이동"); 
 		  ModelAndView mav = new ModelAndView(); 
 		  mav.setViewName("myLib_question"); 
 		  return mav; 
 	  }
-	 
-	/*
-	  @RequestMapping(value = "/MyLibrary")
-	  public ModelAndView question_list() {
-		  logger.info("나의 문의 페이지1"); 
-		  return service.question_list(); 
-		  }*/
-	 
 	
-
 	  @RequestMapping(value = "/myLib_question/5/{page}", method = RequestMethod.GET)
 	  public HashMap<String,Object> question_list( 
 			  @PathVariable int page,HttpSession session) { 
+		  String loginId = (String) session.getAttribute("loginId");
 		  logger.info("나의 문의 페이지2");
-		  logger.info(" page : {}, session Id: {}",  page,session);
+		  logger.info(" page : {}, session Id: {}",  page,loginId);
 	  
-	  return service.page_list(page,session); 
+	  return service.page_list(page,loginId); 
 	  }
-	 
-  //전체 or 이동해올때는 이걸 탄다.
-	@RequestMapping(value = "/QAll", method = RequestMethod.GET)
-	public ModelAndView noticeQAll(Model model) {
-		service.question_infoNotice(model);
-		logger.info("전체보여주기");
-		ModelAndView mav = new ModelAndView(); 
-	  mav.setViewName("myLib_question"); 
-	  return mav; 
-	}
-  
-	//방
-	@RequestMapping(value = "/QRoom", method = RequestMethod.GET)
-	public ModelAndView noticeQRoom(Model model) {
-		service.questionRoom_infoNotice(model);
-		logger.info("열람실 문의 보여주기");
-		ModelAndView mav = new ModelAndView(); 
-		mav.setViewName("myLib_question"); 
-		return mav; 
-	}
-  
-	//책
-	@RequestMapping(value = "/QBook", method = RequestMethod.GET)
-	public ModelAndView noticeQBook(Model model) {
-		service.questionBook_infoNotice(model);
-		logger.info("도서 문의 보여주기");
-		ModelAndView mav = new ModelAndView(); 
-		mav.setViewName("myLib_question"); 
-		return mav; 
-	}
-	
-	//서비스
-	@RequestMapping(value = "/QService", method = RequestMethod.GET)
-	public ModelAndView noticeQService (Model model) {
-		logger.info("서비스 문의 보여주기");
-		service.questionService_infoNotice(model);
-		ModelAndView mav = new ModelAndView(); 
-		mav.setViewName("myLib_question"); 
-		return mav; 
-	}
-	
-	//기타
-	@RequestMapping(value = "/QOthers", method = RequestMethod.GET)
-	public ModelAndView noticeQOthers(Model model) {
-		service.questionOthers_infoNotice(model);
-		ModelAndView mav = new ModelAndView(); 
-		mav.setViewName("myLib_question"); 
-		return mav; 
-	}
 
 	@RequestMapping(value = "/myLib_question_detail")
 	public ModelAndView question_detail(@RequestParam HashMap<String, Object> params) {

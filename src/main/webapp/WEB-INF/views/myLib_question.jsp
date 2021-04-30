@@ -55,14 +55,14 @@
    	<div>
    	<jsp:include page="mySidebar.jsp"/>
     <div id="QBack">
-        <div id="buttonBox">
-            <button onclick="location.href='QAll'">전체</button>
+        <!-- <div id="buttonBox">
+            <button name="QAll">전체</button>
             <button onclick="location.href='QRoom'">열람실</button>
             <button onclick="location.href='QBook'">도서</button>
             <button onclick="location.href='QService'">서비스</button>
             <button onclick="location.href='QOthers'">기타</button>
             <button class="writebox" onclick="location.href='questionWrite'">글쓰기</button>
-        </div>
+        </div> -->
 
         <div id="QuestionTable">
             <table>
@@ -85,18 +85,17 @@
 					<td>${list.ansstatus}</td>
 				</tr>
 				</c:forEach> --%>     	
-			<tr>
-				
-			<!-- 페이징 번호 보여주기 -->
-            <td id="paging" colspan="5">
-            	<!-- 플러그인 사용 -->
-            	<div class="container">
-            		<nav aria-label="page navigation" style="text-align:center">
-            			<ul class="pagination" id="pagination"></ul>
-            		</nav>
-            	</div>
-            </td>
-         </tr>
+				<tr>
+					<!-- 페이징 번호 보여주기 -->
+		            <td id="paging" colspan="5">
+		            	<!-- 플러그인 사용 -->
+		            	<div class="container">
+		            		<nav aria-label="page navigation" style="text-align:center">
+		            			<ul class="pagination" id="pagination"></ul>
+		            		</nav>
+		            	</div>
+		            </td>
+		         </tr>
             </table>
         </div>
     </div>
@@ -121,20 +120,20 @@ function listCall(reqPage){
          console.log(data);
          showPage = data.currPage;
          listPrint(data.page_list);
-         pagePrint(data.range);//플러그인 미사용 페이징 처리!
+         //pagePrint(data.range);//플러그인 미사용 페이징 처리!
          //플러그인 사용
-         /*
+         
          $("#pagination").twbsPagination({
       	   startPage:data.currPage,//시작페이지
       	   totalPages:data.range,//총 페이지
       	   visiblePages:5,//5개씩 보여주겠다.(1~5)
       	   onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
-      		   console.log(evt);
-      		   console.log(page); 
+      		   //console.log(evt);
+      		   //console.log(page); 
       		   listCall(page);
       	   } 
          });
-         */
+         
       }
       ,error:function(error){
          console.log(error);

@@ -53,7 +53,7 @@ input[type="button"] {
 		<div class="subject">
 			<h3>회원 정보 수정</h3>
 		</div>
-		<form name="form" action="myLib_mem" method="POST">
+		<form name="form" method="POST">
 			<table id="findFields">
 				<tr>
 					<td id="title">비밀번호</td>
@@ -61,7 +61,6 @@ input[type="button"] {
 				</tr>
 				<tr>
 					<td colspan="2">
-						<div>${msg}</div>
 						<input type="button" value="수정" id="update"/>
 						<input type="button" value="탈퇴" id="withdraw"/>
 					</td>
@@ -78,70 +77,59 @@ if(msg!=""){
 
 $(document).ready(function() {
 	$("#update").click(function() {
-			document.form.action = "myLib_UpdateForm";
-			document.form.submit();
+		if($("#pw").val()==""){
+			 alert("비밀번호를 입력해주세요.");
+		     $("#pw").focus();
+		}else {
+			$.ajax({
+				type:'get'
+				,url:'checkPw'
+				,data: {"pw":$("#pw").val()}
+				,dataType:'text'
+				,success:function(data){
+					console.log(data);
+					if(data=="yes"){
+						alert('비밀번호가 일치합니다. 회원정보 수정페이지로 이동합니다.');
+						document.form.action = "myLib_UpdateForm";
+						document.form.submit();
+					}else{
+						alert('비밀번호가 일치하지 않습니다. 다시 확인해주세요');
+						$("#pw").focus();
+					}
+				}
+			});
+		}
 	});
 });
 
 $(document).ready(function() {
 	$("#withdraw").click(function() {
-		if(confirm("회원탈퇴시 회원님의 모든 정보가 사라지며 복구 할 수 없습니다. "+"그래도 탈퇴하시겠습니까?")){
-			document.form.action = "memWithdraw";
-			document.form.submit();
+		if($("#pw").val()==""){
+			 alert("비밀번호를 입력해주세요.");
+		     $("#pw").focus();
+		}else {
+			$.ajax({
+				type:'get'
+				,url:'checkPw'
+				,data: {"pw":$("#pw").val()}
+				,dataType:'text'
+				,success:function(data){
+					console.log(data);
+					var returnValue = confirm('회원탈퇴시 회원님의 모든 정보가 사라지며 복구 할 수 없습니다. 그래도 탈퇴하시겠습니까?');
+					if(data=="yes"){
+						if(returnValue==true){
+							document.form.action = "memWithdraw";
+							document.form.submit();
+						}
+					}else{
+						alert('비밀번호가 일치하지 않습니다. 다시 확인해주세요');
+						$("#pw").focus();
+					}
+				}
+			});
 		}
 	});
 });
 
-
-/* $("#update").on("click", function(){
-    if($("#pw").val()==""){
-        alert("비밀번호를 입력해주세요.");
-        $("#pw").focus();
-        return false;
-    }
-    $.ajax({
-        url : "myLib_UpdateForm",
-        type : "POST",
-        dataType : "text",
-        data :  {"pw":$("#pw").val()}
-        success: function(data){
-            if(data==0){
-                alert("패스워드가 틀렸습니다.");
-                return;
-            }else{
-                if(confirm("회원탈퇴하시겠습니까?")){
-                    $("#delForm").submit();
-                }
-            }
-        }
-    })
-
-});
-
-
-$("#withdraw").click(function(){
-	if($("#pw").val()==''){
-		alert('비밀번호를 입력해주세요.');
-   }else{
-   	$.ajax({
-			type:'POST'
-			,url:'"memWithdraw"'
-			,data: {"pw":$("#pw").val()}
-			,dataType:'text'
-			,success:function(data){
-				console.log(data);
-				if(data == true){//입력값이 맞다면
-					alert("비밀번호 틀림");
-				}else{
-					alert('회원정보를 수정해주세요.');
-					$("form").submit();
-				}
-			}
-			,error:function(e){
-				console.log(e);
-			}
-		});
-   }
-});  */
 </script>
 </html>

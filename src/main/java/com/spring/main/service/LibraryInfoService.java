@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -163,6 +165,48 @@ public class LibraryInfoService {
 		map.put("range", range);
 		
 		return map;
+	}
+
+	public ModelAndView questionWriting(HashMap<String, Object> params) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("params의값"+params);
+		/* loginId=, type=Q003, subject=가입인사드립니다/., content=sdfsafsdaf, false=FALSE */
+		int success = dao.questionWriting(params);
+		String msg="글작성에실패하였씁니다.";
+		if(success > 0) {
+			msg="글작성에 성공하였씁니다.";
+		}
+		mav.addObject("msg", msg);
+		mav.setViewName("Question");
+		return mav;
+	}
+
+	public ModelAndView questionDetail(int idx, HttpSession session, RedirectAttributes rAttr) {
+		ModelAndView mav = new ModelAndView();
+		String loginId = (String) session.getAttribute("loginId");
+		 HashMap<String,Object> map=dao.questionDetail(idx);
+		 logger.info(""+map);
+		 logger.info(""+map.get("SHOWSTATUS"));
+		 logger.info(""+map.get("ID"));
+		 logger.info(""+loginId);
+		 String msg ="";
+		 String page ="";
+		if(map.get("SHOWSTATUS").equals("TRUE")) {
+			msg="전체공개입니다.";
+			page="questionDetail";
+		}else {
+			if(map.get("ID").equals(loginId)) {
+				msg="비공개글이지만 작성자이기에 보여집니다.";
+				page="questionDetail";
+			}else {
+				msg="볼수 있는권한이 있지않습니다.";
+				page="redirect:/Question";
+				rAttr.addFlashAttribute("msg",msg);
+			}
+		}
+		mav.addObject("msg", msg);
+		mav.setViewName(page);
+		return mav;
 	}
 
 
