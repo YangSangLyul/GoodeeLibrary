@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -163,6 +165,20 @@ public class LibraryInfoService {
 		map.put("range", range);
 		
 		return map;
+	}
+
+	public ModelAndView questionWriting(HashMap<String, Object> params) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("params의값"+params);
+		/* loginId=, type=Q003, subject=가입인사드립니다/., content=sdfsafsdaf, false=FALSE */
+		int success = dao.questionWriting(params);
+		String msg="글작성에실패하였씁니다.";
+		if(success > 0) {
+			msg="글작성에 성공하였씁니다.";
+		}
+		
+		logger.info(msg);
+		return null;
 	}
 
 

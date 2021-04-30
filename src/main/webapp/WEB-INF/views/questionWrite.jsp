@@ -60,28 +60,39 @@
     }
 </style>
 <body>
+
     <div id="qwBackground">
-        <form action="">
-            <input type="text" value="아이디" readonly class="gw1">
+        <form action="questionWriting">
+            <input type="text" value="${loginId}" readonly class="gw1" name="loginId">
                 <div class="gw2" style="background-color: white;">
                     문의유형
-                    <select name="" id="selbox">
-                        <option value="">도서</option>
-                        <option value="">열람실</option>
-                        <option value="">서비스</option>
-                        <option value="">기타</option>
+                    <select name="type" id="selbox">
+                        <option value="Q001">열람실</option>
+                        <option value="Q002">도서</option>
+                        <option value="Q003">서비스</option>
+                        <option value="Q004">기타</option>
                     </select>
                 </div>
-            <input type="text" placeholder="제목을 작성해주세요"  class="gw3">
-            <textarea id="editable" contenteditable="true" cols="30" rows="10" placeholder="문의사항을 작성해 주세요"  class="gw4"></textarea>
-            <input id="content" type="text" name="content" value=""/>
+            <input type="text" placeholder="제목을 작성해주세요"  class="gw3" name="subject">
+            <textarea id="editable" contenteditable="true" cols="30" rows="10" placeholder="문의사항을 작성해 주세요"  class="gw4" name="content"></textarea>
             <input type="button" value="사진업로드"  class="gw5" onclick="fileUp()"/>
-            <label class="gw6"><input type="checkbox" name="" id="" value="">비밀글</label>
+            <label class="gw6"><input type="checkbox" name="false" value="TRUE" id="tfCK" >비밀글</label>
             <input id="save" type="button" value="작성완료"  class="gw7"/>
         </form>
     </div>
 </body>
 <script>
+$("#tfCK").click(function(){
+if($("#tfCK").is(":checked") == true){
+    console.log('체크된 상태');
+    $("#tfCK").val("FALSE");
+}
+ 
+if($("#tfCK").is(":checked") == false){
+    console.log('체크 안 된 상태');
+    $("#tfCK").val("TRUE");
+}
+})
 
 $("#save").click(function(){
 	//editable 에 있는 내용을 content의 value 넣기

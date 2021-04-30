@@ -133,5 +133,15 @@
 	<select id="question_guitarCount"  resultType="int">
 	SELECT COUNT(QUEIDX) FROM (SELECT * FROM QUESTION WHERE TYPE = 'Q004')
 	</select>
+	<insert id="questionWriting" parameterType="hashmap">
+	<!-- loginId=, type=Q003, subject=가입인사드립니다/., content=sdfsafsdaf, false=FALSE -->
+	INSERT INTO QUESTION (QUEIDX,ID,SUBJECT,CONTENT,REG_DATE,SHOWSTATUS,ANSSTATUS,TYPE) VALUES 
+	<if test="false.equals('FALSE')">
+	(QUEIDX_seq.NEXTVAL,#{loginId},#{subject},#{content},SYSDATE,#{false},'FALSE',#{type})
+	</if>
+	<if test="!false.equals('FALSE')">
+	(QUEIDX_seq.NEXTVAL,#{loginId},#{subject},#{content},SYSDATE,'TRUE','FALSE',#{type})
+	</if>
+	</insert>
 
 </mapper>

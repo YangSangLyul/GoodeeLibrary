@@ -2,6 +2,8 @@ package com.spring.main.controller;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,5 +142,29 @@ public class LibraryInfoController {
 		
 		return service.question_guitarPageing(page);
 	}
+	
+	//question write  
+	@RequestMapping(value = "/questionWrite", method = RequestMethod.GET)
+	public ModelAndView noticeQuestionWrite(HttpSession session,RedirectAttributes rAttr) {
+		ModelAndView mav = new ModelAndView();
+		String loginId = (String) session.getAttribute("loginId");
+		String msg="로그인을 하십시오";
+		String page = "redirect:/";
+		logger.info(loginId);
+		if(loginId != null) {
+		page="questionWrite";
+			 } rAttr.addFlashAttribute("msg",msg);	
+		mav.addObject("loginId",loginId); 
+		mav.setViewName(page);
+		return mav;
+	}
+	//만약 수정할때 문제생기면 매개변수로 세션추가해서 아이디는 따로 저장해두기 아니면 그냥 파람으로 퉁치기
+	@RequestMapping(value = "/questionWriting", method = RequestMethod.GET)
+	public ModelAndView noticeQuestion(@RequestParam HashMap<String, Object> params) {
+		logger.info("이부분까지오냐?");
+		return service.questionWriting(params);
+	}
+	
+	
 	
 }

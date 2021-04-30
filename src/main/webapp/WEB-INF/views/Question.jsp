@@ -51,6 +51,7 @@
     </style>
 </head>
 <body>
+<jsp:include page="bookuseSidebar.jsp"></jsp:include>
     <div id="QBack">
        <div id="buttonBox">
             <button onclick="location.href='QuestionAll'">전체</button>
@@ -58,7 +59,7 @@
             <button onclick="location.href='QuestionBook'">도서</button>
             <button onclick="location.href='QuestionService'">서비스</button>
             <button onclick="location.href='QuestionGuitar'">기타</button><!--etc-->
-            <button class="writebox">글쓰기</button>
+            <button class="writebox" onclick="location.href='questionWrite'">글쓰기</button>
         </div>
         <div id="QuestionTable">
             <table>
