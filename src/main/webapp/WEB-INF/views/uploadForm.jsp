@@ -15,15 +15,16 @@
 		<input type="file" name="file" onchange="fileView(this)"/>
 	</form>
 </body>
-<script>
+<script>contenteditable="true"
 var path="${path}";
 console.log(path);
 
 if(path!=""){
 	var elem = opener.document.getElementById("editable");
 	var content="";
-	content +="<a href='#' id='${path}' onclick='del(this)'>";
-	content +="<img src='${path}' width='250'/><b>X</b></a>";
+	content +="<br>";
+	content +="<div contenteditable='false'><a href='#' id='${path}' onclick='del(this)'>";
+	content +="<img src='${path}' width='80'/><b>X</b></a></div>";
 	elem.innerHTML += content;
 	self.close();
 }
