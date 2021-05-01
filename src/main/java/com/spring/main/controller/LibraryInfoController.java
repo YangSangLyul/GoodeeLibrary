@@ -161,6 +161,8 @@ public class LibraryInfoController {
 		page="questionWrite";
 			 } rAttr.addFlashAttribute("msg",msg);	
 		mav.addObject("loginId",loginId); 
+		HashMap<String, String> fileList = new HashMap<String, String>();
+		session.setAttribute("fileList", fileList);
 		mav.setViewName(page);
 		return mav;
 	}

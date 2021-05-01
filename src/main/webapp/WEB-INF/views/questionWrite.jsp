@@ -74,7 +74,8 @@
                     </select>
                 </div>
             <input type="text" placeholder="제목을 작성해주세요"  class="gw3" name="subject">
-            <textarea id="editable" contenteditable="true" cols="30" rows="10" placeholder="문의사항을 작성해 주세요"  class="gw4" name="content"></textarea>
+            <div id="editable" contenteditable="true" class="gw4"></div>
+			<input id="content" type="hidden" name="content" value=""/>
             <input type="button" value="사진업로드"  class="gw5" onclick="fileUp()"/>
             <label class="gw6"><input type="radio" name="false" value="FALSE" id="tfC">비공개
             								<input type="radio" name="false" value="TRUE" checked id="tfCK"> 공개
@@ -84,7 +85,6 @@
     </div>
 </body>
 <script>
-$("#tfC").click
 
 $("#save").click(function(){
 	//editable 에 있는 내용을 content의 value 넣기
