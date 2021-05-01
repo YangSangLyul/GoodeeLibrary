@@ -14,17 +14,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.BookDAO;
-import com.spring.main.dao.QuestionDAO;
+import com.spring.main.dao.MyLibraryDAO;
 import com.spring.main.dto.LibraryInfoDTO;
-import com.spring.main.dto.QuestionDTO;
+import com.spring.main.dto.MyLibraryDTO;
 
 @Service
 public class MyLibraryService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired QuestionDAO dao;
-	@Autowired BookDAO bao;
+	@Autowired MyLibraryDAO dao;
+	
 	@Value("#{config['Globals.root']}") String root;
 	
 	
@@ -33,7 +33,7 @@ public class MyLibraryService {
 	  logger.info("나의 문의내역 요청"); 
 	  ModelAndView mav = new ModelAndView();
 	  
-	  ArrayList<QuestionDTO> list = dao.question_list();
+	  ArrayList<MyLibraryDTO> list = dao.question_list();
 	  mav.addObject("questionList", list); 
 	  mav.setViewName("myLib_question");
 	  
@@ -47,7 +47,7 @@ public class MyLibraryService {
 		ModelAndView mav = new ModelAndView();
 		logger.info("상세보기 요청");
 		//HashMap<String, Object> map = new HashMap<String, Object>();
-		QuestionDTO dto = dao.myLib_question_detail(params);// 상세 보기
+		MyLibraryDTO dto = dao.myLib_question_detail(params);// 상세 보기
 		//HashMap<String, Object> dto = dao.question_detail(idx);
 		//map.put("question_info",dto);
 		mav.addObject("question_info", dto);
@@ -175,7 +175,7 @@ public class MyLibraryService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		//5개 기준으로 몇페이지나 만들 수 있는가?
-		int allCnt = dao.allCount(loginId);
+		int allCnt = dao.Question_allCount(loginId);
 		logger.info("allCnt:"+allCnt);
 		//게시글 수 : 21개, 페이지당 보여줄 수 : 5 = 최대 생성 가능한 페이지 : 5
 		//예: 21/5 = 4.1 이면 소숫점을 버리고 1을 더해 5가 된다. 아니면 있는 그대로...
@@ -204,7 +204,7 @@ public class MyLibraryService {
 		ModelAndView mav = new ModelAndView();
 		logger.info("수정페이지 요청");
 		//HashMap<String, Object> map = new HashMap<String, Object>();
-		QuestionDTO dto = dao.question_editForm(params);// 상세 보기
+		MyLibraryDTO dto = dao.question_editForm(params);// 상세 보기
 		//HashMap<String, Object> dto = dao.question_detail(idx);
 		//map.put("question_info",dto);
 		mav.addObject("question_info", dto);
@@ -221,7 +221,7 @@ public class MyLibraryService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		//5개 기준으로 몇페이지나 만들 수 있는가?
-		int allCnt = bao.allCount(loginId);
+		int allCnt = dao.ReserveBook_allCount(loginId);
 		logger.info("allCnt:"+allCnt);
 		//게시글 수 : 21개, 페이지당 보여줄 수 : 5 = 최대 생성 가능한 페이지 : 5
 		//예: 21/5 = 4.1 이면 소숫점을 버리고 1을 더해 5가 된다. 아니면 있는 그대로...
@@ -235,14 +235,18 @@ public class MyLibraryService {
 		int end = page * 5;
 		int start = end - 5+1;
 		
-		map.put("reserve_list",bao.reserve_list(start,end,loginId));
-		logger.info("reserve_list",bao.reserve_list(start,end,loginId));
+		map.put("reserve_list",dao.reserve_list(start,end,loginId));
+		logger.info("reserve_list",dao.reserve_list(start,end,loginId));
 		map.put("range", range);
 		map.put("currPage",page);
 		logger.info("map:{}",map);
 		//전체 게시글 수 
 		//map.put("totalCnt",dao.allCount());
 		return map;
+	}
+
+	public int myRBookCancel(String reserveBookIdx) {
+		return dao.myRBookCancel(reserveBookIdx);
 	}
 
 }
