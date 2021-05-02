@@ -65,5 +65,9 @@
 	<delete id="ignore">
 		DELETE FROM reviewreport WHERE reportIdx=#{param1}
 	</delete>
+	
+	<delete id="blindRemove">
+		DELETE FROM reviewblind WHERE blindIdx=#{param1}
+	</delete>
 		
 </mapper>

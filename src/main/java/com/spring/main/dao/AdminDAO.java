@@ -29,5 +29,7 @@ public interface AdminDAO {
 
 	int ignore(int reportIdx);
 
+	int blindRemove(int blindIdx);
+
 
 }

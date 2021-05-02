@@ -115,4 +115,11 @@ public class AdminController {
 		return service.ignore(reportIdx,attr);
 	}
 	
+	//블라인드 해제
+	@RequestMapping(value = "/blindRemove", method = RequestMethod.GET)
+	public ModelAndView blindRemove(@RequestParam int blindIdx, RedirectAttributes attr) {
+		logger.info("해제할 블라인드 번호: "+blindIdx);
+		return service.blindRemove(blindIdx,attr);
+	}
+	
 }
