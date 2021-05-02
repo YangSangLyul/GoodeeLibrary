@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.spring.main.dto.QuestionDTO;
+import com.spring.main.dto.MyLibraryDTO;
 import com.spring.main.service.MyLibraryService;
 
 //@Controller
@@ -26,10 +27,20 @@ public class MyLibraryController {
 	@Autowired MyLibraryService service;
 	
 	  @RequestMapping(value = "/MyLibrary")
-	  public ModelAndView MyLibrary() { 
+	  public ModelAndView MyLibrary(HttpSession session,RedirectAttributes rAttr) { 
+		  ModelAndView mav = new ModelAndView();
+			String loginId = (String) session.getAttribute("loginId");
+			String msg="로그인후 접근가능합니다.";
+			String page = "redirect:/memLogin";
+			logger.info(loginId);
+			if(loginId != null) {
+				page="myLib_Rbook";
+			}
+			rAttr.addFlashAttribute("msg",msg);	
+			mav.addObject("loginId",loginId); 
+			mav.setViewName(page);
+			
 		  logger.info("나의 도서예약 내역 이동"); 
-		  ModelAndView mav = new ModelAndView(); 
-		  mav.setViewName("myLib_Rbook"); 
 		  return mav; 
 	  }
 	  
@@ -60,7 +71,7 @@ public class MyLibraryController {
 	  
 	  return service.page_list(page,loginId); 
 	  }
-
+  
 	@RequestMapping(value = "/myLib_question_detail")
 	public ModelAndView question_detail(@RequestParam HashMap<String, Object> params) {
 	//public HashMap<String, Object> question_detail(@RequestParam String idx) {	
@@ -127,4 +138,12 @@ public class MyLibraryController {
 		return service.file_upload(file,session);
 	}
 	*/
+	@RequestMapping(value = "/myRBookCancel", method = RequestMethod.GET)
+	public String reserveBookCancel(@RequestParam String reserveBookIdx) {
+		logger.info("예약 취소하기 : " + reserveBookIdx);
+		int success = service.myRBookCancel(reserveBookIdx);
+		logger.info("예약 취소 성공 여부 : " + success);
+		
+		return "myLib_Rbook";
+	}
 }

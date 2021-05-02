@@ -1,5 +1,10 @@
 package com.spring.main.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -12,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -207,6 +213,73 @@ public class LibraryInfoService {
 		mav.addObject("msg", msg);
 		mav.setViewName(page);
 		return mav;
+	}
+
+	public ModelAndView fileUpload(MultipartFile file, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		
+		File dir = new File("C:/upload/Library");
+		if(!dir.exists()) {
+			dir.mkdir();
+		}
+		String fileName = file.getOriginalFilename();
+		
+		String newFileName = System.currentTimeMillis()+fileName.substring(fileName.lastIndexOf("."));
+		
+		logger.info("팔넴"+fileName+"밀세컨더한팔넴"+newFileName);
+		
+		try {
+			byte[] bytes = file.getBytes();
+			Path filePath = Paths.get("C:/upload/Library/"+newFileName);
+			Files.write(filePath, bytes);
+			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
+			
+			fileList.put(newFileName, fileName);
+			logger.info("파일수"+fileList.size());
+			
+			session.setAttribute("fileList", fileList);
+			logger.info("fl : "+fileList);
+			mav.addObject("path","/photo/"+newFileName); //다른사람들서버 설정 알려줘야함..
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		mav.setViewName("uploadForm");
+		
+		return mav;
+	}
+
+	public HashMap<String, Object> fileDelete(String fileName, HttpSession session) {
+
+		HashMap<String, Object> map	 = new	HashMap<String, Object>();
+		
+		File delFile = new File("C:/upload/Library"+fileName);
+		logger.info("delete file:"+delFile);
+		
+		int success= 1;
+		
+		try {
+			if(delFile.exists()) { 
+				delFile.delete();  //있다면 삭제
+			}else {
+				logger.info("이미삭제된 파일 "); 
+			}
+			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
+			
+			if(fileList.get(fileName) != null) { 
+				fileList.remove(fileName);
+				logger.info("삭제후남은파일"+fileList.size());
+			}
+			session.setAttribute("fileList", fileList);  //세션에서지워진것을 다시 set해서 넣어줘야함갱신개념
+		} catch (Exception e) {
+			success=0;
+		} finally {
+			map.put("success"	, success);
+		}
+		
+		return map;
 	}
 
 
