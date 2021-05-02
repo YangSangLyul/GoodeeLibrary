@@ -38,11 +38,11 @@ table, th, td {
 		<div id="bookFilter">
 			<button id="toggle">필터 옵션</button>
 				<div id="filter">
-					<span><input type="checkbox" name="reserve" value="R001" />예약중</span>
+					<span><input type="checkbox" name="filter" value="R001" />예약중</span>
 					<span><input type="checkbox" name="filter" value="B001" />예약가능</span>
 					<span><input type="checkbox" name="filter" value="B002" />예약불가</span>
 					<span><input type="checkbox" name="filter" value="B007" />숨김</span>
-					<span><button onclick="normalBookFilter()" >검색</button></span>
+					<span><input type="button" onclick="bookFilter()" value="검색" /></span>
 				</div>
 		</div>
 		<button onclick="location.href='bookManageInsert'">도서 등록</button>
@@ -71,57 +71,6 @@ table, th, td {
 		// 몇개를 보여줄 것인지/몇페이지
 		listCall(showPage); // 시작하자마자 이 함수를 호출
 		
-		function normalBookFilter(reqPage) {
-			console.log('reqPage : ', reqPage==null);
-			var params = {};
-			var filter = [];
-	        var reserve;
-	        
-			if(reqPage == null){
-				reqPage = 1;
-			}
-			
-			console.log('reqPage : ', reqPage);
-	        
-	        $("input[name=filter]:checked").each(function() { 
-	        	filter.push($(this).val()); 
-	        })
-	        
-	        $("input[name=reserve]:checked").each(function() { 
-	        	reserve = $(this).val(); 
-	        })
-	        
-
-	        params.reserve = reserve;
-	        params.filter = filter;
-	        console.log(params);
-	        
-	        var reqUrl = './normalBookFilter/'+reqPage;
- 			$.ajax({
-				url:reqUrl,
-				type:'GET',
-				data:params,
-				dataType:'JSON',
-				success:function(data){
-					console.log(data);
-					showPage = data.currPage;
-					listPrint(data.list);
-					// 플러그인 사용
-					$("#pagination").twbsPagination({
-						startPage : data.currPage, // 시작 페이지
-						totalPages : data.range, // 생성 가능한 최대 페이지
-						visiblePages: 10,
-						onPageClick:function(evt, page) { // 각 페이지를 눌렀을 경우
-							listCall(page);
-						}
-					});
-				},
-				error:function(error){
-					console.log(error);
-				}
-			});
-			
-		}
 		function listCall(reqPage){
 			var reqUrl = './normalBookManage/'+reqPage;
 			$.ajax({

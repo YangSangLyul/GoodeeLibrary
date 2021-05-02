@@ -2,6 +2,7 @@ package com.spring.main.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,14 +34,35 @@ public class BookService {
 		return mav;
 	}
 
-	public ModelAndView normalBookFilter(ArrayList<String> filter) {
-		ModelAndView mav = new ModelAndView();
-
-		ArrayList<BookDTO> filterList = dao.normalBookFilter(filter);
-		mav.addObject("list", filterList);
-		mav.setViewName("/BookManage/normalBookManage");
-
-		return mav;
+	/*
+	 * public ModelAndView normalBookFilter(ArrayList<String> filter) { ModelAndView
+	 * mav = new ModelAndView();
+	 * 
+	 * ArrayList<BookDTO> filterList = dao.normalBookFilter(filter);
+	 * mav.addObject("list", filterList);
+	 * mav.setViewName("/BookManage/normalBookManage");
+	 * 
+	 * return mav; }
+	 */
+	public HashMap<String, Object> normalBookFilter(ArrayList<String> filter, int page) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int pagePerCnt = 10;
+		int allCnt = dao.allCnt(); 		// 전체 게시글 수
+		int range = (int) (allCnt % pagePerCnt > 0 ? Math.floor((allCnt/pagePerCnt))+1 : Math.floor((allCnt/pagePerCnt)));
+		
+		page = page > range ? range : page;
+		logger.info("range : " + range + " / page : " + page);
+		// 시작 페이지, 끝 페이지
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		
+		logger.info("start : " + start + " / end : " + end);
+		
+		ArrayList<BookDTO> list = dao.normalBookFilter(start,end);
+		map.put("list", list);
+		map.put("range", range);
+		map.put("currPage", page);
+		return map;
 	}
 
 	public HashMap<String, Object> bookStateChange(HashMap<String, String> params) {
@@ -104,6 +126,28 @@ public class BookService {
 		
 		
 		return page;
+	}
+
+	public HashMap<String, Object> bookList(int page) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int pagePerCnt = 10;
+		int allCnt = dao.allCnt(); 		// 전체 게시글 수
+		int range = (int) (allCnt % pagePerCnt > 0 ? Math.floor((allCnt/pagePerCnt))+1 : Math.floor((allCnt/pagePerCnt)));
+		
+		page = page > range ? range : page;
+		logger.info("range : " + range + " / page : " + page);
+		// 시작 페이지, 끝 페이지
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		
+		logger.info("start : " + start + " / end : " + end);
+		
+		ArrayList<BookDTO> list = dao.bookList(start,end);
+		map.put("list", list);
+		map.put("range", range);
+		map.put("currPage", page);
+		return map;
 	}
 
 }
