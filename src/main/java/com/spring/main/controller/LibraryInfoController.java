@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -161,21 +162,46 @@ public class LibraryInfoController {
 		page="questionWrite";
 			 } rAttr.addFlashAttribute("msg",msg);	
 		mav.addObject("loginId",loginId); 
+		HashMap<String, String> fileList = new HashMap<String, String>();
+		session.setAttribute("fileList", fileList);
 		mav.setViewName(page);
 		return mav;
 	}
 	//만약 수정할때 문제생기면 매개변수로 세션추가해서 아이디는 따로 저장해두기 아니면 그냥 파람으로 퉁치기
 	@RequestMapping(value = "/questionWriting", method = RequestMethod.GET)
-	public ModelAndView noticeQuestion(@RequestParam HashMap<String, Object> params) {
+	public ModelAndView noticeQuestion(@RequestParam HashMap<String, Object> params,HttpSession session) {
 		logger.info("이부분까지오냐?");
-		return service.questionWriting(params);
+		
+		return service.questionWriting(params,session);
 	}
 	
 	@RequestMapping(value = "/questionDetail/{idx}", method = RequestMethod.GET)
 	public ModelAndView noticeQuestionDetail(@PathVariable int idx,HttpSession session,RedirectAttributes rAttr) {
-		logger.info("이부분까지오냐?");
+		logger.info("디테일이부분까지오냐?");
 		return service.questionDetail(idx,session,rAttr);
 	}
+	
+	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
+	public String uploadForm(Model model) {
+		logger.info("사진올리기 폼으로이동 ");
+		return "uploadForm";
+	}
+	
+	@RequestMapping(value = "/file_upload", method = RequestMethod.POST)
+	public ModelAndView upload(MultipartFile file , HttpSession session) {
+		logger.info("업로드 요청 ");
+		
+		return service.fileUpload(file,session);
+	}
+	
+	@RequestMapping(value = "/fileDelete", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> fileDelete(@RequestParam String fileName,HttpSession session) {
+		
+		logger.info("삭제 요구하는 파일이름" + fileName);
+		
+		return service.fileDelete(fileName,session);
+	}
+	
 	
 	
 }

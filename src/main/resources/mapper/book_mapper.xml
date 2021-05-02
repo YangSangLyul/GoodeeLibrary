@@ -24,7 +24,7 @@
 			<result column="bookState" property="bookState"/>
 			<collection property="reserveBookDTO" resultMap="reserveBook"/>
 	</resultMap>
-	<select id="bookManageList" resultMap="book">
+<!-- 	<select id="bookManageList" resultMap="book">
 		SELECT
 			b.BOOKIDX
 			, b.BOOKNAME
@@ -41,6 +41,25 @@
 		ON b.bookidx = r.bookidx
         WHERE r.bookstate = 'R001' AND b.bookstate IN('B001','B002','B003','B004','B005','B006','B007') OR r.bookstate IS NULL
 		ORDER BY b.bookIdx DESC, r.REG_DATE ASC
+	</select> -->
+	
+	<select id="bookList" resultMap="book">
+		SELECT b.bookIdx, b.bookName, b.writer, b.story, b.publisher, b.bookImg, b.bookState, r.reserveBookIdx, reserveBookState, r.id, r.reg_date, rnum
+		FROM (
+		    SELECT b.bookIdx, b.bookName, b.writer, b.story, b.publisher, b.bookImg, b.bookState,
+		        ROW_NUMBER() OVER(ORDER BY b.bookIdx DESC) AS rnum 
+		        FROM book b 
+		        WHERE b.bookstate IN('B001','B002','B003','B004','B005','B006','B007')
+		    ) B LEFT JOIN (
+		    SELECT r.reserveBookIdx, r.bookidx, r.bookState AS reserveBookState, r.id, r.reg_date 
+		    FROM reserveBook r 
+		    WHERE r.bookstate = 'R001' OR r.bookstate IS NULL) R
+		ON b.bookidx = r.bookidx
+		WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	<select id="allCnt" resultType="integer">
+		SELECT COUNT(*) FROM book
 	</select>
 	
 	
@@ -86,15 +105,5 @@
 		INSERT INTO book(bookIdx, bookName, writer, publisher, story, bookImg)
 			VALUES(bookIdx_seq.NEXTVAL, #{bookName}, #{writer}, #{publisher}, #{story}, #{bookImg})
 	</insert>
-
-	<select id="allCount" resultType="Integer">
-		SELECT COUNT(bookIdx) FROM RESERVEBOOK WHERE id=#{param1}
-	</select>
-
-	<select id="reserve_list" resultType="hashMap">
-	SELECT  * FROM( 
-		SELECT ROW_NUMBER() OVER(ORDER BY b.bookidx DESC) AS rnum,b.bookIdx,b.bookstate "bstate",b.bookname,r.bookstate "rstate",r.id,r.reg_date  FROM book b FULL OUTER JOIN reserveBook r ON b.bookidx = r.bookidx WHERE id=#{param3}
-	)WHERE rnum BETWEEN #{param1} AND #{param2}
-	</select>
 
 </mapper>
