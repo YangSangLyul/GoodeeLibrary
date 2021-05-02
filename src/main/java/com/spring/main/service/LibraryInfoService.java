@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -173,17 +174,41 @@ public class LibraryInfoService {
 		return map;
 	}
 
-	public ModelAndView questionWriting(HashMap<String, Object> params) {
+	public ModelAndView questionWriting(HashMap<String, Object> params ,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		logger.info("params의값"+params);
-		/* loginId=, type=Q003, subject=가입인사드립니다/., content=sdfsafsdaf, false=FALSE */
-		int success = dao.questionWriting(params);
-		String msg="글작성에실패하였씁니다.";
-		if(success > 0) {
-			msg="글작성에 성공하였씁니다.";
+		String page ="redirect:/questionWrite";
+		
+		LibraryInfoDTO dto = new LibraryInfoDTO();
+		dto.setSubject((String) params.get("subject"));
+		dto.setContent((String) params.get("content"));
+		dto.setShowstatus((String) params.get("false"));
+		dto.setId((String) params.get("loginId"));
+		dto.setType((String) params.get("type"));
+		
+		logger.info(""+dto.getId());
+		
+		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
+		
+		if(dao.questionWriting(dto)>0) {
+			logger.info("queidx"+dto.getQueidx());
+			if(fileList.size() >0) {
+				for(String key:fileList.keySet()) {
+				logger.info("key중복방지"+key+"getKe오리"+fileList.get(key)+"fto.get"+dto.getQueidx());			
+				dao.fileWriting(key,fileList.get(key),dto.getQueidx());
+				}
+			}
+			
+			page="redirect:/questionDetail/"+dto.getQueidx(); 
+		}else {
+			for(String newFileName : fileList.keySet()) {
+				File file = new File("C:/upload/Library"+newFileName);
+				file.delete();
+			}
 		}
-		mav.addObject("msg", msg);
-		mav.setViewName("Question");
+		
+		session.removeAttribute("fileList");
+		mav.setViewName(page);
+		
 		return mav;
 	}
 
@@ -194,16 +219,31 @@ public class LibraryInfoService {
 		 logger.info(""+map);
 		 logger.info(""+map.get("SHOWSTATUS"));
 		 logger.info(""+map.get("ID"));
+		 logger.info(""+map.get("TO_CHAR(REG_DATE,'YYYY-MM-DD')"));//다른방법이없을까ㅇ?
+		 map.put("REG_DATE", map.get("TO_CHAR(REG_DATE,'YYYY-MM-DD')"));
+		 logger.info(""+map);
 		 logger.info(""+loginId);
 		 String msg ="";
 		 String page ="";
 		if(map.get("SHOWSTATUS").equals("TRUE")) {
+			if(map.get("ANSSTATUS").equals("TRUE")) {
+				String ansstatus =dao.questionAnsstatus(idx);
+				logger.info("값:"+ansstatus);
+				mav.addObject("ansstatus", ansstatus);
+			}
 			msg="전체공개입니다.";
 			page="questionDetail";
+			mav.addObject("map", map);
 		}else {
 			if(map.get("ID").equals(loginId)) {
+				if(map.get("ANSSTATUS").equals("TRUE")) {
+					String ansstatus =dao.questionAnsstatus(idx);
+					logger.info("값:"+ansstatus);
+					mav.addObject("ansstatus", ansstatus);
+				}
 				msg="비공개글이지만 작성자이기에 보여집니다.";
 				page="questionDetail";
+				mav.addObject("map", map);
 			}else {
 				msg="볼수 있는권한이 있지않습니다.";
 				page="redirect:/Question";

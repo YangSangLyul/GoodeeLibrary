@@ -169,14 +169,15 @@ public class LibraryInfoController {
 	}
 	//만약 수정할때 문제생기면 매개변수로 세션추가해서 아이디는 따로 저장해두기 아니면 그냥 파람으로 퉁치기
 	@RequestMapping(value = "/questionWriting", method = RequestMethod.GET)
-	public ModelAndView noticeQuestion(@RequestParam HashMap<String, Object> params) {
+	public ModelAndView noticeQuestion(@RequestParam HashMap<String, Object> params,HttpSession session) {
 		logger.info("이부분까지오냐?");
-		return service.questionWriting(params);
+		
+		return service.questionWriting(params,session);
 	}
 	
 	@RequestMapping(value = "/questionDetail/{idx}", method = RequestMethod.GET)
 	public ModelAndView noticeQuestionDetail(@PathVariable int idx,HttpSession session,RedirectAttributes rAttr) {
-		logger.info("이부분까지오냐?");
+		logger.info("디테일이부분까지오냐?");
 		return service.questionDetail(idx,session,rAttr);
 	}
 	
