@@ -62,7 +62,7 @@
 	                <td>${report.reportdate}</td>
 	                <td>
 	                    <input type="button" id="blind" onclick="location.href='blindReason?reportIdx=${report.reportIdx}&reviewIdx=${report.reviewIdx}'" value="블라인드"/>
-	                    <input type="button" id="ignore" value="무시"/>
+	                    <input type="button" id="ignore" onclick="location.href='ignore?reportIdx=${report.reportIdx}'" value="무시"/>
 	                </td>
 	            </tr>
             </c:forEach>
@@ -87,6 +87,12 @@
     		return txt;
 	    }
 	    textLengthOverCut();
+	    
+	    //alert
+	    var msg = "${msg}";
+	    if(msg!=""){
+	    	alert(msg);
+	    }
     
     </script>
 </html>

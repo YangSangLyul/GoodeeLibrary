@@ -27,7 +27,7 @@ public class AdminController {
 	
 	//이 달의 리뷰왕 리스트 
 	@RequestMapping(value = "/ReviewKing", method = RequestMethod.GET)
-	public ModelAndView ReviewKing(Model model) {
+	public ModelAndView ReviewKing() {
 		logger.info("이달의리뷰왕 요청");
 		return service.reviewkingList();
 	}
@@ -58,21 +58,21 @@ public class AdminController {
 	
 	//리뷰왕 선정 이미 했으면 다음 달 까지 버튼 숨김
 	@RequestMapping(value = "/hideBtn", method = RequestMethod.GET)
-	public @ResponseBody HashMap<String, Object> hideBtn(Model model, RedirectAttributes attr) {
+	public @ResponseBody HashMap<String, Object> hideBtn() {
 		logger.info("버튼숨김 요청");
 		return service.hideBtn();
 	}
 	
 	//리뷰 신고리스트
 	@RequestMapping(value = "/ReportList", method = RequestMethod.GET)
-	public ModelAndView ReportList(Model model) {
+	public ModelAndView ReportList() {
 		logger.info("신고리스트 요청");
 		return service.ReportList();
 	}
 	
 	//블라인드 리스트
 	@RequestMapping(value = "/BlindList", method = RequestMethod.GET)
-	public ModelAndView BlindList(Model model) {
+	public ModelAndView BlindList() {
 		logger.info("블라인드리스트 요청");
 		return service.BlindList();
 	}
@@ -103,9 +103,16 @@ public class AdminController {
 	
 	//블라인드 사유 입력
 	@RequestMapping(value = "/blindReasonTxt", method = RequestMethod.POST)
-	public ModelAndView blindReasonTxt(Model model, @RequestParam HashMap<String, Object> params) {
+	public ModelAndView blindReasonTxt(@RequestParam HashMap<String, Object> params) {
 		logger.info("블라인드 사유 입력: "+params);
 		return service.blindReasonTxt(params);
+	}
+	
+	//신고리스트 무시
+	@RequestMapping(value = "/ignore", method = RequestMethod.GET)
+	public ModelAndView ignore(@RequestParam int reportIdx, RedirectAttributes attr) {
+		logger.info("무시할 신고번호: "+reportIdx);
+		return service.ignore(reportIdx,attr);
 	}
 	
 }

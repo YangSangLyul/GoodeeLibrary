@@ -27,5 +27,7 @@ public interface AdminDAO {
 
 	int reportFal(HashMap<String, Object> params);
 
+	int ignore(int reportIdx);
+
 
 }
