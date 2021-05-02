@@ -54,7 +54,7 @@ public class reserveSeatService {
 		ArrayList<ReserveSeatDTO> id = reserveSeatDAO.reserSeatChk(loginId);
 		
 		if(id.size() > 0) {
-			msg = "이미 좌석 예약을 하셨습니다...";
+			msg = "이미 좌석 예약을 하셨거나 사용중인 좌석이 있습니다.";
 		}else {
 			int success = reserveSeatDAO.reserveSeatReq(start,end,seatNum,loginId);
 			
@@ -68,6 +68,100 @@ public class reserveSeatService {
 
 		rAttr.addFlashAttribute("msg",msg);
 		return "redirect:/reserveSeatForm";
+	}
+
+	public ModelAndView myReserveSeat(String loginId) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		if(loginId == null) {
+			mav.setViewName("myLib_reserveSeatInOut");
+			return mav;
+		}
+		
+		
+		ReserveSeatDTO mySeat = reserveSeatDAO.myReserveSeat(loginId);
+		
+		logger.info("내 좌석이 있는지 확인하기 : "+mySeat);
+		
+		if(mySeat != null) {
+			mav.addObject("mySeat",mySeat);
+		}
+		
+		mav.setViewName("myLib_reserveSeatInOut");
+		
+		return mav;
+	}
+
+	public HashMap<String, Object> seatEnterReq(String loginId) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int success = 0;
+		int reserveNum = 0;
+		
+		success = reserveSeatDAO.seatEnterReq(loginId);
+		
+		logger.info("입실 성공 여부 : "+success);
+		
+		if(success > 0) {
+			reserveNum = reserveSeatDAO.mySeatNum(loginId);
+			
+			if(reserveNum > 0) {
+				reserveSeatDAO.mySeatEnter(loginId,reserveNum);
+			}
+			
+			
+		}
+		
+		map.put("success", success);
+		
+		return map;
+	}
+
+	public HashMap<String, Object> seatExitReq(String loginId) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int success = 0;
+		int reserveNum = 0;
+		
+
+		reserveNum = reserveSeatDAO.mySeatNum(loginId);
+			
+		if(reserveNum > 0) {
+				//퇴실 이력 업데이트
+				reserveSeatDAO.mySeatExit(loginId,reserveNum);
+				
+				//퇴실하기
+				success = reserveSeatDAO.seatExitReq(loginId);
+				
+				logger.info("퇴실 성공 여부 : "+success);
+		}
+			
+		
+		
+		map.put("success", success);
+		
+		return map;
+	}
+
+	public HashMap<String, Object> reserveCancelReq(String loginId) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int success = 0;
+		
+		success = reserveSeatDAO.reserveCancelReq(loginId);
+		
+		if(success > 0) {
+			
+			logger.info("예약취소 성공 여부 : "+success);
+		}
+
+		map.put("success", success);
+		
+		return map;
 	}
 
 }

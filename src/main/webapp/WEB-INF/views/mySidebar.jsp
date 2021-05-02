@@ -76,7 +76,7 @@
         //여기 누르면 경로 지정;
         $(".menu:eq(0)").click(function () {
            console.log("0번")
-           location.href = '';
+           location.href = 'myLib_reserveSeatInOut';
        })
        
         $(".menu:eq(1)").click(function () {

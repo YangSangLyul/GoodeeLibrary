@@ -1,5 +1,9 @@
 package com.spring.main.controller;
 
+import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -35,4 +41,50 @@ public class SeatController {
 		
 		return reserve.reserveSeatReq(seatTime,seatNum,loginId, rAttr);
 	}
+	
+	
+	@RequestMapping(value = "/myLib_reserveSeatInOut", method = RequestMethod.GET)
+	public ModelAndView myLib_reserveSeatInOut(HttpSession session) {
+		
+		String loginId = (String) session.getAttribute("loginId");
+			
+		logger.info("내 예약 좌석 확인 메뉴 진입 + 예약좌석 존재여부 확인 대상 아이디 : "+loginId);
+		
+		return reserve.myReserveSeat(loginId);
+	}
+	
+	//ajax 요청
+	@RequestMapping(value = "/seatEnterReq", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object>seatEnterReq(HttpSession session) {
+		
+		String loginId = (String) session.getAttribute("loginId");
+		
+		logger.info("입실요청 대상 : "+loginId);
+		
+		return reserve.seatEnterReq(loginId);
+	}
+	
+	//ajax 요청	
+	@RequestMapping(value = "/seatExitReq", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object>seatExitReq(HttpSession session) {
+		
+		String loginId = (String) session.getAttribute("loginId");
+		
+		logger.info("퇴실요청 대상 : "+loginId);
+		
+		return reserve.seatExitReq(loginId);
+	}
+	
+	
+	//ajax 요청	
+	@RequestMapping(value = "/reserveCancelReq", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object>reserveCancelReq(HttpSession session) {
+		
+		String loginId = (String) session.getAttribute("loginId");
+		
+		logger.info("예약취소 요청 대상 : "+loginId);
+		
+		return reserve.reserveCancelReq(loginId);
+	}
+	
 }
