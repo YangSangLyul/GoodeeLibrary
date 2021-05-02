@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,18 +27,38 @@ public class BookController {
 	
 	@Autowired BookService service;
 	
-	@RequestMapping(value = "/normalBookManage", method = RequestMethod.GET)
-	public ModelAndView normalBookManage(Model model) {
-		logger.info("일반도서 리스트");
-		
-		return service.bookManageList();
+	@RequestMapping(value = "/bookList", method = RequestMethod.GET)
+	public String bookList() {
+		logger.info("도서 관리 페이지 이동");
+		return "/BookManage/normalBookManage";
 	}
 	
-	@RequestMapping(value = "/normalBookFilter", method = RequestMethod.POST)
-	public ModelAndView normalBookFilter(@RequestParam ArrayList<String> filter) {
-		logger.info("일반도서 필터");
+	@RequestMapping(value = "/normalBookManage/{page}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> normalBookManage(@PathVariable int page) {
+		logger.info("page : " + page);
+		return service.bookList(page);
+	}
+	
+	@RequestMapping(value = "/normalBookFilter/{page}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> normalBookFilter(
+			@RequestParam HashMap<String, Object> params, 
+			@PathVariable int page) {
+		//logger.info("일반도서 필터 : " + filter + " / reserve : " + reserve);
 		
-		return service.normalBookFilter(filter);
+		logger.info("일반도서 필터 : " + params);
+		logger.info("일반도서 필터 : " + params.get("filter[]"));
+		logger.info("일반도서 필터 : " + params.get("filter[0]"));
+		logger.info("일반도서 필터 : " + params.get("filter[1]"));
+		
+		/*
+		 * ArrayList list = (ArrayList)params.get("filter"); logger.info("list : " +
+		 * list.size());
+		 */
+		
+		//logger.info("일반도서 필터 : " + params.get("reserve"));
+		
+		logger.info("page : " + page);
+ 		return null;
 	}
 	
 	@RequestMapping(value = "/bookStateChange", method = RequestMethod.GET)
@@ -92,5 +113,6 @@ public class BookController {
 		logger.info(dto.getBookName() + " / " + dto.getBookImg() + " / " + dto.getPublisher() + " / " + dto.getStory() + " / " + dto.getWriter());
 		return service.bookInsert(dto);
 	}
+
 	
 }
