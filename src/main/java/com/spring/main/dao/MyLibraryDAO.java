@@ -58,6 +58,12 @@ public interface MyLibraryDAO {
 
 	boolean reserveF(String bookIdx, String loginId);
 
+	int HopeBook_allCount(String loginId);
+
+	ArrayList<MyLibraryDTO> hope_list(int start, int end, String loginId);
+
+	MyLibraryDTO myHBookDetail(String hopeBooksNumber);
+
 	//HashMap<String, Object> question_detail(String idx);
 
 }

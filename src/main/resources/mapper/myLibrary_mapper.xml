@@ -114,4 +114,18 @@
 	<delete id="myRBookCancel">
 		DELETE FROM reserveBook WHERE bookIdx = #{param1} AND id=#{param2}
 	</delete>
+	
+	<select id="HopeBook_allCount" resultType="Integer">
+		SELECT COUNT(hopebooksNumber) FROM HopeBook WHERE id=#{param1}
+	</select>
+	
+	<select id="hope_list" resultType="hashMap">
+		SELECT  * FROM( 
+			SELECT  ROW_NUMBER() OVER(ORDER BY hopebooksNumber DESC) AS rnum ,hopebooksnumber,id,hb_state,hb_date,hb_bookname,writer,publisher,hopereason FROM HopeBook WHERE id=#{param3}
+		)WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	<select id="myHBookDetail" resultType="myLibrary">
+		SELECT * FROM hopebook WHERE hopeBooksNumber = #{hopeBooksNumber}
+	</select>
 </mapper>

@@ -78,6 +78,103 @@
     </div>
 </body>
 <script>
-    //팝업창 띄우기 alert
+var showPage=1;
+
+listCall(showPage);
+
+function listCall(reqPage){         
+
+	//주소 다른주소로 보내라.
+	var reqUrl ='./myLib_Hbook/'+10+"/"+reqPage;
+   $.ajax({
+      url: reqUrl
+      ,type:'get'
+      ,data:{}
+      ,dataType:'JSON'
+      ,success:function(data){
+         console.log(data);
+         console.log(data.hope_list);
+         showPage = data.currPage;
+         listPrint(data.hope_list);
+         //pagePrint(data.range);//플러그인 미사용 페이징 처리!
+         //플러그인 사용
+         
+         $("#pagination").twbsPagination({
+      	   startPage:data.currPage,//시작페이지
+      	   totalPages:data.range,//총 페이지
+      	   visiblePages:5,//5개씩 보여주겠다.(1~5)
+      	   onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
+      		   //console.log(evt);
+      		   //console.log(page); 
+      		   listCall(page);
+      	   } 
+         });
+         
+      }
+      ,error:function(error){
+         console.log(error);
+         
+      }
+   });
+}
+
+function pagePrint(range){
+	  console.log("생성 가능 페이지 : "+range);
+	  console.log("현재 페이지 : "+showPage);
+	  var content="";
+	  var start=1;
+	  var end = range >= 10? 10: range;
+	  
+	  //이전(5페이지가 넘어 갔을때 나타나는 녀석)
+	  if(showPage>5){
+		  end = Math.ceil(showPage/5)*5;
+		  if(end>range){
+			  end = range;
+		  }
+		  start = end-4;
+		  content += "<a href='#' onclick='listCall("+(start-1)+")'>이전</a> |"
+	  }
+
+	  //1~5
+	  for(var i = start; i<=end; i++){
+		  if(i==showPage){
+			content += " <b style='color:red'>"+i+"</b> ";	    			  
+		  }//else if(range>=i){
+		  else{
+			  content += " <a href='#' onclick='listCall("+i+")'>"+i+"</a>";
+		  }    			  
+	  }
+	  //다음(range 가 더있을 경우 나타나는 녀석)
+	  if(end<range){
+		  content += "| <a href='#' onclick='listCall("+(end+1)+")'>다음</a>"
+	  }
+	  
+	  $('#paging').empty();
+	  $('#paging').append(content);
+}
+
+
+function listPrint(hope_list){
+	  var content="";
+	  for(var i=0; i<hope_list.length;i++){
+	  	
+		content += "<tr>"
+		content += "<td><a href='./myHBookDetail?hopeBooksNumber="+hope_list[i].HOPEBOOKSNUMBER+"'>"+hope_list[i].HB_BOOKNAME+"</a></td>"
+		var date = new Date(hope_list[i].HB_DATE);
+		content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
+		//content += "<td>"+reserve_list[i].bstate+"</td>"
+		if(hope_list[i].HB_STATE == 'H001'){
+			content += "<td>신청중</td>"
+		}else if(hope_list[i].HB_STATE == 'H002'){
+			content += "<td>승인</td>"
+		}else if(hope_list[i].HB_STATE == 'H003'){
+			//거부 클릭시 팝업창 띄우기 alert
+			content += "<td>거부</td>"
+		}
+		content += "</tr>"
+
+	  $("#hope_list").empty();  
+	  $("#hope_list").append(content);
+}}
 </script>
 </html>
