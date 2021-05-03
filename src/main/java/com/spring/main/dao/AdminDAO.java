@@ -15,9 +15,9 @@ public interface AdminDAO {
 
 	ArrayList<String> hideBtn();
 
-	ArrayList<AdminDTO> ReportList();
+	ArrayList<AdminDTO> ReportList(int start, int end);
 
-	ArrayList<AdminDTO> BlindList();
+	ArrayList<AdminDTO> BlindList(int start, int end);
 
 	AdminDTO reportDetail(int idx);
 
@@ -30,6 +30,8 @@ public interface AdminDAO {
 	int ignore(int reportIdx);
 
 	int blindRemove(int blindIdx);
+
+	int allCount();
 
 
 }
