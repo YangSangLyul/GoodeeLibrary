@@ -52,14 +52,6 @@
                 outline: 0;
             }
 
-            #adminMenu{
-                display: none;
-            }
-
-            #adminService{
-                display: none;
-            }
-
             #loginOffBox{
                 
                 float: right;
@@ -92,18 +84,6 @@
             #loginOnBox a:hover {
                 color: blue;
             }
-            
-            #home a:link { 
-                color: blue; 
-                text-decoration: none;
-            }
-            #home a:visited {
-                color: blue; 
-                text-decoration: none;
-            }
-            #home a:hover {
-                color: blue;
-            }
         </style>
         
     </head>
@@ -114,31 +94,6 @@
 
         
         <nav id="topMenu">
-            <!-- 일반 유저 메뉴 영역-->
-            <div id="userMenu">
-            <ul>
-                <li class="topMenuLi"> 
-                    <button id="libraryInfo" onclick="location.href='noticea'">도서관 이용안내</button>
-                </li>
-    
-                <li class="topMenuLi">
-                    <button id="libraryService" onclick="location.href='reserveSeatForm'">도서관 서비스</button>
-                </li>
-    
-                <li class="topMenuLi">
-                    <button id="librarySearch">자료 검색</button>
-                </li>
-                <li class="topMenuLi">
-                    <button id="libraryMy" onclick="location.href='MyLibrary'">마이 라이브러리</button>
-                    <!-- onclick="location.href='myLib_reserveSeatInOut'" -->
-                    
-                    <!-- 관리자가 로그인할 경우 나타나게 될 메뉴
-                         마이 라이브러리는 숨김처리 됨
-                    -->
-                    <button id="adminService">관리자 서비스</button>
-                </li>
-            </ul>
-            </div>
             <!-- 관리자 메뉴 영역(관리자 로그인 시 나타남)-->
             <div id="adminMenu">
                 <ul>
@@ -181,26 +136,7 @@
         <hr/>
     </body>
 	<script>
-		$("#librarySearch").click(function(){
-			location.href = 'booksSearch';
-		});
 		
-		function menuCall(){
-			var loginId = "${sessionScope.loginId}";
-			
-			console.log('현재 로그인한 사람 ',loginId);
-			
-			if(loginId == 'admin'){
-				$("#libraryMy").css("display","none");
-				$("#adminService").css("display","inline");
-				
-				$("#adminService").click(function(){
-					location.href = 'adminService';
-				});
-			}
-		}
-		
-		menuCall();
 	</script>
 
 </html>
