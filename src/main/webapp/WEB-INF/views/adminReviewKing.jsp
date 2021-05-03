@@ -57,7 +57,7 @@
             <c:forEach items="${king.manyUp}" var="list">
 	            <tr>
 	                <td>${list.rnum}</td>
-	                <td><a href="[리뷰모아보기]?id=${list.id}">${list.id}</a></td>
+	                <td><a href="reviewIdList?id=${list.id}">${list.id}</a></td>
 	                <td>${list.cnt}</td>
 	                <td><input type="checkbox" onclick="count_ck(this)" name="chk"/></td>
 	            </tr>
