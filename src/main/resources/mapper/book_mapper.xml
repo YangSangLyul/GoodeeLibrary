@@ -110,5 +110,43 @@
 		INSERT INTO hopebook(hopebooksnumber,id,hb_bookname,writer,publisher,hopereason)
 		VALUES(HOPEBOOKSNUMBER_SEQ.NEXTVAL,#{userId},#{hopeBook},#{writer},#{publisher},#{reason})
 	</insert>
+	
+	<select id="monthAllCnt" resultType="integer" parameterType="hashMap">
+		SELECT COUNT(*) FROM book
+		<where>
+		<if test="month == calMonth">
+		reg_date BETWEEN TRUNC(SYSDATE+1)-TO_CHAR(SYSDATE,'DD')
+    	AND TRUNC(LAST_DAY(SYSDATE))+0.99999421
+    	</if>
+    	<if test="month == calMonth - 1">
+		reg_date BETWEEN TRUNC(ADD_MONTHS(SYSDATE,-1)+1)-TO_CHAR(SYSDATE,'DD')
+   		AND TRUNC(LAST_DAY(ADD_MONTHS(SYSDATE,-1)))+0.99999421
+    	</if>
+    	<if test="month == calMonth - 2">
+		reg_date BETWEEN TRUNC(ADD_MONTHS(SYSDATE,-2)+1)-TO_CHAR(SYSDATE,'DD')
+    	AND TRUNC(LAST_DAY(ADD_MONTHS(SYSDATE,-2)))+0.99999421
+    	</if>
+    	</where>
+	</select>
+	
+	<select id="newBooksList" resultType="book" parameterType="hashMap">
+		SELECT bookidx,bookimg,reg_date,rnum FROM (SELECT bookidx, bookimg,reg_date, ROW_NUMBER() OVER(ORDER BY bookidx DESC) AS rnum FROM book
+		<where>
+		<if test="month == calMonth">
+		reg_date BETWEEN TRUNC(SYSDATE+1)-TO_CHAR(SYSDATE,'DD')
+    	AND TRUNC(LAST_DAY(SYSDATE))+0.99999421 AND bookstate IN ('B001','B002','B003','B004'))
+    	</if>
+    	<if test="month == calMonth - 1">
+		reg_date BETWEEN TRUNC(ADD_MONTHS(SYSDATE,-1)+1)-TO_CHAR(SYSDATE,'DD')
+   		AND TRUNC(LAST_DAY(ADD_MONTHS(SYSDATE,-1)))+0.99999421 AND bookstate IN ('B001','B002','B003','B004'))
+    	</if>
+    	<if test="month == calMonth - 2">
+		reg_date BETWEEN TRUNC(ADD_MONTHS(SYSDATE,-2)+1)-TO_CHAR(SYSDATE,'DD')
+    	AND TRUNC(LAST_DAY(ADD_MONTHS(SYSDATE,-2)))+0.99999421 AND bookstate IN ('B001','B002','B003','B004'))
+    	</if>
+		</where>
+		WHERE rnum between #{start} AND #{end} ORDER BY reg_date ASC
+		
+	</select>
 
 </mapper>

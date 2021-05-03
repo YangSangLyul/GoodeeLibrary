@@ -134,16 +134,18 @@
 <%--    <iframe src="header.jsp" width="100%" frameborder="0" scrolling="no">
         </iframe> --%>
         <!-- 검색창 영역-->
+        <form id="searchForm" action="bookSearchReq" method="POST">
         <div id="searchBox">
             <select name="search">
                 <option value="도서명">도서명</option>
                 <option value="저자">저자</option>
             </select>
 
-            <input type="text" name="searchContent" placeholder="검색어를 입력 해 주세요."/>
+            <input type="text" id="searchContent" name="searchContent" placeholder="검색어를 입력 해 주세요."/>
 
-            <input type="button" value="검색"/>
+            <input type="button" id="searchBtn" value="검색"/>
         </div>
+        </form>
 
         <!--도서관 위치 영역-->
         <div id="place">
@@ -190,6 +192,14 @@
     if(msg!=""){
     	alert(msg);
     }
+    
+	$("#searchBtn").click(function(){
+		if($("#searchContent").val() == ''){
+			alert('검색할 내용을 입력해주세요!');
+		}else{
+			$("#searchForm").submit();
+		}
+	});
     </script>
 
 

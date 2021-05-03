@@ -130,6 +130,20 @@ public class BookController {
 		
 		return service.hopeBookInsert(params,rAttr);
 	}
+	
+	@RequestMapping(value = "/newBooksList", method = RequestMethod.GET)
+	public  String newBooksList() {
+		logger.info("신착도서 안내 페이지 이동");
+		
+		return "/newBooks";
+	}
+	
+	@RequestMapping(value = "/newBooks/{month}/{page}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> newBooks(@PathVariable int month, @PathVariable int page) {
+		logger.info("신착도서 리스트 요청 : "+month+" 월의 페이지번호 : "+page);
+		
+		return service.newBooks(month,page);
+	}
 
 	
 }
