@@ -144,6 +144,20 @@ public class BookController {
 		
 		return service.newBooks(month,page);
 	}
+	
+	@RequestMapping(value = "/recommendBooks", method = RequestMethod.GET)
+	public  String recommendBooks() {
+		logger.info("사서도서 안내 페이지 이동");
+		
+		return "/recommendBooks";
+	}
+	
+	@RequestMapping(value = "/recommendBooksList/{month}/{page}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> recommendBooksList(@PathVariable int month, @PathVariable int page) {
+		logger.info("사서도서 리스트 요청 : "+month+" 월의 페이지번호 : "+page);
+		
+		return service.recommendBooksList(month,page);
+	}
 
 	
 }

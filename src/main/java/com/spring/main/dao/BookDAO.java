@@ -40,4 +40,8 @@ public interface BookDAO {
 	int monthAllCnt(HashMap<String, Object> map);
 
 	ArrayList<BookDTO> newBooksList(HashMap<String, Object> map);
+
+	int monthRecommendAll(HashMap<String, Object> map);
+
+	ArrayList<BookDTO> recommendBooksList(HashMap<String, Object> map);
 }
