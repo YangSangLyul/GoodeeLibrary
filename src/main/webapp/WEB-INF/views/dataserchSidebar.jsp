@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    
     <style>
         #titleMenu {
             border: 1px solid black;
@@ -65,7 +65,7 @@
 
         //여기 누르면 경로 지정;
         $("#bookSearch").click(function () {
-            location.href = '';
+            location.href = 'booksSearch';
         });
         
         //여기 누르면 경로 지정;
@@ -80,7 +80,7 @@
         
         //여기 누르면 경로 지정;
         $("#wantBook").click(function () {
-            location.href = '';
+            location.href = 'hopeBook';
         });
 
     </script>

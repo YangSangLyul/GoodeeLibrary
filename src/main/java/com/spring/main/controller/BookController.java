@@ -3,6 +3,8 @@ package com.spring.main.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dto.BookDTO;
 import com.spring.main.service.BookService;
@@ -112,6 +115,20 @@ public class BookController {
 		logger.info("도서 추가");
 		logger.info(dto.getBookName() + " / " + dto.getBookImg() + " / " + dto.getPublisher() + " / " + dto.getStory() + " / " + dto.getWriter());
 		return service.bookInsert(dto);
+	}
+	
+	@RequestMapping(value = "/hopeBook", method = RequestMethod.GET)
+	public  String hopeBook() {
+		logger.info("희망도서 신청 페이지 이동");
+		
+		return "/hopeBook";
+	}
+	
+	@RequestMapping(value = "/hopeBookReq", method = RequestMethod.POST)
+	public  String hopeBookReq(@RequestParam HashMap<String, String> params, RedirectAttributes rAttr) {
+		logger.info("희망도서 신청 요청 : "+params);
+		
+		return service.hopeBookInsert(params,rAttr);
 	}
 
 	

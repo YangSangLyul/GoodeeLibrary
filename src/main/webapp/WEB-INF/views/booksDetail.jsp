@@ -75,6 +75,12 @@
             a:hover {
                 color: gray;
             }
+            
+           #sideBar{
+        		position: absolute;
+        		margin-left: 10%;
+        		margin-top: 3%;
+        	}
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script>
@@ -83,6 +89,11 @@
     <body>
         <!-- 헤더 영역 -->
         <jsp:include page="header.jsp"/>
+        
+        <div id="sideBar">
+        <jsp:include page="dataserchSidebar.jsp"></jsp:include>
+        </div>
+        
         <!-- 검색창 영역-->
         <div id="container">
             <h2>도서 상세보기</h2>
@@ -117,16 +128,16 @@
                 </tr>
                 <tr>
                     <th>도서상태</th>
-                    <td><c:if test="${reserveCnt ne 3}">
+                    <td><c:if test="${reserveCnt <= '2'}">
 		                <p>예약가능</p>
 		                </c:if>
-		                <c:if test="${reserveCnt eq 3}">
+		                <c:if test="${reserveCnt >= '3'}">
 		                <p>예약불가</p>
 		                </c:if>
                 	</td>
                 </tr>
             </table>
-            <c:if test="${reserveCnt ne 3}">
+            <c:if test="${reserveCnt <= '2'}">
 		                <button id="reserve">도서예약</button>
 
 		    </c:if>
