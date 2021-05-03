@@ -36,12 +36,23 @@
 	</select>
 	
 	<select id="ReportList" resultType="com.spring.main.dto.AdminDTO" parameterType="list">
-		SELECT * FROM reviewreport WHERE reportStatus='FALSE' 
+		SELECT * FROM (
+		    SELECT ROW_NUMBER() OVER(ORDER BY reportIdx DESC) AS rnum, reportIdx, reviewIdx, reportId, reportReason, reportdate 
+		    FROM reviewreport WHERE reportStatus='FALSE' 
+		)WHERE  rnum BETWEEN #{param1} AND #{param2}
 	</select>
 	
 	<select id="BlindList" resultType="com.spring.main.dto.AdminDTO" parameterType="list">
-		SELECT b.blindIdx, r.reportIdx, r.reportreason, b.blindreason, b.blind_date FROM reviewblind b JOIN reviewreport r 
-			ON b.reportidx = r.reportidx AND b.blind_status = 'TRUE'
+		SELECT blindIdx, reportIdx, reportreason, blindreason, blind_date, rnum
+   			 FROM(
+        		SELECT ROW_NUMBER() OVER(ORDER BY b.blindIdx DESC) AS rnum,
+            		b.blindIdx, r.reportIdx, r.reportreason, b.blindreason, b.blind_date
+        		FROM reviewblind b JOIN reviewreport r ON b.reportidx = r.reportidx AND b.blind_status = 'TRUE'
+        	) WHERE  rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	<select id="allCount" resultType="Integer">
+		SELECT COUNT(blindIdx) FROM reviewblind
 	</select>
 	
 	<select id="reportDetail" resultType="com.spring.main.dto.AdminDTO">
