@@ -30,7 +30,7 @@ public class MyLibraryController {
 	  public ModelAndView MyLibrary(HttpSession session,RedirectAttributes rAttr) { 
 		  ModelAndView mav = new ModelAndView();
 			String loginId = (String) session.getAttribute("loginId");
-			String msg="로그인후 접근가능합니다.";
+			String msg="로그인이 필요한 서비스입니다.";
 			String page = "redirect:/memLogin";
 			logger.info(loginId);
 			if(loginId != null) {
@@ -144,6 +144,22 @@ public class MyLibraryController {
 		int success = service.myRBookCancel(reserveBookIdx);
 		logger.info("예약 취소 성공 여부 : " + success);
 		
+		return "myLib_Rbook";
+	}
+	
+	@RequestMapping(value = "/myRBookDetail", method = RequestMethod.GET)
+	public ModelAndView searchResultDetail(@RequestParam String bookIdx) {
+		logger.info("예약도서 상세보기 대상 : {}", bookIdx);
+		return service.myRBookDetail(bookIdx);
+	}
+	
+	@RequestMapping(value = "/myBookReturn", method = RequestMethod.GET)
+	public String returnBook(@RequestParam String reserveBookIdx,HttpSession session) { 
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("반납하기 : " + reserveBookIdx);
+		int success = service.bookReturn(reserveBookIdx,loginId);
+		logger.info("반납 성공 여부 : " + success);
+		//페이지 이동 수정필요!
 		return "myLib_Rbook";
 	}
 }

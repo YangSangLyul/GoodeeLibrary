@@ -57,7 +57,7 @@
     <input type="hidden" value="${reserve_list.BOOKIDX}"/>
         <table id="table">
             <tr>
-                <th>예약날짜</th>
+                <th>예약/대여 날짜</th>
                 <th>도서명</th>
                 <th>상태</th>
                 <th>취소/반납</th>
@@ -167,27 +167,28 @@ function pagePrint(range){
 function listPrint(reserve_list){
 	  var content="";
 	  for(var i=0; i<reserve_list.length;i++){
+	  	if(reserve_list[i].rstate == 'R001' ||reserve_list[i].rstate == 'R002'){
 		content += "<tr>"
 		var date = new Date(reserve_list[i].REG_DATE);
 		content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
-		content += "<td><a href='./searchResultDetail?bookIdx="+reserve_list[i].BOOKIDX+"'>"+reserve_list[i].BOOKNAME+"</a></td>"
+		content += "<td><a href='./myRBookDetail?bookIdx="+reserve_list[i].BOOKIDX+"'>"+reserve_list[i].BOOKNAME+"</a></td>"
 		//content += "<td>"+reserve_list[i].bstate+"</td>"
 		if(reserve_list[i].rstate == 'R001'){
 			content += "<td>예약중</td>"
 			content += "<td><a href='./myRBookCancel?reserveBookIdx="+reserve_list[i].RESERVEBOOKIDX+"'>예약취소</a></td>"
 		}else if(reserve_list[i].rstate == 'R002'){
 			content += "<td>대여중</td>"
-			content += "<td>반납하기</td>"
-		}else if(reserve_list[i].rstate == 'R003'){
+			content += "<td><a href='./myBookReturn?reserveBookIdx="+reserve_list[i].RESERVEBOOKIDX+"'>반납하기</a></td>"
+		}/* else if(reserve_list[i].rstate == 'R003'){
 			content += "<td colspan='2'>반납완료</td>"
-		}
+		} */
 		
 		content += "</tr>"
 	    		  
 	  }
 	  $("#reserve_list").empty();  
 	  $("#reserve_list").append(content);
-}
+}}
 
 </script>
 </html>

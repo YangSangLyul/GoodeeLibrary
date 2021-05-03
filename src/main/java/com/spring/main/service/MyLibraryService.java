@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.BookDAO;
 import com.spring.main.dao.MyLibraryDAO;
+import com.spring.main.dto.BookDTO;
 import com.spring.main.dto.LibraryInfoDTO;
 import com.spring.main.dto.MyLibraryDTO;
 
@@ -247,6 +248,43 @@ public class MyLibraryService {
 
 	public int myRBookCancel(String reserveBookIdx) {
 		return dao.myRBookCancel(reserveBookIdx);
+	}
+
+
+	public ModelAndView myRBookDetail(String bookIdx) {
+		ModelAndView mav = new ModelAndView();
+		
+		int reserveCnt = 0;
+		String reserveId="";
+		
+		MyLibraryDTO Rbook = dao.myRBookDetail(bookIdx);
+		if(Rbook != null) {
+			mav.addObject("bookDetail",Rbook);
+			logger.info("책 정보:{}",Rbook);
+			  if(dao.reserveChk(bookIdx) != null) { 
+				  reserveCnt = dao.reserveChk(bookIdx); 
+				  reserveId = dao.reserveId(bookIdx);
+				  
+			  }
+			  
+			  logger.info("현재 예약 인원 수 : {} 명",reserveCnt);
+			  logger.info("현재 예약중인 유저 : {} ",reserveId);
+			  
+			  mav.addObject("reserveCnt",reserveCnt);
+			  mav.addObject("reserveId",reserveId);
+				 
+		}
+		
+		logger.info("상세도서 불러오기 결과 : {}",Rbook);
+		
+		mav.setViewName("myLib_book_detail");
+		
+		return mav;
+	}
+
+	//로그인세션 굳이 필요하지 않음. 왜냐면 reseveBookIdx가 있으니까. 하지만 난 넣겠어!
+	public int bookReturn(String reserveBookIdx, String loginId) {
+		return dao.bookReturn(reserveBookIdx,loginId);
 	}
 
 }
