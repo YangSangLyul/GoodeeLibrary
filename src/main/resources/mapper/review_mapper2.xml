@@ -6,7 +6,18 @@
 
 <mapper namespace="com.spring.main.dao.ReviewDao2">
 	<select id="reviewList" resultType="review" parameterType="list">
-		SELECT * FROM review
+		SELECT r.id, r.cnt, r.reg_date, b.bookImg, b.bookName, b.writer, b.publisher FROM
+			book b JOIN review r ON b.bookIdx=r.bookIdx ORDER BY reg_date DESC
+	</select>
+	
+	<select id="reviewCom" resultType="review" parameterType="list">
+		SELECT r.id, r.cnt, r.reg_date, b.bookImg, b.bookName, b.writer, b.publisher FROM
+			book b JOIN review r ON b.bookIdx=r.bookIdx ORDER BY cnt DESC
+	</select>
+	
+	<select id="reviewIdList" resultType="review" parameterType="list">
+			SELECT r.id, r.cnt, b.bookImg, b.bookName, b.writer, b.publisher FROM
+			book b JOIN review r ON b.bookIdx=r.bookIdx WHERE id=#{param1}
 	</select>
 
 		

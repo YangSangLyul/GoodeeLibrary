@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>리뷰 모아보기</title>
+<title>특정 아이디 리뷰 모아보기</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
 #main {
@@ -110,13 +110,13 @@
 <jsp:include page="bookserviceSidebar.jsp"/>
 	<div id="main">
 		<div class="subject">
-			<h3 id="review">리뷰 모아보기</h3>
+			<h3 id="review">님의 리뷰 모아보기</h3>
 		</div>
 		<div class="re_option">
 			<ul>
 				<li><a href="#">유형</a></li>
-				<li><a href="reviewList">최신순</a></li>
-				<li><a href="reviewCom">추천순</a></li>
+				<li><a href="#">최신순</a></li>
+				<li><a href="#">추천순</a></li>
 			</ul>
 		</div>
 		<c:forEach items="${review}" var="review">
@@ -132,7 +132,7 @@
 							<div class="b_info">${review.bookName}</div>
 						</td>
             			<td id="re_name">
-							<div class="re_id"><a href="reviewIdList?id=${review.id}">ID : ${review.id}</a></div>
+							<div class="re_id">ID : ${review.id}</div>
 						</td>
 					</tr>
 					<tr>
@@ -149,7 +149,7 @@
 					<tr>					
 						<td>
 							<div class="re_detail">
-							<input type="button" id="re_btn" onclick="location.href='reviewDetail'" value="리뷰 상세보기">
+							<input type="button" id="re_btn" onclick="location.href='reviewIdList'" value="리뷰 상세보기">
 							</div>
 						</td>
 					</tr> 
