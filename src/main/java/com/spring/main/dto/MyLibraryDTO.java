@@ -28,6 +28,14 @@ public class MyLibraryDTO {
 	private String bookState;
 	private HashSet<ReserveBookDTO> reserveBookDTO;
 	
+	private int reserveBookIdx;
+	
+	public int getReserveBookIdx() {
+		return reserveBookIdx;
+	}
+	public void setReserveBookIdx(int reserveBookIdx) {
+		this.reserveBookIdx = reserveBookIdx;
+	}
 	public HashSet<ReserveBookDTO> getReserveBookDTO() {
 		return reserveBookDTO;
 	}

@@ -246,32 +246,39 @@ public class MyLibraryService {
 		return map;
 	}
 
-	public int myRBookCancel(String reserveBookIdx) {
-		return dao.myRBookCancel(reserveBookIdx);
+	public ModelAndView myRBookCancel(String bookIdx,String loginId) {
+		ModelAndView mav = new ModelAndView();
+		dao.myRBookCancel(bookIdx,loginId);
+		//mav.setViewName("myRBookDetail?bookIdx="+bookIdx);
+		mav.setViewName("myLib_RBook");
+		return mav;
 	}
 
 
-	public ModelAndView myRBookDetail(String bookIdx) {
+	public ModelAndView myRBookDetail(String bookIdx,String loginId) {
 		ModelAndView mav = new ModelAndView();
 		
 		int reserveCnt = 0;
+		//HashMap<String,Object> reserveId = new HashMap<String, Object>();
 		String reserveId="";
-		
+		String borrowId="";
 		MyLibraryDTO Rbook = dao.myRBookDetail(bookIdx);
 		if(Rbook != null) {
 			mav.addObject("bookDetail",Rbook);
 			logger.info("책 정보:{}",Rbook);
 			  if(dao.reserveChk(bookIdx) != null) { 
 				  reserveCnt = dao.reserveChk(bookIdx); 
-				  reserveId = dao.reserveId(bookIdx);
-				  
+				  reserveId = dao.reserveId(bookIdx,loginId);
+				  borrowId = dao.borrowId(bookIdx);
 			  }
 			  
 			  logger.info("현재 예약 인원 수 : {} 명",reserveCnt);
 			  logger.info("현재 예약중인 유저 : {} ",reserveId);
+			  logger.info("현재 대여중인 유저 : {} ",borrowId);
 			  
 			  mav.addObject("reserveCnt",reserveCnt);
 			  mav.addObject("reserveId",reserveId);
+			  mav.addObject("borrowId",borrowId);
 				 
 		}
 		
@@ -285,6 +292,23 @@ public class MyLibraryService {
 	//로그인세션 굳이 필요하지 않음. 왜냐면 reseveBookIdx가 있으니까. 하지만 난 넣겠어!
 	public int bookReturn(String reserveBookIdx, String loginId) {
 		return dao.bookReturn(reserveBookIdx,loginId);
+	}
+
+	public ModelAndView reserveBook(String bookIdx, String loginId) {
+		ModelAndView mav = new ModelAndView();
+		int result = dao.reserveIdChk(bookIdx,loginId);
+		logger.info("result : {}",result);
+		if(result==0) {
+			 boolean ReserveSuccess = dao.reserveS(bookIdx,loginId);
+			 mav.addObject("reserve_result", ReserveSuccess);
+			 mav.setViewName("myLib_Rbook");
+		}else {
+			 //boolean ReserveFail = dao.reserveF(bookIdx,loginId);
+			 logger.info("중복예약");
+			 //mav.addObject("reserve_result", ReserveFail);
+		}
+		//return dao.reserveBook(params,loginId);
+		return mav;
 	}
 
 }

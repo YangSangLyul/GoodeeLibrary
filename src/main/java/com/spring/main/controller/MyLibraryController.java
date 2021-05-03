@@ -138,19 +138,34 @@ public class MyLibraryController {
 		return service.file_upload(file,session);
 	}
 	*/
-	@RequestMapping(value = "/myRBookCancel", method = RequestMethod.GET)
-	public String reserveBookCancel(@RequestParam String reserveBookIdx) {
-		logger.info("예약 취소하기 : " + reserveBookIdx);
-		int success = service.myRBookCancel(reserveBookIdx);
-		logger.info("예약 취소 성공 여부 : " + success);
+	
+	@RequestMapping(value = "/mybookReserve", method = RequestMethod.GET)
+	public ModelAndView reserveBook(@RequestParam String bookIdx,HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("책번호 : " + bookIdx);
+		logger.info("아이디 : " + loginId);
 		
-		return "myLib_Rbook";
+		//int success = service.reserveBook(bookIdx,loginId);
+		
+		//logger.info("예약 성공 여부 : " + success);
+		//logger.info("bookIdx : " + bookIdx);
+		return service.reserveBook(bookIdx,loginId);
+	}
+	
+	@RequestMapping(value = "/myRBookCancel", method = RequestMethod.GET)
+	public ModelAndView reserveBookCancel(@RequestParam String bookIdx,HttpSession session) {
+		//logger.info("예약 취소하기 : " + reserveBookIdx);
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("책번호 : " + bookIdx);
+		
+		return service.myRBookCancel(bookIdx,loginId);
 	}
 	
 	@RequestMapping(value = "/myRBookDetail", method = RequestMethod.GET)
-	public ModelAndView searchResultDetail(@RequestParam String bookIdx) {
+	public ModelAndView searchResultDetail(@RequestParam String bookIdx,HttpSession session) { 
+		String loginId = (String) session.getAttribute("loginId");
 		logger.info("예약도서 상세보기 대상 : {}", bookIdx);
-		return service.myRBookDetail(bookIdx);
+		return service.myRBookDetail(bookIdx,loginId);
 	}
 	
 	@RequestMapping(value = "/myBookReturn", method = RequestMethod.GET)
@@ -160,6 +175,6 @@ public class MyLibraryController {
 		int success = service.bookReturn(reserveBookIdx,loginId);
 		logger.info("반납 성공 여부 : " + success);
 		//페이지 이동 수정필요!
-		return "myLib_Rbook";
+		return "./myLib_Rbook";
 	}
 }

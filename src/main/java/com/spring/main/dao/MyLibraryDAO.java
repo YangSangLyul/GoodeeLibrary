@@ -32,7 +32,7 @@ public interface MyLibraryDAO {
 
 	MyLibraryDTO question_editForm(HashMap<String, Object> params);
 
-	int myRBookCancel(String reserveBookIdx);
+	int myRBookCancel(String bookIdx, String loginId);
 
 	ArrayList<MyLibraryDTO> reserve_list(int start, int end, String loginId);
 
@@ -46,7 +46,17 @@ public interface MyLibraryDAO {
 
 	int bookReturn(String reserveBookIdx, String loginId);
 
-	String reserveId(String bookIdx);
+	String reserveId(String bookIdx, String loginId);
+
+	String borrowId(String bookIdx);
+
+	int reserveBook(HashMap<String, String> params, String loginId);
+
+	int reserveIdChk(String bookIdx, String loginId);
+
+	boolean reserveS(String bookIdx, String loginId);
+
+	boolean reserveF(String bookIdx, String loginId);
 
 	//HashMap<String, Object> question_detail(String idx);
 
