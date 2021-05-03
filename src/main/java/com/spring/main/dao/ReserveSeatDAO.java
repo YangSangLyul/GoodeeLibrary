@@ -14,4 +14,18 @@ public interface ReserveSeatDAO {
 
 	ArrayList<ReserveSeatDTO> reserSeatChk(String loginId);
 
+	ReserveSeatDTO myReserveSeat(String loginId);
+
+	int seatEnterReq(String loginId);
+
+	int mySeatNum(String loginId);
+
+	void mySeatEnter(String loginId, int reserveNum);
+
+	int seatExitReq(String loginId);
+
+	void mySeatExit(String loginId, int reserveNum);
+
+	int reserveCancelReq(String loginId);
+
 }

@@ -474,79 +474,161 @@
 
 			list1.push("${intEnd}");
 			
+			list1.push("${item1.seatStatus}");
+			
 			</c:forEach>
 			
 			<%-- <c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '09' || intEnd < '09')}"> --%>
-			console.log(parseInt(list1[r+1]));
+			console.log(list1.length);
 			$('#tblMain tr').each(function(){
 				j = 0;
 				$(this).find('td').each(function(){
 					
-					if(j == 8){
-						r = r + 3;
-					}
-					
-					if(list1[r] != i){
+					//좌석 예약 리스트를 가져올때 오름차순으로 안하면 배열 인덱스 순서가 뒤엉킴(주의)
+ 					if(list1[r] != i){
 						return;
 					}
+ 					
+					//좌석 예약한 사람이 여러명일 경우 대비
+					if(j == 8){
+						
+						r = r + 4;
+					}
 					
-					if(list1[r] == i && !(parseInt(list1[r+1]) > 9 || parseInt(list1[r+2]) < 9)){
+					
+					//9시
+					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) > 9 || parseInt(list1[r+2]) < 9)){
 						var temp = 0;
 						console.log('예약시간 IN');
 						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
 						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
 					}
 					
-					if(list1[r] == i && !(parseInt(list1[r+1]) > 10 || parseInt(list1[r+2]) < 10)){
+					if(list1[r] == i && list1[r+3] == 'S003' && !(parseInt(list1[r+1]) > 9 || parseInt(list1[r+2]) < 9)){
+						var temp = 0;
+						console.log('사용중 IN');
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','red').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').html('사용중');
+					}
+					
+					//10시
+					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) > 10 || parseInt(list1[r+2]) < 10)){
 						var temp = 1;
 						console.log('예약시간 IN');
 						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
 						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
 					}
-					if(list1[r] == i && !(parseInt(list1[r+1]) > 11 || parseInt(list1[r+2]) < 11)){
+					
+					if(list1[r] == i && list1[r+3] == 'S003' && !(parseInt(list1[r+1]) > 10 || parseInt(list1[r+2]) < 10)){
+						var temp = 1;
+						console.log('사용중 IN');
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','red').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').html('사용중');
+					}
+					
+					//11시
+					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) > 11 || parseInt(list1[r+2]) < 11)){
 						var temp = 2;
 						console.log('예약시간 IN');
 						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
 						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
 					}
-					if(list1[r] == i && !(parseInt(list1[r+1]) > 12 || parseInt(list1[r+2]) < 12)){
+					
+					if(list1[r] == i && list1[r+3] == 'S003' && !(parseInt(list1[r+1]) > 11 || parseInt(list1[r+2]) < 11)){
+						var temp = 2;
+						console.log('사용중 IN');
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','red').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').html('사용중');
+					}
+					
+					//12시
+					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) > 12 || parseInt(list1[r+2]) < 12)){
 						var temp = 3;
 						console.log('예약시간 IN');
 						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
 						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
 					}
-					if(list1[r] == i && !(parseInt(list1[r+1]) > 13 || parseInt(list1[r+2]) < 13)){
+					
+					if(list1[r] == i && list1[r+3] == 'S003' && !(parseInt(list1[r+1]) > 12 || parseInt(list1[r+2]) < 12)){
+						var temp = 3;
+						console.log('사용중 IN');
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','red').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').html('사용중');
+					}
+					
+					//13시
+					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) > 13 || parseInt(list1[r+2]) < 13)){
 						var temp = 4;
 						console.log('예약시간 IN');
 						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
 						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
 					}
-					if(list1[r] == i && !(parseInt(list1[r+1]) > 14 || parseInt(list1[r+2]) < 14)){
+					
+					if(list1[r] == i && list1[r+3] == 'S003' && !(parseInt(list1[r+1]) > 13 || parseInt(list1[r+2]) < 13)){
+						var temp = 4;
+						console.log('사용중 IN');
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','red').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').html('사용중');
+					}
+					
+					//14시
+					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) > 14 || parseInt(list1[r+2]) < 14)){
 						var temp = 5;
 						console.log('예약시간 IN');
 						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
 						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
 					}
 					
-					if(list1[r] == i && !(parseInt(list1[r+1]) > 15 || parseInt(list1[r+2]) < 15)){
+					if(list1[r] == i && list1[r+3] == 'S003' && !(parseInt(list1[r+1]) > 14 || parseInt(list1[r+2]) < 14)){
+						var temp = 5;
+						console.log('사용중 IN');
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','red').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').html('사용중');
+					}
+					
+					//15시
+					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) > 15 || parseInt(list1[r+2]) < 15)){
 						var temp = 6;
 						console.log('예약시간 IN');
 						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
 						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
 					}
 					
-					if(list1[r] == i && !(parseInt(list1[r+1]) > 16 || parseInt(list1[r+2]) < 16)){
+					if(list1[r] == i && list1[r+3] == 'S003' && !(parseInt(list1[r+1]) > 15 || parseInt(list1[r+2]) < 15)){
+						var temp = 6;
+						console.log('사용중 IN');
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','red').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').html('사용중');
+					}
+					
+					//16시
+					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) > 16 || parseInt(list1[r+2]) < 16)){
 						var temp = 7;
 						console.log('예약시간 IN');
 						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
 						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
 					}
 					
-					if(list1[r] == i && !(parseInt(list1[r+1]) > 17 || parseInt(list1[r+2]) < 17)){
+					if(list1[r] == i && list1[r+3] == 'S003' && !(parseInt(list1[r+1]) > 16 || parseInt(list1[r+2]) < 16)){
+						var temp = 7;
+						console.log('사용중 IN');
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','red').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').html('사용중');
+					}
+					
+					//17시
+					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) > 17 || parseInt(list1[r+2]) < 17)){
 						var temp = 8;
 						console.log('예약시간 IN');
 						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
 						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
+					}
+					
+					if(list1[r] == i && list1[r+3] == 'S003' && !(parseInt(list1[r+1]) > 17 || parseInt(list1[r+2]) < 17)){
+						var temp = 8;
+						console.log('사용중 IN');
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','red').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').html('사용중');
 					}
 					
 					
@@ -554,8 +636,9 @@
 					
 					console.log(i+"/"+j);
 					j++;
+					
 				});
-				i++;
+				++i;
 			});
 			
 			
