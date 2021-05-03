@@ -59,7 +59,7 @@
         <div id="noticeContent">
             ${dto.content}
         <span id="noticeButton">
-            <button onclick="location.href='/main/notice'">목록</button>
+            <button onclick="location.href='/main/noticea'">목록</button>
         </span>
     </div>
     </div>

@@ -408,7 +408,9 @@ public class LibraryInfoService {
 		return mav;
 	}
 
-
-
+	public void mainNoticeCall(Model model) {
+		ArrayList<LibraryInfoDTO> noticeList = dao.mainNoticeCall();
+		model.addAttribute("noticeList", noticeList);
+	}
 
 }

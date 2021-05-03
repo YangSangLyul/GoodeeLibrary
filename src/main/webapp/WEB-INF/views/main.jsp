@@ -148,7 +148,7 @@
         <!--도서관 위치 영역-->
         <div id="place">
             <p style="text-align: center;">도서관 위치</p>
-            <img src="./image/알림.jpg">
+            <div style="position: absolute; left: 5px"> <jsp:include page="mainMap.jsp"/></div>
         </div>
 
         <!--공지사항 영역-->
@@ -157,27 +157,16 @@
         </div>
         <!--공지사항 목록은 최신순으로 4개까지만...-->
         <div id="noticeAll">
-            <button>더보기</button>
+            <button onclick="location.href='noticea'">더보기</button>
         </div>
         
         <div id="notice">
-            
+            <c:forEach items="${noticeList}" var="dto">
             <div class="noticeContent">
-                <a href="#"> - 공지사항 입니다.</a>
-                <p style="text-align: right; margin-top: -20px;">2021-04-25</p>
+                <a href="noticeDetail/${dto.noticeidx}">${dto.content} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                <p style="text-align: right; margin-top: -20px;">${dto.noticeidx} 번 게시글&nbsp;&nbsp;${dto.reg_date}</p>
             </div>
-            <div class="noticeContent">
-                <a href="#"> - 공지사항 입니다.</a>
-                <p style="text-align: right; margin-top: -20px;">2021-04-25</p>
-            </div>
-            <div class="noticeContent">
-                <a href="#"> - 공지사항 입니다.</a>
-                <p style="text-align: right; margin-top: -20px;">2021-04-25</p>
-            </div>
-            <div class="noticeContent">
-                <a href="#"> - 공지사항 입니다.</a>
-                <p style="text-align: right; margin-top: -20px;">2021-04-25</p>
-            </div>
+            </c:forEach>
         </div>
 
         <!--추천도서 영역-->

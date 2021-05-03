@@ -51,6 +51,8 @@ public interface LibraryInfoDAO {
 	int initLostFile(String string);
 
 	int update(HashMap<String, Object> params);
+
+	ArrayList<LibraryInfoDTO> mainNoticeCall();
 	 
 	
 
