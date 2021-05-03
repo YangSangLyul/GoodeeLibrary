@@ -66,22 +66,42 @@ public class AdminService {
 		return map;
 	}
 
-	public ModelAndView ReportList() {
+	public HashMap<String, Object> ReportList(int pagePerCnt, int page) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int allCnt = dao.allCount();
+		int range = allCnt/pagePerCnt > 0 ? Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		//생성 가능한 페이지 보다 현재페이지가 클 경우 현재 페이지를 생성 가능한 페이지로 맞춰준다.
+		page = page>range ? range : page;
+		//시작, 끝
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		
 		logger.info("신고리스트 쿼리 요청");
-		ModelAndView mav = new ModelAndView();
-		ArrayList<AdminDTO> ReportList = dao.ReportList();
-		mav.addObject("report", ReportList);
-		mav.setViewName("adminReport");
-		return mav;
+		ArrayList<AdminDTO> ReportList = dao.ReportList(start,end);
+		map.put("list", ReportList);
+		map.put("range", range);
+		map.put("currPage", page);
+		
+		return map;
 	}
 
-	public ModelAndView BlindList() {
+	public HashMap<String, Object> BlindList(int pagePerCnt, int page) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int allCnt = dao.allCount();
+		int range = allCnt/pagePerCnt > 0 ? Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		//생성 가능한 페이지 보다 현재페이지가 클 경우 현재 페이지를 생성 가능한 페이지로 맞춰준다.
+		page = page>range ? range : page;
+		//시작, 끝
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		
 		logger.info("블라인드 리스트 쿼리 요청");
-		ModelAndView mav = new ModelAndView();
-		ArrayList<AdminDTO> BlindList = dao.BlindList();
-		mav.addObject("blind", BlindList);
-		mav.setViewName("adminBlind");
-		return mav;
+		ArrayList<AdminDTO> BlindList = dao.BlindList(start,end);
+		map.put("list", BlindList);
+		map.put("range", range);
+		map.put("currPage", page);
+		
+		return map;
 	}
 
 	public AdminDTO reportDetail(int idx) {
@@ -126,6 +146,6 @@ public class AdminService {
 		mav.setViewName("redirect:/BlindList");
 		return mav;
 	}
-	
+
 	
 }

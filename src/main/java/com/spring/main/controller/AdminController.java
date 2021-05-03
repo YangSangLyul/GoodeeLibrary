@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,23 +64,52 @@ public class AdminController {
 		return service.hideBtn();
 	}
 	
-	//리뷰 신고리스트
+	//신고리스트 불러오기
 	@RequestMapping(value = "/ReportList", method = RequestMethod.GET)
 	public ModelAndView ReportList() {
-		logger.info("신고리스트 요청");
-		return service.ReportList();
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("adminReport");
+		return mav;
 	}
 	
-	//블라인드 리스트
+	//신고리스트 - 페이징
+	@RequestMapping(value = "/ReportList/{page}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> ReportList(@PathVariable int page) {
+		int pagePerCnt = 10;
+		logger.info("page: "+page);
+		return service.ReportList(pagePerCnt, page);
+	}
+	
+	//블라인드 리스트 불러오기
 	@RequestMapping(value = "/BlindList", method = RequestMethod.GET)
 	public ModelAndView BlindList() {
 		logger.info("블라인드리스트 요청");
-		return service.BlindList();
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("adminBlind");
+		return mav;
 	}
 	
+	//블라인드 리스트 - 페이징
+	@RequestMapping(value = "/BlindList/{page}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> BlindList(@PathVariable int page) {
+		int pagePerCnt = 10;
+		logger.info("page: "+page);
+		return service.BlindList(pagePerCnt, page);
+	}
+	
+	/*
+	 * //신고 상세보기
+	 * 
+	 * @RequestMapping(value = "/reportDetail", method = RequestMethod.GET) public
+	 * String reportDetail(Model model, @RequestParam int idx) {
+	 * logger.info("신고 상세보기 할 idx: "+idx); String page = "redirect:/ReviewKing";
+	 * AdminDTO dto = service.reportDetail(idx); if(dto != null) { page =
+	 * "adminReport_detail"; model.addAttribute("detail",dto); } return page; }
+	 */
+	
 	//신고 상세보기
-	@RequestMapping(value = "/reportDetail", method = RequestMethod.GET)
-	public String reportDetail(Model model, @RequestParam int idx) {
+	@RequestMapping(value = "/reportDetail/{idx}", method = RequestMethod.GET)
+	public String blindDetail(Model model, @PathVariable int idx) {
 		logger.info("신고 상세보기 할 idx: "+idx);
 		String page = "redirect:/ReviewKing";
 		AdminDTO dto = service.reportDetail(idx);

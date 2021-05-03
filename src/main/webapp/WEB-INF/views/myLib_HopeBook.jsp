@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <html>
 <head>
+    <title>내 희망도서</title>
     <meta charset="UTF-8">
-    <title>나의 도서 예약 내역</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <style>
-    #my_title{
+	<style>
+	#my_title{
 	    text-align: center;
 	    background-color: white;
 	    width: 200px;
@@ -31,7 +30,7 @@
 	    border: 1px solid black;
 	    border-collapse: collapse;
 	    margin-left: 15%;
-	    margin-top: 10%;
+	    margin-top: 20%;
 	    margin-bottom: 80px;
 	    text-align: center;
 	}
@@ -45,34 +44,25 @@
 	    border: 1px solid black;
 	    border-collapse: collapse;
 	}
-    
-    </style>
+	</style>
 </head>
 <body>
 	<jsp:include page="header.jsp"/>
    	<div>
-    <div id="my_title">${loginId}의 도서예약 내역</div>
-   	<jsp:include page="mySidebar.jsp"/>
+    <div id="my_title">${loginId}의 희망도서 신청 내역</div>
+    <jsp:include page="mySidebar.jsp"/>
     <div id="body">
-    <input type="hidden" value="${reserve_list.BOOKIDX}"/>
         <table id="table">
             <tr>
-                <th>예약/대여 날짜</th>
                 <th>도서명</th>
-                <th>상태</th>
-                <th>취소/반납</th>
+                <th>신청일자</th>
+                <th>처리상태</th>
             </tr>
             <br/>
-            <tbody id="reserve_list">
+            <tbody id="hope_list">
              
-             </tbody>
-            <!-- <tr>
-                <td>21.04.05</td>
-                <td>자바 스크립트</td>
-                <td>예약중</td>
-                <td>예약취소</td>
-            </tr> -->
-        <tr>
+            </tbody>
+        	<tr>
 			<!-- 페이징 번호 보여주기 -->
             <td id="paging" colspan="4">
             	<!-- 플러그인 사용 -->
@@ -83,7 +73,7 @@
             	</div>
             </td>
          </tr>
-       </table>
+        </table>
     </div>
     </div>
 </body>
@@ -95,7 +85,7 @@ listCall(showPage);
 function listCall(reqPage){         
 
 	//주소 다른주소로 보내라.
-	var reqUrl ='./myLib_Rbook/'+5+"/"+reqPage;
+	var reqUrl ='./myLib_Hbook/'+10+"/"+reqPage;
    $.ajax({
       url: reqUrl
       ,type:'get'
@@ -103,9 +93,9 @@ function listCall(reqPage){
       ,dataType:'JSON'
       ,success:function(data){
          console.log(data);
-         console.log(data.reserve_list);
+         console.log(data.hope_list);
          showPage = data.currPage;
-         listPrint(data.reserve_list);
+         listPrint(data.hope_list);
          //pagePrint(data.range);//플러그인 미사용 페이징 처리!
          //플러그인 사용
          
@@ -133,7 +123,7 @@ function pagePrint(range){
 	  console.log("현재 페이지 : "+showPage);
 	  var content="";
 	  var start=1;
-	  var end = range >= 5? 5: range;
+	  var end = range >= 10? 10: range;
 	  
 	  //이전(5페이지가 넘어 갔을때 나타나는 녀석)
 	  if(showPage>5){
@@ -164,32 +154,27 @@ function pagePrint(range){
 }
 
 
-function listPrint(reserve_list){
+function listPrint(hope_list){
 	  var content="";
-	  for(var i=0; i<reserve_list.length;i++){
-	  	if(reserve_list[i].rstate == 'R001' ||reserve_list[i].rstate == 'R002'){
+	  for(var i=0; i<hope_list.length;i++){
+	  	
 		content += "<tr>"
-		var date = new Date(reserve_list[i].REG_DATE);
+		content += "<td><a href='./myHBookDetail?hopeBooksNumber="+hope_list[i].HOPEBOOKSNUMBER+"'>"+hope_list[i].HB_BOOKNAME+"</a></td>"
+		var date = new Date(hope_list[i].HB_DATE);
 		content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
-		content += "<td><a href='./myRBookDetail?bookIdx="+reserve_list[i].BOOKIDX+"'>"+reserve_list[i].BOOKNAME+"</a></td>"
 		//content += "<td>"+reserve_list[i].bstate+"</td>"
-		if(reserve_list[i].rstate == 'R001'){
-			content += "<td>예약중</td>"
-			content += "<td><a href='./mybookReserve?bookIdx="+reserve_list[i].BOOKIDX+"'>예약취소</a></td>"
-		}else if(reserve_list[i].rstate == 'R002'){
-			content += "<td>대여중</td>"
-			//컨트롤러 수정하기
-			//content += "<td><a href='./myBookReturn?reserveBookIdx="+reserve_list[i].RESERVEBOOKIDX+"'>반납하기</a></td>"
-		}/* else if(reserve_list[i].rstate == 'R003'){
-			content += "<td colspan='2'>반납완료</td>"
-		} */
-		
+		if(hope_list[i].HB_STATE == 'H001'){
+			content += "<td>신청중</td>"
+		}else if(hope_list[i].HB_STATE == 'H002'){
+			content += "<td>승인</td>"
+		}else if(hope_list[i].HB_STATE == 'H003'){
+			//거부 클릭시 팝업창 띄우기 alert
+			content += "<td>거부</td>"
+		}
 		content += "</tr>"
-	    		  
-	  }
-	  $("#reserve_list").empty();  
-	  $("#reserve_list").append(content);
-}}
 
+	  $("#hope_list").empty();  
+	  $("#hope_list").append(content);
+}}
 </script>
 </html>

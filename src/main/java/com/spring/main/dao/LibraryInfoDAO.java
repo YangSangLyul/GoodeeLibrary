@@ -45,6 +45,10 @@ public interface LibraryInfoDAO {
 	String questionAnsstatus(int idx);
 
 	void fileWriting(String key, String string, int queidx);
+
+	ArrayList<String> photoRead(int idx);
+
+	int initLostFile(String string);
 	 
 	
 
