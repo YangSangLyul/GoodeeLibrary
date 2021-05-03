@@ -202,6 +202,20 @@ public class LibraryInfoController {
 		return service.fileDelete(fileName,session);
 	}
 	
+	@RequestMapping(value = "/QuestionEdit/{idx}", method = RequestMethod.GET)
+	public ModelAndView QuestionEdit(@PathVariable int idx,HttpSession session,RedirectAttributes rAttr) {
+		
+		return service.edit(idx,session,rAttr);
+	}
+	
+	@RequestMapping(value = "/questionEditing", method = RequestMethod.GET)
+	public ModelAndView QuestionEditSuccess(@RequestParam HashMap<String, Object> params,HttpSession session) {
+		
+		return service.editSuccess(params,session);
+	}
+	
+	
+	
 	
 	
 }

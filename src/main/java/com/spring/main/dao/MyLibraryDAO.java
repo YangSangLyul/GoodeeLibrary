@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.springframework.ui.Model;
 
+import com.spring.main.dto.BookDTO;
 import com.spring.main.dto.LibraryInfoDTO;
 import com.spring.main.dto.MyLibraryDTO;
 import com.spring.main.dto.QuestionPhotoDTO;
@@ -31,11 +32,37 @@ public interface MyLibraryDAO {
 
 	MyLibraryDTO question_editForm(HashMap<String, Object> params);
 
-	int myRBookCancel(String reserveBookIdx);
+	int myRBookCancel(String bookIdx, String loginId);
 
 	ArrayList<MyLibraryDTO> reserve_list(int start, int end, String loginId);
 
 	int Question_allCount(String loginId);
+
+	MyLibraryDTO myRBookDetail(String bookIdx);
+
+	Integer reserveChk(String bookIdx);
+
+	int bookReturn(String reserveBookIdx);
+
+	int bookReturn(String reserveBookIdx, String loginId);
+
+	String reserveId(String bookIdx, String loginId);
+
+	String borrowId(String bookIdx);
+
+	int reserveBook(HashMap<String, String> params, String loginId);
+
+	int reserveIdChk(String bookIdx, String loginId);
+
+	boolean reserveS(String bookIdx, String loginId);
+
+	boolean reserveF(String bookIdx, String loginId);
+
+	int HopeBook_allCount(String loginId);
+
+	ArrayList<MyLibraryDTO> hope_list(int start, int end, String loginId);
+
+	MyLibraryDTO myHBookDetail(String hopeBooksNumber);
 
 	//HashMap<String, Object> question_detail(String idx);
 

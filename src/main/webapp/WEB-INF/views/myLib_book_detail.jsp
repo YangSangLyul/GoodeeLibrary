@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>booksDetail</title>
+        <title>책 상세보기</title>
         <style>
             #container{
                 position: absolute;
@@ -75,12 +75,6 @@
             a:hover {
                 color: gray;
             }
-            
-           #sideBar{
-        		position: absolute;
-        		margin-left: 10%;
-        		margin-top: 3%;
-        	}
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script>
@@ -89,38 +83,33 @@
     <body>
         <!-- 헤더 영역 -->
         <jsp:include page="header.jsp"/>
-        
-        <div id="sideBar">
-        <jsp:include page="dataserchSidebar.jsp"></jsp:include>
-        </div>
-        
         <!-- 검색창 영역-->
         <div id="container">
             <h2>도서 상세보기</h2>
             <hr/>
             <div class="searchImg">
-                <img src="${searchDetail.bookImg}"/>
+                <img src="${bookDetail.bookImg}"/>
             </div>
             <div class="searchBookName">
-                <p>${searchDetail.bookName}</p>
+                <p>${bookDetail.bookName}</p>
             </div>
 
             <table>
                 <tr>
                     <th>저자명</th>
-                    <td>${searchDetail.writer}</td>
+                    <td>${bookDetail.writer}</td>
                 </tr>
                 <tr>
                     <th>출판사</th>
-                    <td>${searchDetail.publisher}</td>
+                    <td>${bookDetail.publisher}</td>
                 </tr>
                 <tr>
                     <th>등록번호</th>
-                    <td>${searchDetail.bookIdx}</td>
+                    <td>${bookDetail.bookIdx}</td>
                 </tr>
                 <tr>
                     <th>책소개</th>
-                    <td id="story">${searchDetail.story}</td>
+                    <td id="story">${bookDetail.story}</td>
                 </tr>
                 <tr>
                     <th>예약인원</th>
@@ -128,28 +117,49 @@
                 </tr>
                 <tr>
                     <th>도서상태</th>
-                    <td><c:if test="${reserveCnt <= '2'}">
-		                <p>예약가능</p>
-		                </c:if>
-		                <c:if test="${reserveCnt >= '3'}">
+                    <td><c:if test="${reserveCnt ne 3}">
+                    		<c:if test="${borrowId eq loginId}">
+                    			<p>${loginId}님, 현재 대여중입니다.</p>		
+                    		</c:if>
+		                	<c:if test="${borrowId ne loginId}">
+		                		<c:if test="${reserveId eq loginId}">
+                    				<p>${loginId}님, 현재 예약중입니다.</p>
+                    			</c:if>
+                    			<c:if test="${reserveId ne loginId}">
+                    				<p>예약가능</p>
+                    			</c:if>
+                    		</c:if>
+                    	</c:if>
+		                <c:if test="${reserveCnt eq 3}">
 		                <p>예약불가</p>
 		                </c:if>
                 	</td>
                 </tr>
             </table>
-            <c:if test="${reserveCnt <= '2'}">
-		                <button id="reserve">도서예약</button>
-
+            <c:if test="${reserveCnt ne 3}">            
+            	<c:if test="${reserveId eq loginId}">
+					<button id="reserveCancel" onclick="location.href='./myRBookCancel?bookIdx=${bookDetail.bookIdx}'">도서예약취소</button>
+				</c:if>
+				<c:if test="${reserveId ne loginId}">
+					<c:if test="${borrowId eq loginId}">
+                  		<button id="bookReturn">도서반납하기</button>	
+            		</c:if>
+            		<c:if test="${borrowId ne loginId}">
+						<button id="reserve" onclick="location.href='./mybookReserve?bookIdx=${bookDetail.bookIdx}'">도서예약</button>
+					</c:if>
+				</c:if>
 		    </c:if>
             
-            <button id="back">이전으로</button>
+            <button id="back" onclick="location.href='./MyLibrary'">이전으로</button>
         </div>
         
 
     </body>
     <script>
-    	$("#back").click(function() {
-    		location.href = 'booksSearch';
+    	
+    	
+    	$("#bookReturn").click(function() {
+    		location.href = 'myRBookCancel';
     	});
     </script>
 

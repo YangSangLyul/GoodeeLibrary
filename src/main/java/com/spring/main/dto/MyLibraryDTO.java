@@ -28,6 +28,43 @@ public class MyLibraryDTO {
 	private String bookState;
 	private HashSet<ReserveBookDTO> reserveBookDTO;
 	
+	//희망도서
+	private int hopeBooksNumber;
+	private String hb_state;
+	private Date hb_date;
+	private String hb_bookName;
+	private String hopeReason;
+	
+	public int getHopeBooksNumber() {
+		return hopeBooksNumber;
+	}
+	public void setHopeBooksNumber(int hopeBooksNumber) {
+		this.hopeBooksNumber = hopeBooksNumber;
+	}
+	public String getHb_state() {
+		return hb_state;
+	}
+	public void setHb_state(String hb_state) {
+		this.hb_state = hb_state;
+	}
+	public Date getHb_date() {
+		return hb_date;
+	}
+	public void setHb_date(Date hb_date) {
+		this.hb_date = hb_date;
+	}
+	public String getHb_bookName() {
+		return hb_bookName;
+	}
+	public void setHb_bookName(String hb_bookName) {
+		this.hb_bookName = hb_bookName;
+	}
+	public String getHopeReason() {
+		return hopeReason;
+	}
+	public void setHopeReason(String hopeReason) {
+		this.hopeReason = hopeReason;
+	}
 	public HashSet<ReserveBookDTO> getReserveBookDTO() {
 		return reserveBookDTO;
 	}

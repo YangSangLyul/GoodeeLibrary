@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.BookDAO;
 import com.spring.main.dao.MyLibraryDAO;
+import com.spring.main.dto.BookDTO;
 import com.spring.main.dto.LibraryInfoDTO;
 import com.spring.main.dto.MyLibraryDTO;
 
@@ -245,8 +246,112 @@ public class MyLibraryService {
 		return map;
 	}
 
-	public int myRBookCancel(String reserveBookIdx) {
-		return dao.myRBookCancel(reserveBookIdx);
+	public ModelAndView myRBookCancel(String bookIdx,String loginId) {
+		ModelAndView mav = new ModelAndView();
+		dao.myRBookCancel(bookIdx,loginId);
+		//mav.setViewName("myRBookDetail?bookIdx="+bookIdx);
+		mav.setViewName("myLib_RBook");
+		return mav;
+	}
+
+
+	public ModelAndView myRBookDetail(String bookIdx,String loginId) {
+		ModelAndView mav = new ModelAndView();
+		
+		int reserveCnt = 0;
+		//HashMap<String,Object> reserveId = new HashMap<String, Object>();
+		String reserveId="";
+		String borrowId="";
+		MyLibraryDTO Rbook = dao.myRBookDetail(bookIdx);
+		if(Rbook != null) {
+			mav.addObject("bookDetail",Rbook);
+			logger.info("책 정보:{}",Rbook);
+			  if(dao.reserveChk(bookIdx) != null) { 
+				  reserveCnt = dao.reserveChk(bookIdx); 
+				  reserveId = dao.reserveId(bookIdx,loginId);
+				  borrowId = dao.borrowId(bookIdx);
+			  }
+			  
+			  logger.info("현재 예약 인원 수 : {} 명",reserveCnt);
+			  logger.info("현재 예약중인 유저 : {} ",reserveId);
+			  logger.info("현재 대여중인 유저 : {} ",borrowId);
+			  
+			  mav.addObject("reserveCnt",reserveCnt);
+			  mav.addObject("reserveId",reserveId);
+			  mav.addObject("borrowId",borrowId);
+				 
+		}
+		
+		logger.info("상세도서 불러오기 결과 : {}",Rbook);
+		
+		mav.setViewName("myLib_book_detail");
+		
+		return mav;
+	}
+
+	//로그인세션 굳이 필요하지 않음. 왜냐면 reseveBookIdx가 있으니까. 하지만 난 넣겠어!
+	public int bookReturn(String reserveBookIdx, String loginId) {
+		return dao.bookReturn(reserveBookIdx,loginId);
+	}
+
+	public ModelAndView reserveBook(String bookIdx, String loginId) {
+		ModelAndView mav = new ModelAndView();
+		int result = dao.reserveIdChk(bookIdx,loginId);
+		logger.info("result : {}",result);
+		if(result==0) {
+			 boolean ReserveSuccess = dao.reserveS(bookIdx,loginId);
+			 mav.addObject("reserve_result", ReserveSuccess);
+			 mav.setViewName("myLib_Rbook");
+		}else {
+			 //boolean ReserveFail = dao.reserveF(bookIdx,loginId);
+			 logger.info("중복예약");
+			 //mav.addObject("reserve_result", ReserveFail);
+		}
+		//return dao.reserveBook(params,loginId);
+		return mav;
+	}
+
+
+	public HashMap<String, Object> hope_list(int page, String loginId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		//5개 기준으로 몇페이지나 만들 수 있는가?
+		int allCnt = dao.HopeBook_allCount(loginId);
+		logger.info("allCnt:"+allCnt);
+		//게시글 수 : 21개, 페이지당 보여줄 수 : 5 = 최대 생성 가능한 페이지 : 5
+		//예: 21/5 = 4.1 이면 소숫점을 버리고 1을 더해 5가 된다. 아니면 있는 그대로...
+		int range = allCnt%10 > 0? Math.round(allCnt/10)+1 : Math.round(allCnt/10);
+		logger.info("만들수있는 페이지~"+range);
+		
+		//생성 가능한 페이지보다 현재페이지가 클 경우... 현재페이지를 생성 가능한 페이지로 맞춰준다.
+		page = page>range? range:page;
+		
+		//시작, 끝
+		int end = page * 10;
+		int start = end - 10+1;
+		
+		map.put("hope_list",dao.hope_list(start,end,loginId));
+		logger.info("hope_list",dao.hope_list(start,end,loginId));
+		map.put("range", range);
+		map.put("currPage",page);
+		logger.info("map:{}",map);
+		//전체 게시글 수 
+		//map.put("totalCnt",dao.allCount());
+		return map;
+	}
+
+
+	public ModelAndView myHBookDetail(String hopeBooksNumber, String loginId) {
+		ModelAndView mav = new ModelAndView();
+	
+		MyLibraryDTO Hbook = dao.myHBookDetail(hopeBooksNumber);
+		if(Hbook != null) {
+			logger.info("책 정보:{}",Hbook);
+			mav.addObject("HbookDetail",Hbook);
+			mav.setViewName("myLib_Hbook_detail");
+		}
+		
+		return mav;
 	}
 
 }

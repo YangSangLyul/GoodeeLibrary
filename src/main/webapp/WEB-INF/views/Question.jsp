@@ -143,9 +143,9 @@ function listPrint(list){
 		content +="<td>"+list[i].id+"</a></td>"
 		var date = new Date(list[i].reg_date);
 		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
-		if(list[i].showstatus=='TRUE'){
+		if(list[i].ansstatus=='TRUE'){
 		content +="<td>답변완료</td>"
-		}else if(list[i].showstatus=='FALSE'){
+		}else if(list[i].ansstatus=='FALSE'){
 		content +="<td>답변대기중</td>"	
 		} 
 		content +="</tr>"

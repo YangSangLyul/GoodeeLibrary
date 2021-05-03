@@ -77,4 +77,55 @@
 		SELECT ROW_NUMBER() OVER(ORDER BY b.bookidx DESC) AS rnum,b.bookIdx,b.bookstate "bstate",b.bookname,r.bookstate "rstate",r.id,r.reg_date,r.reservebookidx  FROM book b FULL OUTER JOIN reserveBook r ON b.bookidx = r.bookidx WHERE id=#{param3}
 	)WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
+	
+	<select id="reserveChk" resultType="int">
+		SELECT COUNT(bookidx) FROM reservebook WHERE bookidx = #{param1} AND (bookstate = 'R001')
+	</select>
+	
+	<select id="reserveIdChk" resultType="int">
+		SELECT COUNT(*) AS reserve_chk FROM reservebook WHERE bookidx = #{param1} AND id = #{param2}
+	</select>
+	
+	<select id="reserveId" resultType="String">
+		SELECT id FROM reservebook WHERE bookidx = #{param1} AND (bookstate = 'R001') AND id = #{param2}
+	</select>
+
+	<select id="borrowId" resultType="String">
+		SELECT id FROM reservebook WHERE bookidx = #{param1} AND (bookstate = 'R002')
+	</select>
+	
+	<select id="myRBookDetail" resultType="myLibrary">
+		SELECT * FROM book WHERE bookidx = #{bookIdx}
+	</select>
+	
+	<update id="bookReturn">
+		UPDATE ReserveBook SET bookState = 'R003' WHERE reserveBookIdx = #{param1} AND id=#{param2}
+	</update>
+	
+	<insert id="reserveS">
+		INSERT INTO reservebook(reservebookIdx,bookidx,id,bookstate) 
+			VALUES(reserveBookIdx_seq.NEXTVAL,#{param1},#{param2},'R001')
+	</insert>
+	
+	<delete id="reserveF">
+		DELETE FROM reserveBook WHERE bookidx = #{param1} AND id=#{param2}
+	</delete>
+	
+	<delete id="myRBookCancel">
+		DELETE FROM reserveBook WHERE bookIdx = #{param1} AND id=#{param2}
+	</delete>
+	
+	<select id="HopeBook_allCount" resultType="Integer">
+		SELECT COUNT(hopebooksNumber) FROM HopeBook WHERE id=#{param1}
+	</select>
+	
+	<select id="hope_list" resultType="hashMap">
+		SELECT  * FROM( 
+			SELECT  ROW_NUMBER() OVER(ORDER BY hopebooksNumber DESC) AS rnum ,hopebooksnumber,id,hb_state,hb_date,hb_bookname,writer,publisher,hopereason FROM HopeBook WHERE id=#{param3}
+		)WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	<select id="myHBookDetail" resultType="myLibrary">
+		SELECT * FROM hopebook WHERE hopeBooksNumber = #{hopeBooksNumber}
+	</select>
 </mapper>

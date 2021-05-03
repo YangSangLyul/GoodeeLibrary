@@ -165,4 +165,11 @@
 	SELECT a.CONTENT FROM QUESTION q ,ANSWER a WHERE q.QUEIDX = a.QUEIDX(+) AND q.QUEIDX = #{param1}
 	</select>
 	
+	<select id="photoRead" resultType="String">
+		SELECT NEWFILENAME FROM QUESTIONPHOTO WHERE QUEIDX = #{param1}
+	</select>
+	
+	<delete id="initLostFile" parameterType="string">
+		DELETE FROM QUESTIONPHOTO WHERE NEWFILENAME =#{param1}
+	</delete>
 </mapper>

@@ -79,7 +79,7 @@
                     </select>
                 </div>
             <input type="text" placeholder="제목을 작성해주세요"  class="gw3" name="subject">
-            <div id="editable" contenteditable="true" class="gw4" style="background-color: white; border: 1px solid black "></div>
+            <div id="editable" contenteditable="true" class="gw4" style="background-color: white; border: 1px solid black " ></div>
 			<input id="content" type="hidden" name="content" value=""/>
             <input type="button" value="사진업로드"  class="gw5" onclick="fileUp()"/>
             <label class="gw6"><input type="radio" name="false" value="FALSE" id="tfC">비공개
