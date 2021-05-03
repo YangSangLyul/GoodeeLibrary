@@ -175,10 +175,11 @@ function listPrint(reserve_list){
 		//content += "<td>"+reserve_list[i].bstate+"</td>"
 		if(reserve_list[i].rstate == 'R001'){
 			content += "<td>예약중</td>"
-			content += "<td><a href='./myRBookCancel?reserveBookIdx="+reserve_list[i].RESERVEBOOKIDX+"'>예약취소</a></td>"
+			content += "<td><a href='./mybookReserve?bookIdx="+reserve_list[i].BOOKIDX+"'>예약취소</a></td>"
 		}else if(reserve_list[i].rstate == 'R002'){
 			content += "<td>대여중</td>"
-			content += "<td><a href='./myBookReturn?reserveBookIdx="+reserve_list[i].RESERVEBOOKIDX+"'>반납하기</a></td>"
+			//컨트롤러 수정하기
+			//content += "<td><a href='./myBookReturn?reserveBookIdx="+reserve_list[i].RESERVEBOOKIDX+"'>반납하기</a></td>"
 		}/* else if(reserve_list[i].rstate == 'R003'){
 			content += "<td colspan='2'>반납완료</td>"
 		} */

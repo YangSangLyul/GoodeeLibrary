@@ -34,13 +34,21 @@ public class MyLibraryController {
 			String page = "redirect:/memLogin";
 			logger.info(loginId);
 			if(loginId != null) {
-				page="myLib_Rbook";
+				page="myLib_HopeBook";
 			}
 			rAttr.addFlashAttribute("msg",msg);	
 			mav.addObject("loginId",loginId); 
 			mav.setViewName(page);
 			
-		  logger.info("나의 도서예약 내역 이동"); 
+		  logger.info("나의 희망도서 내역 이동"); 
+		  return mav; 
+	  }
+	  
+	  @RequestMapping(value = "/MyBook")
+	  public ModelAndView MyBook() { 
+		  logger.info("나의 도서 예약내역"); 
+		  ModelAndView mav = new ModelAndView(); 
+		  mav.setViewName("myLib_Rbook"); 
 		  return mav; 
 	  }
 	  
@@ -168,13 +176,12 @@ public class MyLibraryController {
 		return service.myRBookDetail(bookIdx,loginId);
 	}
 	
-	@RequestMapping(value = "/myBookReturn", method = RequestMethod.GET)
-	public String returnBook(@RequestParam String reserveBookIdx,HttpSession session) { 
-		String loginId = (String) session.getAttribute("loginId");
-		logger.info("반납하기 : " + reserveBookIdx);
-		int success = service.bookReturn(reserveBookIdx,loginId);
-		logger.info("반납 성공 여부 : " + success);
-		//페이지 이동 수정필요!
-		return "./myLib_Rbook";
-	}
+	/*
+	 * @RequestMapping(value = "/myBookReturn", method = RequestMethod.GET) public
+	 * String returnBook(@RequestParam String reserveBookIdx,HttpSession session) {
+	 * String loginId = (String) session.getAttribute("loginId");
+	 * logger.info("반납하기 : " + reserveBookIdx); int success =
+	 * service.bookReturn(reserveBookIdx,loginId); logger.info("반납 성공 여부 : " +
+	 * success); //페이지 이동 수정필요! return "./myLib_Rbook"; }
+	 */
 }
