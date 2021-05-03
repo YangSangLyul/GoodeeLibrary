@@ -42,6 +42,10 @@ public class ReviewService2 { //리뷰 모아보기용
 		return mav;
 	}
 
+	public ReviewDTO reviewDetail(String reviewIdx) {
+		return dao.reviewDetail(reviewIdx);
+	}
+
 
 
 

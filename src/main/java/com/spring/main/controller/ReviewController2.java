@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.main.service.AdminService;
+import com.spring.main.dto.ReviewDTO;
 import com.spring.main.service.ReviewService2;
 
 @Controller
@@ -38,6 +38,21 @@ public class ReviewController2 { //리뷰모아보기용 (추후 합칠예정)
 		public ModelAndView reviewIdList(Model model,@RequestParam String id) {
 			logger.info(id+" 의 리뷰 목록");
 			return service.reviewIdList(id);
+		}
+		
+		//리뷰 상세보기
+		@RequestMapping(value = "/reviewDetail", method = RequestMethod.GET)
+		public String reviewDetail(Model model,@RequestParam String reviewIdx) {
+			logger.info("상세보기할 리뷰번호:"+reviewIdx);
+			
+			String page = "redirect:/reviewList";
+			ReviewDTO dto = service.reviewDetail(reviewIdx);
+			
+			if(dto!=null) {
+				page = "reviewDetail";
+				model.addAttribute("dto", dto);
+			}
+			return page;
 		}
 		
 		

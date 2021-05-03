@@ -121,9 +121,11 @@
 		</div>
 		<c:forEach items="${review}" var="review">
 			<div class="review_content">
+			<input type="hidden" value="${review.reviewIdx}"/ > 
 				<table id="r_table">
  					<tr>
 						<td rowspan="3" id="b_img">
+
 							<a href="#">
 								<img src="${review.bookImg}" width="117" height="162" />
 							</a>	
@@ -149,7 +151,7 @@
 					<tr>					
 						<td>
 							<div class="re_detail">
-							<input type="button" id="re_btn" onclick="location.href='reviewDetail'" value="리뷰 상세보기">
+							<input type="button" id="re_btn" onclick="location.href='reviewDetail?reviewIdx=${review.reviewIdx}'" value="리뷰 상세보기"/>
 							</div>
 						</td>
 					</tr> 
