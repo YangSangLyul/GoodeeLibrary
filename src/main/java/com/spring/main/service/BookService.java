@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.BookDAO;
 import com.spring.main.dto.BookDTO;
@@ -148,6 +149,23 @@ public class BookService {
 		map.put("range", range);
 		map.put("currPage", page);
 		return map;
+	}
+
+	public String hopeBookInsert(HashMap<String, String> params, RedirectAttributes rAttr) {
+		
+		String msg = "희망도서 신청에 실패했습니다..";
+		int success = 0;
+		String page = "redirect:/hopeBook";
+		
+		success = dao.hopeBookInsert(params);
+		
+		if(success > 0) {
+			msg = "희망도서 신청이 성공적으로 되었습니다.";
+		}
+		
+		rAttr.addFlashAttribute("msg",msg);
+		
+		return page;
 	}
 
 }
