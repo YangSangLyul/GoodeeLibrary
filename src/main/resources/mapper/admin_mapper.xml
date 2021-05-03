@@ -67,7 +67,7 @@
 	</delete>
 	
 	<delete id="blindRemove">
-		DELETE FROM reviewblind WHERE blindIdx=#{param1}
+		UPDATE reviewblind SET blind_status='FALSE' WHERE blindIdx=#{param1}
 	</delete>
 		
 </mapper>
