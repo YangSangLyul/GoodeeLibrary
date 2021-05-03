@@ -6,6 +6,8 @@ import org.apache.ibatis.type.Alias;
 
 @Alias("review")
 public class ReviewDTO { 
+	
+		//리뷰
 	   private int reviewIdx;
 	   private String content;
 	   private String id;
@@ -16,6 +18,44 @@ public class ReviewDTO {
 	   private int month_rcnt;
 	   private int bookIdx;
 	   
+	   //도서
+		private String bookName;
+		private String bookImg;
+		private String writer;
+		private String story;
+		private String publisher;
+	   
+		
+	public String getBookName() {
+			return bookName;
+		}
+		public void setBookName(String bookName) {
+			this.bookName = bookName;
+		}
+		public String getBookImg() {
+			return bookImg;
+		}
+		public void setBookImg(String bookImg) {
+			this.bookImg = bookImg;
+		}
+		public String getWriter() {
+			return writer;
+		}
+		public void setWriter(String writer) {
+			this.writer = writer;
+		}
+		public String getStory() {
+			return story;
+		}
+		public void setStory(String story) {
+			this.story = story;
+		}
+		public String getPublisher() {
+			return publisher;
+		}
+		public void setPublisher(String publisher) {
+			this.publisher = publisher;
+		}
 	public int getReviewIdx() {
 		return reviewIdx;
 	}

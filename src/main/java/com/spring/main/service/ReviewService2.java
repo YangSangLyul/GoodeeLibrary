@@ -24,7 +24,31 @@ public class ReviewService2 { //리뷰 모아보기용
 		mav.addObject("review", reviewList);
 		mav.setViewName("reviewList");
 		return mav;
-	}	
+	}
+	
+	public ModelAndView reviewCom() {
+		ModelAndView mav = new ModelAndView();
+		ArrayList<ReviewDTO> reviewList = dao.reviewCom();
+		mav.addObject("review", reviewList);
+		mav.setViewName("reviewList");
+		return mav;
+	}
+
+	public ModelAndView reviewIdList(String id) {
+		ModelAndView mav = new ModelAndView();
+		ArrayList<ReviewDTO> reviewIdList = dao.reviewIdList(id);
+		mav.addObject("review", reviewIdList);
+		mav.setViewName("reviewIdList");
+		return mav;
+	}
+
+	public ReviewDTO reviewDetail(String reviewIdx) {
+		return dao.reviewDetail(reviewIdx);
+	}
+
+
+
+
 	
 	
 }

@@ -23,8 +23,8 @@ if(path!=""){
 	var elem = opener.document.getElementById("editable");
 	var content="";
 	content +="<br>";
-	content +="<div contenteditable='false'><a href='#' id='${path}' onclick='del(this)'>";
-	content +="<img src='${path}' width='80'/><b>X</b></a></div>";
+	content +="<a href='#' id='${path}' onclick='del(this)'>";
+	content +="<img src='${path}' width='80'/><b>X</b></a>";
 	elem.innerHTML += content;
 	self.close();
 }

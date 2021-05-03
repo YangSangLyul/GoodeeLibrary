@@ -30,17 +30,35 @@ public class MyLibraryController {
 	  public ModelAndView MyLibrary(HttpSession session,RedirectAttributes rAttr) { 
 		  ModelAndView mav = new ModelAndView();
 			String loginId = (String) session.getAttribute("loginId");
-			String msg="로그인후 접근가능합니다.";
+			String msg="로그인이 필요한 서비스입니다.";
 			String page = "redirect:/memLogin";
 			logger.info(loginId);
 			if(loginId != null) {
-				page="myLib_Rbook";
+				page="myLib_HopeBook";
 			}
 			rAttr.addFlashAttribute("msg",msg);	
 			mav.addObject("loginId",loginId); 
 			mav.setViewName(page);
 			
-		  logger.info("나의 도서예약 내역 이동"); 
+		  logger.info("나의 희망도서 내역 이동"); 
+		  return mav; 
+	  }
+	  
+	  @RequestMapping(value = "/myLib_Hbook/10/{page}", method = RequestMethod.GET)
+	  public HashMap<String,Object> HopeBook_list( 
+			  @PathVariable int page,HttpSession session) { 
+		  String loginId = (String) session.getAttribute("loginId");
+		  logger.info("나의 도서예약 ");
+		  logger.info(" page : {}, session Id: {}",  page,loginId);
+	  
+	  return service.hope_list(page,loginId); 
+	  }
+	  
+	  @RequestMapping(value = "/MyBook")
+	  public ModelAndView MyBook() { 
+		  logger.info("나의 도서 예약내역"); 
+		  ModelAndView mav = new ModelAndView(); 
+		  mav.setViewName("myLib_Rbook"); 
 		  return mav; 
 	  }
 	  
@@ -138,12 +156,49 @@ public class MyLibraryController {
 		return service.file_upload(file,session);
 	}
 	*/
-	@RequestMapping(value = "/myRBookCancel", method = RequestMethod.GET)
-	public String reserveBookCancel(@RequestParam String reserveBookIdx) {
-		logger.info("예약 취소하기 : " + reserveBookIdx);
-		int success = service.myRBookCancel(reserveBookIdx);
-		logger.info("예약 취소 성공 여부 : " + success);
+	
+	@RequestMapping(value = "/mybookReserve", method = RequestMethod.GET)
+	public ModelAndView reserveBook(@RequestParam String bookIdx,HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("책번호 : " + bookIdx);
+		logger.info("아이디 : " + loginId);
 		
-		return "myLib_Rbook";
+		//int success = service.reserveBook(bookIdx,loginId);
+		
+		//logger.info("예약 성공 여부 : " + success);
+		//logger.info("bookIdx : " + bookIdx);
+		return service.reserveBook(bookIdx,loginId);
+	}
+	
+	@RequestMapping(value = "/myRBookCancel", method = RequestMethod.GET)
+	public ModelAndView reserveBookCancel(@RequestParam String bookIdx,HttpSession session) {
+		//logger.info("예약 취소하기 : " + reserveBookIdx);
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("책번호 : " + bookIdx);
+		
+		return service.myRBookCancel(bookIdx,loginId);
+	}
+	
+	@RequestMapping(value = "/myRBookDetail", method = RequestMethod.GET)
+	public ModelAndView myRBookDetail(@RequestParam String bookIdx,HttpSession session) { 
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("예약도서 상세보기 대상 : {}", bookIdx);
+		return service.myRBookDetail(bookIdx,loginId);
+	}
+	
+	/*
+	 * @RequestMapping(value = "/myBookReturn", method = RequestMethod.GET) public
+	 * String returnBook(@RequestParam String reserveBookIdx,HttpSession session) {
+	 * String loginId = (String) session.getAttribute("loginId");
+	 * logger.info("반납하기 : " + reserveBookIdx); int success =
+	 * service.bookReturn(reserveBookIdx,loginId); logger.info("반납 성공 여부 : " +
+	 * success); //페이지 이동 수정필요! return "./myLib_Rbook"; }
+	 */
+	
+	@RequestMapping(value = "/myHBookDetail", method = RequestMethod.GET)
+	public ModelAndView myHBookDetail(@RequestParam String hopeBooksNumber,HttpSession session) { 
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("예약도서 상세보기 대상 : {}", hopeBooksNumber);
+		return service.myHBookDetail(hopeBooksNumber,loginId);
 	}
 }
