@@ -29,4 +29,9 @@ public interface BookDAO {
 
 	int allCount(String loginId);
 
+	int allCnt();
+
+	ArrayList<BookDTO> bookList(int start, int end);
+
+	ArrayList<BookDTO> normalBookFilter(int start, int end);
 }

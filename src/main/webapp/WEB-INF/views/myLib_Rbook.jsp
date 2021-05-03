@@ -174,7 +174,7 @@ function listPrint(reserve_list){
 		//content += "<td>"+reserve_list[i].bstate+"</td>"
 		if(reserve_list[i].rstate == 'R001'){
 			content += "<td>예약중</td>"
-			content += "<td><a>예약취소</a></td>"
+			content += "<td><a href='./myRBookCancel?reserveBookIdx="+reserve_list[i].RESERVEBOOKIDX+"'>예약취소</a></td>"
 		}else if(reserve_list[i].rstate == 'R002'){
 			content += "<td>대여중</td>"
 			content += "<td>반납하기</td>"

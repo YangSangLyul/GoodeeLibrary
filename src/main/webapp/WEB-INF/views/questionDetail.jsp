@@ -36,29 +36,37 @@
     <div id="qdBackground">
         <table>
            <tr>
-               <td>제목
-
+               <td>제목 <br>
+				${map.SUBJECT}<input type="hidden" name="QUEIDX" value="${map.QUEIDX}">
                </td>
-               <td>유형
-
-               </td>
+               <td>유형<br>
+               <c:choose>
+					<c:when test="${map.TYPE =='Q001'}">열람실</c:when>
+               		<c:when test="${map.TYPE =='Q002'}">도서</c:when>
+               		<c:when test="${map.TYPE	=='Q003'}">서비스</c:when>
+              		<c:when test="${map.TYPE =='Q004'}">기타</c:when>
+				</c:choose>
+              </td>
            </tr>
            <tr>
-            <td>작성자
-
+            <td>작성자<br>
+			${map.ID}
             </td>
-            <td>날짜
-
+            <td>날짜<br>
+			${map.REG_DATE}
             </td>
         </tr>
         <tr> 
-            <td colspan="2">문의내용
-
+            <td colspan="2">문의내용 <br>
+			${map.CONTENT}
             </td>
         </tr>
         <tr>
-            <td colspan="2">답변내용
-                관리자가글쓰면 수정안됨
+            <td colspan="2">답변내용 <br>
+                <c:choose>
+					<c:when test="${map.ANSSTATUS =='FALSE'}">아직 답변이 달리지 않은 문의 내용입니다 최대한빨리 답변해 드리겠습니다.</c:when>
+               		<c:when test="${map.ANSSTATUS =='TRUE'}">${ansstatus}</c:when>
+				</c:choose>
             </td>
         </tr>
         </table>

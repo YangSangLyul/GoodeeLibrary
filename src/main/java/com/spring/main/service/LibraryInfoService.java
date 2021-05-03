@@ -1,5 +1,11 @@
 package com.spring.main.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -12,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -167,17 +174,41 @@ public class LibraryInfoService {
 		return map;
 	}
 
-	public ModelAndView questionWriting(HashMap<String, Object> params) {
+	public ModelAndView questionWriting(HashMap<String, Object> params ,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		logger.info("params의값"+params);
-		/* loginId=, type=Q003, subject=가입인사드립니다/., content=sdfsafsdaf, false=FALSE */
-		int success = dao.questionWriting(params);
-		String msg="글작성에실패하였씁니다.";
-		if(success > 0) {
-			msg="글작성에 성공하였씁니다.";
+		String page ="redirect:/questionWrite";
+		
+		LibraryInfoDTO dto = new LibraryInfoDTO();
+		dto.setSubject((String) params.get("subject"));
+		dto.setContent((String) params.get("content"));
+		dto.setShowstatus((String) params.get("false"));
+		dto.setId((String) params.get("loginId"));
+		dto.setType((String) params.get("type"));
+		
+		logger.info(""+dto.getId());
+		
+		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
+		
+		if(dao.questionWriting(dto)>0) {
+			logger.info("queidx"+dto.getQueidx());
+			if(fileList.size() >0) {
+				for(String key:fileList.keySet()) {
+				logger.info("key중복방지"+key+"getKe오리"+fileList.get(key)+"fto.get"+dto.getQueidx());			
+				dao.fileWriting(key,fileList.get(key),dto.getQueidx());
+				}
+			}
+			
+			page="redirect:/questionDetail/"+dto.getQueidx(); 
+		}else {
+			for(String newFileName : fileList.keySet()) {
+				File file = new File("C:/upload/Library"+newFileName);
+				file.delete();
+			}
 		}
-		mav.addObject("msg", msg);
-		mav.setViewName("Question");
+		
+		session.removeAttribute("fileList");
+		mav.setViewName(page);
+		
 		return mav;
 	}
 
@@ -188,16 +219,31 @@ public class LibraryInfoService {
 		 logger.info(""+map);
 		 logger.info(""+map.get("SHOWSTATUS"));
 		 logger.info(""+map.get("ID"));
+		 logger.info(""+map.get("TO_CHAR(REG_DATE,'YYYY-MM-DD')"));//다른방법이없을까ㅇ?
+		 map.put("REG_DATE", map.get("TO_CHAR(REG_DATE,'YYYY-MM-DD')"));
+		 logger.info(""+map);
 		 logger.info(""+loginId);
 		 String msg ="";
 		 String page ="";
 		if(map.get("SHOWSTATUS").equals("TRUE")) {
+			if(map.get("ANSSTATUS").equals("TRUE")) {
+				String ansstatus =dao.questionAnsstatus(idx);
+				logger.info("값:"+ansstatus);
+				mav.addObject("ansstatus", ansstatus);
+			}
 			msg="전체공개입니다.";
 			page="questionDetail";
+			mav.addObject("map", map);
 		}else {
 			if(map.get("ID").equals(loginId)) {
+				if(map.get("ANSSTATUS").equals("TRUE")) {
+					String ansstatus =dao.questionAnsstatus(idx);
+					logger.info("값:"+ansstatus);
+					mav.addObject("ansstatus", ansstatus);
+				}
 				msg="비공개글이지만 작성자이기에 보여집니다.";
 				page="questionDetail";
+				mav.addObject("map", map);
 			}else {
 				msg="볼수 있는권한이 있지않습니다.";
 				page="redirect:/Question";
@@ -207,6 +253,73 @@ public class LibraryInfoService {
 		mav.addObject("msg", msg);
 		mav.setViewName(page);
 		return mav;
+	}
+
+	public ModelAndView fileUpload(MultipartFile file, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		
+		File dir = new File("C:/upload/Library");
+		if(!dir.exists()) {
+			dir.mkdir();
+		}
+		String fileName = file.getOriginalFilename();
+		
+		String newFileName = System.currentTimeMillis()+fileName.substring(fileName.lastIndexOf("."));
+		
+		logger.info("팔넴"+fileName+"밀세컨더한팔넴"+newFileName);
+		
+		try {
+			byte[] bytes = file.getBytes();
+			Path filePath = Paths.get("C:/upload/Library/"+newFileName);
+			Files.write(filePath, bytes);
+			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
+			
+			fileList.put(newFileName, fileName);
+			logger.info("파일수"+fileList.size());
+			
+			session.setAttribute("fileList", fileList);
+			logger.info("fl : "+fileList);
+			mav.addObject("path","/photo/"+newFileName); //다른사람들서버 설정 알려줘야함..
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		mav.setViewName("uploadForm");
+		
+		return mav;
+	}
+
+	public HashMap<String, Object> fileDelete(String fileName, HttpSession session) {
+
+		HashMap<String, Object> map	 = new	HashMap<String, Object>();
+		
+		File delFile = new File("C:/upload/Library"+fileName);
+		logger.info("delete file:"+delFile);
+		
+		int success= 1;
+		
+		try {
+			if(delFile.exists()) { 
+				delFile.delete();  //있다면 삭제
+			}else {
+				logger.info("이미삭제된 파일 "); 
+			}
+			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
+			
+			if(fileList.get(fileName) != null) { 
+				fileList.remove(fileName);
+				logger.info("삭제후남은파일"+fileList.size());
+			}
+			session.setAttribute("fileList", fileList);  //세션에서지워진것을 다시 set해서 넣어줘야함갱신개념
+		} catch (Exception e) {
+			success=0;
+		} finally {
+			map.put("success"	, success);
+		}
+		
+		return map;
 	}
 
 

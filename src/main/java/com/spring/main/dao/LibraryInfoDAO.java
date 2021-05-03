@@ -38,9 +38,13 @@ public interface LibraryInfoDAO {
 	  
 	int question_guitarCount();
 
-	int questionWriting(HashMap<String, Object> params);
+	int questionWriting(LibraryInfoDTO dto);
 
 	HashMap<String, Object> questionDetail(int idx);
+
+	String questionAnsstatus(int idx);
+
+	void fileWriting(String key, String string, int queidx);
 	 
 	
 

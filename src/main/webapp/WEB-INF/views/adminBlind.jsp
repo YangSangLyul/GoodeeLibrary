@@ -36,6 +36,7 @@
                 top: 235px;
             }
         </style>
+        <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
     </head>
     <body>
         <!-- 상단 네비게이션 자리 -->
@@ -56,12 +57,12 @@
             </tr>
             <c:forEach items="${blind}" var="blind">
 	            <tr>
-	                <td>${blind.blindIdx}</td>
+	                <td id="idx">${blind.blindIdx}</td>
 	                <td><a class="reason" href="reportDetail?idx=${blind.reportIdx}">${blind.reportReason}</a></td>
 	                <td>${blind.blindReason}</td>
 	                <td>${blind.blind_date}</td>
 	                <td>
-	                    <input type="button" id="blind" value="블라인드 해제"/>
+	                    <input type="button" id="blind" onclick=removeChk(${blind.blindIdx}) value="블라인드 해제"/>
 	                </td>
 	            </tr>
             </c:forEach>
@@ -86,6 +87,20 @@
     		return txt;
 	    }
 	    textLengthOverCut();
+	    
+	    //alert
+	    var msg = "${msg}";
+	    if(msg != ""){
+	    	alert(msg);
+	    }
+	    
+	    //confirm
+	    function removeChk(idx){
+	    	var chk = confirm('블라인드를 해제 하시겠습니까?');
+	    	if(chk){
+				location.href='blindRemove?blindIdx='+idx;
+			}
+	    }
     
     </script>
 </html>

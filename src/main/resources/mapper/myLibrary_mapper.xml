@@ -4,14 +4,14 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
 >
 
-<mapper namespace="com.spring.main.dao.QuestionDAO">
+<mapper namespace="com.spring.main.dao.MyLibraryDAO">
 	
-	<select id="question_list" resultType="question">
+	<select id="question_list" resultType="myLibrary">
 		SELECT queidx,id,subject,reg_date,ansstatus FROM question ORDER BY reg_date DESC
 	</select>
 	
 	
-	<select id="page_list" resultType="question">
+	<select id="page_list" resultType="myLibrary">
 		SELECT queidx, id,subject,content,reg_date,ansstatus, rnum
 		FROM (
 			SELECT queidx, id,subject,content,reg_date, ansstatus, type,
@@ -29,7 +29,7 @@
 			VALUES(queIdx_seq.NEXTVAL,#{id},#{subject},#{content},#{ansstatus},#{type})
 	</insert> -->
 	
-	<select id="myLib_question_detail" parameterType="hashMap" resultType="question">
+	<select id="myLib_question_detail" parameterType="hashMap" resultType="myLibrary">
 	<!-- <select id="question_detail" resultType="hashMap"> -->
 	<if test="ansstatus.equals('TRUE')">
 		SELECT q.queidx,q.id,q.subject,q.content,q.reg_date,q.ansstatus,q.type,a.content AS answer,a.reg_date 
@@ -42,7 +42,7 @@
 	</if>
 	</select>
 	
-	<select id="question_editForm" parameterType="hashMap" resultType="question">
+	<select id="question_editForm" parameterType="hashMap" resultType="myLibrary">
 		SELECT queidx,id,subject,content,reg_date,ansstatus,type 
 		FROM question WHERE queidx=#{idx}
 		</select>
@@ -55,9 +55,12 @@
 		DELETE FROM question WHERE queidx=#{param1}
 	</delete>
 	
-	<!-- 세션값 아이디 파라미터로 가져오기! -->
-	<select id="allCount" resultType="Integer">
+	<select id="Question_allCount" resultType="Integer">
 		SELECT COUNT(queidx) FROM question WHERE id=#{param1}
+	</select>
+	
+	<select id="ReserveBook_allCount" resultType="Integer">
+		SELECT COUNT(bookIdx) FROM RESERVEBOOK WHERE id=#{param1}
 	</select>
 	
 	<!-- <insert id="writeFile"> 
@@ -69,5 +72,9 @@
 		SELECT * FROM questionphoto WHERE queidx=#{param1}
 	</select> -->
 	
-	
+	<select id="reserve_list" resultType="hashMap">
+	SELECT  * FROM( 
+		SELECT ROW_NUMBER() OVER(ORDER BY b.bookidx DESC) AS rnum,b.bookIdx,b.bookstate "bstate",b.bookname,r.bookstate "rstate",r.id,r.reg_date,r.reservebookidx  FROM book b FULL OUTER JOIN reserveBook r ON b.bookidx = r.bookidx WHERE id=#{param3}
+	)WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
 </mapper>

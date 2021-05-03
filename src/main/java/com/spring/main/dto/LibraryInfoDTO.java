@@ -18,6 +18,29 @@ public class LibraryInfoDTO {
 	private String ansstatus; // 질문을 해준것과안해준것
 	private String type; //타입 q001/~~4까지
 	
+	private int queqhotoidx; //포토게시글번호
+	private String orifilename;//원래 이름
+	private String newfilename;//밀셋적용이름
+	
+	
+	public int getQueqhotoidx() {
+		return queqhotoidx;
+	}
+	public void setQueqhotoidx(int queqhotoidx) {
+		this.queqhotoidx = queqhotoidx;
+	}
+	public String getOrifilename() {
+		return orifilename;
+	}
+	public void setOrifilename(String orifilename) {
+		this.orifilename = orifilename;
+	}
+	public String getNewfilename() {
+		return newfilename;
+	}
+	public void setNewfilename(String newfilename) {
+		this.newfilename = newfilename;
+	}
 	
 	public int getQueidx() {
 		return queidx;

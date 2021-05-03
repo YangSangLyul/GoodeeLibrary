@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="reserveList" resultType="seat">
-		SELECT * FROM reserveseat
+		SELECT * FROM reserveseat WHERE seatstatus = 'S002' OR seatstatus = 'S003' ORDER BY seatnumber ASC 
 	</select>
 	
 	<insert id="reserveSeatReq">
@@ -19,7 +19,40 @@
 		VALUES(reserveseat_seq.NEXTVAL,TO_DATE(#{param1},'hh24:mi'),TO_DATE(#{param2},'hh24:mi'),#{param3},#{param4})
 	</insert>
 	
+	<!-- 좌석 예약전에 사용자가 예약 또는 입실한 경우가 있으면 가져와라 -->
 	<select id="reserSeatChk" resultType="String">
-		SELECT id FROM reserveseat WHERE id=#{param1} AND seatstatus = 'S002'
+		SELECT id FROM reserveseat WHERE id=#{param1} AND (seatstatus = 'S002' OR seatstatus = 'S003')
 	</select>
+	
+	<select id="myReserveSeat" resultType="seat">
+		SELECT * FROM reserveseat WHERE id=#{param1} AND (seatstatus = 'S002' OR seatstatus = 'S003')  
+	</select>
+	
+	<update id="seatEnterReq">
+		UPDATE reserveseat SET seatstatus = 'S003' WHERE id=#{param1} AND (seatstatus = 'S002' OR seatstatus != 'S001') 
+	</update>
+	
+	<select id="mySeatNum" resultType="int">
+		SELECT reservenumber FROM reserveseat WHERE id=#{param1} AND seatstatus = 'S003'
+	</select>
+	
+	<insert id="mySeatEnter">
+		INSERT INTO useseat(reservenumber,usestart,id)
+		VALUES(#{param2},SYSDATE,#{param1})
+	</insert>
+	
+	<update id="mySeatExit">
+		UPDATE useseat SET useend = SYSDATE
+		WHERE id = #{param1} AND reservenumber = #{param2}
+	</update>
+	
+	<update id="seatExitReq">
+		UPDATE reserveseat SET seatstatus = 'S001' WHERE id=#{param1} AND seatstatus = 'S003'
+	</update>
+	
+	<update id="reserveCancelReq">
+		UPDATE reserveseat SET seatstatus = 'S001' WHERE id=#{param1} AND seatstatus = 'S002'
+	</update>
+	
+	
 </mapper>

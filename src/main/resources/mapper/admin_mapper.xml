@@ -61,5 +61,13 @@
 	<update id="reportFal" parameterType="HashMap">
 		UPDATE reviewreport SET reportStatus='TRUE' WHERE reportIdx=#{reportIdx}
 	</update>
+	
+	<delete id="ignore">
+		DELETE FROM reviewreport WHERE reportIdx=#{param1}
+	</delete>
+	
+	<delete id="blindRemove">
+		DELETE FROM reviewblind WHERE blindIdx=#{param1}
+	</delete>
 		
 </mapper>

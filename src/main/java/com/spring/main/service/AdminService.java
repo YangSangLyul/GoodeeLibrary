@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.AdminDAO;
 import com.spring.main.dto.AdminDTO;
@@ -98,7 +99,31 @@ public class AdminService {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("success", dao.blindReasonTxt(params));
 		mav.addObject("update", dao.reportFal(params));
+		mav.setViewName("redirect:/BlindList");
+		return mav;
+	}
+
+	public ModelAndView ignore(int reportIdx, RedirectAttributes attr) {
+		logger.info("신고리스트 삭제 요청");
+		ModelAndView mav = new ModelAndView();
+		String msg = "";
+		if(dao.ignore(reportIdx)>0) {
+			msg = "해당 신고는 신고리스트에서 삭제처리 되었습니다.";
+		}
+		attr.addFlashAttribute("msg", msg);
 		mav.setViewName("redirect:/ReportList");
+		return mav;
+	}
+
+	public ModelAndView blindRemove(int blindIdx, RedirectAttributes attr) {
+		logger.info("블라인드리스트 삭제 요청");
+		ModelAndView mav = new ModelAndView();
+		String msg = "";
+		if(dao.blindRemove(blindIdx)>0) {
+			msg = "해제 되었습니다.";
+		}
+		attr.addFlashAttribute("msg", msg);
+		mav.setViewName("redirect:/BlindList");
 		return mav;
 	}
 	
