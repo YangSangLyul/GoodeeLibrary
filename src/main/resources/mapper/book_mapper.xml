@@ -105,5 +105,10 @@
 		INSERT INTO book(bookIdx, bookName, writer, publisher, story, bookImg)
 			VALUES(bookIdx_seq.NEXTVAL, #{bookName}, #{writer}, #{publisher}, #{story}, #{bookImg})
 	</insert>
+	
+	<insert id="hopeBookInsert" parameterType="hashMap">
+		INSERT INTO hopebook(hopebooksnumber,id,hb_bookname,writer,publisher,hopereason)
+		VALUES(HOPEBOOKSNUMBER_SEQ.NEXTVAL,#{userId},#{hopeBook},#{writer},#{publisher},#{reason})
+	</insert>
 
 </mapper>

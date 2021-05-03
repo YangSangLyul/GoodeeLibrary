@@ -116,7 +116,7 @@ public class AdminService {
 	}
 
 	public ModelAndView blindRemove(int blindIdx, RedirectAttributes attr) {
-		logger.info("블라인드리스트 삭제 요청");
+		logger.info("블라인드리스트 해제 요청");
 		ModelAndView mav = new ModelAndView();
 		String msg = "";
 		if(dao.blindRemove(blindIdx)>0) {
