@@ -70,6 +70,12 @@
             a:hover {
                 color: gray;
             }
+            
+            #sideBar{
+        		position: absolute;
+        		margin-left: 10%;
+        		margin-top: 3%;
+        	}
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
@@ -77,6 +83,10 @@
     <body>
         <!-- 헤더 영역 -->
         <jsp:include page="header.jsp"/>
+        
+        <div id="sideBar">
+        <jsp:include page="dataserchSidebar.jsp"></jsp:include>
+        </div>
         <!-- 검색창 영역-->
         <form id="searchForm" action="bookSearchReq" method="POST">
         <div id="searchBox">

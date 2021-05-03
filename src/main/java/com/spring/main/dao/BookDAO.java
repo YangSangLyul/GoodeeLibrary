@@ -34,4 +34,6 @@ public interface BookDAO {
 	ArrayList<BookDTO> bookList(int start, int end);
 
 	ArrayList<BookDTO> normalBookFilter(int start, int end);
+
+	int hopeBookInsert(HashMap<String, String> params);
 }
