@@ -70,7 +70,7 @@
         
         //여기 누르면 경로 지정;
         $("#newBooks").click(function () {
-            location.href = '';
+            location.href = 'newBooksList';
         });
         
         //여기 누르면 경로 지정;
