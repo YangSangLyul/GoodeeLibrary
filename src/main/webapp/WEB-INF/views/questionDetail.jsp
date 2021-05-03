@@ -77,4 +77,10 @@
     <button onclick="location.href = '/main/QuestionAll'">목록</button>
     <button onclick="">삭제</button>
 </body>
+<script type="text/javascript">
+var msg = "${msg}";
+if(msg!=""){
+	alert(msg);
+}
+</script>
 </html>

@@ -203,16 +203,18 @@ public class LibraryInfoController {
 	}
 	
 	@RequestMapping(value = "/QuestionEdit/{idx}", method = RequestMethod.GET)
-	public ModelAndView QuestionEdit(@PathVariable int idx,HttpSession session) {
+	public ModelAndView QuestionEdit(@PathVariable int idx,HttpSession session,RedirectAttributes rAttr) {
 		
-		HashMap<String, String> fileList = new HashMap<String, String>();
-		session.setAttribute("fileList", fileList);
-		HashMap<String, String> initfileList = new HashMap<String, String>();
-		session.setAttribute("initfileList", initfileList);
-		logger.info("fil"+fileList);
-		logger.info(""+idx);
-		return null;
+		return service.edit(idx,session,rAttr);
 	}
+	
+	@RequestMapping(value = "/questionEditing", method = RequestMethod.GET)
+	public ModelAndView QuestionEditSuccess(@RequestParam HashMap<String, Object> params,HttpSession session) {
+		
+		return service.editSuccess(params,session);
+	}
+	
+	
 	
 	
 	

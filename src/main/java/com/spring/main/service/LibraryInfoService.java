@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -230,9 +231,9 @@ public class LibraryInfoService {
 			if(map.get("ANSSTATUS").equals("TRUE")) {
 				String ansstatus =dao.questionAnsstatus(idx);
 				logger.info("값:"+ansstatus);
+				msg="전체공개";
 				mav.addObject("ansstatus", ansstatus);
 			}
-			msg="전체공개입니다.";
 			page="questionDetail";
 			mav.addObject("map", map);
 		}else {
@@ -296,12 +297,13 @@ public class LibraryInfoService {
 
 		HashMap<String, Object> map	 = new	HashMap<String, Object>();
 		
-		File delFile = new File("C:/upload/Library"+fileName);
+		File delFile = new File("C:/upload/Library/"+fileName);
 		logger.info("delete file:"+delFile);
 		
 		int success= 1;
 		
 		try {
+			logger.info("익"+delFile.exists());
 			if(delFile.exists()) { 
 				delFile.delete();  //있다면 삭제
 			}else {
@@ -323,11 +325,66 @@ public class LibraryInfoService {
 		return map;
 	}
 
-	public ModelAndView edit(int idx, HttpSession session) {
+	public ModelAndView edit(int idx, HttpSession session, RedirectAttributes rAttr) {
+		String loginId = (String) session.getAttribute("loginId");
+		ModelAndView mav = new ModelAndView();
+		logger.info("edit의 서비스 왓니");
+		HashMap<String,Object> map=dao.questionDetail(idx);
+		String page ="redirect:/QuestionAll";
+		String msg = "수정할 권한이 없습니다.로그인부탁드려용";
+		//답변체크후 페이지 튕기기
+		if(loginId !=null) {
+			if(map.get("ANSSTATUS").equals("TRUE")) {
+				page = "redirect:/QuestionAll";
+				msg ="사서의 답변이 달린 개시글은 놀랍게도 수정이 되지 않습니다. ";
+			}else {
+				map.put("REG_DATE", map.get("TO_CHAR(REG_DATE,'YYYY-MM-DD')"));
+				mav.addObject("map", map);
+				page="questionEdit";
+			}
+		}
+		//이동하면서 그릇셋팅
 		HashMap<String, String> fileList = new HashMap<String, String>();
 		session.setAttribute("fileList", fileList);
-		HashMap<String, String> initfileList = new HashMap<String, String>();
+		HashMap<String, Object> initfileList = new HashMap<String, Object>();
+	    ArrayList<String> dtoRead = dao.photoRead(idx);
+	    logger.info(""+dtoRead);
+	    for(int i=0;i <dtoRead.size();i++) {
+	    	initfileList.put("initfileList"+i,dtoRead.get(i));
+	    }
+		
+	
+		logger.info(""+initfileList);
 		session.setAttribute("initfileList", initfileList);
+		logger.info("세션"+session.getAttribute("initfileList"));
+		rAttr.addFlashAttribute("msg",msg);
+		mav.setViewName(page);
+		return mav;
+	}
+
+	public ModelAndView editSuccess(HashMap<String, Object> params, HttpSession session) {
+		 session.getAttribute("initfileList");
+		logger.info("세션"+session.getAttribute("initfileList"));
+		HashMap<String, String> initList = (HashMap<String, String>) session.getAttribute("initfileList");
+		logger.info(""+initList.get("initfileList1"));
+		logger.info(""+initList.size());
+		for(int i = 0; i<initList.size(); i++) {
+			File initFileRead = new File("C:/upload/Library/"+initList.get("initfileList"+i));
+			if(initFileRead.exists()) { 
+				logger.info("존재하는 파일 추가 필요없음 >>"+initList.get("initfileList"+i)); 
+			}else {
+				logger.info("존재하지않는파일 추가 필요 >> "+initList.get("initfileList"+i));
+				int success =dao.initLostFile(initList.get("initfileList"+i));
+				logger.info("파일테이블 삭제여부?"+success);
+			}	
+		}
+		//포문으로 기존사진의 존재여부를 체크후 없으면 테이블에서 삭제 해주고 있으면 할게없음 .. 위에서 처리할거해주고 
+		
+		logger.info(""+params);
+		
+		
+		
+		
 		return null;
 	}
 
