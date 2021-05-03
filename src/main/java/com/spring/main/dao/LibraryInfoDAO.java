@@ -44,11 +44,13 @@ public interface LibraryInfoDAO {
 
 	String questionAnsstatus(int idx);
 
-	void fileWriting(String key, String string, int queidx);
+	void fileWriting(String key, String string, Object object);
 
 	ArrayList<String> photoRead(int idx);
 
 	int initLostFile(String string);
+
+	int update(HashMap<String, Object> params);
 	 
 	
 

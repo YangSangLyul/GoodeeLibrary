@@ -172,4 +172,12 @@
 	<delete id="initLostFile" parameterType="string">
 		DELETE FROM QUESTIONPHOTO WHERE NEWFILENAME =#{param1}
 	</delete>
+	
+	<update id="update" parameterType="hashmap">
+	<!--{queidx=223, subject=제목수정해주세욥, type=Q001, 
+	content=세션체크중<br><a href="#" id="/photo/1620017868957.png"><img src="/photo/1620017868957.png" width="80"></a><br><a href="#" id="/photo/1620017876125.jpg"><img src="/photo/1620017876125.jpg" width="80"></a>, 
+	false=TRUE}  -->
+	
+	UPDATE QUESTION SET SUBJECT =#{subject} ,TYPE=#{type},CONTENT=#{content},SHOWSTATUS=#{false} WHERE QUEIDX =#{queidx}
+	</update>
 </mapper>

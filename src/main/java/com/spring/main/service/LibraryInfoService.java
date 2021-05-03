@@ -203,7 +203,7 @@ public class LibraryInfoService {
 			page="redirect:/questionDetail/"+dto.getQueidx(); 
 		}else {
 			for(String newFileName : fileList.keySet()) {
-				File file = new File("C:/upload/Library"+newFileName);
+				File file = new File("C:/upload/Library/"+newFileName);
 				file.delete();
 			}
 		}
@@ -361,8 +361,10 @@ public class LibraryInfoService {
 		mav.setViewName(page);
 		return mav;
 	}
-
+	
+	@Transactional 
 	public ModelAndView editSuccess(HashMap<String, Object> params, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
 		 session.getAttribute("initfileList");
 		logger.info("세션"+session.getAttribute("initfileList"));
 		HashMap<String, String> initList = (HashMap<String, String>) session.getAttribute("initfileList");
@@ -379,13 +381,31 @@ public class LibraryInfoService {
 			}	
 		}
 		//포문으로 기존사진의 존재여부를 체크후 없으면 테이블에서 삭제 해주고 있으면 할게없음 .. 위에서 처리할거해주고 
+		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
+		logger.info("팔리"+fileList);
+		logger.info("파람"+params);
+		int upSuccess = dao.update(params); //업데이트 해주기갱신 정보 가져와서
+		logger.info(""+upSuccess);
+		logger.info(""+params.get("queidx"));
+		params.get("queidx");
+		logger.info(""+fileList.keySet());
+		if(fileList.size() >0) {
+			for(String key:fileList.keySet()) {			
+			dao.fileWriting(key,fileList.get(key),params.get("queidx"));
+			}
+		}else{
+		for(String newFileName : fileList.keySet()) {
+			File file = new File("C:/upload/Library/"+newFileName);
+			file.delete();
+		}
+	}
 		
-		logger.info(""+params);
-		
-		
-		
-		
-		return null;
+		session.removeAttribute("fileList");
+		session.removeAttribute("initfileList");
+		Object idx= params.get("queidx");
+		mav.addObject("idx", idx);
+		mav.setViewName("redirect:/questionDetail/"+idx);
+		return mav;
 	}
 
 
