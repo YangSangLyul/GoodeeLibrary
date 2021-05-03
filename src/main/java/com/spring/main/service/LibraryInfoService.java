@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -173,7 +174,7 @@ public class LibraryInfoService {
 		
 		return map;
 	}
-
+	@Transactional     //파일 실패시 커밋 롤백 되돌리기
 	public ModelAndView questionWriting(HashMap<String, Object> params ,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		String page ="redirect:/questionWrite";
@@ -320,6 +321,14 @@ public class LibraryInfoService {
 		}
 		
 		return map;
+	}
+
+	public ModelAndView edit(int idx, HttpSession session) {
+		HashMap<String, String> fileList = new HashMap<String, String>();
+		session.setAttribute("fileList", fileList);
+		HashMap<String, String> initfileList = new HashMap<String, String>();
+		session.setAttribute("initfileList", initfileList);
+		return null;
 	}
 
 

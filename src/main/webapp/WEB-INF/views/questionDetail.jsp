@@ -72,5 +72,9 @@
         </table>
 
     </div>
+    
+    <button onclick="location.href='/main/QuestionEdit/${map.QUEIDX}'">수정하기</button>
+    <button onclick="location.href = '/main/QuestionAll'">목록</button>
+    <button onclick="">삭제</button>
 </body>
 </html>
