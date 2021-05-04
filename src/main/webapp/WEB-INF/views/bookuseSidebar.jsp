@@ -39,7 +39,7 @@
 
 <body>
     <div id="mysidenav" class="sidenav">
-        <div id="titleMenu"><a href="">도서관이용안내</a></div>
+        <div id="titleMenu">도서관이용안내</div>
         <div class="menu">
             <p>찾아오는길</p>
         </div>
@@ -65,12 +65,12 @@
         //여기 누르면 경로 지정;
         $(".menu:eq(0)").click(function () {
            console.log("1번")
-           location.href = 'LibraryInfo';
+           location.href = 'wayFind';
        })
        
         $(".menu:eq(1)").click(function () {
             console.log("2번")
-            location.href = 'noticea';
+            location.href = 'notice';
         })
         
         $(".menu:eq(2)").click(function () {

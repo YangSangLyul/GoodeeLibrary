@@ -54,6 +54,8 @@
     </style>
 </head>
 <body>
+
+<jsp:include page="header.jsp"/>
     <div id="noticeBackground">
         <span id="noticeSubject">${dto.subject}</span><span id="noticeReg_date">${dto.reg_date}</span>
         <div id="noticeContent">
