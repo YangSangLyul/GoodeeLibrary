@@ -29,7 +29,7 @@ public interface ReserveSeatDAO {
 
 	int reserveCancelReq(String loginId);
 
-	ArrayList<MySeatHistoryDTO> mySeatEnterExitHistory(String loginId, int page, int start, int end);
+	ArrayList<MySeatHistoryDTO> mySeatEnterExitHistory(String loginId, int start, int end);
 
 	int historyAll(String loginId);
 

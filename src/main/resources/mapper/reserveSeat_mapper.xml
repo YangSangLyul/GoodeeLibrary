@@ -55,7 +55,9 @@
 	</update>
 	
 	<select id="mySeatEnterExitHistory" resultType="useSeat">
-		SELECT id,usestart,useend FROM useseat WHERE id = #{param1}
+		SELECT id,usestart,useend FROM 
+		(SELECT id,usestart,useend, ROW_NUMBER() OVER(ORDER BY usestart DESC) AS rnum FROM useseat) 
+		WHERE id = #{param1} AND rnum BETWEEN #{param2} AND #{param3}
 	</select>
 	
 	<select id="historyAll" resultType="int">

@@ -27,7 +27,7 @@
         	#container{
         		position: absolute;
         		border: 1px solid black;
-        		width: 1050px;
+        		width: 1200px;
         		height: 700px;
         		font-size: 30px;
         		font-weight: 600;
@@ -37,39 +37,28 @@
         		background-color: #eeece1ff;
         	}
         	
-        	#table,td,th{
-        		position: relative;
-        		width:800px;
-        		height:auto;
+        	tbody td,th{
         		
+        		margin-top: 30px;
+        		width:200px;
+        		height:80px;;
+        		border: 1px solid black;
+        		text-align: center;
+        		background-color: white;
+        		font-size: 30px;
+        		font-weight: 600;
         	}
         	
-        	
-        	#container a:link {
-        		color: blue;
-        		text-decoration: underline;
+        	thead th{
+        		text-align: center;
+        		background-color: #c5d8f1ff;
         	}
         	
-        	#container a:visited {
-        		color: blue;
+        	#show{
+        		margin-top:50px;
         	}
         	
-        	#container a:hover {
-        		color: blue;
-        	}
-        	
-        	#noReserveContainer a:link {
-        		color: blue;
-        		text-decoration: underline;
-        	}
-        	
-        	#noReserveContainer a:visited {
-        		color: blue;
-        	}
-        	
-        	#noReserveContainer a:hover {
-        		color: blue;
-        	}
+     
         	
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -96,27 +85,29 @@
         
         <div id="container">
         	
+        	<div id="show">
         	<table>
+        		<thead style="margin-top:50px;">
         	    <tr>
         			<th>날짜</th>
         			<th>입실</th>
         			<th>퇴실</th>
         		</tr>
+        		</thead>
 				<tbody id="list">
 					<!-- 불러온 데이터 뿌리는 영역 -->
 				</tbody>
-				<tr>
-					<td id="paging" colspan="6">
+				</table>
+				
+					<div id="paging">
 						<!-- 플러그인 사용 -->
 						<div class="container">
 							<nav aria-label="page navigation" style="text-align: center;">
 								<ul class="pagination" id="pagination"></ul>
 							</nav>
 						</div>
-					</td>
-				</tr>
-			</table>
-        
+					</div>
+        	</div>
         	
         </div>
         
@@ -151,7 +142,7 @@
 				//현재 페이지를 가져옴
 				showPage = data.currPage;
 				//가져온 리스트를 뿌려주는 함수 실행
-				listPrint(data.list);
+				listPrint(data.history);
 				//pagePrint(data.range); // 플러그인 미사용 페이징 처리
 				//플러그인 사용
 				$("#pagination").twbsPagination({
@@ -180,16 +171,33 @@
 		
 		
 		for(var i=0;i<list.length;i++){
-			//총 8개가 나옴
 			
-			<fmt:formatDate var="enterDate" value="list[i].useStart" pattern="yy-mm-dd"/>
-    		<fmt:formatDate var="enter" value="list[i].useStart" pattern="HH:mm"/>
-			<fmt:formatDate var="exit" value="list[i].useEnd" pattern="HH:mm"/>
+
+			
+			//총 8개가 나옴
+			var start = new Date(list[i].useStart);
+			var enter = new Date(list[i].useEnd);
+			
+			var oneAmPm = 'AM'; // 초기값 AM
+			var twoAmPm = 'AM';
+			
+			if(start.getHours() >= 12){
+				oneAmPm = 'PM';
+			}
+			
+			if(enter.getHours() >= 12){
+				twoAmPm = 'PM';
+			}
+			
+			
+			var toDay = start.getFullYear() +" - "+(start.getMonth() + 1) +" - "+start.getDate();
+			var startShow = oneAmPm+" "+start.getHours() +" : " + start.getMinutes();
+			var enterShow = twoAmPm+" "+enter.getHours() +" : " + enter.getMinutes();
 			
 			content += "<tr>"
-			content += "<td>"+${enterDate}+"</td>";
-			content += "<td>"+${enter}+"</td>";
-			content += "<td>"+${exit}+"</td>";
+			content += "<td>"+toDay+"</td>";
+			content += "<td>"+startShow+"</td>";
+			content += "<td>"+enterShow+"</td>";
 			content += "</tr>"
 		}
 		

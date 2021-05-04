@@ -194,7 +194,7 @@ public class reserveSeatService {
 		
 		logger.info("start : " + start + " / end : " + end);
 		
-		ArrayList<MySeatHistoryDTO> history = reserveSeatDAO.mySeatEnterExitHistory(loginId,page,start,end);
+		ArrayList<MySeatHistoryDTO> history = reserveSeatDAO.mySeatEnterExitHistory(loginId,start,end);
 		
 		logger.info("현재 나의 이력 리스트 개수 : "+history.size());
 		
