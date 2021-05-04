@@ -2,6 +2,7 @@ package com.spring.main.dao;
 
 import java.util.ArrayList;
 
+import com.spring.main.dto.MySeatHistoryDTO;
 import com.spring.main.dto.ReserveSeatDTO;
 
 public interface ReserveSeatDAO {
@@ -27,5 +28,9 @@ public interface ReserveSeatDAO {
 	void mySeatExit(String loginId, int reserveNum);
 
 	int reserveCancelReq(String loginId);
+
+	ArrayList<MySeatHistoryDTO> mySeatEnterExitHistory(String loginId, int page, int start, int end);
+
+	int historyAll(String loginId);
 
 }

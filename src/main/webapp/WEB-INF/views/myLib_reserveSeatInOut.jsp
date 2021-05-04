@@ -259,7 +259,7 @@
         	
         	<a id="goReserve" href="./reserveSeatForm" style="position: relative;top: 35%; left:15%;">좌석 예약하러 가기</a>
         	
-        	<a href="" style="position: relative;top: 80%; left:20%;">이전 내역 보러가기</a>
+        	<a href="./seatEnterExitHistory" style="position: relative;top: 80%; left:20%;">이전 내역 보러가기</a>
         	
         </div>
 

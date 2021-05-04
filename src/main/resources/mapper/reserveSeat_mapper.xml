@@ -54,5 +54,13 @@
 		UPDATE reserveseat SET seatstatus = 'S001' WHERE id=#{param1} AND seatstatus = 'S002'
 	</update>
 	
+	<select id="mySeatEnterExitHistory" resultType="useSeat">
+		SELECT id,usestart,useend FROM useseat WHERE id = #{param1}
+	</select>
+	
+	<select id="historyAll" resultType="int">
+		SELECT count(*) FROM useseat WHERE id = #{param1}
+	</select>
+	
 	
 </mapper>
