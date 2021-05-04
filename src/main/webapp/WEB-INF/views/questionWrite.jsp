@@ -65,6 +65,7 @@
     }
 </style>
 <body>
+<jsp:include page="header.jsp"/>
 
     <div id="qwBackground">
         <form action="questionWriting">

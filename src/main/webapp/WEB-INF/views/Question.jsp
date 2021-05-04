@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
+<%
+	String loginId = (String) request.getSession().getAttribute("loginId");
+%>
 <html lang="en">
 
 <head>
@@ -51,7 +54,10 @@
     </style>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
+<div style="position: absolute;">
 <jsp:include page="bookuseSidebar.jsp"></jsp:include>
+</div>
     <div id="QBack">
        <div id="buttonBox">
             <button onclick="location.href='QuestionAll'">전체</button>

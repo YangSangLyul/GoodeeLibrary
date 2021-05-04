@@ -27,13 +27,13 @@ public class LibraryInfoController {
 	
 	@Autowired LibraryInfoService service;
 	
-	@RequestMapping(value = "/LibraryInfo", method = RequestMethod.GET)
+	@RequestMapping(value = "/wayFind", method = RequestMethod.GET)
 	public String Linfo(Model model) {
 		// 길찾기 로 이동한다 .. 라이브러리 인포의 기본 위치 (길찾기는 java에서 할게 없다.)		
 		return "wayFind";
 	}
 	
-	@RequestMapping(value = "/noticea", method = RequestMethod.GET)
+	@RequestMapping(value = "/notice", method = RequestMethod.GET)
 	public ModelAndView noticea(Model model) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("notice");
@@ -202,13 +202,13 @@ public class LibraryInfoController {
 		return service.fileDelete(fileName,session);
 	}
 	
-	@RequestMapping(value = "/QuestionEdit/{idx}", method = RequestMethod.GET)
+	@RequestMapping(value = "/questionDetail/QuestionEdit/{idx}", method = RequestMethod.GET)
 	public ModelAndView QuestionEdit(@PathVariable int idx,HttpSession session,RedirectAttributes rAttr) {
 		
 		return service.edit(idx,session,rAttr);
 	}
 	
-	@RequestMapping(value = "/questionEditing", method = RequestMethod.GET)
+	@RequestMapping(value = "/questionDetail/questionEditing", method = RequestMethod.GET)
 	public ModelAndView QuestionEditSuccess(@RequestParam HashMap<String, Object> params,HttpSession session) {
 		
 		return service.editSuccess(params,session);

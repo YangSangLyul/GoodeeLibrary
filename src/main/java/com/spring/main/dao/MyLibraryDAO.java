@@ -64,6 +64,11 @@ public interface MyLibraryDAO {
 
 	MyLibraryDTO myHBookDetail(String hopeBooksNumber);
 
+	int Review_allCount(String loginId);
+
+	ArrayList<MyLibraryDTO> review_list(int start, int end, String loginId);
+
+
 	//HashMap<String, Object> question_detail(String idx);
 
 }
