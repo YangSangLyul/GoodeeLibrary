@@ -215,4 +215,46 @@ public class BookService {
 		return dataMap;
 	}
 
+	public HashMap<String, Object> recommendBooksList(int month, int page) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		HashMap<String, Object> dataMap = new HashMap<String, Object>();
+		
+		Calendar cal = Calendar.getInstance();
+		
+		int calMonth = cal.get(Calendar.MONTH) + 1;
+		int success = 1;
+		
+		map.put("month", month);
+		map.put("page", page);
+		map.put("calMonth", calMonth);
+		int pagePerCnt = 1;
+		int allCnt = dao.monthRecommendAll(map); 		// 전체 게시글 수
+		
+		logger.info("현재 월의 사서추천도서 개수 : "+allCnt);
+		int range = (int) (allCnt % pagePerCnt > 0 ? Math.floor((allCnt/pagePerCnt))+1 : Math.floor((allCnt/pagePerCnt)));
+		
+		//만약 해당 월에 대한 책 개수가 하나도 없다면..
+		if(allCnt <= 0) {
+			success = 0;
+		}
+		
+		page = page > range ? range : page;
+		logger.info("range : " + range + " / page : " + page);
+		// 시작 페이지, 끝 페이지
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		map.put("end", end);
+		map.put("start", start);
+		
+		logger.info("start : " + start + " / end : " + end);
+		
+		ArrayList<BookDTO> list = dao.recommendBooksList(map);
+		dataMap.put("list", list);
+		dataMap.put("range", range);
+		dataMap.put("currPage", page);
+		dataMap.put("success", success);
+		return dataMap;
+	}
+
 }
