@@ -330,10 +330,12 @@ public class LibraryInfoService {
 		ModelAndView mav = new ModelAndView();
 		logger.info("edit의 서비스 왓니");
 		HashMap<String,Object> map=dao.questionDetail(idx);
+		logger.info("맵에잇는"+map);	
 		String page ="redirect:/QuestionAll";
 		String msg = "수정할 권한이 없습니다.로그인부탁드려용";
 		//답변체크후 페이지 튕기기
 		if(loginId !=null) {
+			
 			if(map.get("ANSSTATUS").equals("TRUE")) {
 				page = "redirect:/QuestionAll";
 				msg ="사서의 답변이 달린 개시글은 놀랍게도 수정이 되지 않습니다. ";

@@ -56,7 +56,7 @@
         </style>
     </head>
     <body>
-    	<div style="text-align: left;">
+    	<div>
 	    	<jsp:include page="adminHeader.jsp"/>
     	</div>
         <div id="tabMenu">

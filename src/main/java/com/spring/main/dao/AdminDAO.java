@@ -33,5 +33,7 @@ public interface AdminDAO {
 
 	int allCount();
 
+	ArrayList<AdminDTO> adminNoti();
+
 
 }

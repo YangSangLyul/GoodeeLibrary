@@ -14,4 +14,7 @@ public interface ReviewDao2 { //리뮤 모아보기용
 
 	ReviewDTO reviewDetail(String reviewIdx);
 
+	int reviewReport(ReviewDTO dto);
+
+	void reportCntUp(String reviewIdx);
 }

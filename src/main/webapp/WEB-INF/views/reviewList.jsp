@@ -139,13 +139,13 @@
 					</tr>
 					<tr>
 						<td rowspan="2" id="b_content">
-							<div class="b_info">저자명 : ${review.writer}</div>
-							<div class="b_info">출판사 : ${review.publisher}</div>
-							<div class="b_info">출판일 : 2020</div>
+							<div class="b_info">저자명  ${review.writer}</div>
+							<div class="b_info">출판사  ${review.publisher}</div>
+							<div class="b_info">출판일  2021</div>
 						</td>
 						<td id="re_recomm">
 							<div class="re_img">🤍🧡</div>
-							<div class="re_cnt">추천수 : ${review.cnt}</div>
+							<div class="re_cnt">추천수 ${review.cnt}</div>
 						</td>
 					</tr>
 					<tr>					

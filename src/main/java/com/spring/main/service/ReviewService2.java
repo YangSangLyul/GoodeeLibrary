@@ -1,11 +1,16 @@
 package com.spring.main.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.ReviewDao2;
@@ -15,6 +20,8 @@ import com.spring.main.dto.ReviewDTO;
 public class ReviewService2 { //리뷰 모아보기용
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	String page = "";
+	String msg = "";
 	
 	@Autowired ReviewDao2 dao;
 
@@ -45,6 +52,23 @@ public class ReviewService2 { //리뷰 모아보기용
 	public ReviewDTO reviewDetail(String reviewIdx) {
 		return dao.reviewDetail(reviewIdx);
 	}
+	
+	@Transactional
+	public ReviewDTO reviewReportForm(String reviewIdx) {
+		dao.reportCntUp(reviewIdx);
+		return dao.reviewDetail(reviewIdx);
+	}
+	
+	public int reviewReport(ReviewDTO dto) {
+		return dao.reviewReport(dto);
+	}
+	
+
+
+
+
+
+
 
 
 
