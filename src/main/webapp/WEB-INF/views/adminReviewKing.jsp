@@ -7,11 +7,11 @@
         <!-- favicon:사이트를 대표하는 탭창에 보여지는 이미지 -->
         <link rel="icon" href="icon.jpg">
         <style>
-            body{
+            /* body{
                 width: 700px;
                 margin: 20px 550px;
                 text-align: center;
-            }
+            } */
             table{
                 width: 650px;
                 height: 100px;
@@ -23,28 +23,30 @@
                 border-collapse: collapse;
                 padding: 10px;
             } 
-            button{
-                padding: 10px;
-                padding-inline: 35px;
-                margin: 20px;
-            }
-            h4{
-                text-align: left;
-            }
             #decision{
                 margin-top: 10px;
-    			margin-left: 510px;
+    			margin-left: 1190px;
+            }
+            #tabMenu{
+            	width: 700px;
+            	margin-left: 650px;
+            }
+            .tabBtn{
+            	padding: 10px;
+                padding-inline: 35px;
+                margin: 20px;
             }
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
+    	<div style="text-align: left;">
+	    	<jsp:include page="adminHeader.jsp"/>
+    	</div>
     <body>
-        <!-- 상단 네비게이션 자리 -->
-        <hr/>
         <div id="tabMenu">
-            <button onclick="location.href='ReviewKing'">이달의 리뷰왕</button>
-            <button onclick="location.href='ReportList'">신고 리스트</button>
-            <button onclick="location.href='BlindList'">블라인드 리스트</button>
+            <button class="tabBtn" onclick="location.href='ReviewKing'">이달의 리뷰왕</button>
+            <button class="tabBtn" onclick="location.href='ReportList'">신고 리스트</button>
+            <button class="tabBtn" onclick="location.href='BlindList'">블라인드 리스트</button>
         </div>
         <br/>
         <table>

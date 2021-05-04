@@ -14,11 +14,11 @@
 		<!-- 페이징 라이브러리(제이쿼리 반드시 필요, 버전도 맞아야함) -->
 		<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>        
         <style>
-            body{
+            /* body{
                 width: 1000px;
                 margin: 20px 400px;
                 text-align: center;
-            }
+            } */
             table{
                 width: 650px;
                 height: 100px;
@@ -31,21 +31,24 @@
                 text-align: center;
                 padding: 5px;
             } 
-            button{
+            /* button{
                 padding: 10px;
                 padding-inline: 35px;
                 margin: 20px;
-            }
-            h4{
-                text-align: left;
-            }
+            } */
             #decision{
                 position: absolute;
                 left: 1139px;
                 top: 235px;
             }
             #tabMenu{
-            	margin-left: 111px;
+            	width: 700px;
+            	margin-left: 650px;
+            }
+            .tabBtn{
+            	padding: 10px;
+                padding-inline: 35px;
+                margin: 20px;
             }
             #blind{
             	margin-right: 10px;
@@ -53,12 +56,13 @@
         </style>
     </head>
     <body>
-        <!-- 상단 네비게이션 자리 -->
-        <hr/>
+    	<div style="text-align: left;">
+	    	<jsp:include page="adminHeader.jsp"/>
+    	</div>
         <div id="tabMenu">
-            <button onclick="location.href='ReviewKing'">이달의 리뷰왕</button>
-            <button onclick="location.href='ReportList'">신고 리스트</button>
-            <button onclick="location.href='BlindList'">블라인드 리스트</button>
+            <button class="tabBtn" onclick="location.href='ReviewKing'">이달의 리뷰왕</button>
+            <button class="tabBtn" onclick="location.href='ReportList'">신고 리스트</button>
+            <button class="tabBtn" onclick="location.href='BlindList'">블라인드 리스트</button>
         </div>
         <br/>
         <table>
