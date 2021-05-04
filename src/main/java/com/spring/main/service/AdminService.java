@@ -20,6 +20,15 @@ public class AdminService {
 	@Autowired AdminDAO dao;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	public ModelAndView adminNoti() {
+		logger.info("관리자메인-알림내역 쿼리 요청");
+		ModelAndView mav = new ModelAndView();
+		ArrayList<AdminDTO> list = dao.adminNoti();
+		mav.addObject("noti", list);
+		mav.setViewName("adminService");
+		return mav;
+	}
 
 	public ModelAndView reviewkingList() {
 		logger.info("리뷰왕 쿼리 요청");
