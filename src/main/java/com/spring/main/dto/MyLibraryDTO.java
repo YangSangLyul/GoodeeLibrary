@@ -35,6 +35,43 @@ public class MyLibraryDTO {
 	private String hb_bookName;
 	private String hopeReason;
 	
+	//리뷰
+	private int reviewIdx;
+    private int reportCnt;
+    private String blind_status;
+    private int cnt; //추천수
+    private int month_rcnt;
+   
+	public int getReviewIdx() {
+		return reviewIdx;
+	}
+	public void setReviewIdx(int reviewIdx) {
+		this.reviewIdx = reviewIdx;
+	}
+	public int getReportCnt() {
+		return reportCnt;
+	}
+	public void setReportCnt(int reportCnt) {
+		this.reportCnt = reportCnt;
+	}
+	public String getBlind_status() {
+		return blind_status;
+	}
+	public void setBlind_status(String blind_status) {
+		this.blind_status = blind_status;
+	}
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+	public int getMonth_rcnt() {
+		return month_rcnt;
+	}
+	public void setMonth_rcnt(int month_rcnt) {
+		this.month_rcnt = month_rcnt;
+	}
 	public int getHopeBooksNumber() {
 		return hopeBooksNumber;
 	}

@@ -48,7 +48,10 @@
 </style>
 </head>
 <body>
-    <div id="title">user1의 상세리뷰</div>
+<jsp:include page="header.jsp"/>
+   	<div>
+    <div id="title">${loginId}의 리뷰 내역</div>
+    <jsp:include page="mySidebar.jsp"/>
     <div id="body">
         <table id="table">
             <tr>
@@ -92,6 +95,7 @@
             <br/>
 
         </table>
+    </div>
     </div>
 </body>
 </html>

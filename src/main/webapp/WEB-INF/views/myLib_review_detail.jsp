@@ -20,8 +20,7 @@
 	    background-color: beige;
 		margin-top: 60px;
 		margin-bottom: 60px;
-	    margin-left: 35%;
-	    width: 400px;
+	    width: 800px;
 	    height: 300px;
 	}
 	
@@ -48,7 +47,10 @@
 </style>
 </head>
 <body>
-    <div id="title">user1의 상세리뷰</div>
+<jsp:include page="header.jsp"/>
+   	<div>
+    <div id="title">${loginId}의 리뷰 상세 내역</div>
+    <jsp:include page="mySidebar.jsp"/>
     <div id="body">
         <table id="table">
             <tr>
@@ -62,8 +64,10 @@
                     </tr>                    
                 </td>
                 
-                <table>
-                    <td class="book_name">자바 스크립트</td>
+                
+            <table id="table">
+            
+                    <td class="book_name">도서명</td>
                     <tr>
                         <td>저자명 : </td>
                         <td>박성배지음</td>
@@ -93,6 +97,7 @@
             <br/>
 
         </table>
+    </div>
     </div>
 </body>
 </html>

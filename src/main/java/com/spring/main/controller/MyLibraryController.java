@@ -40,9 +40,20 @@ public class MyLibraryController {
 			mav.addObject("loginId",loginId); 
 			mav.setViewName(page);
 			
-		  logger.info("나의 희망도서 내역 이동"); 
+		  logger.info("나의 리뷰 내역 이동"); 
 		  return mav; 
 	  }
+	  
+	  @RequestMapping(value = "/myLib_Review/{page}", method = RequestMethod.GET)
+	  public HashMap<String,Object> Review_list( 
+			  @PathVariable int page,HttpSession session) { 
+		  String loginId = (String) session.getAttribute("loginId");
+		  logger.info("나의 리뷰내역 ");
+		  logger.info(" page : {}, session Id: {}",  page,loginId);
+	  
+	  return service.review_list(page,loginId); 
+	  }
+	  
 	  
 	  @RequestMapping(value = "/MyHopeBook")
 	  public ModelAndView MyHopeBook() { 
