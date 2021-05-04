@@ -36,4 +36,18 @@ public interface BookDAO {
 	ArrayList<BookDTO> normalBookFilter(int start, int end);
 
 	int hopeBookInsert(HashMap<String, String> params);
+
+	int monthAllCnt(HashMap<String, Object> map);
+
+	ArrayList<BookDTO> newBooksList(HashMap<String, Object> map);
+
+	int monthRecommendAll(HashMap<String, Object> map);
+
+	ArrayList<BookDTO> recommendBooksList(HashMap<String, Object> map);
+
+	ArrayList<BookDTO> mainRecommendBooksList(HashMap<String, Object> map);
+
+	ArrayList<BookDTO> reviewRecommendBooksList(HashMap<String, Object> map);
+
+	ArrayList<BookDTO> authorRecommendBooksList(HashMap<String, Object> map);
 }

@@ -51,6 +51,7 @@
     </style>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 <jsp:include page="bookuseSidebar.jsp"></jsp:include>
     <div id="QBack">
         <div id="buttonBox">

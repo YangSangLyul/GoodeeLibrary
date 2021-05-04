@@ -130,6 +130,56 @@ public class BookController {
 		
 		return service.hopeBookInsert(params,rAttr);
 	}
-
+	
+	@RequestMapping(value = "/newBooksList", method = RequestMethod.GET)
+	public  String newBooksList() {
+		logger.info("신착도서 안내 페이지 이동");
+		
+		return "/newBooks";
+	}
+	
+	@RequestMapping(value = "/newBooks/{month}/{page}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> newBooks(@PathVariable int month, @PathVariable int page) {
+		logger.info("신착도서 리스트 요청 : "+month+" 월의 페이지번호 : "+page);
+		
+		return service.newBooks(month,page);
+	}
+	
+	@RequestMapping(value = "/recommendBooks", method = RequestMethod.GET)
+	public  String recommendBooks() {
+		logger.info("사서도서 안내 페이지 이동");
+		
+		return "/recommendBooks";
+	}
+	
+	@RequestMapping(value = "/recommendBooksList/{month}/{page}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> recommendBooksList(@PathVariable int month, @PathVariable int page) {
+		logger.info("사서도서 리스트 요청 : "+month+" 월의 페이지번호 : "+page);
+		
+		return service.recommendBooksList(month,page);
+	}
+	
+	
+	@RequestMapping(value = "/mainRecommendBooksList/{month}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> recommendBooksList(@PathVariable int month) {
+		logger.info("메인 사서도서 리스트 요청 : "+month);
+		
+		return service.mainRecommendBooksList(month);
+	}
+	
+	@RequestMapping(value = "/reviewRecommendBooksList/{month}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> reviewRecommendBooksList(@PathVariable int month) {
+		logger.info("메인 리뷰추천도서 리스트 요청 : "+month);
+		
+		return service.reviewRecommendBooksList(month);
+	}
+	
+	
+	@RequestMapping(value = "/authorRecommendBooksList/{month}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> authorRecommendBooksList(@PathVariable int month) {
+		logger.info("메인 사서추천도서 리스트 요청 : "+month);
+		
+		return service.authorRecommendBooksList(month);
+	}
 	
 }

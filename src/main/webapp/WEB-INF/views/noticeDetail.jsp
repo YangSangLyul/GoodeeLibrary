@@ -54,12 +54,14 @@
     </style>
 </head>
 <body>
+
+<jsp:include page="header.jsp"/>
     <div id="noticeBackground">
         <span id="noticeSubject">${dto.subject}</span><span id="noticeReg_date">${dto.reg_date}</span>
         <div id="noticeContent">
             ${dto.content}
         <span id="noticeButton">
-            <button onclick="location.href='/main/notice'">목록</button>
+            <button onclick="location.href='/main/noticea'">목록</button>
         </span>
     </div>
     </div>

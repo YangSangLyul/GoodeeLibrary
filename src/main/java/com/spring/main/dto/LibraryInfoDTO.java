@@ -9,7 +9,15 @@ public class LibraryInfoDTO {
 	private String content; //공지 내용
 	private Date reg_date;	//등록일
 	private String noticestatus;  //팝업노출여부
+	private int dr; //가상 순위컬럼 
 	
+
+	public int getDr() {
+		return dr;
+	}
+	public void setDr(int dr) {
+		this.dr = dr;
+	}
 	private int faqidx; //faq의  게시글번호
 	private String anwser; //질문에대한답변
 	

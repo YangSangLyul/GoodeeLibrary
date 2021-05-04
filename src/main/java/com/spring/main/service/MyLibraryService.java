@@ -341,17 +341,44 @@ public class MyLibraryService {
 	}
 
 
-	public ModelAndView myHBookDetail(String hopeBooksNumber, String loginId) {
+	public ModelAndView myHBookDetail(String hopeBooksNumber) {
 		ModelAndView mav = new ModelAndView();
 	
 		MyLibraryDTO Hbook = dao.myHBookDetail(hopeBooksNumber);
-		if(Hbook != null) {
-			logger.info("책 정보:{}",Hbook);
-			mav.addObject("HbookDetail",Hbook);
-			mav.setViewName("myLib_Hbook_detail");
-		}
-		
+		logger.info("책 정보:{}",Hbook);
+		mav.addObject("HbookDetail",Hbook);
+		mav.setViewName("myLib_Hbook_detail");
+	
 		return mav;
 	}
+
+
+	public HashMap<String, Object> review_list(int page, String loginId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		//5개 기준으로 몇페이지나 만들 수 있는가?
+		int allCnt = dao.Review_allCount(loginId);
+		logger.info("allCnt:"+allCnt);
+		//게시글 수 : 21개, 페이지당 보여줄 수 : 5 = 최대 생성 가능한 페이지 : 5
+		//예: 21/5 = 4.1 이면 소숫점을 버리고 1을 더해 5가 된다. 아니면 있는 그대로...
+		int range = allCnt%2 > 0? Math.round(allCnt/2)+1 : Math.round(allCnt/2);
+		logger.info("만들수있는 페이지~"+range);
+		
+		//생성 가능한 페이지보다 현재페이지가 클 경우... 현재페이지를 생성 가능한 페이지로 맞춰준다.
+		page = page>range? range:page;
+		
+		int end = page * 2;
+		int start = end - 2+1;
+		
+		map.put("review_list",dao.review_list(start,end,loginId));
+		logger.info("review_list",dao.review_list(start,end,loginId));
+		map.put("range", range);
+		map.put("currPage",page);
+		logger.info("map:{}",map);
+		//전체 게시글 수 
+		//map.put("totalCnt",dao.allCount());
+		return map;
+	}
+
 
 }

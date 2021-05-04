@@ -128,4 +128,15 @@
 	<select id="myHBookDetail" resultType="myLibrary">
 		SELECT * FROM hopebook WHERE hopeBooksNumber = #{hopeBooksNumber}
 	</select>
+	
+	<select id="Review_allCount" resultType="Integer">
+		SELECT COUNT(bookIdx) FROM RESERVEBOOK WHERE id=#{param1}
+	</select>
+	
+	<select id="review_list" resultType="hashMap">
+		SELECT * FROM(
+			SELECT ROW_NUMBER() OVER(ORDER BY r.reviewIdx DESC) AS rnum,r.content,r.id,r.reg_date,r.cnt,r.reportcnt,r.blind_status,r.month_rcnt,b.bookIdx,b.bookname,b.bookImg,b.writer,b.publisher
+			FROM book b FULL OUTER JOIN review r ON b.bookidx = r.bookidx WHERE r.id=#{param3}
+		)WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
 </mapper>

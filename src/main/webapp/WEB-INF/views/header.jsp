@@ -118,7 +118,7 @@
             <div id="userMenu">
             <ul>
                 <li class="topMenuLi"> 
-                    <button id="libraryInfo" onclick="location.href='noticea'">도서관 이용안내</button>
+                    <button id="libraryInfo" onclick="location.href='notice'">도서관 이용안내</button>
                 </li>
     
                 <li class="topMenuLi">
@@ -139,27 +139,7 @@
                 </li>
             </ul>
             </div>
-            <!-- 관리자 메뉴 영역(관리자 로그인 시 나타남)-->
-            <div id="adminMenu">
-                <ul>
-                    <li class="topMenuLi"> 
-                        <button id="adminLibraryInfo">공지사항</button>
-                    </li>
-        
-                    <li class="topMenuLi">
-                        <button id="adminLibraryBook">도서 관리</button>
-                    </li>
-        
-                    <li class="topMenuLi">
-                        <button id="adminLibraryReview">리뷰 관리</button>
-                    </li>
-                    <li class="topMenuLi">
-                        <button id="adminLibraryQuestion">문의 내역</button>
-                    </li>    
-                </ul>
-            </div>
         </nav>
-
 
         <div class="topMenuNotice">
             <a href="#"><img id="light" src="./image/알림.jpg" width="100" height="80"/></a>
