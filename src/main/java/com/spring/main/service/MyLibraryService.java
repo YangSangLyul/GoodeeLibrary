@@ -341,16 +341,14 @@ public class MyLibraryService {
 	}
 
 
-	public ModelAndView myHBookDetail(String hopeBooksNumber, String loginId) {
+	public ModelAndView myHBookDetail(String hopeBooksNumber) {
 		ModelAndView mav = new ModelAndView();
 	
 		MyLibraryDTO Hbook = dao.myHBookDetail(hopeBooksNumber);
-		if(Hbook != null) {
-			logger.info("책 정보:{}",Hbook);
-			mav.addObject("HbookDetail",Hbook);
-			mav.setViewName("myLib_Hbook_detail");
-		}
-		
+		logger.info("책 정보:{}",Hbook);
+		mav.addObject("HbookDetail",Hbook);
+		mav.setViewName("myLib_Hbook_detail");
+	
 		return mav;
 	}
 
