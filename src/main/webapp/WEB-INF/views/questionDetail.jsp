@@ -33,6 +33,7 @@
    }
 </style>
 <body>
+<jsp:include page="header.jsp"/>
     <div id="qdBackground">
         <table>
            <tr>

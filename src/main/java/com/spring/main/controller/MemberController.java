@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dto.MemberDTO;
+import com.spring.main.service.LibraryInfoService;
 import com.spring.main.service.MemberService;
 
 @Controller
@@ -25,6 +26,7 @@ public class MemberController {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired MemberService service;
+	@Autowired LibraryInfoService infoService;
 	String page = "";
 	String msg = "";
 	
@@ -77,6 +79,7 @@ public class MemberController {
 			dto.setId(loginId);
 			logger.info(loginId+" 로그인 성공");
 			session.setAttribute("loginId", loginId);
+			infoService.mainNoticeCall(model);
 			page="main";
 			msg = "";
 			
@@ -91,8 +94,9 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/memLogout", method = RequestMethod.GET)
-	public String memLogout(HttpSession session) {
+	public String memLogout(HttpSession session,Model model) {
 		logger.info("로그아웃 요청");
+		infoService.mainNoticeCall(model);
 		session.removeAttribute("loginId");
 		return "main";
 	}

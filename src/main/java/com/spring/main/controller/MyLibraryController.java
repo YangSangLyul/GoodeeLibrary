@@ -34,13 +34,32 @@ public class MyLibraryController {
 			String page = "redirect:/memLogin";
 			logger.info(loginId);
 			if(loginId != null) {
-				page="myLib_HopeBook";
+				page="myLib_Review";
 			}
 			rAttr.addFlashAttribute("msg",msg);	
 			mav.addObject("loginId",loginId); 
 			mav.setViewName(page);
 			
-		  logger.info("나의 희망도서 내역 이동"); 
+		  logger.info("나의 리뷰 내역 이동"); 
+		  return mav; 
+	  }
+	  
+	  @RequestMapping(value = "/myLib_Review/{page}", method = RequestMethod.GET)
+	  public HashMap<String,Object> Review_list( 
+			  @PathVariable int page,HttpSession session) { 
+		  String loginId = (String) session.getAttribute("loginId");
+		  logger.info("나의 리뷰내역 ");
+		  logger.info(" page : {}, session Id: {}",  page,loginId);
+	  
+	  return service.review_list(page,loginId); 
+	  }
+	  
+	  
+	  @RequestMapping(value = "/MyHopeBook")
+	  public ModelAndView MyHopeBook() { 
+		  logger.info("나의 희망도서 신청내역"); 
+		  ModelAndView mav = new ModelAndView(); 
+		  mav.setViewName("myLib_HopeBook"); 
 		  return mav; 
 	  }
 	  
@@ -195,10 +214,9 @@ public class MyLibraryController {
 	 * success); //페이지 이동 수정필요! return "./myLib_Rbook"; }
 	 */
 	
-	@RequestMapping(value = "/myHBookDetail", method = RequestMethod.GET)
-	public ModelAndView myHBookDetail(@RequestParam String hopeBooksNumber,HttpSession session) { 
-		String loginId = (String) session.getAttribute("loginId");
+	@RequestMapping(value = "/myHBookDetail")
+	public ModelAndView myHBookDetail(@RequestParam String hopeBooksNumber) { 
 		logger.info("예약도서 상세보기 대상 : {}", hopeBooksNumber);
-		return service.myHBookDetail(hopeBooksNumber,loginId);
+		return service.myHBookDetail(hopeBooksNumber);
 	}
 }

@@ -71,6 +71,7 @@
    }
 </style>
 <body>
+<jsp:include page="header.jsp"/>
     <div id="qdBackground">
         <form action="/main/questionEditing">
             <table>

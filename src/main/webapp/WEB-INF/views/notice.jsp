@@ -63,6 +63,7 @@
     </style>
 </head>
 <body onload=listCall(showPage);>
+<jsp:include page="header.jsp"/>
  <jsp:include page="bookuseSidebar.jsp"></jsp:include>
 
     <div id="noticeBackground">

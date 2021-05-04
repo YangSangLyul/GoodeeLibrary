@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-
+<%
+	String loginId = (String) request.getSession().getAttribute("loginId");
+%>
 <html lang="kr">
 
 <head>
@@ -241,25 +243,110 @@
             color: black;
             text-decoration: none;
         } 
-    </style>
+        
+          #home{
+                font-size: 50;
+                color: blue;
+            }
+
+            #topMenu{
+                height: 30px;
+                margin-left: 20%;
+                margin-top: -10px;
+            }
+
+            #topMenu ul{
+                /* 메인 메뉴 안의 ul을 설정 : 상위메뉴+하위메뉴*/
+                list-style-type: none;
+                margin: 0px;
+                padding: 0px;
+            }
+
+            #topMenu ul button{
+                /*메인 메뉴 안에 ul 태그 안에 있는 li 태그의 스타일 적용(상위/하위메뉴)*/
+                color: gray;
+                background-color: white;
+                float: left;
+                line-height: 30px;
+                vertical-align: middle;
+                text-align: center;
+                position: relative;
+                margin-left: 30px;
+                border: 1px solid gray;
+                border-radius: 5px;
+                width: 200px;
+            }
+
+            .topMenuNotice{
+                position: absolute;
+                margin-left: 1500px;
+                margin-top: -60px;
+            }
+
+            .topMenuNotice button{
+                border: 0;
+                outline: 0;
+            }
+
+            #adminMenu{
+                display: none;
+            }
+
+            #adminService{
+                display: none;
+            }
+
+            #loginOffBox{
+                
+                float: right;
+                margin-top: -80px;
+            }
+            #loginOnBox{
+                float: right;
+                margin-top: -80px;
+            }
+            #loginOffBox a:link { 
+                color: blue; 
+                text-decoration: none;
+            }
+            #loginOffBox a:visited {
+                color: blue; 
+                text-decoration: none;
+            }
+            #loginOffBox a:hover {
+                color: blue;
+            }
+            
+            #loginOnBox a:link { 
+                color: blue; 
+                text-decoration: none;
+            }
+            #loginOnBox a:visited {
+                color: blue; 
+                text-decoration: none;
+            }
+            #loginOnBox a:hover {
+                color: blue;
+            }
+            
+            #home a:link { 
+                color: blue; 
+                text-decoration: none;
+            }
+            #home a:visited {
+                color: blue; 
+                text-decoration: none;
+            }
+            #home a:hover {
+                color: blue;
+            }
+        </style>
+       
 </head>
 
 <body>
-<div id="mysidenav" class="sidenav">
-        <div id="titleMenu"><a href="">도서관이용안내</a></div>
-        <div class="menu">
-            <p>찾아오는길</p>
-        </div>
-        <div class="menu">
-            <p>공지사항</p>
-        </div>
-        <div class="menu">
-            <p>FAQ</p>
-        </div>
-        <div class="menu">
-            <p>묻고답하기</p>
-        </div>
-    </div>
+ <jsp:include page="header.jsp"/>
+ <jsp:include page="bookuseSidebar.jsp"></jsp:include>
 	
 	
     <div class="container">
@@ -529,37 +616,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>  
-        
-        <script>
-        $(".menu").hover(function () {
-            $(this).css("backgroundColor", "red");
-        }, function () {
-            $(this).css("backgroundColor", "white");
-        })
 
-       //여기 누르면 경로 지정 예시 ;
-        //여기 누르면 경로 지정;
-        $(".menu:eq(0)").click(function () {
-           console.log("1번")
-           location.href = 'main/LibraryInfo';
-       })
-       
-        $(".menu:eq(1)").click(function () {
-            console.log("2번")
-            location.href = 'main/noticea';
-        })
-        
-        $(".menu:eq(2)").click(function () {
-            console.log("3번")
-            location.href = 'main/faq';
-        })
-        
-        $(".menu:eq(3)").click(function () {
-            console.log("4번")
-            location.href = 'main/QuestionAll';
-        })
-        
-    </script>
     <script>
         hljs.initHighlightingOnLoad();
     </script>
