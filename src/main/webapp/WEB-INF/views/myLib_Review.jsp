@@ -96,7 +96,9 @@ function listPrint(review_list){
 		var date = new Date(review_list[i].REG_DATE);
 		content += "<div>등록날짜 : "+date.toLocaleDateString("ko-KR")+"</div>"
 	
-		content += "추천수 : "+review_list[i].CNT+"<button>리뷰상세보기</button></div>"
+		content += "추천수 : "+review_list[i].CNT
+		content += "<a href='./myReview_detail?reviewIdx="+review_list[i].REVIEWIDX+"'><input type='button' value='리뷰상세보기'/></a>"
+		content += "</div>"	  
 	  $("#review_list").empty();  
 	  $("#review_list").append(content);
 }}

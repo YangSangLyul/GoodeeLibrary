@@ -3,99 +3,134 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>나의 리뷰 수정하기</title>
+<title>나의 리뷰내역</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
-	#title{
-	    text-align: center;
-	    background-color: white;
-	    width: 200px;
-	    height: 30px;
-	    margin-left: 40%;
-	    border: 1px solid black;
-	}
-	
-	#body{
+	#main {
+		width: 800px;
+		height: 400px;
+		margin: auto;
 		text-align: center;
-	    background-color: beige;
-		margin-top: 60px;
-		margin-bottom: 60px;
-	    margin-left: 35%;
-	    width: 400px;
-	    height: 300px;
 	}
 	
-	body div{
-	    text-align: center;
+	.subject {
+		border: 1px solid lightgray;
+		width: 300px;
+		margin: auto;
 	}
 	
-	#table{
-	    
-	    margin-left: 15%;
-	    margin-top: 20%;
-	    margin-bottom: 80px;
-	    text-align: center;
+	#review {
+		margin: 5px;
 	}
 	
-	#review{
-	    background-color: aquamarine;
+	.review_content {
+		width: 750px;
+		padding: 15px;
+		height: 400px;
+		border-bottom: 1px solid lightgray;
 	}
 	
-	.book_name{
-	    background-color: white;
-	    margin-left: 100px;
+	#r_table { 
+		border-collapse: collapse;
+	 	width: 750px;
+	}
+	
+	#b_info{
+		width: 200px;
+		height: 160px;
+		font-size: 14px;
+		vertical-align: top;
+	}
+	
+	#b_info div{
+		margin-top: 10px;
+		width: 80%;
+	}
+	
+	#re_content{
+	  width: 500px;
+		height: 250px;
+		vertical-align: top;
+		background-color: #f2f2f2;
+	}
+	
+	#re_comm{
+		width: 350px;
+	}
+	
+	.re_img, .re_cnt{
+		display: inline;
+		font-size: 14px;
+	}
+	
+	.re_date{
+		font-size: 13px;
+		float: right;
+		margin-bottom: 10px;
+	}
+	
+	#re_report{
+		float: right;
+		margin-top: 10px;
+		padding: 3px;
+		width: 25%;
+		font-size: 14px;
+		border: none;
+		font-weight: 600;
+		color: #0070c0;
+		background-color: #e8ecf4;
+	}
+	
+	.re_btn{
+		width: 30%;
+		padding: 10px;
+		margin-top: 35px;
+		font-size: 14px;
+		border: 1px solid lightgray;
+		margin-left: 230px;
 	}
 </style>
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-   	<div>
-    <div id="title">${loginId}의 리뷰 내역</div>
-    <jsp:include page="mySidebar.jsp"/>
-    <div id="body">
-        <table id="table">
-            <tr>
-                <td rowspan="3">
-                    <input type="image"/>                   
-                    <td>리뷰 내용 수정</td>
-                    <tr>
-                        <td>
-                            <input type="text" name="content"/>    
-                        </td>
-                    </tr>                    
-                </td>
-                
-                <table>
-                    <td class="book_name">자바 스크립트</td>
-                    <tr>
-                        <td>저자명 : </td>
-                        <td>박성배지음</td>
-                        
-                        <tr>추천수: ? </tr>
-                        <tr>작성날짜: ? </tr>
-                        
-                    </tr>
-                    <tr>
-                        <td>출판사 : </td>
-                        <td>Youngjin</td>
-                    </tr>
-                </table>
-                <table>
-                </table>
-            </tr>
-                
-                <table>
-                    <tr>
-                        <button>저장</button>
-                        <button>취소</button>
-                    </tr>
-
-                </table>
-            </tr>
-            <br/>
-
-        </table>
-    </div>
-    </div>
+<jsp:include page="mySidebar.jsp"/>
+   	<div id="main">
+		<div class="subject">
+			<h3 id="review">${loginId}의 리뷰 상세 내역</h3>
+		</div>
+    <div class="review_content">
+				<table id="r_table">
+            <div class="re_date">작성날짜 : ${ReviewDetail.reg_date}</div>
+ 					<tr>
+						<td rowspan="3" id="b_info">
+							<a href="#">
+								<img src="${ReviewDetail.bookImg}" width="150" height="200" />
+							</a>
+							<br/>
+							<div class="writer"><b>서명</b> ${ReviewDetail.bookName}</div>
+							<div class="writer"><b>저자명</b> ${ReviewDetail.writer}</div>
+							<div><b>출판사</b> ${ReviewDetail.publisher}</div>	
+						</td>
+						<td colspan="2" id="re_content">
+								<input type="text" value="${ReviewDetail.content}"/>	
+						</td>
+					<tr>					
+						<td rowspan="2">
+							<input type="button" class="re_btn" onclick="location.href='myLib_detail_edit'" value="저장">
+							<input type="button" class="re_btn" onclick="location.href='./myReview_detail'" value="취소">
+						</td>
+					</tr> 
+				</table>
+			</div>
+	</div>
 </body>
+
+
+<script>
+var msg = "${msg}";
+if(msg!=""){
+	alert(msg);
+}
+   </script>
+</script>
 </html>
