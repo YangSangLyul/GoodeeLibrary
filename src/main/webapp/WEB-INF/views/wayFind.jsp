@@ -345,93 +345,8 @@
 </head>
 
 <body>
- <div id="home">
-            <a href="main"><i>구디 도서관</i></a>
-        </div>
-
-        
-        <nav id="topMenu">
-            <!-- 일반 유저 메뉴 영역-->
-            <div id="userMenu">
-            <ul>
-                <li class="topMenuLi"> 
-                    <button id="libraryInfo" onclick="location.href='main/notice'">도서관 이용안내</button>
-                </li>
-    
-                <li class="topMenuLi">
-                    <button id="libraryService" onclick="location.href='main/reserveSeatForm'">도서관 서비스</button>
-                </li>
-    
-                <li class="topMenuLi">
-                    <button id="librarySearch">자료 검색</button>
-                </li>
-                <li class="topMenuLi">
-                    <button id="libraryMy" onclick="location.href='main/MyLibrary'">마이 라이브러리</button>
-                    <!-- onclick="location.href='myLib_reserveSeatInOut'" -->
-                    
-                    <!-- 관리자가 로그인할 경우 나타나게 될 메뉴
-                         마이 라이브러리는 숨김처리 됨
-                    -->
-                    <button id="adminService">관리자 서비스</button>
-                </li>
-            </ul>
-            </div>
-            <!-- 관리자 메뉴 영역(관리자 로그인 시 나타남)-->
-            <div id="adminMenu">
-                <ul>
-                    <li class="topMenuLi"> 
-                        <button id="adminLibraryInfo">공지사항</button>
-                    </li>
-        
-                    <li class="topMenuLi">
-                        <button id="adminLibraryBook">도서 관리</button>
-                    </li>
-        
-                    <li class="topMenuLi">
-                        <button id="adminLibraryReview">리뷰 관리</button>
-                    </li>
-                    <li class="topMenuLi">
-                        <button id="adminLibraryQuestion">문의 내역</button>
-                    </li>    
-                </ul>
-            </div>
-        </nav>
-
-
-        <div class="topMenuNotice">
-            <a href="main"><img id="light" src="main/image/알림.jpg" width="100" height="80"/></a>
-        </div>
-        <c:if test="${sessionScope.loginId eq null}">
-        <div id="loginOffBox">
-            <a href="memJoinForm">회원가입 </a>
-            |
-            <a href="memLogin"> 로그인</a>
-        </div>
-        </c:if>
-        <c:if test="${sessionScope.loginId ne null}">
-        <div id="loginOnBox">
-            	${sessionScope.loginId} 님 반갑습니다. | 
-            <a href="memLogout"> 로그아웃</a>
-        </div>
-        </c:if>
-        <br/>
-        <hr/>
-
-<div id="mysidenav" class="sidenav">
-        <div id="titleMenu">도서관이용안내</div>
-        <div class="menu">
-            <p>찾아오는길</p>
-        </div>
-        <div class="menu">
-            <p>공지사항</p>
-        </div>
-        <div class="menu">
-            <p>FAQ</p>
-        </div>
-        <div class="menu">
-            <p>묻고답하기</p>
-        </div>
-    </div>
+ <jsp:include page="header.jsp"/>
+ <jsp:include page="bookuseSidebar.jsp"></jsp:include>
 	
 	
     <div class="container">
@@ -701,62 +616,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>  
-        
-        <script>
-        $(".menu").hover(function () {
-            $(this).css("backgroundColor", "red");
-        }, function () {
-            $(this).css("backgroundColor", "white");
-        })
 
-       //여기 누르면 경로 지정 예시 ;
-        //여기 누르면 경로 지정;
-        $(".menu:eq(0)").click(function () {
-           console.log("1번")
-           location.href = 'main/wayFind';
-       })
-       
-        $(".menu:eq(1)").click(function () {
-            console.log("2번")
-            location.href = 'main/notice';
-        })
-        
-        $(".menu:eq(2)").click(function () {
-            console.log("3번")
-            location.href = 'main/faq';
-        })
-        
-        $(".menu:eq(3)").click(function () {
-            console.log("4번")
-            location.href = 'main/QuestionAll';
-        })
-        
-        
-        $("#librarySearch").click(function(){
-			location.href = 'booksSearch';
-		});
-		
-		function menuCall(){
-			var loginId = "${sessionScope.loginId}";
-			
-			console.log('현재 로그인한 사람 ',loginId);
-			
-			if(loginId == 'admin'){
-				$("#libraryMy").css("display","none");
-				$("#adminService").css("display","inline");
-				
-				$("#adminService").click(function(){
-					location.href = 'adminService';
-				});
-			}
-		}
-		
-		menuCall();
-        
-        
-        
-        
-    </script>
     <script>
         hljs.initHighlightingOnLoad();
     </script>

@@ -99,8 +99,8 @@
                     $('.client').on('click', function (e) {
                         var displaySrc = $(this).next('.librarian').css('display');
                         if (displaySrc == 'none') {
-                            $('.librarian').slideUp(300);
-                            $(this).next('.librarian').slideDown(300);
+                            $('.librarian').slideUp(5);
+                            $(this).next('.librarian').slideDown(5);
                             $('.client').removeClass('selected');
                             $(this).addClass('selected');
                         }
