@@ -122,7 +122,7 @@
 							<div class="re_cnt">추천수 ${dto.cnt}</div>
 						</td>
 						<td>		
-							<div><input type="button" id="re_report" onclick="location.href='reviewReport'" value="신고"></div>
+							<div><input type="button" id="re_report" onclick="reviewReport()" value="신고"></div>
 						</td>
 					</tr>
 					<tr>					
@@ -144,5 +144,13 @@
         }
     });
 }); */
+var msg = "${msg}";
+if(msg!=""){
+	alert(msg);
+}
+
+function reviewReport(){
+	window.open('reviewReportForm?reviewIdx=${dto.reviewIdx}','reviewReportForm','width=500, height=400');
+}
    </script>
 </html>

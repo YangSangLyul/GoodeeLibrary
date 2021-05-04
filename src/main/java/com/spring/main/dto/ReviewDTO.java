@@ -24,8 +24,44 @@ public class ReviewDTO {
 		private String writer;
 		private String story;
 		private String publisher;
-	   
 		
+		//리뷰신고
+		private int reportIdx;
+		private String reportId;
+		private Date reportDate;
+		private String reportReason;
+		private String reportStatus;
+	   
+	public int getReportIdx() {
+			return reportIdx;
+		}
+		public void setReportIdx(int reportIdx) {
+			this.reportIdx = reportIdx;
+		}
+		public String getReportId() {
+			return reportId;
+		}
+		public void setReportId(String reportId) {
+			this.reportId = reportId;
+		}
+		public Date getReportDate() {
+			return reportDate;
+		}
+		public void setReportDate(Date reportDate) {
+			this.reportDate = reportDate;
+		}
+		public String getReportReason() {
+			return reportReason;
+		}
+		public void setReportReason(String reportReason) {
+			this.reportReason = reportReason;
+		}
+		public String getReportStatus() {
+			return reportStatus;
+		}
+		public void setReportStatus(String reportStatus) {
+			this.reportStatus = reportStatus;
+		}
 	public String getBookName() {
 			return bookName;
 		}
