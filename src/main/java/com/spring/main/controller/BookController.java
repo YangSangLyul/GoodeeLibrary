@@ -158,6 +158,28 @@ public class BookController {
 		
 		return service.recommendBooksList(month,page);
 	}
-
+	
+	
+	@RequestMapping(value = "/mainRecommendBooksList/{month}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> recommendBooksList(@PathVariable int month) {
+		logger.info("메인 사서도서 리스트 요청 : "+month);
+		
+		return service.mainRecommendBooksList(month);
+	}
+	
+	@RequestMapping(value = "/reviewRecommendBooksList/{month}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> reviewRecommendBooksList(@PathVariable int month) {
+		logger.info("메인 리뷰추천도서 리스트 요청 : "+month);
+		
+		return service.reviewRecommendBooksList(month);
+	}
+	
+	
+	@RequestMapping(value = "/authorRecommendBooksList/{month}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> authorRecommendBooksList(@PathVariable int month) {
+		logger.info("메인 사서추천도서 리스트 요청 : "+month);
+		
+		return service.authorRecommendBooksList(month);
+	}
 	
 }

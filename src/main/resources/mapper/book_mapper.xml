@@ -172,7 +172,56 @@
 		</where>
 		ON b.bookidx = r.bookidx
     	WHERE rnum between #{start} AND #{start} ORDER BY r.reg_date ASC
-		
+	</select>
+	
+	<select id="mainRecommendBooksList" resultType="recommendBook" parameterType="hashMap">
+		SELECT b.bookidx, rnum, b.bookimg,r.reg_date FROM 
+    	(SELECT b.bookidx, b.bookimg FROM book b) B 
+    	INNER JOIN
+    	(SELECT r.bookidx, r.reg_date, ROW_NUMBER() OVER(ORDER BY r.bookidx DESC) AS rnum FROM recommendbook r
+		<where>
+		<if test="month == calMonth">
+		r.reg_date BETWEEN TRUNC(SYSDATE+1)-TO_CHAR(SYSDATE,'DD')
+    	AND TRUNC(LAST_DAY(SYSDATE))+0.99999421) R
+    	</if>
+		</where>
+		ON b.bookidx = r.bookidx
+    	WHERE rnum between 1 AND 5 ORDER BY r.reg_date ASC
+	</select>
+	
+
+
+	<select id="reviewRecommendBooksList" resultType="recommendBook" parameterType="hashMap">
+		SELECT b.bookIdx, b.bookImg, rnum,r.cnt,r.reg_date
+		FROM (
+		    SELECT b.bookIdx, b.bookImg
+		        FROM book b 
+		    ) B LEFT JOIN (
+		    SELECT  r.bookidx, r.cnt, r.reg_date,ROW_NUMBER() OVER(ORDER BY r.cnt DESC) AS rnum 
+		    FROM review r
+		<where>
+		<if test="month == calMonth">
+		r.cnt != '0' AND r.reg_date BETWEEN TRUNC(SYSDATE+1)-TO_CHAR(SYSDATE,'DD')
+    	AND TRUNC(LAST_DAY(SYSDATE))+0.99999421) R
+    	</if>
+		</where>
+		ON b.bookidx = r.bookidx
+    	WHERE rnum between 1 AND 5 ORDER BY r.reg_date ASC
+	</select>
+	
+	<select id="authorRecommendBooksList" resultType="recommendBook" parameterType="hashMap">
+		SELECT b.bookidx, rnum, b.bookimg,b.story,r.reason,r.reg_date FROM 
+    	(SELECT b.bookidx, b.bookimg, b.story FROM book b) B 
+    	INNER JOIN
+    	(SELECT r.bookidx, r.reg_date, r.reason,ROW_NUMBER() OVER(ORDER BY r.bookidx DESC) AS rnum FROM recommendbook r
+		<where>
+		<if test="month == calMonth">
+		r.reg_date BETWEEN TRUNC(SYSDATE+1)-TO_CHAR(SYSDATE,'DD')
+    	AND TRUNC(LAST_DAY(SYSDATE))+0.99999421) R
+    	</if>
+		</where>
+		ON b.bookidx = r.bookidx
+    	WHERE rnum between 1 AND 5 ORDER BY r.reg_date ASC
 	</select>
 
 </mapper>

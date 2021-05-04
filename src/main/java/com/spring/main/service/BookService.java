@@ -257,4 +257,83 @@ public class BookService {
 		return dataMap;
 	}
 
+	public HashMap<String, Object> mainRecommendBooksList(int month) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		HashMap<String, Object> dataMap = new HashMap<String, Object>();
+		
+		Calendar cal = Calendar.getInstance();
+		
+		int calMonth = cal.get(Calendar.MONTH) + 1;
+		int success = 1;
+		
+		map.put("month", month);
+		map.put("calMonth", calMonth);
+		int allCnt = dao.monthRecommendAll(map); 		// 전체 게시글 수
+		
+		logger.info("현재 월의 사서추천도서 개수 : "+allCnt);
+		
+		//만약 해당 월에 대한 책 개수가 하나도 없다면..
+		if(allCnt <= 0) {
+			success = 0;
+		}
+		
+		ArrayList<BookDTO> list = dao.mainRecommendBooksList(map);
+		dataMap.put("list", list);
+		dataMap.put("success", success);
+		return dataMap;
+		
+	}
+
+	public HashMap<String, Object> reviewRecommendBooksList(int month) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		HashMap<String, Object> dataMap = new HashMap<String, Object>();
+		
+		Calendar cal = Calendar.getInstance();
+		
+		int calMonth = cal.get(Calendar.MONTH) + 1;
+		int success = 1;
+		
+		map.put("month", month);
+		map.put("calMonth", calMonth);
+		int allCnt = dao.monthRecommendAll(map); 		// 전체 게시글 수
+		
+		logger.info("현재 월의 리뷰추천도서 개수 : "+allCnt);
+		
+		//만약 해당 월에 대한 책 개수가 하나도 없다면..
+		if(allCnt <= 0) {
+			success = 0;
+		}
+		
+		ArrayList<BookDTO> list = dao.reviewRecommendBooksList(map);
+		dataMap.put("list", list);
+		dataMap.put("success", success);
+		return dataMap;
+	}
+
+	public HashMap<String, Object> authorRecommendBooksList(int month) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		HashMap<String, Object> dataMap = new HashMap<String, Object>();
+		
+		Calendar cal = Calendar.getInstance();
+		
+		int calMonth = cal.get(Calendar.MONTH) + 1;
+		int success = 1;
+		
+		map.put("month", month);
+		map.put("calMonth", calMonth);
+		int allCnt = dao.monthRecommendAll(map); 		// 전체 게시글 수
+		
+		logger.info("현재 월의 리뷰추천도서 개수 : "+allCnt);
+		
+		//만약 해당 월에 대한 책 개수가 하나도 없다면..
+		if(allCnt <= 0) {
+			success = 0;
+		}
+		
+		ArrayList<BookDTO> list = dao.authorRecommendBooksList(map);
+		dataMap.put("list", list);
+		dataMap.put("success", success);
+		return dataMap;
+	}
+
 }
