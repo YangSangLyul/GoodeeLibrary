@@ -6,6 +6,10 @@
 
 <mapper namespace="com.spring.main.dao.AdminDAO">
 
+	<select id="adminNoti" resultType="com.spring.main.dto.AdminDTO" parameterType="list">
+		SELECT * FROM notification WHERE mem_type = '관리자' AND readstatus='FALSE'
+	</select>
+
 	<!-- 리뷰 추천 수 많은 유저 -->
 	<select id="manyUp" resultType="com.spring.main.dto.AdminDTO" parameterType="list">
 		<![CDATA[

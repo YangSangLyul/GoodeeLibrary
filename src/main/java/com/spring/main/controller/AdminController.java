@@ -26,6 +26,20 @@ public class AdminController {
 	
 	@Autowired AdminService service;
 	
+	//관리자 메인 
+	/*
+	 * @RequestMapping(value = "/adminService", method = RequestMethod.GET) public
+	 * ModelAndView adminService() { logger.info("관리자 메인 요청"); ModelAndView mav =
+	 * new ModelAndView(); mav.setViewName("adminService"); return mav; }
+	 */
+	
+	//관리자 메인 - 알림리스트
+	@RequestMapping(value = "/adminService", method = RequestMethod.GET)
+	public ModelAndView adminNoti() {
+		logger.info("관리자 메인 요청");
+		return service.adminNoti();
+	}
+	
 	//이 달의 리뷰왕 리스트 
 	@RequestMapping(value = "/ReviewKing", method = RequestMethod.GET)
 	public ModelAndView ReviewKing() {
@@ -97,16 +111,6 @@ public class AdminController {
 		return service.BlindList(pagePerCnt, page);
 	}
 	
-	/*
-	 * //신고 상세보기
-	 * 
-	 * @RequestMapping(value = "/reportDetail", method = RequestMethod.GET) public
-	 * String reportDetail(Model model, @RequestParam int idx) {
-	 * logger.info("신고 상세보기 할 idx: "+idx); String page = "redirect:/ReviewKing";
-	 * AdminDTO dto = service.reportDetail(idx); if(dto != null) { page =
-	 * "adminReport_detail"; model.addAttribute("detail",dto); } return page; }
-	 */
-	
 	//신고 상세보기
 	@RequestMapping(value = "/reportDetail/{idx}", method = RequestMethod.GET)
 	public String blindDetail(Model model, @PathVariable int idx) {
@@ -151,5 +155,6 @@ public class AdminController {
 		logger.info("해제할 블라인드 번호: "+blindIdx);
 		return service.blindRemove(blindIdx,attr);
 	}
+	
 	
 }
