@@ -130,7 +130,7 @@
 	</select>
 	
 	<select id="Review_allCount" resultType="Integer">
-		SELECT COUNT(bookIdx) FROM RESERVEBOOK WHERE id=#{param1}
+		SELECT COUNT(*) FROM review WHERE id=#{param1}
 	</select>
 	
 	<select id="review_list" resultType="hashMap">
@@ -148,4 +148,8 @@
 	<update id="review_edit" parameterType="hashMap">
 		UPDATE review SET content=#{content} WHERE reviewIdx=#{reviewIdx} 
 	</update>
+	
+	<delete id="review_delete">
+		DELETE FROM review WHERE reviewIdx=#{param1}
+	</delete>
 </mapper>
