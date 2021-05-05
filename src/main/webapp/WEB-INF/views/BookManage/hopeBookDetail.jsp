@@ -53,15 +53,16 @@
 	                <tr>
 	                    <td colspan="2">
 	                        <button onclick="location.href='hopeBookApprove?hopeBooksNumber=${dto.hopeBooksNumber}'">희망도서 승인</button>
-	                        <button>희망도서 거부</button>
+	                        <button onclick="reject()">희망도서 거부</button>
 	                    </td>
 	                </tr>
                 </c:if>
             </table>
-
         </div>
     </body>
     <script>
-
+		function reject(){
+			window.open("hopeBookReject?hopeBooksNumber=${dto.hopeBooksNumber}","도서거부", "width=450, height=200, left=100, top=100");
+		}
     </script>
 </html>

@@ -379,4 +379,15 @@ public class BookService {
 		return "redirect:/hopeBookDetail?hopeBooksNumber="+hopeBooksNumber;
 	}
 
+	@Transactional
+	public HashMap<String, Object> hopeBookRejectReason(HashMap<String, String> params) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int success = dao.hopeBookReject(params.get("hopeBooksNumber"));
+		if(success > 0) {
+			dao.hopeBookRejectReason(params);
+		}
+		map.put("success",success);
+		return map;
+	}
+
 }

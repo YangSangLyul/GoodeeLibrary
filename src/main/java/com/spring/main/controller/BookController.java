@@ -59,10 +59,24 @@ public class BookController {
 		logger.info("hopeBooksNumber : " + hopeBooksNumber);
 		return service.hopeBookDetail(hopeBooksNumber);
 	}
+	
 	@RequestMapping(value = "/hopeBookApprove", method = RequestMethod.GET)
 	public String hopeBookApprove(@RequestParam String hopeBooksNumber) {
 		logger.info("hopeBookApprove : " + hopeBooksNumber);
 		return service.hopeBookApprove(hopeBooksNumber);
+	}
+	
+	@RequestMapping(value = "/hopeBookReject", method = RequestMethod.GET)
+	public String hopeBookReject(Model model, @RequestParam String hopeBooksNumber) {
+		logger.info("hopeBookReject : " + hopeBooksNumber);
+		model.addAttribute("hopeBooksNumber", hopeBooksNumber);
+		return "/BookManage/hopeBookRejectReason";
+	}
+	
+	@RequestMapping(value = "/hopeBookRejectReason", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> hopeBookRejectReason(@RequestParam HashMap<String, String> params) {
+		logger.info("hopeBookRejectReason : {}", params);
+		return service.hopeBookRejectReason(params);
 	}
 	
 	@RequestMapping(value = "/normalBookFilter/{page}", method = RequestMethod.GET)

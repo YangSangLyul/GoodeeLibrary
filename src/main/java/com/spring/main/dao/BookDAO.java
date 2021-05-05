@@ -59,4 +59,8 @@ public interface BookDAO {
 	HopeBookDTO hopeBookDetail(String hopeBooksNumber);
 
 	int hopeBookApprove(String hopeBooksNumber);
+
+	int hopeBookRejectReason(HashMap<String, String> params);
+
+	int hopeBookReject(String hopeBooksNumber);
 }

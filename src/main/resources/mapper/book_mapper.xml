@@ -80,6 +80,14 @@
 		UPDATE hopeBook SET hb_state = 'H002' WHERE hopeBooksNumber = #{param1}
 	</update>
 	
+	<update id="hopeBookReject">
+		UPDATE hopeBook SET hb_state = 'H003' WHERE hopeBooksNumber = #{param1}
+	</update>
+	
+	<insert id="hopeBookRejectReason" parameterType="hashMap">
+		INSERT INTO hopeBookReject(hopeBooksNumber, reject) VALUES(#{hopeBooksNumber}, #{reject})
+	</insert>
+	
 <!-- 	<update id="reserveApproval" parameterType="hashMap">
 		UPDATE reserveBook SET bookState = 'R002' WHERE bookIdx = #{bookIdx}
 	</update> -->
