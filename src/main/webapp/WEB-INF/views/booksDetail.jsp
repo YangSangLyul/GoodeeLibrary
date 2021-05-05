@@ -138,7 +138,7 @@
                 </tr>
             </table>
             <c:if test="${reserveCnt <= '2'}">
-		                <button id="reserve">도서예약</button>
+		                <button id="reserve" onclick="location.href='reserveBook?bookIdx=${searchDetail.bookIdx}'">도서예약</button>
 
 		    </c:if>
             
@@ -148,9 +148,17 @@
 
     </body>
     <script>
+    
+    	var msg = "${msg}";
+    	
+    	if(msg != ""){
+    		alert(msg);
+    	}
+    
     	$("#back").click(function() {
     		location.href = 'booksSearch';
     	});
+    	
     </script>
 
 

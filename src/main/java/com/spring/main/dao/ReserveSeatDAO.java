@@ -1,5 +1,6 @@
 package com.spring.main.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import com.spring.main.dto.MySeatHistoryDTO;
@@ -36,5 +37,11 @@ public interface ReserveSeatDAO {
 	int reserveTimeChk(String string);
 
 	int exitTimeChk(String string);
+
+	Date mySeatEnd(String loginId);
+
+	void autoMySeatExit(String loginId, int reserveNum, Date end);
+
+	
 
 }
