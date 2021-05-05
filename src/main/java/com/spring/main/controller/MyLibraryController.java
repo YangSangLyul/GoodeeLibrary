@@ -120,7 +120,7 @@ public class MyLibraryController {
 		  return mav; 
 	  }
 	  
-	  @RequestMapping(value = "/myLib_Rbook/5/{page}", method = RequestMethod.GET)
+	  @RequestMapping(value = "/myLib_Rbook/{page}", method = RequestMethod.GET)
 	  public HashMap<String,Object> reserveBook_list( 
 			  @PathVariable int page,HttpSession session) { 
 		  String loginId = (String) session.getAttribute("loginId");
@@ -244,14 +244,18 @@ public class MyLibraryController {
 		return service.myRBookDetail(bookIdx,loginId);
 	}
 	
-	/*
-	 * @RequestMapping(value = "/myBookReturn", method = RequestMethod.GET) public
-	 * String returnBook(@RequestParam String reserveBookIdx,HttpSession session) {
-	 * String loginId = (String) session.getAttribute("loginId");
-	 * logger.info("반납하기 : " + reserveBookIdx); int success =
-	 * service.bookReturn(reserveBookIdx,loginId); logger.info("반납 성공 여부 : " +
-	 * success); //페이지 이동 수정필요! return "./myLib_Rbook"; }
-	 */
+	
+	  @RequestMapping(value = "/myBookReturn", method = RequestMethod.GET) 
+	  public ModelAndView returnBook(@RequestParam String reserveBookIdx,HttpSession session) {
+		  ModelAndView mav = new ModelAndView();
+		  String loginId = (String) session.getAttribute("loginId");
+		  logger.info("반납하기 : " + reserveBookIdx); 
+		  int success = service.bookReturn(reserveBookIdx,loginId); 
+		  logger.info("반납 성공 여부 : " +success); 
+		  mav.setViewName("myLib_Rbook");
+		  return mav;
+	  }
+	 
 	
 	@RequestMapping(value = "/myHBookDetail")
 	public ModelAndView myHBookDetail(@RequestParam String hopeBooksNumber) { 

@@ -157,7 +157,6 @@ function pagePrint(range){
 function listPrint(hope_list){
 	  var content="";
 	  for(var i=0; i<hope_list.length;i++){
-	  	
 		content += "<tr>"
 		content += "<td><a href='./myHBookDetail?hopeBooksNumber="+hope_list[i].HOPEBOOKSNUMBER+"'>"+hope_list[i].HB_BOOKNAME+"</a></td>"
 		var date = new Date(hope_list[i].HB_DATE);
@@ -168,13 +167,25 @@ function listPrint(hope_list){
 		}else if(hope_list[i].HB_STATE == 'H002'){
 			content += "<td>승인</td>"
 		}else if(hope_list[i].HB_STATE == 'H003'){
-			//거부 클릭시 팝업창 띄우기 alert
-			content += "<td>거부</td>"
+			console.log(hope_list[i].REJECT);
+			var reject = hope_list[i].REJECT;
+			content += "<td><input type='button' value='거부' onclick='reason()'/></td>"
+			content += "<input type='hidden' name='reject' value='${hope_list[i].REJECT}'/>"	
 		}
 		content += "</tr>"
 
 	  $("#hope_list").empty();  
 	  $("#hope_list").append(content);
-}}
+
+	  }
+}
+function reason(){
+	console.log("버튼 클릭");
+	console.log(hope_list);
+	console.log(hope_list.reject);
+	console.log("거부이유");
+	
+	alert("신청거부되었습니다.");
+}	
 </script>
 </html>

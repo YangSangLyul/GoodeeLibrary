@@ -60,7 +60,7 @@
 	</select>
 	
 	<select id="ReserveBook_allCount" resultType="Integer">
-		SELECT COUNT(bookIdx) FROM RESERVEBOOK WHERE id=#{param1}
+		SELECT COUNT(reservebookidx) FROM RESERVEBOOK WHERE bookstate IN('R001','R002') AND id=#{param1} 
 	</select>
 	
 	<!-- <insert id="writeFile"> 
@@ -121,7 +121,8 @@
 	
 	<select id="hope_list" resultType="hashMap">
 		SELECT  * FROM( 
-			SELECT  ROW_NUMBER() OVER(ORDER BY hopebooksNumber DESC) AS rnum ,hopebooksnumber,id,hb_state,hb_date,hb_bookname,writer,publisher,hopereason FROM HopeBook WHERE id=#{param3}
+			SELECT ROW_NUMBER() OVER(ORDER BY h.hopebooksNumber DESC) AS rnum,h.hopereason,h.id,h.hb_bookname,h.hb_date,h.hb_state,h.publisher,h.writer,r.reject  
+			FROM hopebook h LEFT JOIN hopebookreject r ON h.hopebooksNumber = r.hopebooksNumber WHERE id=#{param3}
 		)WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
 	
