@@ -84,5 +84,19 @@
 	<delete id="blindRemove">
 		UPDATE reviewblind SET blind_status='FALSE' WHERE blindIdx=#{param1}
 	</delete>
+	
+	<select id="questionCnt" resultType="int">
+		SELECT COUNT(*) FROM question
+	</select>
+	
+	<select id="questionList" resultType="question">
+		SELECT queIdx, id, subject, content, reg_date, showStatus, ansStatus, type, rnum
+		FROM ( 
+		    SELECT queIdx, id, subject, content, reg_date, showStatus, ansStatus, type,
+		        ROW_NUMBER() OVER(ORDER BY queIdx DESC) AS rnum FROM question
+		    )
+		WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
 		
 </mapper>

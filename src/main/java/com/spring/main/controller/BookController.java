@@ -1,9 +1,6 @@
 package com.spring.main.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,42 +27,50 @@ public class BookController {
 	
 	@Autowired BookService service;
 	
+	// 도서 관리 페이지로 이동
+	// 관리자 네비가 있는지 잘 모르니 bookList 입력해서 이동
 	@RequestMapping(value = "/bookList", method = RequestMethod.GET)
 	public String bookList() {
 		logger.info("도서 관리 페이지 이동");
 		return "/BookManage/normalBookManage";
 	}
 	
+	// 일반 도서 관리 - 페이징
 	@RequestMapping(value = "/normalBookManage/{page}", method = RequestMethod.GET)
 	public @ResponseBody HashMap<String, Object> normalBookManage(@PathVariable int page) {
 		logger.info("page : " + page);
 		return service.bookList(page);
 	}
 	
+	// 희망 도서 페이지로 이동
 	@RequestMapping(value = "/hopeBookList", method = RequestMethod.GET)
 	public String hopeBookList() {
 		logger.info("도서 관리 페이지 이동");
 		return "/BookManage/hopeBookList";
 	}
 	
+	// 희망 도서 관리 - 페이징
 	@RequestMapping(value = "/hopeBookManage/{page}", method = RequestMethod.GET)
 	public @ResponseBody HashMap<String, Object> hopeBookManage(@PathVariable int page) {
 		logger.info("hopeBookManage page : " + page);
 		return service.hopeBookList(page);
 	}
 	
+	// 희망 도서 상세보기
 	@RequestMapping(value = "/hopeBookDetail", method = RequestMethod.GET)
 	public ModelAndView hopeBookDetail(@RequestParam String hopeBooksNumber) {
 		logger.info("hopeBooksNumber : " + hopeBooksNumber);
 		return service.hopeBookDetail(hopeBooksNumber);
 	}
 	
+	// 희망 도서 수락
 	@RequestMapping(value = "/hopeBookApprove", method = RequestMethod.GET)
 	public String hopeBookApprove(@RequestParam String hopeBooksNumber) {
 		logger.info("hopeBookApprove : " + hopeBooksNumber);
 		return service.hopeBookApprove(hopeBooksNumber);
 	}
 	
+	// 희망 도서 거절 사유 페이지 이동
 	@RequestMapping(value = "/hopeBookReject", method = RequestMethod.GET)
 	public String hopeBookReject(Model model, @RequestParam String hopeBooksNumber) {
 		logger.info("hopeBookReject : " + hopeBooksNumber);
@@ -73,12 +78,14 @@ public class BookController {
 		return "/BookManage/hopeBookRejectReason";
 	}
 	
+	// 희망도서 거절 및 사유 받는 메서드
 	@RequestMapping(value = "/hopeBookRejectReason", method = RequestMethod.POST)
 	public @ResponseBody HashMap<String, Object> hopeBookRejectReason(@RequestParam HashMap<String, String> params) {
 		logger.info("hopeBookRejectReason : {}", params);
 		return service.hopeBookRejectReason(params);
 	}
 	
+	// 50번 슬라이드 2번 기능 필터 골라서 나온 값 페이징 처리 해야하는데 아직 미완성
 	@RequestMapping(value = "/normalBookFilter/{page}", method = RequestMethod.GET)
 	public @ResponseBody HashMap<String, Object> normalBookFilter(
 			@RequestParam HashMap<String, Object> params, 
@@ -90,17 +97,11 @@ public class BookController {
 		logger.info("일반도서 필터 : " + params.get("filter[0]"));
 		logger.info("일반도서 필터 : " + params.get("filter[1]"));
 		
-		/*
-		 * ArrayList list = (ArrayList)params.get("filter"); logger.info("list : " +
-		 * list.size());
-		 */
-		
-		//logger.info("일반도서 필터 : " + params.get("reserve"));
-		
 		logger.info("page : " + page);
  		return null;
 	}
 	
+	// bookList에서 책 상태 변환
 	@RequestMapping(value = "/bookStateChange", method = RequestMethod.GET)
 	public @ResponseBody HashMap<String, Object> bookStateChange(@RequestParam HashMap<String, String> params) {
 		logger.info("도서 상태 변환 : {}",params);
@@ -108,6 +109,7 @@ public class BookController {
 		return service.bookStateChange(params);
 	}
 	
+	// bookList에서 예약 승인
 	@RequestMapping(value = "/reserveApproval", method = RequestMethod.GET)
 	public @ResponseBody HashMap<String, Object> reserveApproval(@RequestParam HashMap<String, String> params) {
 		logger.info("예약 승인 : {}",params);
@@ -121,6 +123,7 @@ public class BookController {
 		return service.userReserveNotification(params);
 	}
 	
+	// bookList에서 도서 상세보기
 	@RequestMapping(value = "/bookManageDetail", method = RequestMethod.GET)
 	public  ModelAndView bookManageDetail(@RequestParam String bookIdx) {
 		logger.info("도서 관리 상세보기 : " + bookIdx);
@@ -141,12 +144,14 @@ public class BookController {
 		return service.insertRecommendBook(params);
 	}
 	
+	// bookList에서 도서 추가 페이지로 이동 가능
 	@RequestMapping(value = "/bookManageInsert", method = RequestMethod.GET)
 	public  String bookManageInsert() {
 		logger.info("도서 추가 페이지 이동");
 		return "/BookManage/bookManageInsert";
 	}
 	
+	// bookList에서 도서 추가 가능
 	@RequestMapping(value = "/bookInsert", method = RequestMethod.POST)
 	public  String bookInsert(@ModelAttribute BookDTO dto) {
 		logger.info("도서 추가");
