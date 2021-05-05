@@ -64,25 +64,25 @@ public class MyLibraryController {
 	  }
 		
 		
-		@RequestMapping(value = "/review_edit")
-		//public HashMap<String, Object> question_edit(@RequestParam HashMap<String, Object> params) {
-		public ModelAndView review_edit(@RequestParam HashMap<String, Object> params) {
-			
-			logger.info("나의 리뷰페이지 수정");
-			logger.info("params:{}",params);
-			//HashMap<String, Object> map = new HashMap<String, Object>();
-			//map.put("", value)
-			return service.review_edit(params);
-			
-		}
-
-		@RequestMapping(value = "/review_delete")
-		public ModelAndView review_delete(@RequestParam String reviewIdx) {
-			logger.info("나의 문의내역 삭제");
-			logger.info("삭제할 문의번호"+reviewIdx);
-			
-			return service.review_delete(reviewIdx);
-		}
+//		@RequestMapping(value = "/review_edit")
+//		//public HashMap<String, Object> question_edit(@RequestParam HashMap<String, Object> params) {
+//		public ModelAndView review_edit(@RequestParam HashMap<String, Object> params) {
+//			
+//			logger.info("나의 리뷰페이지 수정");
+//			logger.info("params:{}",params);
+//			//HashMap<String, Object> map = new HashMap<String, Object>();
+//			//map.put("", value)
+//			return service.review_edit(params);
+//			
+//		}
+//
+//		@RequestMapping(value = "/review_delete")
+//		public ModelAndView review_delete(@RequestParam String reviewIdx) {
+//			logger.info("나의 문의내역 삭제");
+//			logger.info("삭제할 문의번호"+reviewIdx);
+//			
+//			return service.review_delete(reviewIdx);
+//		}
 	  
 	  @RequestMapping(value = "/myLib_Review/{page}", method = RequestMethod.GET)
 	  public HashMap<String,Object> Review_list( 

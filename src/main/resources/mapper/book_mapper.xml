@@ -23,25 +23,7 @@
 			<result column="reg_date" property="reg_date"/>
 			<result column="bookState" property="bookState"/>
 			<collection property="reserveBookDTO" resultMap="reserveBook"/>
-	</resultMap>
-<!-- 	<select id="bookManageList" resultMap="book">
-		SELECT
-			b.BOOKIDX
-			, b.BOOKNAME
-			, b.BOOKIMG
-			, b.WRITER
-			, b.STORY
-			, b.PUBLISHER
-			, b.BOOKSTATE
-			, r.RESERVEBOOKIDX
-			, r.BOOKSTATE AS RESERVEBOOKSTATE
-			, r.ID
-			, r.REG_DATE
-		FROM book b FULL OUTER JOIN reserveBook r
-		ON b.bookidx = r.bookidx
-        WHERE r.bookstate = 'R001' AND b.bookstate IN('B001','B002','B003','B004','B005','B006','B007') OR r.bookstate IS NULL
-		ORDER BY b.bookIdx DESC, r.REG_DATE ASC
-	</select> -->
+		</resultMap>
 	
 	<select id="bookList" resultMap="book">
 		SELECT b.bookIdx, b.bookName, b.writer, b.story, b.publisher, b.bookImg, b.bookState, r.reserveBookIdx, reserveBookState, r.id, r.reg_date, rnum
@@ -73,6 +55,38 @@
 	<update id="bookStateChange" parameterType="hashMap">
 		UPDATE book SET bookState = #{bookState} WHERE bookIdx = #{bookIdx}
 	</update>
+	
+	<select id="hopeBookList" resultType="hopeBook">
+		SELECT hopebooksNumber, id, hb_state, hb_date, hb_bookName, writer, publisher, hopeReason, rnum
+		FROM ( 
+		    SELECT hopebooksNumber, id, hb_state, hb_date, hb_bookName, writer, publisher, hopeReason,
+		        ROW_NUMBER() OVER(ORDER BY hopebooksNumber ASC) AS rnum FROM hopeBook
+		    )
+		WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	<select id="hopeBookCnt" resultType="integer">
+		SELECT COUNT(*) FROM hopeBook
+	</select>
+	
+	<select id="hopeBookDetail" resultType="hopeBook">
+		SELECT hb.hopeBooksNumber, hb.id, hb.hb_state, hb.hb_date, hb.hb_bookName, hb.writer, hb.publisher, hb.hopereason,
+        hbj.reject, hbj.reject_date
+         FROM hopeBook hb, hopeBookReject hbj 
+		WHERE hb.hopebooksnumber = hbj.hopebooksnumber(+) AND hb.hopeBooksNumber = #{param1}
+	</select>
+	
+	<update id="hopeBookApprove">
+		UPDATE hopeBook SET hb_state = 'H002' WHERE hopeBooksNumber = #{param1}
+	</update>
+	
+	<update id="hopeBookReject">
+		UPDATE hopeBook SET hb_state = 'H003' WHERE hopeBooksNumber = #{param1}
+	</update>
+	
+	<insert id="hopeBookRejectReason" parameterType="hashMap">
+		INSERT INTO hopeBookReject(hopeBooksNumber, reject) VALUES(#{hopeBooksNumber}, #{reject})
+	</insert>
 	
 <!-- 	<update id="reserveApproval" parameterType="hashMap">
 		UPDATE reserveBook SET bookState = 'R002' WHERE bookIdx = #{bookIdx}
