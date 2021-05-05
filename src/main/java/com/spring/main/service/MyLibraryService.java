@@ -423,4 +423,19 @@ public class MyLibraryService {
 	}
 
 
+	public ModelAndView review_delete(String reviewIdx) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("리뷰 삭제 요청");
+		int success = dao.review_delete(reviewIdx);
+		String page = "myLib_review_detail";
+		if (success > 0) {
+			logger.info("리뷰 삭제 성공");
+			page = "myLib_Review";
+		}
+		mav.setViewName(page);
+
+		return mav;
+	}
+
+
 }

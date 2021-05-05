@@ -122,9 +122,8 @@
 					</tr>
 					<tr>					
 						<td rowspan="2">
-							<input type="button" class="re_btn" onclick="location.href='./ReviewEditForm?reviewIdx=${ReviewDetail.reviewIdx}'" value="수정">
-							<input type="button" class="re_btn" onclick="location.href='./MyLibrary'" value="목록">
-							<input type="button" class="re_btn" onclick="location.href='./review_delete?reviewIdx=${ReviewDetail.reviewIdx}'" value="삭제">
+							<input type="button" class="re_btn" onclick="location.href='./ReviewWrite?bookIdx=${bookIdx}'" value="저장">
+							<input type="button" class="re_btn" onclick="location.href='./MyLibrary'" value="취소">
 						</td>
 					</tr> 
 				</table>

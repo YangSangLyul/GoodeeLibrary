@@ -74,14 +74,14 @@ public class MyLibraryController {
 			return service.review_edit(params);
 			
 		}
-//
-//		@RequestMapping(value = "/review_delete")
-//		public ModelAndView review_delete(@RequestParam String reviewIdx) {
-//			logger.info("나의 문의내역 삭제");
-//			logger.info("삭제할 문의번호"+reviewIdx);
-//			
-//			return service.review_delete(reviewIdx);
-//		}
+
+		@RequestMapping(value = "/review_delete")
+		public ModelAndView review_delete(@RequestParam String reviewIdx) {
+			logger.info("나의 문의내역 삭제");
+			logger.info("삭제할 문의번호"+reviewIdx);
+			
+			return service.review_delete(reviewIdx);
+		}
 	  
 	  @RequestMapping(value = "/myLib_Review/{page}", method = RequestMethod.GET)
 	  public HashMap<String,Object> Review_list( 
