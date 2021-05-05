@@ -89,6 +89,10 @@
 		border: 1px solid lightgray;
 		margin-left: 230px;
 	}
+	.text{
+		width: 550px;
+    	height: 250px;
+	}
 </style>
 </head>
 <body>
@@ -99,7 +103,9 @@
 			<h3 id="review">${loginId}의 리뷰 상세 내역</h3>
 		</div>
     <div class="review_content">
-				<table id="r_table">
+    <form action="review_edit" method="POST">
+    <input type="hidden" name="reviewIdx" value="${ReviewDetail.reviewIdx}"/>
+    <table id="r_table">
             <div class="re_date">작성날짜 : ${ReviewDetail.reg_date}</div>
  					<tr>
 						<td rowspan="3" id="b_info">
@@ -112,15 +118,16 @@
 							<div><b>출판사</b> ${ReviewDetail.publisher}</div>	
 						</td>
 						<td colspan="2" id="re_content">
-								<input type="text" value="${ReviewDetail.content}"/>	
+								<input class="text" type="text" name="content" value="${ReviewDetail.content}"/>
 						</td>
 					<tr>					
 						<td rowspan="2">
-							<input type="button" class="re_btn" onclick="location.href='myLib_detail_edit'" value="저장">
-							<input type="button" class="re_btn" onclick="location.href='./myReview_detail'" value="취소">
+							<input type="button" class="re_btn" id="save" value="저장">
+							<input type="button" class="re_btn" onclick="location.href='./myReview_detail?reviewIdx=${ReviewDetail.reviewIdx}'" value="취소">
 						</td>
 					</tr> 
 				</table>
+				</form>
 			</div>
 	</div>
 </body>
@@ -131,6 +138,10 @@ var msg = "${msg}";
 if(msg!=""){
 	alert(msg);
 }
-   </script>
+
+$("#save").click(function(){
+	//$('#content').val($('#editable').html());
+	$('form').submit();
+});
 </script>
 </html>

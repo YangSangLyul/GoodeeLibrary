@@ -122,7 +122,7 @@
 					</tr>
 					<tr>					
 						<td rowspan="2">
-							<input type="button" class="re_btn" onclick="location.href='./ReviewEditForm?reviewidx=${ReviewDetail.reviewIdx}'" value="수정">
+							<input type="button" class="re_btn" onclick="location.href='./ReviewEditForm?reviewIdx=${ReviewDetail.reviewIdx}'" value="수정">
 							<input type="button" class="re_btn" onclick="location.href='./MyLibrary'" value="목록">
 							<input type="button" class="re_btn" onclick="location.href='./review_delete'" value="삭제">
 						</td>
