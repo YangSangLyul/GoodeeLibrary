@@ -42,6 +42,29 @@ public class BookController {
 		return service.bookList(page);
 	}
 	
+	@RequestMapping(value = "/hopeBookList", method = RequestMethod.GET)
+	public String hopeBookList() {
+		logger.info("도서 관리 페이지 이동");
+		return "/BookManage/hopeBookList";
+	}
+	
+	@RequestMapping(value = "/hopeBookManage/{page}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> hopeBookManage(@PathVariable int page) {
+		logger.info("hopeBookManage page : " + page);
+		return service.hopeBookList(page);
+	}
+	
+	@RequestMapping(value = "/hopeBookDetail", method = RequestMethod.GET)
+	public ModelAndView hopeBookDetail(@RequestParam String hopeBooksNumber) {
+		logger.info("hopeBooksNumber : " + hopeBooksNumber);
+		return service.hopeBookDetail(hopeBooksNumber);
+	}
+	@RequestMapping(value = "/hopeBookApprove", method = RequestMethod.GET)
+	public String hopeBookApprove(@RequestParam String hopeBooksNumber) {
+		logger.info("hopeBookApprove : " + hopeBooksNumber);
+		return service.hopeBookApprove(hopeBooksNumber);
+	}
+	
 	@RequestMapping(value = "/normalBookFilter/{page}", method = RequestMethod.GET)
 	public @ResponseBody HashMap<String, Object> normalBookFilter(
 			@RequestParam HashMap<String, Object> params, 

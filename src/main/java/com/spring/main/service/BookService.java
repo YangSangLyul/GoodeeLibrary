@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.BookDAO;
 import com.spring.main.dto.BookDTO;
+import com.spring.main.dto.HopeBookDTO;
 
 @Service
 public class BookService {
@@ -334,6 +335,48 @@ public class BookService {
 		dataMap.put("list", list);
 		dataMap.put("success", success);
 		return dataMap;
+	}
+
+	public HashMap<String, Object> hopeBookList(int page) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int pagePerCnt = 10;
+		int hopeBookCnt = dao.hopeBookCnt(); 		// 전체 게시글 수
+		int range = (int) (hopeBookCnt % pagePerCnt > 0 ? Math.floor((hopeBookCnt/pagePerCnt))+1 : Math.floor((hopeBookCnt/pagePerCnt)));
+		
+		page = page > range ? range : page;
+		logger.info("range : " + range + " / page : " + page);
+		// 시작 페이지, 끝 페이지
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		
+		logger.info("start : " + start + " / end : " + end);
+		
+		ArrayList<BookDTO> list = dao.hopeBookList(start,end);
+		logger.info("hopeBookList : {}",list);
+		logger.info("hopeBookList  size : {}",list.size());
+		map.put("list", list);
+		map.put("range", range);
+		map.put("currPage", page);
+		return map;
+	}
+
+	public ModelAndView hopeBookDetail(String hopeBooksNumber) {
+		ModelAndView mav = new ModelAndView();
+		
+		HopeBookDTO dto = dao.hopeBookDetail(hopeBooksNumber);
+		logger.info("test : " + dto.getHopeBookReject());
+		logger.info("test2 : " + dto.getReject());
+		mav.addObject("dto", dto);
+		mav.setViewName("/BookManage/hopeBookDetail");
+		return mav;
+	}
+
+	public String hopeBookApprove(String hopeBooksNumber) {
+		
+		int success = dao.hopeBookApprove(hopeBooksNumber);
+		logger.info("희망도서 승인 성공 여부 : " + success);
+		
+		return "redirect:/hopeBookDetail?hopeBooksNumber="+hopeBooksNumber;
 	}
 
 }

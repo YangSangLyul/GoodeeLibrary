@@ -2,6 +2,9 @@ package com.spring.main.dto;
 
 import java.sql.Date;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("hopeBook")
 public class HopeBookDTO {
 	
 	//hopebook 테이블
@@ -13,11 +16,19 @@ public class HopeBookDTO {
 	private String writer;
 	private String publisher;
 	private String hopeReason;
+	private HopeBookRejectDTO hopeBookRejectDTO;
 	
 	//hopebookReject 테이블
 	private String reject;
 	private Date reject_date;
 	
+	
+	public HopeBookRejectDTO getHopeBookReject() {
+		return hopeBookRejectDTO;
+	}
+	public void setHopeBookReject(HopeBookRejectDTO hopeBookReject) {
+		this.hopeBookRejectDTO = hopeBookReject;
+	}
 	public int getHopeBooksNumber() {
 		return hopeBooksNumber;
 	}
