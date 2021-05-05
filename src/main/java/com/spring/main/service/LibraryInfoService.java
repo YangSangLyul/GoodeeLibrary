@@ -419,4 +419,13 @@ public class LibraryInfoService {
 		model.addAttribute("noticeList", noticeList);
 	}
 
+	public ModelAndView questionDelete(int idx) {
+		ModelAndView mav = new ModelAndView();
+		int ifFile =dao.fileCk(idx);
+		
+		
+
+		return null;
+	}
+
 }

@@ -185,5 +185,8 @@
 	 SELECT * FROM (SELECT RANK() OVER(ORDER BY to_char(REG_DATE ,'YYYYMMDDHH24MISS')DESC) AS DR,NOTICEIDX ,SUBJECT ,CONTENT ,to_char(REG_DATE ,'YYYY-MM-DD') AS reg_date  FROM NOTICE)tb1 WHERE <![CDATA[ tb1.DR <= 4 AND tb1.DR >=1 ]]>
 	</select>
 	
+	<select id="fileCk" resultType="int">
+		SELECT * FROM QUESTIONPHOTO WHERE = #{param1};
+	</select>
 	
 </mapper>

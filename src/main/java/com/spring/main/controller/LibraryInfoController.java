@@ -214,6 +214,11 @@ public class LibraryInfoController {
 		return service.editSuccess(params,session);
 	}
 	
+	@RequestMapping(value = "/questionDetail/questiondelete/{idx}", method = RequestMethod.GET)
+	public ModelAndView QuestionDelete(@PathVariable int idx ) {
+		
+		return service.questionDelete(idx);
+	}
 	
 	
 	
