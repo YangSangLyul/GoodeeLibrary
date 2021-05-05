@@ -2,6 +2,7 @@ package com.spring.main.service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.slf4j.Logger;
@@ -12,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.ReserveSeatDAO;
+import com.spring.main.dto.BookDTO;
+import com.spring.main.dto.MySeatHistoryDTO;
 import com.spring.main.dto.ReserveSeatDTO;
 
 @Service
@@ -159,6 +162,45 @@ public class reserveSeatService {
 			logger.info("예약취소 성공 여부 : "+success);
 		}
 
+		map.put("success", success);
+		
+		return map;
+	}
+
+	public HashMap<String, Object> mySeatEnterExitHistory(String loginId, int page) {
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		
+		
+		int success = 1;
+		
+		int pagePerCnt = 5;
+		int allCnt = reserveSeatDAO.historyAll(loginId); 		// 전체 게시글 수
+		
+		logger.info("이력 리스트 개수 : "+allCnt);
+		int range = (int) (allCnt % pagePerCnt > 0 ? Math.floor((allCnt/pagePerCnt))+1 : Math.floor((allCnt/pagePerCnt)));
+		
+		//만약 해당 월에 대한 책 개수가 하나도 없다면..
+		if(allCnt <= 0) {
+			success = 0;
+		}
+		
+		page = page > range ? range : page;
+		logger.info("range : " + range + " / page : " + page);
+		// 시작 페이지, 끝 페이지
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		
+		logger.info("start : " + start + " / end : " + end);
+		
+		ArrayList<MySeatHistoryDTO> history = reserveSeatDAO.mySeatEnterExitHistory(loginId,start,end);
+		
+		logger.info("현재 나의 이력 리스트 개수 : "+history.size());
+		
+		map.put("history", history);
+		map.put("range", range);
+		map.put("currPage", page);
 		map.put("success", success);
 		
 		return map;

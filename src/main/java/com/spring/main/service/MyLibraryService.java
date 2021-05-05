@@ -381,4 +381,28 @@ public class MyLibraryService {
 	}
 
 
+	public ModelAndView review_detail(HashMap<String, Object> params) {
+		ModelAndView mav = new ModelAndView();
+		
+		MyLibraryDTO Review = dao.myReviewDetail(params);
+		logger.info("리뷰 정보:{}",Review);
+		mav.addObject("ReviewDetail",Review);
+		mav.setViewName("myLib_review_detail");
+	
+		return mav;
+	}
+
+
+
+	public ModelAndView review_editForm(HashMap<String, Object> params) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("수정페이지 요청");
+		MyLibraryDTO dto = dao.review_editForm(params);
+		mav.addObject("review_info", dto);
+		mav.setViewName("myLib_review_edit");
+		
+		return mav;
+	}
+
+
 }

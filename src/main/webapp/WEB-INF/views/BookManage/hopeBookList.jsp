@@ -6,33 +6,27 @@
 <meta charset="UTF-8">
 <title>J-Query</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<link
-	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="resources/js/jquery.twbsPagination.js"
-	type="text/javascript"></script>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 <style>
-table, th, td {
-	border: 1px solid black;
-	border-collapse: collapse;
-	padding: 5px 10px;
-}
+	table, th, td{
+		border: 1px solid black;
+		border-collapse: collapse;
+		padding: 5px 5px;
+	}
+
 </style>
 </head>
 <body>
 	<div>
-		<button>답변완료</button>
-		<button>답변하기</button>
-	</div>
-	<div>
 		<table>
 			<tr>
-				<th>문의번호</th>
-				<th>제목</th>
-				<th>문의날짜</th>
-				<th>답변여부</th>
+				<th>신청번호</th>
+				<th>서명</th>
+				<th>출판사</th>
+				<th>신청회원ID</th>
+				<th>승인여부</th>
 			</tr>
 			<tbody id="list">
 				<!-- 불러온 데이터 뿌리는 영역 -->
@@ -57,7 +51,7 @@ table, th, td {
 	listCall(showPage); // 시작하자마자 이 함수를 호출
 
 	function listCall(reqPage) {
-		var reqUrl = './questionList/' + reqPage;
+		var reqUrl = './hopeBookManage/' + reqPage;
 		$.ajax({
 			url : reqUrl,
 			type : 'GET',
@@ -82,42 +76,22 @@ table, th, td {
 		});
 	}
 
-	
-		$('.ellipsis').each(function() {
-				var length = 5; //글자수
-			$(this).each(function() {
-					if ($(this).text().length >= length) {
-					$(this).text($(this).text().substr(0, length) + '...');
-				}
-
-			}); 
-		});
-		
 	function listPrint(list) {
 		var content = "";
-		var length = 10;
-		var subject = '';
+
 		if (list.length > 0) {
 			for (var i = 0; i < list.length; i++) {
 				content += "<tr>";
-				content += "<td>" + list[i].queIdx + "</td>";
-				
-				// 문자열 길이 10 넘어가면 ... 으로 처리
-				 if(list[i].subject.length > length) {
-					subject = list[i].subject.substring(0, length) + '...';
-				}  else {
-					subject = list[i].subject;
-				}
-				 
-				content += "<td class='ellipsis'><a href='#" + list[i].queIdx + "'>"+subject+"</a></td>";
-						
-				var date = new Date(list[i].reg_date);
-				content += "<td>" + date.toLocaleDateString("ko-KR") + "</td>";
-
-				if (list[i].ansStatus == 'FALSE') {
-					content += "<td>답변하기</td>";
-				} else {
-					content += "<td>답변완료</td>";
+				content += "<td>"+list[i].hopeBooksNumber+"</td>";
+				content += "<td><a href='hopeBookDetail?hopeBooksNumber="+list[i].hopeBooksNumber+"'>"+list[i].hb_bookName+"</a></td>";
+				content += "<td>"+list[i].publisher+"</td>";
+				content += "<td>"+list[i].id+"</td>";
+				if(list[i].hb_state == 'H001') {					
+					content += "<td>신청중</td>";
+				} else if(list[i].hb_state == 'H002') {					
+					content += "<td>승인</td>";
+				} else {					
+					content += "<td>거절</td>";
 				}
 				content += "</tr>";
 			}
@@ -125,6 +99,7 @@ table, th, td {
 			content = "<h2>해당 목록이 없습니다.</h2>";
 		}
 		
+
 		$("#list").empty();
 		$("#list").append(content);
 	}

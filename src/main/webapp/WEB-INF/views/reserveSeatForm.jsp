@@ -405,11 +405,11 @@
 	    $(function(){
 	        $(".timeChk").click(function(){
 	            var timeChk = new Array();
-	            var i=0;
+	            var s=0;
 	            $(".timeChk").each(function(index){
 	                if($(this).is(":checked")){
-	                	timeChk[i]=index;
-	                    i++;
+	                	timeChk[s]=index;
+	                    s++;
 	                }
 	            });
 	            if(timeChk.length != 1){
@@ -450,6 +450,14 @@
 		}
 		
 		function reserveList(){
+			
+	        var currentDate = new Date();                                     // 현재시간
+	        var calendar = currentDate.getFullYear() + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate() // 현재 날짜
+	        var amPm = 'AM'; // 초기값 AM
+	        var currentHours = addZeros(currentDate.getHours(),2); 
+	        var currentMinute = addZeros(currentDate.getMinutes() ,2);
+	        var currentSeconds =  addZeros(currentDate.getSeconds(),2);
+			
 			var tbl = $("#tblMain tr").length;
 			var i = 1;
 			var j = 0;
@@ -481,13 +489,19 @@
 			<%-- <c:if test="${reserve.seatNumber != seat.seatNumber || (intStart > '09' || intEnd < '09')}"> --%>
 			console.log(list1.length);
 			$('#tblMain tr').each(function(){
+				
+				//좌석 예약 리스트를 가져올때 오름차순으로 안하면 배열 인덱스 순서가 뒤엉킴(주의)
+					if(list1[r] != i){
+						console.log(i,'번 좌석에는 예약과 사용중인 시간대가 없습니다!');
+						chkReserveTime(i);
+						i++;
+					return;
+				}
+				
 				j = 0;
 				$(this).find('td').each(function(){
 					
-					//좌석 예약 리스트를 가져올때 오름차순으로 안하면 배열 인덱스 순서가 뒤엉킴(주의)
- 					if(list1[r] != i){
-						return;
-					}
+
  					
 					//좌석 예약한 사람이 여러명일 경우 대비
 					if(j == 8){
@@ -495,11 +509,16 @@
 						r = r + 4;
 					}
 					
+					var tmp = 0;
+					
+					console.log('시간',parseInt(list1[r+1]));
+					
 					
 					//9시
 					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) > 9 || parseInt(list1[r+2]) < 9)){
 						var temp = 0;
 						console.log('예약시간 IN');
+						console.log($('tr:eq('+i+')>td:eq('+temp+')').html());
 						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
 						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
 					}
@@ -510,8 +529,8 @@
 						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','red').css('text-align','center');
 						$('tr:eq('+i+')>td:eq('+temp+')').html('사용중');
 					}
+
 					
-					//10시
 					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) > 10 || parseInt(list1[r+2]) < 10)){
 						var temp = 1;
 						console.log('예약시간 IN');
@@ -525,7 +544,8 @@
 						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','red').css('text-align','center');
 						$('tr:eq('+i+')>td:eq('+temp+')').html('사용중');
 					}
-					
+
+
 					//11시
 					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) > 11 || parseInt(list1[r+2]) < 11)){
 						var temp = 2;
@@ -541,6 +561,7 @@
 						$('tr:eq('+i+')>td:eq('+temp+')').html('사용중');
 					}
 					
+
 					//12시
 					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) > 12 || parseInt(list1[r+2]) < 12)){
 						var temp = 3;
@@ -560,7 +581,8 @@
 					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) > 13 || parseInt(list1[r+2]) < 13)){
 						var temp = 4;
 						console.log('예약시간 IN');
-						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
+						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center').css('color','black');
+						
 						$('tr:eq('+i+')>td:eq('+temp+')').html('예약중');
 					}
 					
@@ -570,7 +592,10 @@
 						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','red').css('text-align','center');
 						$('tr:eq('+i+')>td:eq('+temp+')').html('사용중');
 					}
+
 					
+					
+					tmp = 5;
 					//14시
 					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) > 14 || parseInt(list1[r+2]) < 14)){
 						var temp = 5;
@@ -586,6 +611,7 @@
 						$('tr:eq('+i+')>td:eq('+temp+')').html('사용중');
 					}
 					
+					tmp = 6;
 					//15시
 					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) > 15 || parseInt(list1[r+2]) < 15)){
 						var temp = 6;
@@ -601,6 +627,7 @@
 						$('tr:eq('+i+')>td:eq('+temp+')').html('사용중');
 					}
 					
+					tmp = 7;
 					//16시
 					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) > 16 || parseInt(list1[r+2]) < 16)){
 						var temp = 7;
@@ -616,8 +643,9 @@
 						$('tr:eq('+i+')>td:eq('+temp+')').html('사용중');
 					}
 					
+					tmp = 8;
 					//17시
-					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) > 17 || parseInt(list1[r+2]) < 17)){
+					if(list1[r] == i && list1[r+3] == 'S002' && !(parseInt(list1[r+1]) >  17 || parseInt(list1[r+2]) < 17)){
 						var temp = 8;
 						console.log('예약시간 IN');
 						$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','#fff2ccff').css('text-align','center');
@@ -632,19 +660,92 @@
 					}
 					
 					
-					
-					
 					console.log(i+"/"+j);
 					j++;
 					
 				});
-				++i;
+				chkReserveTime(i);
+				i++;
 			});
 			
 			
 			console.log(tbl);
 		}
 		reserveList();
+		
+		function chkReserveTime(i){
+			
+	        var currentDate = new Date();                                     // 현재시간
+	        var calendar = currentDate.getFullYear() + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate() // 현재 날짜
+	        var amPm = 'AM'; // 초기값 AM
+	        var currentHours = currentDate.getHours(); 
+	        var currentMinute = addZeros(currentDate.getMinutes() ,2);
+	        var currentSeconds =  addZeros(currentDate.getSeconds(),2);
+			
+	        if($('tr:eq('+i+')>td:eq('+0+')').html() == '예약중'){
+	        	console.log('현재 예약중이에요');
+	        }
+			
+			
+			if(($('tr:eq('+i+')>td:eq('+0+')').text() != '예약중' && $('tr:eq('+i+')>td:eq('+0+')').text() != '사용중') && currentHours >= 9){
+				var temp = 0;
+				console.log($('tr:eq('+i+')>td:eq('+0+')').text());
+				$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','black').css('text-align','center').css('color','white');
+				$('tr:eq('+i+')>td:eq('+temp+')').html('예약불가');
+			}
+
+			
+				
+ 			if(($('tr:eq('+i+')>td:eq('+1+')').text() != '사용중' && $('tr:eq('+i+')>td:eq('+1+')').text() != '예약중') && currentHours >= 10){
+					var temp = 1;
+					$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','black').css('text-align','center').css('color','white');
+					$('tr:eq('+i+')>td:eq('+temp+')').html('예약불가');
+				}
+				
+			if(($('tr:eq('+i+')>td:eq('+2+')').text() != '사용중' && $('tr:eq('+i+')>td:eq('+2+')').text() != '예약중') && currentHours >= 11){
+					var temp = 2;
+					$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','black').css('text-align','center').css('color','white');
+					$('tr:eq('+i+')>td:eq('+temp+')').html('예약불가');
+				}
+				
+			if(($('tr:eq('+i+')>td:eq('+3+')').text() != '사용중' && $('tr:eq('+i+')>td:eq('+3+')').text() != '예약중') && currentHours >= 12){
+					var temp = 3;
+					$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','black').css('text-align','center').css('color','white');
+					$('tr:eq('+i+')>td:eq('+temp+')').html('예약불가');
+				}
+				
+			if(($('tr:eq('+i+')>td:eq('+4+')').text() != '사용중' && $('tr:eq('+i+')>td:eq('+4+')').text() != '예약중') && currentHours >= 13){
+				var temp = 4;
+				$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','black').css('text-align','center').css('color','white');
+				$('tr:eq('+i+')>td:eq('+temp+')').html('예약불가');
+			}
+				
+			if(($('tr:eq('+i+')>td:eq('+5+')').text() != '사용중' && $('tr:eq('+i+')>td:eq('+5+')').text() != '예약중') && currentHours >= 14){
+				var temp = 5;
+				$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','black').css('text-align','center').css('color','white');
+				$('tr:eq('+i+')>td:eq('+temp+')').html('예약불가');
+			}
+				
+			if(($('tr:eq('+i+')>td:eq('+6+')').text() != '사용중' && $('tr:eq('+i+')>td:eq('+6+')').text() != '예약중') && currentHours >= 15){
+				var temp = 6;
+				$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','black').css('text-align','center').css('color','white');
+				$('tr:eq('+i+')>td:eq('+temp+')').html('예약불가');
+			}
+			if(($('tr:eq('+i+')>td:eq('+7+')').text() != '사용중' && $('tr:eq('+i+')>td:eq('+7+')').text() != '예약중') && currentHours >= 16){
+				var temp = 7;
+				$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','black').css('text-align','center').css('color','white');
+				$('tr:eq('+i+')>td:eq('+temp+')').html('예약불가');
+			}
+			if(($('tr:eq('+i+')>td:eq('+8+')').text() != '사용중' && $('tr:eq('+i+')>td:eq('+8+')').text() != '예약중') && currentHours >= 17){
+				var temp = 8;
+				$('tr:eq('+i+')>td:eq('+temp+')').css('background-color','black').css('text-align','center').css('color','white');
+				$('tr:eq('+i+')>td:eq('+temp+')').html('예약불가');
+			}
+				
+			
+				
+		}
+		
 	    
 
 

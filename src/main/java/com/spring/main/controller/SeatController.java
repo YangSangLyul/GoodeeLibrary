@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -86,5 +87,27 @@ public class SeatController {
 		
 		return reserve.reserveCancelReq(loginId);
 	}
+	
+	@RequestMapping(value = "/seatEnterExitHistory", method = RequestMethod.GET)
+	public String seatEnterExitHistory(HttpSession session) {
+		
+		String loginId = (String) session.getAttribute("loginId");
+			
+		logger.info("내 입/퇴실 히스토리 요청 : "+loginId);
+		
+		return "/seatEnterExitHistory";
+	}
+	
+	
+	@RequestMapping(value = "/seatEnterExitHistoryReq/{page}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object>seatEnterExitHistoryReq(HttpSession session, @PathVariable int page) {
+		
+		String loginId = (String) session.getAttribute("loginId");
+		
+		logger.info("내 입/퇴실 히스토리  리스트 요청 : "+loginId);
+		
+		return reserve.mySeatEnterExitHistory(loginId,page);
+	}
+	
 	
 }
