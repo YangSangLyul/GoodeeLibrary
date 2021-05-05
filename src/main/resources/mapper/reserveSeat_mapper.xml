@@ -64,5 +64,19 @@
 		SELECT count(*) FROM useseat WHERE id = #{param1}
 	</select>
 	
+	<update id="reserveTimeChk">
+		UPDATE reserveseat SET seatstatus = 'S001' 
+		<where>
+				TO_CHAR(reservestart,'HH24') IN (#{param1}) AND seatstatus = 'S002' 
+		</where>
+	</update>
+	
+	<update id="exitTimeChk">
+		UPDATE reserveseat SET seatstatus = 'S001' 
+		<where>
+				TO_CHAR(reserveend,'HH24') IN (#{param1}) AND seatstatus = 'S003' 
+		</where>
+	</update>
+	
 	
 </mapper>

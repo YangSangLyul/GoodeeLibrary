@@ -178,6 +178,8 @@
 			var start = new Date(list[i].useStart);
 			var enter = new Date(list[i].useEnd);
 			
+			
+			
 			var oneAmPm = 'AM'; // 초기값 AM
 			var twoAmPm = 'AM';
 			

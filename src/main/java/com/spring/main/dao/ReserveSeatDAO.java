@@ -33,4 +33,8 @@ public interface ReserveSeatDAO {
 
 	int historyAll(String loginId);
 
+	int reserveTimeChk(String string);
+
+	int exitTimeChk(String string);
+
 }
