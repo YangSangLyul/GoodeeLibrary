@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.spring.main.dto.AdminDTO;
+import com.spring.main.dto.BookDTO;
 
 public interface AdminDAO {
 
@@ -34,6 +35,10 @@ public interface AdminDAO {
 	int allCount();
 
 	ArrayList<AdminDTO> adminNoti();
+
+	int questionCnt();
+
+	ArrayList<BookDTO> questionList(int start, int end);
 
 
 }

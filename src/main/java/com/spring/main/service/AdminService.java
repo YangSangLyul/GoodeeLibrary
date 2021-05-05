@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.AdminDAO;
 import com.spring.main.dto.AdminDTO;
+import com.spring.main.dto.BookDTO;
 
 @Service
 public class AdminService {
@@ -154,6 +155,28 @@ public class AdminService {
 		attr.addFlashAttribute("msg", msg);
 		mav.setViewName("redirect:/BlindList");
 		return mav;
+	}
+
+	public HashMap<String, Object> questionList(int page) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int pagePerCnt = 10;
+		int questionCnt = dao.questionCnt(); 		// 전체 게시글 수
+		int range = (int) (questionCnt % pagePerCnt > 0 ? Math.floor((questionCnt/pagePerCnt))+1 : Math.floor((questionCnt/pagePerCnt)));
+		
+		page = page > range ? range : page;
+		logger.info("range : " + range + " / page : " + page);
+		// 시작 페이지, 끝 페이지
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		
+		logger.info("start : " + start + " / end : " + end);
+		
+		ArrayList<BookDTO> list = dao.questionList(start,end);
+
+		map.put("list", list);
+		map.put("range", range);
+		map.put("currPage", page);
+		return map;
 	}
 
 	

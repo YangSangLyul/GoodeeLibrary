@@ -157,4 +157,16 @@ public class AdminController {
 	}
 	
 	
+	//문의내역 리스트 페이지 이동
+	@RequestMapping(value = "/questionList", method = RequestMethod.GET)
+	public String questionList() {
+		return "/QuestionManage/QuestionList";
+	}
+	
+	//문의내역 리스트
+	@RequestMapping(value = "/questionList/{page}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> questionList(@PathVariable int page) {
+		return service.questionList(page);
+	}
+	
 }
