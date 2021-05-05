@@ -70,7 +70,7 @@ public interface MyLibraryDAO {
 
 	MyLibraryDTO myReviewDetail(HashMap<String, Object> params);
 
-	MyLibraryDTO review_editForm(HashMap<String, Object> params);
+	int review_edit(HashMap<String, Object> params);
 
 
 	//HashMap<String, Object> question_detail(String idx);

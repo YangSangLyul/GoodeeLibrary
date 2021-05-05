@@ -70,7 +70,7 @@
         <form action="question_edit" method="POST">
             <table>
             	<input type="hidden" name="idx" value="${question_info.queidx}"/>
-            	<input type="hidden" name="idx" value="${question_info.ansstatus}"/>
+            	<input type="hidden" name="answer" value="${question_info.ansstatus}"/>
                 <tr>
                     <td>
                         제목
