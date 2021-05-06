@@ -43,6 +43,23 @@ public class MyLibraryController {
 		  logger.info("나의 리뷰 내역 이동"); 
 		  return mav; 
 	  }
+	 
+	  @RequestMapping(value = "/review_WriteForm") 
+	  public ModelAndView review_write(@RequestParam HashMap<String, String> params){ 
+		  logger.info("리뷰 작성하기"); 
+		  logger.info("params:{}",params); 
+		  return service.review_writeForm(params); 
+	  }
+	  
+	
+	  @RequestMapping(value = "/review_write") 
+	  public ModelAndView review_write(@RequestParam HashMap<String, String> params,HttpSession session){ 
+		  String loginId = (String) session.getAttribute("loginId");
+		  logger.info("리뷰 작성하기"); 
+		  logger.info("params:{}",params); 
+		  return service.review_write(params,loginId); 
+	}
+	 
 	  
 	  @RequestMapping(value = "/myReview_detail")
 		public ModelAndView myReview_detail(@RequestParam HashMap<String, Object> params) {
