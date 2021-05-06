@@ -5,6 +5,11 @@
 >
 
 <mapper namespace="com.spring.main.dao.LibraryInfoDAO">
+
+	<select id="noticePopup" resultType="com.spring.main.dto.LibraryInfoDTO">
+		SELECT * FROM notice WHERE noticestatus = 'true'
+	</select>
+
 	<select id="list" resultType="com.spring.main.dto.LibraryInfoDTO">
 		SELECT  NOTICEIDX ,ID ,SUBJECT ,CONTENT ,REG_DATE ,NOTICESTATUS ,rnum
 		FROM(

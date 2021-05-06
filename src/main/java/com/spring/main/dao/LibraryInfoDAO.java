@@ -57,6 +57,8 @@ public interface LibraryInfoDAO {
 	ArrayList<LibraryInfoDTO> fileCk(int idx);
 
 	int questionDelete(int idx);
+
+	LibraryInfoDTO noticePopup();
 	 
 	
 

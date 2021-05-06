@@ -68,7 +68,6 @@
 		            <button onclick="location.href='adminNotice'">닫기</button>
 		        </div>
     		</form>
-	        <br/>
     	</div>
     </body>
     <script>

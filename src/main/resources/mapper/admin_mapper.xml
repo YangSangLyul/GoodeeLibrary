@@ -112,6 +112,11 @@
 		DELETE FROM notice WHERE noticeidx=#{param1}
 	</delete>
 	
+	<update id="noticeUpdate" parameterType="HashMap">
+		UPDATE notice SET subject=#{subject}, content=#{content}, noticestatus=#{popup} 
+			WHERE noticeidx=#{idx}
+	</update>
+	
 	<select id="questionCnt" resultType="int">
 		SELECT COUNT(*) FROM question
 	</select>

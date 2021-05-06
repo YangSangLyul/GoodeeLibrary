@@ -29,15 +29,20 @@
 			SELECT reviewIdx, id FROM review WHERE reviewIdx=#{param1}
 	</select>
 	
-
  	<insert id="reviewReport" parameterType="review">
 			INSERT INTO reviewreport(reportIdx, reviewIdx, reportId, reportReason,id) 
-			VALUES (reportIdx_seq.NEXTVAL, #{reviewIdx}, #{reportId}, #{reportReason},'loginId')
+			VALUES (reportIdx_seq.NEXTVAL, #{reviewIdx}, #{reportId}, #{reportReason},#{id})
 	</insert> 
+	
+	<select id="overReport" resultType="String">
+			SELECT id FROM reviewreport WHERE id=#{id} AND reviewIdx=#{reviewIdx}
+	</select>
 
  	<update id="reportCntUp">
 			UPDATE member SET reviewreportcnt = reviewreportcnt+1 
-			WHERE id = (SELECT reportid FROM reviewreport WHERE reviewIdx=#{reviewIdx})
+			WHERE id in (SELECT reportid FROM reviewreport WHERE reviewIdx=#{reviewIdx})
 	</update> 
+	
+
 		
 </mapper>

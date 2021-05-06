@@ -79,11 +79,14 @@
             </tr>
 			<tbody id="list">
 				<c:forEach items="${notification}" var="notifi">
+					<input type="hidden" id="reserveBookIdx" value="${notifi.reserveBookIdx}"/>
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<c:if test="${notifi.noType == 'N005'}">
+						<td>도서대출예약여부</td>
+						</c:if>
+						<td>${notifi.content}</td>
+						<td>${notifi.read_date}</td>
+						<td><button onclick="rental()">대여하기</button></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -91,6 +94,16 @@
 		</div>
     </body>
     <script>
+    
+    function rental(){
+    	
+    	var idx = $("#reserveBookIdx").val();
+    	
+    	console.log('대여 요청');
+    	
+    	location.href='rentalBook?reserveBookIdx='+idx;
+    }
+    
 	var showPage = 1;
 	
 	//listCall(showPage);

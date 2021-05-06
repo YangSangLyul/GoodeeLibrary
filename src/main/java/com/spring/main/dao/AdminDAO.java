@@ -48,5 +48,7 @@ public interface AdminDAO {
 
 	int noticeDel(int idx);
 
+	int noticeUpdate(HashMap<String, Object> params);
+
 
 }

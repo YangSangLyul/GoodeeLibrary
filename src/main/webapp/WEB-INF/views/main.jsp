@@ -123,6 +123,18 @@
             a:hover {
                 color: gray;
             }
+            #popup{
+            	position: absolute;
+                width: 400px;
+                height: 400px;
+                background-color: white;
+                top:20%;
+                left:35%;
+                border: 1px solid black;
+                z-index: 5; 
+                text-align: center;
+                display: block;
+            }
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         
@@ -130,9 +142,20 @@
     <body>
         <!-- 헤더 영역 -->
         <jsp:include page="header.jsp"/>
-
-<%--    <iframe src="header.jsp" width="100%" frameborder="0" scrolling="no">
-        </iframe> --%>
+        <!-- 팝업 -->
+		<div id="popup">
+			<c:if test="${pop.noticestatus eq 'true'}">
+				<h2 style="font-size: 40px;">${pop.subject}</h2>
+				<br/>
+				<h4 style="font-size: 20px;">${pop.content}</h4>
+				<div style="font-size: 20px; margin-top: 130px;">
+				<hr/>
+					오늘 하루 열지 않기<input type="checkbox" style="width: 20px; height: 20px;" id="todayChk" name="todayChk" >
+					<a href="#" style="color: blue; margin-left: 100px; font-size: 25px;" id="closeBtn" >X</a>
+				</div>
+			</c:if>
+		</div>
+		
         <!-- 검색창 영역-->
         <form id="searchForm" action="bookSearchReq" method="POST">
         <div id="searchBox">
@@ -183,6 +206,17 @@
 
     </body>
     <script>
+    
+    $("#closeBtn").click(function(){
+    	if($('input:checkbox[name=todayChk]')[0].checked){
+    		console.log("체크");
+    		$("#popup").css("display","none");
+    	}else{
+    		console.log("체크안됨");
+    		$("#popup").css("display","none");
+    	}
+    });
+    
     var msg = "${msg}";
     if(msg!=""){
     	alert(msg);

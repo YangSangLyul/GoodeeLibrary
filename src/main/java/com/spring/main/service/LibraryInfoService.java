@@ -471,4 +471,9 @@ public class LibraryInfoService {
 		return mav;
 	}
 
+	public LibraryInfoDTO noticePopup() {
+		logger.info("팝업 유무 쿼리 요청");
+		return dao.noticePopup();
+	}
+
 }

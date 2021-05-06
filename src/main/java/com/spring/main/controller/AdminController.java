@@ -193,6 +193,26 @@ public class AdminController {
 		return service.noticeDel(idx, attr);
 	}
 	
+	//관리자 공지사항 수정 페이지
+	@RequestMapping(value = "/noticeEditForm", method = RequestMethod.GET)
+	public String noticeEditForm(Model model, @RequestParam int idx) {
+		logger.info("공지사항 수정: "+idx);
+		String page = "redirect:/noticeDetail";
+		LibraryInfoDTO dto = service.noticeDetail(idx);
+		if(dto != null) {
+			page = "adminNotice_updateForm";
+			model.addAttribute("detail",dto);
+		}
+		return page;
+	}
+	
+	//관리자 공지사항 글 수정
+	@RequestMapping(value = "/noticeUpdate", method = RequestMethod.POST)
+	public ModelAndView noticeUpdate(@RequestParam HashMap<String, Object> params, RedirectAttributes attr) {
+		logger.info("공지사항 수정: "+params);
+		return service.noticeUpdate(params,attr);
+	}
+	
 	//문의내역 리스트 페이지 이동
 	@RequestMapping(value = "/questionList", method = RequestMethod.GET)
 	public String questionList() {
