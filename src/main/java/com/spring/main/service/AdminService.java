@@ -172,6 +172,7 @@ public class AdminService {
 		dao.noticeWrite(params);
 		mav.setViewName("redirect:/adminNotice");
 		return mav;
+	}
 		
 	public HashMap<String, Object> questionList(int page) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
