@@ -80,7 +80,7 @@ public class LibrarySearchController {
 		return "booksSearch";
 	}
 	
-	@RequestMapping(value = "/bookSearchReq", method = RequestMethod.POST)
+	@RequestMapping(value = "/bookSearchReq")
 	public ModelAndView search(@RequestParam HashMap<String, String> params) {
 		
 		logger.info("검색 대상 : {} , 검색 종류 : {}", params);
