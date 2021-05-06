@@ -3,6 +3,8 @@ package com.spring.main.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.ui.Model;
 
 import com.spring.main.dto.BookDTO;
@@ -73,6 +75,10 @@ public interface MyLibraryDAO {
 	int review_edit(HashMap<String, Object> params);
 
 	int review_delete(String reviewIdx);
+
+	MyLibraryDTO myReviewWriteForm(HashMap<String, String> params);
+
+	int review_write(HashMap<String, String> params);
 
 
 	//HashMap<String, Object> question_detail(String idx);

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String loginId = (String) request.getSession().getAttribute("loginId");
+%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -103,6 +106,7 @@
 			<div class="review_content">
 				<table id="r_table">
 					<div class="re_date">작성날짜 : ${dto.reg_date}</div>
+					<input type="hidden" name=""/>
  					<tr>
 						<td rowspan="3" id="b_info">
 							<a href="#">
@@ -121,9 +125,11 @@
 							<div class="re_img">🤍<a href="reviewLike">🧡</a></div>
 							<div class="re_cnt">추천수 ${dto.cnt}</div>
 						</td>
+						<c:if test="${sessionScope.loginId ne null}">
 						<td>		
 							<div><input type="button" id="re_report" onclick="reviewReport()" value="신고"></div>
 						</td>
+						</c:if>
 					</tr>
 					<tr>					
 						<td>

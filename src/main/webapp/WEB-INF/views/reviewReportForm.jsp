@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	String loginId = (String) request.getSession().getAttribute("loginId");
+%>
 <html>
    <head>
       <meta charset="UTF-8">
@@ -21,7 +24,7 @@
 					
 				}
 
-
+update
 
       </style>
    </head>
@@ -31,6 +34,7 @@
 				<div class="report_table">		
 						<input type="hidden" id="reviewIdx" name="reviewIdx" value="${dto.reviewIdx}" /> 
 						<input type="hidden" id="reportId" name="reportId" value="${dto.id}" />
+						<input type="hidden" id="id" name="id" value="${sessionScope.loginId}" />
 				</div>
 				<div class="report_table">		
 						<label>신고 사유 </label>
@@ -83,8 +87,15 @@
 			}
 			,dataType:'text'
 			,success:function(data){
-				alert('해당 리뷰가 신고되었습니다.');
-				window.close();
+				console.log(data);
+				if(data.success){
+					alert('해당 리뷰가 신고되었습니다.');
+					window.close();
+				}else{
+					alert('이미 신고한 리뷰이거나 신고할수 없는 리뷰ㄴ입니다.');
+				}
+				
+				
 			}
 		});
 		}

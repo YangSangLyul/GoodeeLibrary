@@ -153,4 +153,14 @@
 	<delete id="review_delete">
 		DELETE FROM review WHERE reviewIdx=#{param1}
 	</delete>
+	
+	<select id="myReviewWriteForm" parameterType="hashMap" resultType="myLibrary">
+		SELECT b.bookIdx,b.bookname,b.bookImg,b.writer,b.publisher
+		FROM book b WHERE b.bookidx = #{bookIdx}
+		</select>
+	
+	<insert id="review_write" parameterType="hashMap">
+		INSERT INTO REVIEW(reviewIdx,content,id,blind_status,bookIdx) VALUES(review_seq.NEXTVAL,#{content},#{id},#{blind_status},#{bookIdx})
+	</insert> 
+	
 </mapper>
