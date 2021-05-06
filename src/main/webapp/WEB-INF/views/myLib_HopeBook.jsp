@@ -169,8 +169,9 @@ function listPrint(hope_list){
 		}else if(hope_list[i].HB_STATE == 'H003'){
 			console.log(hope_list[i].REJECT);
 			var reject = hope_list[i].REJECT;
-			content += "<td><input type='button' value='거부' onclick='reason()'/></td>"
-			content += "<input type='hidden' name='reject' value='${hope_list[i].REJECT}'/>"	
+			console.log(reject);
+			content += "<td><input type='button' value='거부' onclick='reason(this)'/>";
+			content += "<input type='hidden' id='reject' name='reject' value='"+reject+"'/></td>"	
 		}
 		content += "</tr>"
 
@@ -179,13 +180,18 @@ function listPrint(hope_list){
 
 	  }
 }
-function reason(){
+function reason(aaa){
 	console.log("버튼 클릭");
-	console.log(hope_list);
-	console.log(hope_list.reject);
 	console.log("거부이유");
+	console.log(aaa);
+	console.log($("#reject").val());
+	var parent = $(aaa).parent();
+	var childValue = $(parent.children()[1]).attr("value")
+	console.log(parent);
+	console.log('요소 값 가져오기 : ',childValue);
 	
-	alert("신청거부되었습니다.");
+	
+	alert("거부사유 : "+childValue);
 }	
 </script>
 </html>
