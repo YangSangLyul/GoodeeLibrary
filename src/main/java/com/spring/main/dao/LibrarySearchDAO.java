@@ -21,4 +21,6 @@ public interface  LibrarySearchDAO {
 
 	Integer reserveChk(String bookIdx);
 
+	int reserveChkId(String bookIdx, String id);
+
 }

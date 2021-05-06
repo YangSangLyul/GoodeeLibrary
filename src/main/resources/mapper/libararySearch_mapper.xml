@@ -8,10 +8,14 @@
 	<select id="reserveChk" resultType="int">
 		SELECT COUNT(bookidx) FROM reservebook WHERE bookidx = #{param1} AND bookstate = 'R001'
 	</select>
+	
+	<select id="reserveChkId" resultType="int">
+		SELECT COUNT(bookidx) FROM reservebook WHERE bookidx = #{param1} AND id = #{param2}
+	</select>
 
 	<insert id="reserveBook">
 		INSERT INTO reserveBook(reserveBookIdx,bookIdx,id)
-			VALUES(reserveBookIdx_seq.NEXTVAL,#{booksIdx},#{id})
+			VALUES(reserveBookIdx_seq.NEXTVAL,#{bookIdx},#{id})
 	</insert>
 	
 	<delete id="reserveBookCancel">

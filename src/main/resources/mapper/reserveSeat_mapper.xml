@@ -36,10 +36,23 @@
 		SELECT reservenumber FROM reserveseat WHERE id=#{param1} AND seatstatus = 'S003'
 	</select>
 	
+	<select id="mySeatUseEnd">
+		SELECT reserveend FROM reserveseat WHERE id=#{param1} AND seatstatus = 'S003'
+	</select>
+	
 	<insert id="mySeatEnter">
 		INSERT INTO useseat(reservenumber,usestart,id)
 		VALUES(#{param2},SYSDATE,#{param1})
 	</insert>
+	
+	<update id="autoMySeatExit">
+		UPDATE useseat SET useend = #{param3}
+		WHERE id = #{param1} AND rservenumber = #{param2}
+	</update>
+	
+	<select id="mySeatEnd">
+		SELECT reserveend + (interval '1' hour) hour2 FROM reserveseat WHERE id=#{param1} AND seatstatus = 'S003'
+	</select>
 	
 	<update id="mySeatExit">
 		UPDATE useseat SET useend = SYSDATE
@@ -63,6 +76,20 @@
 	<select id="historyAll" resultType="int">
 		SELECT count(*) FROM useseat WHERE id = #{param1}
 	</select>
+	
+	<update id="reserveTimeChk">
+		UPDATE reserveseat SET seatstatus = 'S001' 
+		<where>
+				TO_CHAR(reservestart,'HH24') IN (#{param1}) AND seatstatus = 'S002' 
+		</where>
+	</update>
+	
+	<update id="exitTimeChk">
+		UPDATE reserveseat SET seatstatus = 'S001' 
+		<where>
+				TO_CHAR(reserveend,'HH24') IN (#{param1}) AND seatstatus = 'S003' 
+		</where>
+	</update>
 	
 	
 </mapper>
