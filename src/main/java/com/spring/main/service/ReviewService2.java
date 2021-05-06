@@ -60,14 +60,26 @@ public class ReviewService2 { //리뷰 모아보기용
 	@Transactional
 	public HashMap<String, Object> reviewReport(ReviewDTO dto, String loginId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		int success = dao.reviewReport(dto);
-		map.put("success", success);
-		if(success>0) {
-			int reviewIdx = dto.getReviewIdx();
-			dao.reportCntUp(reviewIdx);
+		
+		dto.setId(loginId);
+		String id = dto.getId();
+		logger.info("dto id 확인 : "+id);
+	
+		int reviewIdx = dto.getReviewIdx();
+		int success;
+		
+		if(dao.overReport(reviewIdx)!=null) {
+			success = 0;
+		}else {
+			success = dao.reviewReport(dto);
+			if(success>0) {
+				dao.reportCntUp(reviewIdx);
+			}	
 		}
+		map.put("success", success);
 		logger.info("신고성공여부: "+success);
 		return map;
 	}
+	
 
 }

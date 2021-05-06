@@ -79,8 +79,14 @@ public class ReviewController2 { // 리뷰모아보기용 (추후 합칠예정)
 			 String loginId = (String) session.getAttribute("loginId");
 			 logger.info("신고할 리뷰 정보: "+dto.getReviewIdx()+"/"+dto.getReportId()+"/"+dto.getReportReason()+" / "+"신고자 :"+loginId); 
 			 return service.reviewReport(dto,loginId);
-
 		}	
+		  
+		  @RequestMapping(value = "/clickLike", method = RequestMethod.POST) 
+		  public @ResponseBody HashMap<String, Object> clickLike(HashMap<String, Object> map,HttpSession session){
+			logger.info("리뷰 추천 요청");
+			 return null;
+		}	
+		  
 
 
 }
