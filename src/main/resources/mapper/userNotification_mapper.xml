@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.spring.main.dao.UserNotificatioDAO">
+
+	<select id="userNotificationList" resultType="userNotification">
+		SELECT * FROM notification WHERE (id=#{param1} AND mem_type='회원')
+		AND readstatus = 'FALSE' AND notype = 'N005'
+	</select>
+	
+		
+</mapper>

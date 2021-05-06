@@ -76,6 +76,10 @@
         		margin-left: 10%;
         		margin-top: 3%;
         	}
+        	#btn_rv{
+        		background-color: #f3f3f3ff;
+        		margin-left:40px;
+        	}
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
@@ -125,6 +129,7 @@
                 저자명 : ${books.writer}<br/>
                 출판사 : ${books.publisher}<br/>
                 등록번호 : ${books.bookIdx}
+            <button id="btn_rv">리뷰작성하기</button>
             </div>
             <hr/>
         </div>

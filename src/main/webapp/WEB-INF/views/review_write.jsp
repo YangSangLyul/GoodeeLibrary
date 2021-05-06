@@ -89,10 +89,6 @@
 		border: 1px solid lightgray;
 		margin-left: 230px;
 	}
-	.text{
-		width: 550px;
-    	height: 250px;
-	}
 </style>
 </head>
 <body>
@@ -103,9 +99,7 @@
 			<h3 id="review">${loginId}의 리뷰 상세 내역</h3>
 		</div>
     <div class="review_content">
-    <form action="review_edit" method="POST">
-    <input type="hidden" name="reviewIdx" value="${ReviewDetail.reviewIdx}"/>
-    <table id="r_table">
+				<table id="r_table">
             <div class="re_date">작성날짜 : ${ReviewDetail.reg_date}</div>
  					<tr>
 						<td rowspan="3" id="b_info">
@@ -118,16 +112,21 @@
 							<div><b>출판사</b> ${ReviewDetail.publisher}</div>	
 						</td>
 						<td colspan="2" id="re_content">
-								<input class="text" type="text" name="content" value="${ReviewDetail.content}"/>
+								<div>${ReviewDetail.content}</div>	
 						</td>
+					<tr>
+						<td id="re_comm">
+							<div class="re_img">🤍<a href="reviewLike">🧡</a></div>
+							<div class="re_cnt">추천수 ${ReviewDetail.cnt}</div>
+						</td>
+					</tr>
 					<tr>					
 						<td rowspan="2">
-							<input type="button" class="re_btn" id="save" value="저장">
-							<input type="button" class="re_btn" onclick="location.href='./myReview_detail?reviewIdx=${ReviewDetail.reviewIdx}'" value="취소">
+							<input type="button" class="re_btn" onclick="location.href='./ReviewWrite?bookIdx=${bookIdx}'" value="저장">
+							<input type="button" class="re_btn" onclick="location.href='./MyLibrary'" value="취소">
 						</td>
 					</tr> 
 				</table>
-				</form>
 			</div>
 	</div>
 </body>
@@ -139,9 +138,5 @@ if(msg!=""){
 	alert(msg);
 }
 
-$("#save").click(function(){
-	//$('#content').val($('#editable').html());
-	$('form').submit();
-});
 </script>
 </html>

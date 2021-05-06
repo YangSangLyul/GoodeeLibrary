@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dto.AdminDTO;
+import com.spring.main.dto.LibraryInfoDTO;
 import com.spring.main.service.AdminService;
 
 @Controller
@@ -25,6 +26,13 @@ public class AdminController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired AdminService service;
+	
+	//관리자 메인 - 알림리스트
+	@RequestMapping(value = "/adminService", method = RequestMethod.GET)
+	public ModelAndView adminNoti() {
+		logger.info("관리자 메인 요청");
+		return service.adminNoti();
+	}
 	
 	//이 달의 리뷰왕 리스트 
 	@RequestMapping(value = "/ReviewKing", method = RequestMethod.GET)
@@ -97,16 +105,6 @@ public class AdminController {
 		return service.BlindList(pagePerCnt, page);
 	}
 	
-	/*
-	 * //신고 상세보기
-	 * 
-	 * @RequestMapping(value = "/reportDetail", method = RequestMethod.GET) public
-	 * String reportDetail(Model model, @RequestParam int idx) {
-	 * logger.info("신고 상세보기 할 idx: "+idx); String page = "redirect:/ReviewKing";
-	 * AdminDTO dto = service.reportDetail(idx); if(dto != null) { page =
-	 * "adminReport_detail"; model.addAttribute("detail",dto); } return page; }
-	 */
-	
 	//신고 상세보기
 	@RequestMapping(value = "/reportDetail/{idx}", method = RequestMethod.GET)
 	public String blindDetail(Model model, @PathVariable int idx) {
@@ -150,6 +148,61 @@ public class AdminController {
 	public ModelAndView blindRemove(@RequestParam int blindIdx, RedirectAttributes attr) {
 		logger.info("해제할 블라인드 번호: "+blindIdx);
 		return service.blindRemove(blindIdx,attr);
+	}
+	
+	//관리자 공지사항
+	@RequestMapping(value = "/adminNotice", method = RequestMethod.GET)
+	public ModelAndView adminNotice() {
+		logger.info("관리자 공지사항");
+		return service.adminNotice();
+	}
+	
+	//관리자 공지사항 글쓰기 폼
+	@RequestMapping(value = "/noticewriteForm", method = RequestMethod.GET)
+	public ModelAndView noticewriteForm() {
+		logger.info("관리자 공지사항 글쓰기 폼으로 이동");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("adminNotice_writeForm");
+		return mav;
+	}
+	
+	//관리자 공지사항 글쓰기
+	@RequestMapping(value = "/noticeWrite", method = RequestMethod.POST)
+	public ModelAndView noticeWrite(@RequestParam HashMap<String, Object> params) {
+		logger.info("공지사항: "+params);
+		return service.noticeWrite(params);
+	}
+	
+	//관리자 공지사항 상세보기
+	@RequestMapping(value = "/noticeDetail", method = RequestMethod.GET)
+	public String noticeDetail(Model model, @RequestParam int idx) {
+		logger.info("공지사항 상세보기: "+idx);
+		String page = "redirect:/adminNotice";
+		LibraryInfoDTO dto = service.noticeDetail(idx);
+		if(dto != null) {
+			page = "adminNotice_detail";
+			model.addAttribute("detail",dto);
+		}
+		return page;
+	}
+	
+	//관리자 공지사항 삭제
+	@RequestMapping(value = "/noticeDel", method = RequestMethod.GET)
+	public ModelAndView noticeDel(@RequestParam int idx, RedirectAttributes attr) {
+		logger.info("공지사항 삭제: "+idx);
+		return service.noticeDel(idx, attr);
+	}
+	
+	//문의내역 리스트 페이지 이동
+	@RequestMapping(value = "/questionList", method = RequestMethod.GET)
+	public String questionList() {
+		return "/QuestionManage/QuestionList";
+	}
+	
+	//문의내역 리스트
+	@RequestMapping(value = "/questionList/{page}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> questionList(@PathVariable int page) {
+		return service.questionList(page);
 	}
 	
 }

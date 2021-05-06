@@ -22,7 +22,24 @@ public class LibrarySearchService {
 	
 	
 	public int reserveBook(HashMap<String, String> params) {
-		return dao.reserveBook(params);
+		
+		String bookIdx = params.get("bookIdx");
+		String id = params.get("id");
+		
+		int success = 0;
+		
+		//현재 예약하려는 사람이 몇개 예약했는지 체크(리뷰왕이냐 아니냐도 포함)
+		
+		int chk = dao.reserveChkId(bookIdx,id);
+		
+		if(chk == 0) {
+			success = dao.reserveBook(params);
+		}
+		
+		logger.info("");
+
+		return success;
+
 	}
 	
 	public int reserveBookCancel(String reserveBookIdx) {

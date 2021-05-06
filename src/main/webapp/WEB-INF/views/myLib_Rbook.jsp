@@ -95,15 +95,15 @@ listCall(showPage);
 function listCall(reqPage){         
 
 	//주소 다른주소로 보내라.
-	var reqUrl ='./myLib_Rbook/'+5+"/"+reqPage;
+	var reqUrl ='./myLib_Rbook/'+reqPage;
    $.ajax({
       url: reqUrl
       ,type:'get'
       ,data:{}
       ,dataType:'JSON'
       ,success:function(data){
-         console.log(data);
-         console.log(data.reserve_list);
+         //console.log(data);
+         //console.log(data.reserve_list);
          showPage = data.currPage;
          listPrint(data.reserve_list);
          //pagePrint(data.range);//플러그인 미사용 페이징 처리!
@@ -178,8 +178,7 @@ function listPrint(reserve_list){
 			content += "<td><a href='./mybookReserve?bookIdx="+reserve_list[i].BOOKIDX+"'>예약취소</a></td>"
 		}else if(reserve_list[i].rstate == 'R002'){
 			content += "<td>대여중</td>"
-			//컨트롤러 수정하기
-			//content += "<td><a href='./myBookReturn?reserveBookIdx="+reserve_list[i].RESERVEBOOKIDX+"'>반납하기</a></td>"
+			content += "<td><a href='./myBookReturn?reserveBookIdx="+reserve_list[i].RESERVEBOOKIDX+"'>반납하기</a></td>"
 		}/* else if(reserve_list[i].rstate == 'R003'){
 			content += "<td colspan='2'>반납완료</td>"
 		} */

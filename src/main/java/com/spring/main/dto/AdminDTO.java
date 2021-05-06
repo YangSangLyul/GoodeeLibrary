@@ -29,6 +29,43 @@ public class AdminDTO {
    private String blindReason;
    private Date blind_date;
    
+   //알림
+   private int noticeIdx;
+   private String noType;
+   private String readStatus;
+   private Date read_date;
+   private String mem_type;
+   
+	public int getNoticeIdx() {
+		return noticeIdx;
+	}
+	public void setNoticeIdx(int noticeIdx) {
+		this.noticeIdx = noticeIdx;
+	}
+	public String getNoType() {
+		return noType;
+	}
+	public void setNoType(String noType) {
+		this.noType = noType;
+	}
+	public String getReadStatus() {
+		return readStatus;
+	}
+	public void setReadStatus(String readStatus) {
+		this.readStatus = readStatus;
+	}
+	public Date getRead_date() {
+		return read_date;
+	}
+	public void setRead_date(Date read_date) {
+		this.read_date = read_date;
+	}
+	public String getMem_type() {
+		return mem_type;
+	}
+	public void setMem_type(String mem_type) {
+		this.mem_type = mem_type;
+	}
 	public int getReviewIdx() {
 		return reviewIdx;
 	}

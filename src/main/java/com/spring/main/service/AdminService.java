@@ -13,6 +13,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.AdminDAO;
 import com.spring.main.dto.AdminDTO;
+import com.spring.main.dto.BookDTO;
+import com.spring.main.dto.LibraryInfoDTO;
 
 @Service
 public class AdminService {
@@ -20,6 +22,15 @@ public class AdminService {
 	@Autowired AdminDAO dao;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	public ModelAndView adminNoti() {
+		logger.info("관리자메인-알림내역 쿼리 요청");
+		ModelAndView mav = new ModelAndView();
+		ArrayList<AdminDTO> list = dao.adminNoti();
+		mav.addObject("noti", list);
+		mav.setViewName("adminService");
+		return mav;
+	}
 
 	public ModelAndView reviewkingList() {
 		logger.info("리뷰왕 쿼리 요청");
@@ -146,6 +157,64 @@ public class AdminService {
 		mav.setViewName("redirect:/BlindList");
 		return mav;
 	}
+
+	public ModelAndView adminNotice() {
+		logger.info("관리자 공지사항 쿼리 요청");
+		ModelAndView mav = new ModelAndView();
+		ArrayList<AdminDTO> list = dao.adminNotice();
+		mav.addObject("notice", list);
+		mav.setViewName("adminNotice");
+		return mav;
+	}
+
+	public ModelAndView noticeWrite(HashMap<String, Object> params) {
+		logger.info("관리자 공지사항 글쓰기");
+		ModelAndView mav = new ModelAndView();
+		dao.noticeWrite(params);
+		mav.setViewName("redirect:/adminNotice");
+		return mav;
+	}
+	
+	public LibraryInfoDTO noticeDetail(int idx) {
+		logger.info("공지사항 상세보기 쿼리 요청");
+		return dao.noticeDetail(idx);
+	}
+	
+	public ModelAndView noticeDel(int idx, RedirectAttributes attr) {
+		logger.info("공지사항 삭제 요청");
+		ModelAndView mav = new ModelAndView();
+		String msg = "";
+		if(dao.noticeDel(idx)>0) {
+			msg = "삭제했습니다.";
+		}
+		attr.addFlashAttribute("msg", msg);
+		mav.setViewName("redirect:/adminNotice");
+		return mav;
+	}
+		
+	public HashMap<String, Object> questionList(int page) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int pagePerCnt = 10;
+		int questionCnt = dao.questionCnt(); 		// 전체 게시글 수
+		int range = (int) (questionCnt % pagePerCnt > 0 ? Math.floor((questionCnt/pagePerCnt))+1 : Math.floor((questionCnt/pagePerCnt)));
+		
+		page = page > range ? range : page;
+		logger.info("range : " + range + " / page : " + page);
+		// 시작 페이지, 끝 페이지
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		
+		logger.info("start : " + start + " / end : " + end);
+		
+		ArrayList<BookDTO> list = dao.questionList(start,end);
+
+		map.put("list", list);
+		map.put("range", range);
+		map.put("currPage", page);
+		return map;
+	}
+
+	
 
 	
 }

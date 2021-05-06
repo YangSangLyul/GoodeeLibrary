@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.spring.main.dto.AdminDTO;
+import com.spring.main.dto.BookDTO;
+import com.spring.main.dto.LibraryInfoDTO;
 
 public interface AdminDAO {
 
@@ -32,6 +34,19 @@ public interface AdminDAO {
 	int blindRemove(int blindIdx);
 
 	int allCount();
+
+	ArrayList<AdminDTO> adminNoti();
+
+	ArrayList<AdminDTO> adminNotice();
+
+	int noticeWrite(HashMap<String, Object> params);
+	int questionCnt();
+
+	ArrayList<BookDTO> questionList(int start, int end);
+
+	LibraryInfoDTO noticeDetail(int idx);
+
+	int noticeDel(int idx);
 
 
 }

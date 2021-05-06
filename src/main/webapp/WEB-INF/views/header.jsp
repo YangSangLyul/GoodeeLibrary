@@ -142,7 +142,7 @@
         </nav>
 
         <div class="topMenuNotice">
-            <a href="#"><img id="light" src="./image/알림.jpg" width="100" height="80"/></a>
+            <a href="./userNotification"><img id="light" src="./image/알림.jpg" width="100" height="80"/></a>
         </div>
         <c:if test="${sessionScope.loginId eq null}">
         <div id="loginOffBox">
@@ -171,6 +171,9 @@
 			console.log('현재 로그인한 사람 ',loginId);
 			
 			if(loginId == 'admin'){
+				$("#libraryInfo").click(function(){
+					location.href = 'adminNotice';
+				});
 				$("#libraryMy").css("display","none");
 				$("#adminService").css("display","inline");
 				

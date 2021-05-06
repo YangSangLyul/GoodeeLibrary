@@ -330,17 +330,23 @@ public class LibraryInfoService {
 		ModelAndView mav = new ModelAndView();
 		logger.info("edit의 서비스 왓니");
 		HashMap<String,Object> map=dao.questionDetail(idx);
+		logger.info("맵에잇는"+map.get("ID"));	
+		logger.info(""+loginId);
 		String page ="redirect:/QuestionAll";
 		String msg = "수정할 권한이 없습니다.로그인부탁드려용";
 		//답변체크후 페이지 튕기기
 		if(loginId !=null) {
-			if(map.get("ANSSTATUS").equals("TRUE")) {
-				page = "redirect:/QuestionAll";
-				msg ="사서의 답변이 달린 개시글은 놀랍게도 수정이 되지 않습니다. ";
+			if(loginId.equals(map.get("ID"))) {
+				if(map.get("ANSSTATUS").equals("TRUE")) {
+					page = "redirect:/QuestionAll";
+					msg ="사서의 답변이 달린 개시글은 놀랍게도 수정이 되지 않습니다. ";
+				}else {
+					map.put("REG_DATE", map.get("TO_CHAR(REG_DATE,'YYYY-MM-DD')"));
+					mav.addObject("map", map);
+					page="questionEdit";
+				}
 			}else {
-				map.put("REG_DATE", map.get("TO_CHAR(REG_DATE,'YYYY-MM-DD')"));
-				mav.addObject("map", map);
-				page="questionEdit";
+				msg="아이디가일치하지않습니다. 수정권한이없습니다.";
 			}
 		}
 		//이동하면서 그릇셋팅
@@ -411,6 +417,58 @@ public class LibraryInfoService {
 	public void mainNoticeCall(Model model) {
 		ArrayList<LibraryInfoDTO> noticeList = dao.mainNoticeCall();
 		model.addAttribute("noticeList", noticeList);
+	}
+	
+	@Transactional
+	public ModelAndView questionDelete(int idx,RedirectAttributes rAttr,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String loginId = (String) session.getAttribute("loginId");
+		HashMap<String, Object> dto=dao.questionDetail(idx);
+		
+		int success=0;
+		
+		String msg ="삭제권한이 없습니다...";
+		
+		if(loginId.equals(dto.get("ID"))) {
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			ArrayList<LibraryInfoDTO> list =dao.fileCk(idx);
+			
+			logger.info(""+list);
+			if(list !=null) {
+				int i =0;
+				for(i=0;i <list.size();i++) {
+					map.put("del"+i,list.get(i));
+					
+					File delFile = new File("C:/upload/Library/"+ map.get("del"+i));
+					
+					if(delFile.exists()) { 
+						delFile.delete();  //있다면 삭제
+						logger.info("삭제하는중"+ map.get("del"+i));
+					}else {
+						logger.info("이미삭제된 파일 "); 
+					}
+				}
+				
+				success =dao.questionDelete(idx);
+				if(success>0) {
+					msg="성공";
+				}
+			}else {
+				success =dao.questionDelete(idx);
+				if(success>0) {
+					msg="성공";
+				}
+			}
+			
+		}
+		
+		
+		  
+		  logger.info("삭제성공"+success);
+		  rAttr.addFlashAttribute("msg",msg);
+		  mav.setViewName("redirect:/QuestionAll");
+		return mav;
 	}
 
 }
