@@ -221,6 +221,8 @@ public class MyLibraryService {
 	public HashMap<String, Object> reserve_list(int page, String loginId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
+		logger.info("현재 페이지 : "+page);
+		
 		//5개 기준으로 몇페이지나 만들 수 있는가?
 		int allCnt = dao.ReserveBook_allCount(loginId);
 		logger.info("allCnt:"+allCnt);

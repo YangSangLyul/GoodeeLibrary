@@ -5,56 +5,89 @@
 <head>
     <meta charset="UTF-8">
     <title>나의 도서 예약 내역</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+
+		<!-- 페이징 라이브러리(제이쿼리가 반드시 필요함, 버전도 맞아야 함) -->
+		<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
     <style>
+    
+    #sideBar{
+       		position: absolute;
+        	margin-left: 10%;
+        	margin-top: 3%;
+        }
     #my_title{
+    	
 	    text-align: center;
 	    background-color: white;
 	    width: 200px;
 	    height: 30px;
 	    margin-left: 40%;
+	    margin-bottom: 1%;
 	    border: 1px solid black;
 	}
 	#body{
+		position: absolute;
 		text-align: center;
 	    background-color: beige;
 	    margin-left: 25%;
-	    width: 800px;
-	    height: 400px;
+	    width: 1000px;
+	    height: 900px;
 	}
 	
-	body div{
-	    text-align: center;
-	}
 	
 	#table{
-	    border: 1px solid black;
-	    border-collapse: collapse;
+		position: relative;
+
 	    margin-left: 15%;
-	    margin-top: 10%;
+	    top: 10%;
 	    margin-bottom: 80px;
 	    text-align: center;
 	}
 	#table th{
 	    background-color:#c5d8f1ff;
+	    text-align: center;
 	}
 	#table td{
 	    background-color:white;
+	    text-align: center;
 	}
-	table,th,td{
+	table,tr,th,td{
+	    width:700px;
+	    height:50px;
+	    text-align: center;
 	    border: 1px solid black;
 	    border-collapse: collapse;
-	}
+	}        	
+	#paging{
+        
+        position: fixed;
+        left:20%;
+        top:80%;
+     }
+     
+     #noReserveBook{
+     	position: relative;
+     	top:5%;
+   
+     }
     
     </style>
 </head>
 <body>
 	<jsp:include page="header.jsp"/>
-   	<div>
+
     <div id="my_title">${loginId}의 도서예약 내역</div>
-   	<jsp:include page="mySidebar.jsp"/>
+    <div id="sideBar">
+        <jsp:include page="mySidebar.jsp"/>
+    </div>
+    
     <div id="body">
-    <input type="hidden" value="${reserve_list.BOOKIDX}"/>
+    <p id="noReserveBook">현재 예약되거나 대여중인 도서가 없습니다.</p>
+    
         <table id="table">
             <tr>
                 <th>예약/대여 날짜</th>
@@ -62,7 +95,6 @@
                 <th>상태</th>
                 <th>취소/반납</th>
             </tr>
-            <br/>
             <tbody id="reserve_list">
              
              </tbody>
@@ -72,19 +104,17 @@
                 <td>예약중</td>
                 <td>예약취소</td>
             </tr> -->
-        <tr>
-			<!-- 페이징 번호 보여주기 -->
-            <td id="paging" colspan="4">
+         
+       </table>
+       			<!-- 페이징 번호 보여주기 -->
+            <div id="paging">
             	<!-- 플러그인 사용 -->
             	<div class="container">
             		<nav aria-label="page navigation" style="text-align:center">
             			<ul class="pagination" id="pagination"></ul>
             		</nav>
             	</div>
-            </td>
-         </tr>
-       </table>
-    </div>
+            </div>
     </div>
 </body>
 <script>
@@ -105,7 +135,15 @@ function listCall(reqPage){
          //console.log(data);
          //console.log(data.reserve_list);
          showPage = data.currPage;
-         listPrint(data.reserve_list);
+         if(data.reserve_list.length == 0){
+        	 console.log('아무것도 없슴다');
+        	 $("#noReserveBook").css("display","inline");
+        	 $("#table").css("display","none");
+         }else{
+        	 console.log('뭐라도 있네요')
+        	 $("#table").css("display","block");
+         	listPrint(data.reserve_list);
+         }
          //pagePrint(data.range);//플러그인 미사용 페이징 처리!
          //플러그인 사용
          
@@ -128,45 +166,12 @@ function listCall(reqPage){
    });
 }
 
-function pagePrint(range){
-	  console.log("생성 가능 페이지 : "+range);
-	  console.log("현재 페이지 : "+showPage);
-	  var content="";
-	  var start=1;
-	  var end = range >= 5? 5: range;
-	  
-	  //이전(5페이지가 넘어 갔을때 나타나는 녀석)
-	  if(showPage>5){
-		  end = Math.ceil(showPage/5)*5;
-		  if(end>range){
-			  end = range;
-		  }
-		  start = end-4;
-		  content += "<a href='#' onclick='listCall("+(start-1)+")'>이전</a> |"
-	  }
-
-	  //1~5
-	  for(var i = start; i<=end; i++){
-		  if(i==showPage){
-			content += " <b style='color:red'>"+i+"</b> ";	    			  
-		  }//else if(range>=i){
-		  else{
-			  content += " <a href='#' onclick='listCall("+i+")'>"+i+"</a>";
-		  }    			  
-	  }
-	  //다음(range 가 더있을 경우 나타나는 녀석)
-	  if(end<range){
-		  content += "| <a href='#' onclick='listCall("+(end+1)+")'>다음</a>"
-	  }
-	  
-	  $('#paging').empty();
-	  $('#paging').append(content);
-}
-
 
 function listPrint(reserve_list){
 	  var content="";
 	  for(var i=0; i<reserve_list.length;i++){
+		  
+	  	console.log(reserve_list[i].rstate);
 	  	if(reserve_list[i].rstate == 'R001' ||reserve_list[i].rstate == 'R002'){
 		content += "<tr>"
 		var date = new Date(reserve_list[i].REG_DATE);
@@ -179,16 +184,23 @@ function listPrint(reserve_list){
 		}else if(reserve_list[i].rstate == 'R002'){
 			content += "<td>대여중</td>"
 			content += "<td><a href='./myBookReturn?reserveBookIdx="+reserve_list[i].RESERVEBOOKIDX+"'>반납하기</a></td>"
-		}/* else if(reserve_list[i].rstate == 'R003'){
-			content += "<td colspan='2'>반납완료</td>"
-		} */
+		}
 		
-		content += "</tr>"
 	    		  
+	  }else if(reserve_list[i].rstate == 'R003'){
+			content += "<tr>"
+			var date = new Date(reserve_list[i].REG_DATE);
+			content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
+			content += "<td>"+reserve_list[i].BOOKNAME+"</td>"
+			content += "<td>반납완료</td>"
+			content += "<td></td>";
+	  	
 	  }
+}
+	  content += "</tr>"
 	  $("#reserve_list").empty();  
 	  $("#reserve_list").append(content);
-}}
+}
 
 </script>
 </html>

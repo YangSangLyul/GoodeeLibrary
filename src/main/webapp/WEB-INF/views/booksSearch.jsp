@@ -50,18 +50,6 @@
                 left: 45%;
                 top: 40%;
             }
-
-            a:link { 
-                color: gray; 
-                text-decoration: none;
-            }
-            a:visited {
-                color: gray; 
-                text-decoration: none;
-            }
-            a:hover {
-                color: gray;
-            }
             
             #sideBar{
         		position: absolute;

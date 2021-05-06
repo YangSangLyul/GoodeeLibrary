@@ -14,8 +14,16 @@ public class UserNotificationDTO {
 	private String readstatus;
 	private Date read_date;
 	private String mem_type;
+	private int reserveBookIdx;
 	
 	
+	
+	public int getReserveBookIdx() {
+		return reserveBookIdx;
+	}
+	public void setReserveBookIdx(int reserveBookIdx) {
+		this.reserveBookIdx = reserveBookIdx;
+	}
 	public int getNoticeIdx() {
 		return noticeIdx;
 	}
