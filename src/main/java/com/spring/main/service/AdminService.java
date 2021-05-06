@@ -157,7 +157,6 @@ public class AdminService {
 		return mav;
 	}
 
-<<<<<<< HEAD
 	public ModelAndView adminNotice() {
 		logger.info("관리자 공지사항 쿼리 요청");
 		ModelAndView mav = new ModelAndView();
@@ -173,7 +172,7 @@ public class AdminService {
 		dao.noticeWrite(params);
 		mav.setViewName("redirect:/adminNotice");
 		return mav;
-=======
+		
 	public HashMap<String, Object> questionList(int page) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int pagePerCnt = 10;
@@ -194,7 +193,6 @@ public class AdminService {
 		map.put("range", range);
 		map.put("currPage", page);
 		return map;
->>>>>>> 68eec330f4b09c542fb137ad745f17ad27bce56b
 	}
 
 	
