@@ -37,7 +37,7 @@ public interface AdminDAO {
 
 	ArrayList<AdminDTO> adminNoti();
 
-	ArrayList<AdminDTO> adminNotice();
+	ArrayList<AdminDTO> adminNotice(int start, int end);
 
 	int noticeWrite(HashMap<String, Object> params);
 	int questionCnt();
