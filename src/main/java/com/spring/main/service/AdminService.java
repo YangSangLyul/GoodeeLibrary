@@ -156,5 +156,22 @@ public class AdminService {
 		return mav;
 	}
 
+	public ModelAndView adminNotice() {
+		logger.info("관리자 공지사항 쿼리 요청");
+		ModelAndView mav = new ModelAndView();
+		ArrayList<AdminDTO> list = dao.adminNotice();
+		mav.addObject("notice", list);
+		mav.setViewName("adminNotice");
+		return mav;
+	}
+
+	public ModelAndView noticeWrite(HashMap<String, Object> params) {
+		logger.info("관리자 공지사항 글쓰기");
+		ModelAndView mav = new ModelAndView();
+		dao.noticeWrite(params);
+		mav.setViewName("redirect:/adminNotice");
+		return mav;
+	}
+
 	
 }

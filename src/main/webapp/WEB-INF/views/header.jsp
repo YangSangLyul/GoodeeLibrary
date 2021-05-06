@@ -171,6 +171,9 @@
 			console.log('현재 로그인한 사람 ',loginId);
 			
 			if(loginId == 'admin'){
+				$("#libraryInfo").click(function(){
+					location.href = 'adminNotice';
+				});
 				$("#libraryMy").css("display","none");
 				$("#adminService").css("display","inline");
 				

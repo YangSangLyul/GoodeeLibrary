@@ -35,5 +35,9 @@ public interface AdminDAO {
 
 	ArrayList<AdminDTO> adminNoti();
 
+	ArrayList<AdminDTO> adminNotice();
+
+	int noticeWrite(HashMap<String, Object> params);
+
 
 }

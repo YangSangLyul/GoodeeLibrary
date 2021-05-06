@@ -26,13 +26,6 @@ public class AdminController {
 	
 	@Autowired AdminService service;
 	
-	//관리자 메인 
-	/*
-	 * @RequestMapping(value = "/adminService", method = RequestMethod.GET) public
-	 * ModelAndView adminService() { logger.info("관리자 메인 요청"); ModelAndView mav =
-	 * new ModelAndView(); mav.setViewName("adminService"); return mav; }
-	 */
-	
 	//관리자 메인 - 알림리스트
 	@RequestMapping(value = "/adminService", method = RequestMethod.GET)
 	public ModelAndView adminNoti() {
@@ -154,6 +147,29 @@ public class AdminController {
 	public ModelAndView blindRemove(@RequestParam int blindIdx, RedirectAttributes attr) {
 		logger.info("해제할 블라인드 번호: "+blindIdx);
 		return service.blindRemove(blindIdx,attr);
+	}
+	
+	//관리자 공지사항
+	@RequestMapping(value = "/adminNotice", method = RequestMethod.GET)
+	public ModelAndView adminNotice() {
+		logger.info("관리자 공지사항");
+		return service.adminNotice();
+	}
+	
+	//관리자 공지사항 글쓰기 폼
+	@RequestMapping(value = "/noticewriteForm", method = RequestMethod.GET)
+	public ModelAndView noticewriteForm() {
+		logger.info("관리자 공지사항 글쓰기 폼으로 이동");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("adminNotice_writeForm");
+		return mav;
+	}
+	
+	//관리자 공지사항 글쓰기
+	@RequestMapping(value = "/noticeWrite", method = RequestMethod.POST)
+	public ModelAndView noticeWrite(@RequestParam HashMap<String, Object> params) {
+		logger.info("공지사항: "+params);
+		return service.noticeWrite(params);
 	}
 	
 	
