@@ -159,8 +159,8 @@
 		FROM book b WHERE b.bookidx = #{bookIdx}
 		</select>
 	
-	<!-- <insert id="">
-		INSERT INTO REVIEW(reviewIdx,content,id,blind_status,bookIdx) VALUES(review_seq.NEXTVAL,'리뷰라고!','user1','N',472)
-	</insert> -->
+	<insert id="review_write" parameterType="hashMap">
+		INSERT INTO REVIEW(reviewIdx,content,id,blind_status,bookIdx) VALUES(review_seq.NEXTVAL,#{content},#{id},#{blind_status},#{bookIdx})
+	</insert> 
 	
 </mapper>

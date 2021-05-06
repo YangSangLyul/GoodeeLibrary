@@ -78,6 +78,8 @@ public interface MyLibraryDAO {
 
 	MyLibraryDTO myReviewWriteForm(HashMap<String, String> params);
 
+	int review_write(HashMap<String, String> params);
+
 
 	//HashMap<String, Object> question_detail(String idx);
 

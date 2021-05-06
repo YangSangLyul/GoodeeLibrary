@@ -106,6 +106,7 @@
     <form action="review_write" method="POST">
     <table id="r_table">
     <input type="hidden" name="bookIdx" value="${ReviewDetail.bookIdx}"/>
+    <input type="hidden" name="id" value="${loginId}"/>
     <input type="hidden" name="blind_status" value="N"/>
  					<tr>
 						<td rowspan="3" id="b_info">
