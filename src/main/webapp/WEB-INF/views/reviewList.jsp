@@ -141,7 +141,7 @@
 						<td rowspan="2" id="b_content">
 							<div class="b_info">저자명  ${review.writer}</div>
 							<div class="b_info">출판사  ${review.publisher}</div>
-							<div class="b_info">출판일  2021</div>
+							<div class="b_info">등록번호  ${review.reviewIdx}</div>
 						</td>
 						<td id="re_recomm">
 							<div class="re_img">🤍🧡</div>
