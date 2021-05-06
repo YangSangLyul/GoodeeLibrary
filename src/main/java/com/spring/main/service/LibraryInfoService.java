@@ -418,14 +418,57 @@ public class LibraryInfoService {
 		ArrayList<LibraryInfoDTO> noticeList = dao.mainNoticeCall();
 		model.addAttribute("noticeList", noticeList);
 	}
-
-	public ModelAndView questionDelete(int idx) {
+	
+	@Transactional
+	public ModelAndView questionDelete(int idx,RedirectAttributes rAttr,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		int ifFile =dao.fileCk(idx);
+		String loginId = (String) session.getAttribute("loginId");
+		HashMap<String, Object> dto=dao.questionDetail(idx);
+		
+		int success=0;
+		
+		String msg ="삭제권한이 없습니다...";
+		
+		if(loginId.equals(dto.get("ID"))) {
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			ArrayList<LibraryInfoDTO> list =dao.fileCk(idx);
+			
+			logger.info(""+list);
+			if(list !=null) {
+				int i =0;
+				for(i=0;i <list.size();i++) {
+					map.put("del"+i,list.get(i));
+					
+					File delFile = new File("C:/upload/Library/"+ map.get("del"+i));
+					
+					if(delFile.exists()) { 
+						delFile.delete();  //있다면 삭제
+						logger.info("삭제하는중"+ map.get("del"+i));
+					}else {
+						logger.info("이미삭제된 파일 "); 
+					}
+				}
+				
+				success =dao.questionDelete(idx);
+				if(success>0) {
+					msg="성공";
+				}
+			}else {
+				success =dao.questionDelete(idx);
+				if(success>0) {
+					msg="성공";
+				}
+			}
+			
+		}
 		
 		
-
-		return null;
+		  
+		  logger.info("삭제성공"+success);
+		  rAttr.addFlashAttribute("msg",msg);
+		  mav.setViewName("redirect:/QuestionAll");
+		return mav;
 	}
 
 }
