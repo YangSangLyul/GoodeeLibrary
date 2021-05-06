@@ -60,7 +60,7 @@
 	</select>
 	
 	<select id="ReserveBook_allCount" resultType="Integer">
-		SELECT COUNT(bookIdx) FROM RESERVEBOOK WHERE id=#{param1}
+		SELECT COUNT(reservebookidx) FROM RESERVEBOOK WHERE bookstate IN('R001','R002') AND id=#{param1} 
 	</select>
 	
 	<!-- <insert id="writeFile"> 
@@ -121,7 +121,8 @@
 	
 	<select id="hope_list" resultType="hashMap">
 		SELECT  * FROM( 
-			SELECT  ROW_NUMBER() OVER(ORDER BY hopebooksNumber DESC) AS rnum ,hopebooksnumber,id,hb_state,hb_date,hb_bookname,writer,publisher,hopereason FROM HopeBook WHERE id=#{param3}
+			SELECT ROW_NUMBER() OVER(ORDER BY h.hopebooksNumber DESC) AS rnum,h.hopereason,h.id,h.hb_bookname,h.hb_date,h.hb_state,h.publisher,h.writer,r.reject  
+			FROM hopebook h LEFT JOIN hopebookreject r ON h.hopebooksNumber = r.hopebooksNumber WHERE id=#{param3}
 		)WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
 	
@@ -130,13 +131,26 @@
 	</select>
 	
 	<select id="Review_allCount" resultType="Integer">
-		SELECT COUNT(bookIdx) FROM RESERVEBOOK WHERE id=#{param1}
+		SELECT COUNT(*) FROM review WHERE id=#{param1}
 	</select>
 	
 	<select id="review_list" resultType="hashMap">
 		SELECT * FROM(
-			SELECT ROW_NUMBER() OVER(ORDER BY r.reviewIdx DESC) AS rnum,r.content,r.id,r.reg_date,r.cnt,r.reportcnt,r.blind_status,r.month_rcnt,b.bookIdx,b.bookname,b.bookImg,b.writer,b.publisher
+			SELECT ROW_NUMBER() OVER(ORDER BY r.reg_date DESC) AS rnum,r.reviewIdx,r.content,r.id,r.reg_date,r.cnt,r.reportcnt,r.blind_status,r.month_rcnt,b.bookIdx,b.bookname,b.bookImg,b.writer,b.publisher
 			FROM book b FULL OUTER JOIN review r ON b.bookidx = r.bookidx WHERE r.id=#{param3}
 		)WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
+	
+	<select id="myReviewDetail" resultType="myLibrary">
+		SELECT r.content,r.id,r.reviewIdx,r.reg_date,r.cnt,r.reportcnt,r.blind_status,r.month_rcnt,b.bookIdx,b.bookname,b.bookImg,b.writer,b.publisher
+		FROM book b FULL OUTER JOIN review r ON b.bookidx = r.bookidx WHERE r.reviewIdx = #{reviewIdx}
+	</select>
+	
+	<update id="review_edit" parameterType="hashMap">
+		UPDATE review SET content=#{content} WHERE reviewIdx=#{reviewIdx} 
+	</update>
+	
+	<delete id="review_delete">
+		DELETE FROM review WHERE reviewIdx=#{param1}
+	</delete>
 </mapper>

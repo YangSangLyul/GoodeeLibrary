@@ -68,6 +68,12 @@ public interface MyLibraryDAO {
 
 	ArrayList<MyLibraryDTO> review_list(int start, int end, String loginId);
 
+	MyLibraryDTO myReviewDetail(HashMap<String, Object> params);
+
+	int review_edit(HashMap<String, Object> params);
+
+	int review_delete(String reviewIdx);
+
 
 	//HashMap<String, Object> question_detail(String idx);
 

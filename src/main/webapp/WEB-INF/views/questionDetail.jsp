@@ -224,7 +224,7 @@
     
     <button onclick="location.href='/questionDetail/QuestionEdit/${map.QUEIDX}'">수정하기</button>
     <button onclick="location.href ='/QuestionAll'">목록</button>
-    <button onclick="">삭제</button>
+    <button onclick="location.href='/questionDetail/questiondelete/${map.QUEIDX}'">삭제</button>
 </body>
 <script type="text/javascript">
 var msg = "${msg}";

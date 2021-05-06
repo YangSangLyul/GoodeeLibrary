@@ -381,4 +381,61 @@ public class MyLibraryService {
 	}
 
 
+	public ModelAndView review_detail(HashMap<String, Object> params) {
+		ModelAndView mav = new ModelAndView();
+		
+		MyLibraryDTO Review = dao.myReviewDetail(params);
+		logger.info("리뷰 정보:{}",Review);
+		mav.addObject("ReviewDetail",Review);
+		mav.setViewName("myLib_review_detail");
+	
+		return mav;
+	}
+
+
+
+	public ModelAndView review_editForm(HashMap<String, Object> params) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("수정페이지 요청");
+		MyLibraryDTO dto = dao.myReviewDetail(params);
+		mav.addObject("ReviewDetail", dto);
+		mav.setViewName("myLib_review_edit");
+		
+		return mav;
+	}
+
+
+	public ModelAndView review_edit(HashMap<String, Object> params) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("리뷰 수정 요청");
+		
+		int success = dao.review_edit(params);
+		logger.info("Idx:{}",params.get("reviewIdx"));
+		logger.info("success:{}",success);
+
+		
+	    if (success > 0) { 
+	    	logger.info("리뷰수정 성공");
+	    	mav.setViewName("myLib_Review");
+	    }
+	    
+		return mav;
+	}
+
+
+	public ModelAndView review_delete(String reviewIdx) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("리뷰 삭제 요청");
+		int success = dao.review_delete(reviewIdx);
+		String page = "myLib_review_detail";
+		if (success > 0) {
+			logger.info("리뷰 삭제 성공");
+			page = "myLib_Review";
+		}
+		mav.setViewName(page);
+
+		return mav;
+	}
+
+
 }

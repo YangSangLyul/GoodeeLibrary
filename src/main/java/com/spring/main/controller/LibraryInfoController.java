@@ -214,8 +214,11 @@ public class LibraryInfoController {
 		return service.editSuccess(params,session);
 	}
 	
-	
-	
-	
+	@RequestMapping(value = "/questionDetail/questiondelete/{idx}", method = RequestMethod.GET)
+	public ModelAndView QuestionDelete(@PathVariable int idx,RedirectAttributes rAttr ,HttpSession session) {
+		logger.info("삭제 question");
+		return service.questionDelete(idx, rAttr,session);
+	}
+
 	
 }

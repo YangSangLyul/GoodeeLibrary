@@ -35,6 +35,10 @@ public class MyLibraryDTO {
 	private String hb_bookName;
 	private String hopeReason;
 	
+	//희망도서 거부 이유
+	private String reject;
+	private Date reject_date;
+	
 	//리뷰
 	private int reviewIdx;
     private int reportCnt;
@@ -42,6 +46,18 @@ public class MyLibraryDTO {
     private int cnt; //추천수
     private int month_rcnt;
    
+	public String getReject() {
+		return reject;
+	}
+	public void setReject(String reject) {
+		this.reject = reject;
+	}
+	public Date getReject_date() {
+		return reject_date;
+	}
+	public void setReject_date(Date reject_date) {
+		this.reject_date = reject_date;
+	}
 	public int getReviewIdx() {
 		return reviewIdx;
 	}

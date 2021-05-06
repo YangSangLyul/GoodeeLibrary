@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.spring.main.dto.BookDTO;
+import com.spring.main.dto.HopeBookDTO;
 
 public interface BookDAO {
 
@@ -50,4 +51,16 @@ public interface BookDAO {
 	ArrayList<BookDTO> reviewRecommendBooksList(HashMap<String, Object> map);
 
 	ArrayList<BookDTO> authorRecommendBooksList(HashMap<String, Object> map);
+
+	int hopeBookCnt();
+
+	ArrayList<BookDTO> hopeBookList(int start, int end);
+
+	HopeBookDTO hopeBookDetail(String hopeBooksNumber);
+
+	int hopeBookApprove(String hopeBooksNumber);
+
+	int hopeBookRejectReason(HashMap<String, String> params);
+
+	int hopeBookReject(String hopeBooksNumber);
 }

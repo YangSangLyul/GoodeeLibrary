@@ -2,6 +2,8 @@ package com.spring.main.controller;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +25,24 @@ public class LibrarySearchController {
 	@Autowired LibrarySearchService service;
 	
 	@RequestMapping(value = "/reserveBook", method = RequestMethod.GET)
-	public String reserveBook(@RequestParam HashMap<String, String> params) {
+	public String reserveBook(@RequestParam HashMap<String, String> params, HttpSession session, RedirectAttributes rAttr) {
 		logger.info("예약하기 : " + params);
-		System.out.println(params.get("id") == "");
-		if(params.get("id") == "") {
-			params.put("id", "test");
-		}
+		String loginId = (String) session.getAttribute("loginId");
+
+		params.put("id", loginId);
 		
+		logger.info("아이디 : "+params.get("id"));
+		String msg = "현재 예약된 도서입니다.";
 		int success = service.reserveBook(params);
 		logger.info("예약 성공 여부 : " + success);
-		String bookIdx = params.get("booksIdx");
+		String bookIdx = params.get("bookIdx");
 		logger.info("bookIdx : " + bookIdx);
+		
+		if(success > 0) {
+			msg = "예약에 성공했습니다!";
+			
+		}
+		rAttr.addFlashAttribute("msg",msg);
 		return "redirect:/searchResultDetail?bookIdx="+bookIdx;
 	}
 	

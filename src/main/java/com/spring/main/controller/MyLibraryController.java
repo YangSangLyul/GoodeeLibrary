@@ -44,6 +44,45 @@ public class MyLibraryController {
 		  return mav; 
 	  }
 	  
+	  @RequestMapping(value = "/myReview_detail")
+		public ModelAndView myReview_detail(@RequestParam HashMap<String, Object> params) {
+		//public HashMap<String, Object> question_detail(@RequestParam String idx) {	
+			
+			logger.info("나의 리뷰 상세페이지");
+			logger.info("params:{}",params);
+			return service.review_detail(params);
+			//return "myLib_review_detail";
+		}
+	  
+	  @RequestMapping(value = "/ReviewEditForm")
+		public ModelAndView review_editForm(@RequestParam HashMap<String, Object> params) {
+			
+			logger.info("나의 리뷰 수정페이지");
+			logger.info("params:{}",params);
+			return service.review_editForm(params);
+	  }
+		
+		
+		@RequestMapping(value = "/review_edit")
+		//public HashMap<String, Object> question_edit(@RequestParam HashMap<String, Object> params) {
+		public ModelAndView review_edit(@RequestParam HashMap<String, Object> params) {
+			
+			logger.info("나의 리뷰 수정");
+			logger.info("params:{}",params);
+			//HashMap<String, Object> map = new HashMap<String, Object>();
+			//map.put("", value)
+			return service.review_edit(params);
+			
+		}
+
+		@RequestMapping(value = "/review_delete")
+		public ModelAndView review_delete(@RequestParam String reviewIdx) {
+			logger.info("나의 문의내역 삭제");
+			logger.info("삭제할 문의번호"+reviewIdx);
+			
+			return service.review_delete(reviewIdx);
+		}
+	  
 	  @RequestMapping(value = "/myLib_Review/{page}", method = RequestMethod.GET)
 	  public HashMap<String,Object> Review_list( 
 			  @PathVariable int page,HttpSession session) { 
@@ -81,7 +120,7 @@ public class MyLibraryController {
 		  return mav; 
 	  }
 	  
-	  @RequestMapping(value = "/myLib_Rbook/5/{page}", method = RequestMethod.GET)
+	  @RequestMapping(value = "/myLib_Rbook/{page}", method = RequestMethod.GET)
 	  public HashMap<String,Object> reserveBook_list( 
 			  @PathVariable int page,HttpSession session) { 
 		  String loginId = (String) session.getAttribute("loginId");
@@ -205,14 +244,18 @@ public class MyLibraryController {
 		return service.myRBookDetail(bookIdx,loginId);
 	}
 	
-	/*
-	 * @RequestMapping(value = "/myBookReturn", method = RequestMethod.GET) public
-	 * String returnBook(@RequestParam String reserveBookIdx,HttpSession session) {
-	 * String loginId = (String) session.getAttribute("loginId");
-	 * logger.info("반납하기 : " + reserveBookIdx); int success =
-	 * service.bookReturn(reserveBookIdx,loginId); logger.info("반납 성공 여부 : " +
-	 * success); //페이지 이동 수정필요! return "./myLib_Rbook"; }
-	 */
+	
+	  @RequestMapping(value = "/myBookReturn", method = RequestMethod.GET) 
+	  public ModelAndView returnBook(@RequestParam String reserveBookIdx,HttpSession session) {
+		  ModelAndView mav = new ModelAndView();
+		  String loginId = (String) session.getAttribute("loginId");
+		  logger.info("반납하기 : " + reserveBookIdx); 
+		  int success = service.bookReturn(reserveBookIdx,loginId); 
+		  logger.info("반납 성공 여부 : " +success); 
+		  mav.setViewName("myLib_Rbook");
+		  return mav;
+	  }
+	 
 	
 	@RequestMapping(value = "/myHBookDetail")
 	public ModelAndView myHBookDetail(@RequestParam String hopeBooksNumber) { 
