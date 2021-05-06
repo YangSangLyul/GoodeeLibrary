@@ -63,33 +63,24 @@ public class ReviewController2 { // 리뷰모아보기용 (추후 합칠예정)
 		}
 		return page;
 	}
+  
+		// 리뷰 신고 페이지 이동
+		@RequestMapping(value = "/reviewReportForm", method = RequestMethod.GET)
+		public String reviewReportForm(Model model, @RequestParam String reviewIdx, HttpSession session) {
+			logger.info("신고할 리뷰번호: " +reviewIdx);
+			page = "reviewReportForm";
+			model.addAttribute("dto", service.reviewReportForm(reviewIdx));
+			return page;
+		}
+	
+		   //리뷰 신고
+		  @RequestMapping(value = "/reviewReport", method = RequestMethod.POST) 
+		  public @ResponseBody HashMap<String, Object> reviewReport(Model model,@ModelAttribute ReviewDTO dto,HttpSession session){
+			 String loginId = (String) session.getAttribute("loginId");
+			 logger.info("신고할 리뷰 정보: "+dto.getReviewIdx()+"/"+dto.getReportId()+"/"+dto.getReportReason()+" / "+"신고자 :"+loginId); 
+			 return service.reviewReport(dto,loginId);
 
-	// 리뷰 신고 페이지 이동
-	@RequestMapping(value = "/reviewReportForm", method = RequestMethod.GET)
-	public String reviewReportForm(Model model, @RequestParam String reviewIdx, HttpSession session) {
-		logger.info("신고할 리뷰번호: " + reviewIdx);
-		page = "reviewReportForm";
-		model.addAttribute("dto", service.reviewReportForm(reviewIdx));
-		return page;
-	}
+		}	
 
-		//리뷰 신고
-	  @RequestMapping(value = "/reviewReport", method = RequestMethod.POST) 
-	  public String reviewReport(Model model,@ModelAttribute ReviewDTO dto,HttpSession session){
-		 logger.info("신고할 리뷰 정보: "+dto.getReviewIdx()+"/"+dto.getReportId()+"/"+dto.getReportReason()); 
-		
-		 String page="redirect:/reviewReportForm?reviewIdx=";	
-		
-		 int success = service.reviewReport(dto);
-		 if(success>0) {
-			page += dto.getReviewIdx();
-		}else {
-			page="redirect:/reviewList";
-		}		
-		logger.info("신고성공여부: "+success);
-		return page;
-	}
-	  
-	 
 
 }

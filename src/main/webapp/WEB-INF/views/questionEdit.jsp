@@ -201,7 +201,7 @@
         </nav>
 
         <div class="topMenuNotice">
-            <a href="#"><img id="light" src="./image/알림.jpg" width="100" height="80"/></a>
+            <a href="#"><img id="light" src="../../image/알림.jpg" width="100" height="80"/></a>
         </div>
         <c:if test="${sessionScope.loginId eq null}">
         <div id="loginOffBox">

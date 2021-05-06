@@ -1,6 +1,7 @@
 package com.spring.main.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.spring.main.dto.ReviewDTO;
 
@@ -14,7 +15,11 @@ public interface ReviewDao2 { //리뮤 모아보기용
 
 	ReviewDTO reviewDetail(String reviewIdx);
 
+	ReviewDTO reviewReportForm(String reviewIdx);
+
 	int reviewReport(ReviewDTO dto);
 
-	void reportCntUp(String reviewIdx);
+	void reportCntUp(int reviewIdx);
+
+
 }

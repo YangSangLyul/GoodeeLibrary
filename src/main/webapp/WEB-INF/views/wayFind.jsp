@@ -340,16 +340,66 @@
             #home a:hover {
                 color: blue;
             }
+            
+            
+                    #titleMenu {
+            border: 1px solid black;
+            background-color: blue;
+            width: 200px;
+            height: 72px;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .menu{
+            border: 1px solid black;
+            background-color: white;
+            width: 200px;
+            height: 60px;
+            text-align: center;
+            padding-bottom: 20px;
+        } 
+         a{
+            color:white
+        }
+        a:link,a:visited{
+            color: black;
+            text-decoration: none;
+        } 
+        p {
+		display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+#sid{
+         position: absolute;
+         top: 17%;
+         left: 11%;
+        }
+         #header{
+        margin-top: 25px;
+        margin-right: 10px;
+        }
+         i{
+        font-size: 50px;
+        }
         </style>
        
 </head>
 
 <body>
+<div id="header">
  <jsp:include page="header.jsp"/>
+</div>
+ <div id="sid">
  <jsp:include page="bookuseSidebar.jsp"></jsp:include>
+ 
+ </div>
 	
 	
-    <div class="container">
+    <div class="container" style="margin-top: 151px">
         <div class="map_wrap">
             <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
             <div id="menu_wrap" class="bg_white">

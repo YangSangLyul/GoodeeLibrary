@@ -7,7 +7,7 @@
         <!-- favicon:사이트를 대표하는 탭창에 보여지는 이미지 -->
         <link rel="icon" href="icon.jpg">
         <style>
-            body{
+            #container{
                 width: 700px;
                 margin: 20px 550px;
                 /* text-align: center; */
@@ -21,6 +21,7 @@
             table,td,th{                
                 border: 1px solid black;
                 border-collapse: collapse;
+                padding: 10px;
             } 
             #content{
                 overflow: auto;
@@ -29,34 +30,69 @@
                 resize: none;
             }
             #btn{
-                margin-left: 570px;
+                margin-left: 1120px;
+                margin-top: -15px;
+            }
+            input[type='text']{
+            	width: 100%;
             }
         </style>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
     <body>
-        <!-- 여기는 상단 메뉴 자리 -->
-        <hr/>
-        <table>
-            <tr>
-                <th>제목</th>
-                <td>기존 공지사항</td>
-            </tr>
-            <tr>
-                <th>내용</th>
-                <td>
-                    <textarea name="content" id="content">기존 내용</textarea>
-                </td>
-            </tr>
-            <tr>
-                <!-- 글을 쓰거나 수정 할 때 팝업체크 여부에 따라 값이 고정되게 수정하기 -->
-                <th>팝업<input type="checkbox"></th>
-                <td>날짜</td>
-            </tr>
-        </table>
+        <jsp:include page="header.jsp"/>
+        <div id="container">
+        	<form action="noticeUpdate" method="post">
+		        <input type="hidden" name="idx" value="${detail.noticeidx}"/>
+		        <table>
+		            <tr>
+		                <th>제목</th>
+		                <td><input type="text" name="subject" value="${detail.subject}"/></td>
+		            </tr>
+		            <tr>
+		                <th>내용</th>
+		                <td>
+		                    <textarea name="content" id="content">${detail.content}</textarea>
+		                </td>
+		            </tr>
+		            <tr>
+		                <!-- 글을 쓰거나 수정 할 때 팝업체크 여부에 따라 값이 고정되게 수정하기 -->
+		                <td colspan="2" style="text-align: center; font-size: 22px; font-weight: 600;">
+		                	팝업<input type="checkbox" id="state" value=${detail.noticestatus}>
+		                	<input type="hidden" id="stateR" name="popup"/>
+		                </td>
+		            </tr>
+		       	</table>
+        	</form>
+        </div>
         <br/>
         <div id="btn">
-            <button>작성완료</button>
-            <button>닫기</button>
+            <button onclick="complete()">작성완료</button>
+            <button onclick="location.href='noticeDetail?idx=${detail.noticeidx}'">닫기</button>
         </div>
     </body>
+    <script>
+    	function complete() {
+    		var state = document.getElementById("state");
+    		if(state.checked){
+    			$("#stateR").val('true');
+    			document.getElementsByTagName("form")[0].submit();
+    		}else{
+    			$("#stateR").val('false');
+    			document.getElementsByTagName("form")[0].submit();
+    		}
+		}
+    
+	    function popCk() {
+	    	var state = document.getElementById("state");
+	    	var stateR = $("input:checkbox[id='state']").val();
+	    	console.log($("input:checkbox[id='state']").val());
+	    	if(stateR =="true"){
+	    		state.checked = true;
+	    	}else{
+	    		state.checked = false;
+	    	}
+		}
+	    popCk();
+    </script>
 </html>

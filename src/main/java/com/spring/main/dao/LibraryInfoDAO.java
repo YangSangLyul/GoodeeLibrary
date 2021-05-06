@@ -53,6 +53,10 @@ public interface LibraryInfoDAO {
 	int update(HashMap<String, Object> params);
 
 	ArrayList<LibraryInfoDTO> mainNoticeCall();
+
+	ArrayList<LibraryInfoDTO> fileCk(int idx);
+
+	int questionDelete(int idx);
 	 
 	
 

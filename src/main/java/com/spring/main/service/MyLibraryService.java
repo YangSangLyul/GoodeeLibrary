@@ -440,4 +440,31 @@ public class MyLibraryService {
 	}
 
 
+	public ModelAndView review_writeForm(HashMap<String, String> params) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("리뷰작성 페이지 요청");
+		logger.info("params:{}",params);
+		MyLibraryDTO dto = dao.myReviewWriteForm(params);
+		mav.addObject("ReviewDetail", dto);
+		mav.setViewName("myLib_review_write");
+		
+		return mav;
+	}
+
+
+	public ModelAndView review_write(HashMap<String, String> params) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("글쓰기 요청");
+		int success = dao.review_write(params);
+		String page = "myLib_review_write";
+		if(success > 0) {
+			logger.info("글쓰기 성공");
+			page = "myLib_Review";
+		}
+		mav.setViewName(page);
+		
+		return mav;
+	}
+
+
 }

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dto.AdminDTO;
+import com.spring.main.dto.LibraryInfoDTO;
 import com.spring.main.service.AdminService;
 
 @Controller
@@ -25,13 +26,6 @@ public class AdminController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired AdminService service;
-	
-	//관리자 메인 
-	/*
-	 * @RequestMapping(value = "/adminService", method = RequestMethod.GET) public
-	 * ModelAndView adminService() { logger.info("관리자 메인 요청"); ModelAndView mav =
-	 * new ModelAndView(); mav.setViewName("adminService"); return mav; }
-	 */
 	
 	//관리자 메인 - 알림리스트
 	@RequestMapping(value = "/adminService", method = RequestMethod.GET)
@@ -156,6 +150,68 @@ public class AdminController {
 		return service.blindRemove(blindIdx,attr);
 	}
 	
+	//관리자 공지사항
+	@RequestMapping(value = "/adminNotice", method = RequestMethod.GET)
+	public ModelAndView adminNotice() {
+		logger.info("관리자 공지사항");
+		return service.adminNotice();
+	}
+	
+	//관리자 공지사항 글쓰기 폼
+	@RequestMapping(value = "/noticewriteForm", method = RequestMethod.GET)
+	public ModelAndView noticewriteForm() {
+		logger.info("관리자 공지사항 글쓰기 폼으로 이동");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("adminNotice_writeForm");
+		return mav;
+	}
+	
+	//관리자 공지사항 글쓰기
+	@RequestMapping(value = "/noticeWrite", method = RequestMethod.POST)
+	public ModelAndView noticeWrite(@RequestParam HashMap<String, Object> params) {
+		logger.info("공지사항: "+params);
+		return service.noticeWrite(params);
+	}
+	
+	//관리자 공지사항 상세보기
+	@RequestMapping(value = "/noticeDetail", method = RequestMethod.GET)
+	public String noticeDetail(Model model, @RequestParam int idx) {
+		logger.info("공지사항 상세보기: "+idx);
+		String page = "redirect:/adminNotice";
+		LibraryInfoDTO dto = service.noticeDetail(idx);
+		if(dto != null) {
+			page = "adminNotice_detail";
+			model.addAttribute("detail",dto);
+		}
+		return page;
+	}
+	
+	//관리자 공지사항 삭제
+	@RequestMapping(value = "/noticeDel", method = RequestMethod.GET)
+	public ModelAndView noticeDel(@RequestParam int idx, RedirectAttributes attr) {
+		logger.info("공지사항 삭제: "+idx);
+		return service.noticeDel(idx, attr);
+	}
+	
+	//관리자 공지사항 수정 페이지
+	@RequestMapping(value = "/noticeEditForm", method = RequestMethod.GET)
+	public String noticeEditForm(Model model, @RequestParam int idx) {
+		logger.info("공지사항 수정: "+idx);
+		String page = "redirect:/noticeDetail";
+		LibraryInfoDTO dto = service.noticeDetail(idx);
+		if(dto != null) {
+			page = "adminNotice_updateForm";
+			model.addAttribute("detail",dto);
+		}
+		return page;
+	}
+	
+	//관리자 공지사항 글 수정
+	@RequestMapping(value = "/noticeUpdate", method = RequestMethod.POST)
+	public ModelAndView noticeUpdate(@RequestParam HashMap<String, Object> params, RedirectAttributes attr) {
+		logger.info("공지사항 수정: "+params);
+		return service.noticeUpdate(params,attr);
+	}
 	
 	//문의내역 리스트 페이지 이동
 	@RequestMapping(value = "/questionList", method = RequestMethod.GET)

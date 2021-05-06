@@ -7,7 +7,7 @@
         <!-- favicon:사이트를 대표하는 탭창에 보여지는 이미지 -->
         <link rel="icon" href="icon.jpg">
         <style>
-            body{
+            #container{
                 width: 700px;
                 margin: 20px 550px;
                 /* text-align: center; */
@@ -21,6 +21,7 @@
             table,td,th{                
                 border: 1px solid black;
                 border-collapse: collapse;
+                padding: 10px;
             } 
             #content{
                 overflow: auto;
@@ -29,30 +30,56 @@
                 margin-left: 470px;
             }
         </style>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
     <body>
-        <!-- 여기는 상단 메뉴 자리 -->
-        <hr/>
-        <table>
-            <tr>
-                <th>제목</th>
-                <td>기존 공지사항</td>
-            </tr>
-            <tr>
-                <th>내용</th>
-                <td id="content">공지사항의 내용을 상세하게 볼 수 있다.</td>
-            </tr>
-            <tr>
-                <!-- 글을 쓰거나 수정 할 때 팝업체크 여부에 따라 값이 고정되게 수정하기 -->
-                <th>팝업<input type="checkbox"></th>
-                <td>날짜</td>
-            </tr>
-        </table>
-        <br/>
-        <div id="btn">
-            <button>삭제하기</button>
-            <button>수정하기</button>
-            <button>이전으로</button>
-        </div>
+    	<jsp:include page="header.jsp"/>
+    	<div id="container">
+    		<input type="hidden" value="${detail.noticeidx}"/>
+	        <table>
+	            <tr>
+	                <th>제목</th>
+	                <td>${detail.subject}</td>
+	            </tr>
+	            <tr>
+	                <th>내용</th>
+	                <td id="content">${detail.content}</td>
+	            </tr>
+	            <tr>
+	            	<th>날짜</th>
+	                <td>${detail.reg_date}</td>
+	            </tr>
+	            <tr>
+	                <!-- 글을 쓰거나 수정 할 때 팝업체크 여부에 따라 값이 고정되게 수정하기 -->
+	                <td colspan="2" style="text-align: center; font-size: 22px; font-weight: 600;">
+	                	팝업<input type="checkbox" id="state" value="${detail.noticestatus}" onclick="return(false);">
+	                </td>
+	            </tr>
+	        </table>
+	        <br/>
+	        <div id="btn">
+	            <button onclick="location.href='noticeDel?idx=${detail.noticeidx}'">삭제하기</button>
+	            <button onclick="location.href='noticeEditForm?idx=${detail.noticeidx}'">수정하기</button>
+	            <button onclick="location.href='adminNotice'">이전으로</button>
+	        </div>
+    	</div>
     </body>
+    <script>
+	    var msg = "${msg}";
+	    if(msg != ""){
+	    	alert(msg);
+	    }
+	    
+	    function popCk() {
+	    	var state = document.getElementById("state");
+	    	var stateR = $("input:checkbox[id='state']").val();
+	    	console.log($("input:checkbox[id='state']").val());
+	    	if(stateR =="true"){
+	    		state.checked = true;
+	    	}else{
+	    		state.checked = false;
+	    	}
+		}
+	    popCk();
+    </script>
 </html>
