@@ -30,6 +30,7 @@
                 margin-left: 470px;
             }
         </style>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
     <body>
     	<jsp:include page="header.jsp"/>
@@ -58,7 +59,7 @@
 	        <br/>
 	        <div id="btn">
 	            <button onclick="location.href='noticeDel?idx=${detail.noticeidx}'">삭제하기</button>
-	            <button onclick="location.href='noticeEdit?idx=${detail.noticeidx}'">수정하기</button>
+	            <button onclick="location.href='noticeEditForm?idx=${detail.noticeidx}'">수정하기</button>
 	            <button onclick="location.href='adminNotice'">이전으로</button>
 	        </div>
     	</div>
@@ -71,9 +72,12 @@
 	    
 	    function popCk() {
 	    	var state = document.getElementById("state");
-	    	console.log(state.value);
-	    	if(state.value="true"){
-	    		state.checked;
+	    	var stateR = $("input:checkbox[id='state']").val();
+	    	console.log($("input:checkbox[id='state']").val());
+	    	if(stateR =="true"){
+	    		state.checked = true;
+	    	}else{
+	    		state.checked = false;
 	    	}
 		}
 	    popCk();

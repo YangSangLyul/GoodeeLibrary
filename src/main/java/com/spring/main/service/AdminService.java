@@ -191,6 +191,15 @@ public class AdminService {
 		mav.setViewName("redirect:/adminNotice");
 		return mav;
 	}
+	
+	public ModelAndView noticeUpdate(HashMap<String, Object> params, RedirectAttributes attr) {
+		logger.info("관리자 공지사항 글 수정");
+		ModelAndView mav = new ModelAndView();
+		dao.noticeUpdate(params);
+		logger.info("idx: "+params.get("idx"));
+		mav.setViewName("redirect:/noticeDetail?idx="+params.get("idx"));
+		return mav;
+	}
 		
 	public HashMap<String, Object> questionList(int page) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -213,8 +222,6 @@ public class AdminService {
 		map.put("currPage", page);
 		return map;
 	}
-
-	
 
 	
 }
