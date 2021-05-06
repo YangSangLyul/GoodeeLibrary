@@ -21,7 +21,7 @@ public interface ReviewDao2 { //리뮤 모아보기용
 
 	void reportCntUp(int reviewIdx);
 
-	String overReport(int reviewIdx);
+	String overReport(ReviewDTO dto);
 
 
 }

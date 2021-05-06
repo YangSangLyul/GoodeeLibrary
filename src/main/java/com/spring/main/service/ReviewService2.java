@@ -68,7 +68,7 @@ public class ReviewService2 { //리뷰 모아보기용
 		int reviewIdx = dto.getReviewIdx();
 		int success;
 		
-		if(dao.overReport(reviewIdx)!=null) {
+		if(dao.overReport(dto)!=null) {
 			success = 0;
 		}else {
 			success = dao.reviewReport(dto);

@@ -35,7 +35,7 @@
 	</insert> 
 	
 	<select id="overReport" resultType="String">
-			SELECT id FROM reviewreport WHERE reviewIdx=#{reviewIdx}
+			SELECT id FROM reviewreport WHERE id=#{id} AND reviewIdx=#{reviewIdx}
 	</select>
 
  	<update id="reportCntUp">
