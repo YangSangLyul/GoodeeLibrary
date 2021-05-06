@@ -109,7 +109,7 @@
     </head>
     <body>
         <div id="home">
-            <a href="./"><i>구디 도서관</i></a>
+            <a href="../../../"><i>구디 도서관</i></a>
         </div>
 
         
@@ -118,18 +118,18 @@
             <div id="userMenu">
             <ul>
                 <li class="topMenuLi"> 
-                    <button id="libraryInfo" onclick="location.href='notice'">도서관 이용안내</button>
+                    <button id="libraryInfo" onclick="location.href='../../../notice'">도서관 이용안내</button>
                 </li>
     
                 <li class="topMenuLi">
-                    <button id="libraryService" onclick="location.href='reserveSeatForm'">도서관 서비스</button>
+                    <button id="libraryService" onclick="location.href='../../../reserveSeatForm'">도서관 서비스</button>
                 </li>
     
                 <li class="topMenuLi">
                     <button id="librarySearch">자료 검색</button>
                 </li>
                 <li class="topMenuLi">
-                    <button id="libraryMy" onclick="location.href='MyLibrary'">마이 라이브러리</button>
+                    <button id="libraryMy" onclick="location.href='../../../MyLibrary'">마이 라이브러리</button>
                     <!-- onclick="location.href='myLib_reserveSeatInOut'" -->
                     
                     <!-- 관리자가 로그인할 경우 나타나게 될 메뉴
@@ -162,7 +162,7 @@
     </body>
 	<script>
 		$("#librarySearch").click(function(){
-			location.href = 'booksSearch';
+			location.href = '../../../booksSearch';
 		});
 		
 		function menuCall(){
