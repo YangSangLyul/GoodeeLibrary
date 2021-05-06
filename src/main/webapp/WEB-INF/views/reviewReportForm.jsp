@@ -52,27 +52,6 @@ update
    	alert(msg);
    }
    
-/*    $("#report_ok").click(function() {
-		if($('#reportReason').val() == '') {
-			alert('신고 사유를 입력해주세요.');
-		}else{
- 		$.ajax({
-			type:'POST'
-			,url:'reviewReport'
-			,data: 
-			{"reportReason":$("#reportReason").val()
-			,"reportId":$("#reportId").val()
-			,"reviewIdx":$("#reviewIdx").val()
-			}
-			,dataType:'text'
-			,success:function(data){
-				
-			}
-		});
- 		window.close();
-		}
-	}); */
-   
    $("#report_ok").click(function() {
 		if($('#reportReason').val() == '') {
 			alert('신고 사유를 입력해주세요.');
@@ -85,31 +64,19 @@ update
 			,"reportId":$("#reportId").val()
 			,"reviewIdx":$("#reviewIdx").val()
 			}
-			,dataType:'text'
+			,dataType:'JSON'
 			,success:function(data){
 				console.log(data);
-				if(data.success){
+				if(data.success == '1'){
 					alert('해당 리뷰가 신고되었습니다.');
 					window.close();
 				}else{
-					alert('이미 신고한 리뷰이거나 신고할수 없는 리뷰ㄴ입니다.');
-				}
-				
-				
+					alert('이미 신고된 리뷰이거나 신고할 수 없는 리뷰입니다.');
+					window.close();
+				}	
 			}
 		});
 		}
 	});
-   
- 
-/*    $(document).ready(function() {
-		$("#report_ok").click(function() {
-			alert('해당 리뷰를 신고합니다.');
-			document.form.action = "reviewReport";
-			document.form.submit();
-			window.open("about:blank","_self").close();
-			
-		});
-   }); */
    </script>
 </html>

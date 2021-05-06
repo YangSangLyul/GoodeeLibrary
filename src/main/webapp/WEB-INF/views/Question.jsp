@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<%
-	String loginId = (String) request.getSession().getAttribute("loginId");
-%>
 <html lang="en">
 
 <head>
@@ -22,12 +19,12 @@
 		<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
     <style>
          #QBack{
-            background-color: blanchedalmond;
+           /*  background-color: blanchedalmond; */
             width: 900px;
             height: 500px;
             position: absolute;
-            left: 28%;
-            top: 35%;
+            left: 25%;
+            top: 27%;
         }
         #buttonBox{
             position: absolute;
@@ -39,9 +36,7 @@
         }
         #QuestionTable{
             text-align: center;
-            position: absolute;
-            left: 16%;
-            top: 10%;
+           
         }
         .n1{
             width: 100px;
@@ -51,13 +46,74 @@
             width: 400px;
             height: 30px;
         }
+          #header{
+        margin-top: 25px;
+        margin-right: 10px;
+        }
+         i{
+        font-size: 50px;
+        }
+        
+          table{
+            position: absolute;
+            width: 300px;
+            left: 3%;
+            top: 20%;
+            text-align:center;
+        }
+       
+        td,th{
+            border: 1px solid gray;
+            height: 40px;
+        }
+           #sid{
+         position: absolute;
+         top: 17%;
+         left: 11%;
+        }
+               #titleMenu {
+            border: 1px solid black;
+            background-color: blue;
+            width: 200px;
+            height: 72px;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .menu{
+            border: 1px solid black;
+            background-color: white;
+            width: 200px;
+            height: 60px;
+            text-align: center;
+            padding-bottom: 20px;
+        } 
+         a{
+            color:white
+        }
+        a:link,a:visited{
+            color: black;
+            text-decoration: none;
+        } 
+        p {
+		display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
     </style>
 </head>
 <body>
+<div id="header"> 
 <jsp:include page="header.jsp"/>
-<div style="position: absolute;">
-<jsp:include page="bookuseSidebar.jsp"></jsp:include>
+
 </div>
+<div id="sid">
+<jsp:include page="bookuseSidebar.jsp"></jsp:include>
+
+</div>
+
     <div id="QBack">
        <div id="buttonBox">
             <button onclick="location.href='QuestionAll'">전체</button>
@@ -69,18 +125,48 @@
         </div>
         <div id="QuestionTable">
             <table>
-                <tr>
-                    <th class="n1">글번호</th>
-                    <th class="n2">제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                    <th>답변</th>
+                <tr style="color:#0000FF;
+			font-weight: bold;
+        	border: 1px solid gray;
+            height: 40px;
+            text-align: center;
+            ">
+                    <th class="n1" style="color:#0000FF;
+			font-weight: bold;
+        	border: 1px solid gray;
+            height: 40px;
+            text-align: center;
+            ">글번호</th>
+                    <th class="n2" style="color:#0000FF;
+			font-weight: bold;
+        	border: 1px solid gray;
+            height: 40px;
+            text-align: center;
+            ">제목</th>
+                    <th style="color:#0000FF;
+			font-weight: bold;
+        	border: 1px solid gray;
+            height: 40px;
+            text-align: center;
+            ">작성자</th>
+                    <th style="color:#0000FF;
+			font-weight: bold;
+        	border: 1px solid gray;
+            height: 40px;
+            text-align: center;
+            ">작성일</th>
+                    <th style="color:#0000FF;
+			font-weight: bold;
+        	border: 1px solid gray;
+            height: 40px;
+            text-align: center;
+            ">답변</th>
                 </tr>
                  <tbody id="list">
 				
 				</tbody>
                 <tr>
-				<td id="paging" colspan="6">
+				<td id="paging" colspan="6" style="border: 0px solid white;">
 				<!-- 플러그인사용 -->
 				<div class="container">
 					<nav aria-label="page navigation" style="text-align:center">

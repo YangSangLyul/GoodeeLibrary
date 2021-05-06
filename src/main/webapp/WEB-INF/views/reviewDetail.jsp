@@ -106,7 +106,6 @@
 			<div class="review_content">
 				<table id="r_table">
 					<div class="re_date">작성날짜 : ${dto.reg_date}</div>
-					<input type="hidden" name=""/>
  					<tr>
 						<td rowspan="3" id="b_info">
 							<a href="#">
@@ -122,8 +121,15 @@
 						</td>
 					<tr>
 						<td id="re_comm">
-							<div class="re_img">🤍<a href="reviewLike">🧡</a></div>
-							<div class="re_cnt">추천수 ${dto.cnt}</div>
+						<c:choose>
+							<c:when test="${likeCnt eq '0' or empty likeCnt}">
+								<div class="re_img"><a href="#" onclick="changeHeart()" id="like">🧡</a></div>
+							</c:when>
+							<c:otherwise>
+								<div class="re_img"><a href="#" onclick="changeHeart()" id="like">🤍</a></div>
+							</c:otherwise>
+						</c:choose>
+							<div class="re_cnt" id="likeCnt">추천수 ${dto.cnt}</div>
 						</td>
 						<c:if test="${sessionScope.loginId ne null}">
 						<td>		
@@ -158,5 +164,6 @@ if(msg!=""){
 function reviewReport(){
 	window.open('reviewReportForm?reviewIdx=${dto.reviewIdx}','reviewReportForm','width=500, height=400');
 }
+
    </script>
 </html>

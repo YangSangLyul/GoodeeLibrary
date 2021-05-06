@@ -52,7 +52,7 @@ public class LibrarySearchController {
 		int success = service.reserveBookCancel(reserveBookIdx);
 		logger.info("예약 취소 성공 여부 : " + success);
 		
-		return "BookManage/test";
+		return "redirect:/MyBook";
 	}
 	
 	@RequestMapping(value = "/rentalBook", method = RequestMethod.GET)
@@ -61,7 +61,7 @@ public class LibrarySearchController {
 		int success = service.rentalBook(reserveBookIdx);
 		logger.info("대여 성공 여부 : " + success);
 		
-		return "BookManage/test";
+		return "redirect:/MyBook";
 	}
 	
 	@RequestMapping(value = "/returnBook", method = RequestMethod.GET)
@@ -70,7 +70,7 @@ public class LibrarySearchController {
 		int success = service.returnBook(reserveBookIdx);
 		logger.info("반납 성공 여부 : " + success);
 		
-		return "BookManage/test";
+		return "redirect:/userNotification";
 	}
 		
 	@RequestMapping(value = "/booksSearch", method = RequestMethod.GET)
