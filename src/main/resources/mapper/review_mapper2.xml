@@ -25,18 +25,19 @@
 			book b JOIN review r ON b.bookIdx=r.bookIdx WHERE reviewIdx=#{param1}
 	</select>
 
-	<select id="reviewReportForm" resultType="String">
-		SELECT reviewIdx,id FROM review WHERE reviewIdx=#{param1}
+	<select id="reviewReportForm" resultType="review">
+			SELECT reviewIdx, id FROM review WHERE reviewIdx=#{param1}
 	</select>
+	
 
  	<insert id="reviewReport" parameterType="review">
-			INSERT INTO reviewreport(reportIdx, reviewIdx, reportId, reportReason) 
-			VALUES (reportIdx_seq.NEXTVAL, #{reviewIdx}, #{reportId}, #{reportReason})
+			INSERT INTO reviewreport(reportIdx, reviewIdx, reportId, reportReason,id) 
+			VALUES (reportIdx_seq.NEXTVAL, #{reviewIdx}, #{reportId}, #{reportReason},'loginId')
 	</insert> 
 
  	<update id="reportCntUp">
 			UPDATE member SET reviewreportcnt = reviewreportcnt+1 
-			WHERE id=(SELECT reportid FROM reviewreport WHERE reviewIdx=#{reviewIdx})
+			WHERE id = (SELECT reportid FROM reviewreport WHERE reviewIdx=#{reviewIdx})
 	</update> 
 		
 </mapper>

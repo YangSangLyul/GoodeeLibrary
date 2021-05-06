@@ -10,7 +10,7 @@ public class ReviewDTO {
 		//리뷰
 	   private int reviewIdx;
 	   private String content;
-	   private String id;
+	   private String id; //리뷰작성 회원이자 신고하는 회원 아이디
 	   private Date reg_date;
 	   private int reportCnt;
 	   private String blind_status;
@@ -27,7 +27,7 @@ public class ReviewDTO {
 		
 		//리뷰신고
 		private int reportIdx;
-		private String reportId;
+		private String reportId; //신고당한 아이디
 		private Date reportDate;
 		private String reportReason;
 		private String reportStatus;
