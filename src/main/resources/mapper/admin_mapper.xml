@@ -5,7 +5,16 @@
 >
 
 <mapper namespace="com.spring.main.dao.AdminDAO">
+	<resultMap type="LibraryInfoDTO" id="notice">
+			<id column="noticeidx" property="noticeidx"/>
+			<result column="id" property="id"/>
+			<result column="subject" property="subject"/>
+			<result column="content " property="content"/>
+			<result column="reg_date" property="reg_date"/>
+			<result column="noticestatus" property="noticestatus"/>
+	</resultMap>
 
+	<!-- 관리자 알림내역 -->
 	<select id="adminNoti" resultType="com.spring.main.dto.AdminDTO" parameterType="list">
 		SELECT * FROM notification WHERE mem_type = '관리자' AND readstatus='FALSE'
 	</select>
@@ -85,6 +94,29 @@
 		UPDATE reviewblind SET blind_status='FALSE' WHERE blindIdx=#{param1}
 	</delete>
 	
+	<!-- 관리자 공지사항 리스트 -->
+	<select id="adminNotice" resultType="com.spring.main.dto.LibraryInfoDTO" parameterType="list">
+		SELECT * FROM notice
+	</select>
+	
+	<insert id="noticeWrite" parameterType="HashMap">
+		INSERT INTO notice(noticeidx, id, subject, content, noticestatus) 
+			VALUES(NOTICEIDX_SEQ.NEXTVAL, #{id}, #{subject}, #{content}, #{popup})
+	</insert>
+	
+	<select id="noticeDetail" resultType="com.spring.main.dto.LibraryInfoDTO">
+		SELECT * FROM notice WHERE noticeidx=#{param1}
+	</select>
+	
+	<delete id="noticeDel">
+		DELETE FROM notice WHERE noticeidx=#{param1}
+	</delete>
+	
+	<update id="noticeUpdate" parameterType="HashMap">
+		UPDATE notice SET subject=#{subject}, content=#{content}, noticestatus=#{popup} 
+			WHERE noticeidx=#{idx}
+	</update>
+	
 	<select id="questionCnt" resultType="int">
 		SELECT COUNT(*) FROM question
 	</select>
@@ -98,5 +130,4 @@
 		WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
 	
-		
 </mapper>

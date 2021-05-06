@@ -129,7 +129,7 @@
                 저자명 : ${books.writer}<br/>
                 출판사 : ${books.publisher}<br/>
                 등록번호 : ${books.bookIdx}
-            <button id="btn_rv">리뷰작성하기</button>
+            <button id="btn_rv" onclick="location.href='./review_WriteForm?bookIdx=${books.bookIdx}'">리뷰작성하기</button>
             </div>
             <hr/>
         </div>

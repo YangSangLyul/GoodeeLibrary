@@ -53,26 +53,21 @@ public class ReviewService2 { //리뷰 모아보기용
 		return dao.reviewDetail(reviewIdx);
 	}
 	
-	@Transactional
 	public ReviewDTO reviewReportForm(String reviewIdx) {
-		dao.reportCntUp(reviewIdx);
-		return dao.reviewDetail(reviewIdx);
+		return dao.reviewReportForm(reviewIdx);
 	}
 	
-	public int reviewReport(ReviewDTO dto) {
-		return dao.reviewReport(dto);
+	@Transactional
+	public HashMap<String, Object> reviewReport(ReviewDTO dto, String loginId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int success = dao.reviewReport(dto);
+		map.put("success", success);
+		if(success>0) {
+			int reviewIdx = dto.getReviewIdx();
+			dao.reportCntUp(reviewIdx);
+		}
+		logger.info("신고성공여부: "+success);
+		return map;
 	}
-	
 
-
-
-
-
-
-
-
-
-
-	
-	
 }
