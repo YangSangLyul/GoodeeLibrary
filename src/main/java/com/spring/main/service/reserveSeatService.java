@@ -61,7 +61,7 @@ public class reserveSeatService {
 
 		Calendar cal = Calendar.getInstance();
 
-		int hour = cal.get(Calendar.HOUR_OF_DAY) + 1;
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
 		int min = cal.get(Calendar.MINUTE);
 		int success = 0;
 

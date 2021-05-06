@@ -124,7 +124,7 @@
 					<tr>					
 						<td rowspan="2">
 							<input type="button" class="re_btn" id="save" value="저장">
-							<input type="button" class="re_btn" onclick="location.href='./myReview_detail?reviewIdx=${ReviewDetail.reviewIdx}'" value="취소">
+							<input type="button" class="re_btn" onclick="location.href='booksSearch'" value="취소">
 						</td>
 					</tr> 
 				</table>
