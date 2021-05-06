@@ -10,36 +10,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-         #titleMenu {
-            border: 1px solid black;
-            background-color: blue;
-            width: 200px;
-            height: 50px;
-            text-align: center;
-            padding-top: 20px;
-        }
-
-        .menu{
-            border: 1px solid black;
-            background-color: white;
-            width: 200px;
-            height: 38px;
-            text-align: center;
-            padding-bottom: 20px;
-        } 
-         a{
-            color:white
-        }
-        a:link,a:visited{
-            color: black;
-            text-decoration: none;
-        } 
+         
     </style>
 </head>
 
 <body>
     <div id="mysidenav" class="sidenav">
-        <div id="titleMenu">도서관이용안내</div>
+        <div id="titleMenu" style="">도서관이용안내</div>
         <div class="menu">
             <p>찾아오는길</p>
         </div>
