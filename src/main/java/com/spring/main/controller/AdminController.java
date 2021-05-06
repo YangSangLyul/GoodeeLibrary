@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dto.AdminDTO;
+import com.spring.main.dto.LibraryInfoDTO;
 import com.spring.main.service.AdminService;
 
 @Controller
@@ -172,6 +173,25 @@ public class AdminController {
 		return service.noticeWrite(params);
 	}
 	
+	//관리자 공지사항 상세보기
+	@RequestMapping(value = "/noticeDetail", method = RequestMethod.GET)
+	public String noticeDetail(Model model, @RequestParam int idx) {
+		logger.info("공지사항 상세보기: "+idx);
+		String page = "redirect:/adminNotice";
+		LibraryInfoDTO dto = service.noticeDetail(idx);
+		if(dto != null) {
+			page = "adminNotice_detail";
+			model.addAttribute("detail",dto);
+		}
+		return page;
+	}
+	
+	//관리자 공지사항 삭제
+	@RequestMapping(value = "/noticeDel", method = RequestMethod.GET)
+	public ModelAndView noticeDel(@RequestParam int idx, RedirectAttributes attr) {
+		logger.info("공지사항 삭제: "+idx);
+		return service.noticeDel(idx, attr);
+	}
 	
 	//문의내역 리스트 페이지 이동
 	@RequestMapping(value = "/questionList", method = RequestMethod.GET)

@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.spring.main.dto.AdminDTO;
 import com.spring.main.dto.BookDTO;
+import com.spring.main.dto.LibraryInfoDTO;
 
 public interface AdminDAO {
 
@@ -42,6 +43,10 @@ public interface AdminDAO {
 	int questionCnt();
 
 	ArrayList<BookDTO> questionList(int start, int end);
+
+	LibraryInfoDTO noticeDetail(int idx);
+
+	int noticeDel(int idx);
 
 
 }

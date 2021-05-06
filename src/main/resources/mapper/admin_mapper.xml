@@ -103,6 +103,15 @@
 		INSERT INTO notice(noticeidx, id, subject, content, noticestatus) 
 			VALUES(NOTICEIDX_SEQ.NEXTVAL, #{id}, #{subject}, #{content}, #{popup})
 	</insert>
+	
+	<select id="noticeDetail" resultType="com.spring.main.dto.LibraryInfoDTO">
+		SELECT * FROM notice WHERE noticeidx=#{param1}
+	</select>
+	
+	<delete id="noticeDel">
+		DELETE FROM notice WHERE noticeidx=#{param1}
+	</delete>
+	
 	<select id="questionCnt" resultType="int">
 		SELECT COUNT(*) FROM question
 	</select>

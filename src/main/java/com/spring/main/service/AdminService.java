@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.main.dao.AdminDAO;
 import com.spring.main.dto.AdminDTO;
 import com.spring.main.dto.BookDTO;
+import com.spring.main.dto.LibraryInfoDTO;
 
 @Service
 public class AdminService {
@@ -173,6 +174,23 @@ public class AdminService {
 		mav.setViewName("redirect:/adminNotice");
 		return mav;
 	}
+	
+	public LibraryInfoDTO noticeDetail(int idx) {
+		logger.info("공지사항 상세보기 쿼리 요청");
+		return dao.noticeDetail(idx);
+	}
+	
+	public ModelAndView noticeDel(int idx, RedirectAttributes attr) {
+		logger.info("공지사항 삭제 요청");
+		ModelAndView mav = new ModelAndView();
+		String msg = "";
+		if(dao.noticeDel(idx)>0) {
+			msg = "삭제했습니다.";
+		}
+		attr.addFlashAttribute("msg", msg);
+		mav.setViewName("redirect:/adminNotice");
+		return mav;
+	}
 		
 	public HashMap<String, Object> questionList(int page) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -195,6 +213,8 @@ public class AdminService {
 		map.put("currPage", page);
 		return map;
 	}
+
+	
 
 	
 }

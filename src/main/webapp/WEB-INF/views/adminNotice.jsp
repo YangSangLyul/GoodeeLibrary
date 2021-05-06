@@ -56,7 +56,7 @@
 	            <c:forEach items="${notice}" var="notice">
 		            <tr>
 		                <td>${notice.noticeidx}</td>
-		                <td>${notice.subject}</td>
+		                <td><a href="noticeDetail?idx=${notice.noticeidx}">${notice.subject}</a></td>
 		                <td>${notice.reg_date}</td>
 		                <!-- 팝업은 하나만 가능하니까 radio로 했음 -->
 		                <c:if test="${notice.noticestatus eq 'true'}">
@@ -71,4 +71,10 @@
 	        <!-- 페이징 여기서 -->
     	</div>
     </body>
+    <script>
+	    var msg = "${msg}";
+	    if(msg != ""){
+	    	alert(msg);
+	    }
+    </script>
 </html>
