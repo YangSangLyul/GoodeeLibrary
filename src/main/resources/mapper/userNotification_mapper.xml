@@ -4,7 +4,7 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
 >
 
-<mapper namespace="com.spring.main.dao.UserNotificatioDAO">
+<mapper namespace="com.spring.main.dao.UserNotificationDAO">
 
 	<select id="userNotificationList" resultType="userNotification">
 		SELECT * FROM notification WHERE (id=#{param1} AND mem_type='회원')

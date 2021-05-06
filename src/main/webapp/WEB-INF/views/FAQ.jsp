@@ -12,12 +12,12 @@
      <title>FAQ</title>
      <style>
          #FAQback{
-             background-color: wheat;
+           /*   background-color: wheat; */
              width: 900px;
             height: 500px;
             position: absolute;
-            left: 28%;
-            top: 35%;
+            left: 25%;
+            top: 27%;
          }
         
          table{
@@ -52,14 +52,60 @@
        .librarian{
        		display: none;
        }
+       #sid{
+       position: absolute;
+       top: 17%;
+       left: 11%;
+       }
+       #header{
+       margin-top: 25px;
+       margin-left: 10px;
+       }
+       #titleMenu {
+            border: 1px solid black;
+            background-color: blue;
+            width: 200px;
+            height: 50px;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .menu{
+            border: 1px solid black;
+            background-color: white;
+            width: 200px;
+            height: 38px;
+            text-align: center;
+            padding-bottom: 20px;
+        } 
+         a{
+            color:white
+        }
+        a:link,a:visited{
+            color: black;
+            text-decoration: none;
+        } 
+        p{
+      	
+        }
+         #header{
+        margin-top: 25px;
+        margin-right: 10px;
+        }
+         i{
+        font-size: 50px;
+        }
      </style>
 </head>
 
 <body>
-<div>
+<div id="header">
 <jsp:include page="header.jsp"/>
 </div>
+<div id="sid">
+
 <jsp:include page="bookuseSidebar.jsp"/>
+</div>
     <div id="FAQback">
         <div id="search">
             <form action="FAQSearch">

@@ -18,12 +18,12 @@
 		<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
     <style>
         #noticeBackground{
-            background-color: blanchedalmond;
+           /*  background-color: blanchedalmond; */
             width: 900px;
             height: 500px;
             position: absolute;
-            left: 28%;
-            top: 35%;
+            left: 27%;
+            top: 27%;
         }
         #search{
             width: 100%;
@@ -45,12 +45,15 @@
         }
         table{
             position: absolute;
-            left: 20%;
+            width: 300px;
+            left: 3%;
             top: 20%;
             text-align:center;
         }
-        td,th{
+       
+        td{
             border: 1px solid gray;
+            height: 40px;
         }
         .n1{
             width: 10%;
@@ -60,14 +63,67 @@
             width: 70%;
             height: 10%;
         }
+        #header{
+        margin-top: 20px;
+        margin-right: 10px;
+        }
+         i{
+        font-size: 50px;
+        }
+        #search{
+       margin-left: -20%;
+        }
+        #sid{
+        position: absolute;
+        top: 17%;
+        left: 11%;
+        }
+        #titleMenu {
+            border: 1px solid black;
+            background-color: blue;
+            width: 200px;
+            height: 72px;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .menu{
+            border: 1px solid black;
+            background-color: white;
+            width: 200px;
+            height: 60px;
+            text-align: center;
+            padding-bottom: 20px;
+        } 
+         a{
+            color:white
+        }
+        a:link,a:visited{
+            color: black;
+            text-decoration: none;
+        } 
+        p {
+		display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
     </style>
 </head>
 <body onload=listCall(showPage);>
+<div id="header">
 <jsp:include page="header.jsp"/>
+</div>
+<div id="sid">
  <jsp:include page="bookuseSidebar.jsp"></jsp:include>
 
+</div>
+
     <div id="noticeBackground">
-       
+       	<div id="search">
+       	
+       	
                 <select  id="searchSelect">
                 
                     <option value="전체">전체</option>
@@ -78,9 +134,13 @@
                 <input id="searchName"  type="text"  placeholder="검색해주세요" name="searchName">
                 <button onclick="aCall()">검색</button>
        
+       	</div>
       
            <table>
-			<thead>
+			<thead style="color:#0000FF;
+			font-weight: bold;
+        	border: 1px solid gray;
+            height: 40px;">
 				<tr>
 					<td>번호</td>
 					<td>제목</td>
@@ -91,7 +151,7 @@
 				
 			</tbody>
 			<tr>
-				<td id="paging" colspan="6">
+				<td id="paging" colspan="6" style="border: 0px solid white;">
 				<!-- 플러그인사용 -->
 				<div class="container">
 					<nav aria-label="page navigation" style="text-align:center">

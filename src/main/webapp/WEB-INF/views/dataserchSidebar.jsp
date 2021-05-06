@@ -28,10 +28,10 @@
             text-align: center;
             padding-bottom: 20px;
         }
-        a{
+        #mysidenav a{
             color:white
         }
-        a:link,a:visited{
+        #mysidenav a:link,a:visited{
             color: white;
             text-decoration: none;
         }

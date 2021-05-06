@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -58,18 +59,6 @@
                 left: 45%;
                 top: 40%;
             }
-
-            a:link { 
-                color: gray; 
-                text-decoration: none;
-            }
-            a:visited {
-                color: gray; 
-                text-decoration: none;
-            }
-            a:hover {
-                color: gray;
-            }
             
             #sideBar{
         		position: absolute;
@@ -80,6 +69,11 @@
         		background-color: #f3f3f3ff;
         		margin-left:40px;
         	}
+        	
+        	#hopeLink{
+        		color: gray;
+        	}
+
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
@@ -108,7 +102,15 @@
         <br/>
         <!-- 검색을 했는데 결과가 없을 때 등장하는 텍스트 -->
         <p id="searchResult" style="text-align: center;">검색결과 '${searchText}' 총 ${searchCount}권이 검색되었습니다.</p>
+        
+        <c:if test="${fn:length(searchList) == 0}">
+        <div class="searchResultContent">
+        
+        	<span>원하시는 도서가 없으신가요? </span><a id="hopeLink" href="./hopeBook"> 희망도서 신청</a><span>을 이용해보세요!</span>
+        </div>
+        </c:if>
         <!-- 검색결과 영역 -->
+        <c:if test="${fn:length(searchList) != 0}">
         <c:forEach items="${searchList}" var="books">
         <div class="searchResultContent">
             <div class="searchImg">
@@ -129,16 +131,22 @@
                 저자명 : ${books.writer}<br/>
                 출판사 : ${books.publisher}<br/>
                 등록번호 : ${books.bookIdx}
-            <button id="btn_rv">리뷰작성하기</button>
+            <button id="btn_rv" onclick="location.href='./review_WriteForm?bookIdx=${books.bookIdx}'">리뷰작성하기</button>
             </div>
             <hr/>
         </div>
         </c:forEach>
-        
+        </c:if>
 
     </body>
     <script>
-
+	$("#searchBtn").click(function(){
+		if($("#searchContent").val() == ''){
+			alert('검색할 내용을 입력해주세요!');
+		}else{
+			$("#searchForm").submit();
+		}
+	});
     </script>
 
 

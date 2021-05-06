@@ -221,6 +221,8 @@ public class MyLibraryService {
 	public HashMap<String, Object> reserve_list(int page, String loginId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
+		logger.info("현재 페이지 : "+page);
+		
 		//5개 기준으로 몇페이지나 만들 수 있는가?
 		int allCnt = dao.ReserveBook_allCount(loginId);
 		logger.info("allCnt:"+allCnt);
@@ -434,6 +436,33 @@ public class MyLibraryService {
 		}
 		mav.setViewName(page);
 
+		return mav;
+	}
+
+
+	public ModelAndView review_writeForm(HashMap<String, String> params) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("리뷰작성 페이지 요청");
+		logger.info("params:{}",params);
+		MyLibraryDTO dto = dao.myReviewWriteForm(params);
+		mav.addObject("ReviewDetail", dto);
+		mav.setViewName("myLib_review_write");
+		
+		return mav;
+	}
+
+
+	public ModelAndView review_write(HashMap<String, String> params) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("글쓰기 요청");
+		int success = dao.review_write(params);
+		String page = "myLib_review_write";
+		if(success > 0) {
+			logger.info("글쓰기 성공");
+			page = "myLib_Review";
+		}
+		mav.setViewName(page);
+		
 		return mav;
 	}
 
