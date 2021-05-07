@@ -13,7 +13,7 @@
 #main {
 	width: 800px;
 	height: 400px;
-	margin: auto;
+	margin: -95px auto;
 	text-align: center;
 }
 
@@ -31,7 +31,6 @@
 	width: 750px;
 	padding: 15px;
 	height: 400px;
-	border-bottom: 1px solid lightgray;
 }
 
 #r_table { 
@@ -55,16 +54,17 @@
   width: 500px;
 	height: 250px;
 	vertical-align: top;
-	background-color: #f2f2f2;
+	background:#f8f7f7; 
 }
 
 #re_comm{
 	width: 350px;
 }
 
-.re_img, .re_cnt{
+.re_img{
 	display: inline;
-	font-size: 14px;
+	font-size: 15px;
+	margin: 3px;
 }
 
 .re_date{
@@ -94,6 +94,13 @@
 	margin-left: 230px;
 }
 
+#likebtn{
+	width: 28px;
+	height: 28px;
+	margin-top: 8px;
+	vertical-align: bottom;
+}
+
 </style>
 </head>
 <body>
@@ -106,6 +113,8 @@
 			<div class="review_content">
 				<table id="r_table">
 					<div class="re_date">작성날짜 : ${dto.reg_date}</div>
+					<input type="hidden" id="reviewIdx" name="reviewIdx" value="${dto.reviewIdx}"/>
+					<input type="hidden" id="id" name="id" value="${dto.id}"/>
  					<tr>
 						<td rowspan="3" id="b_info">
 							<a href="#">
@@ -119,19 +128,10 @@
 						<td colspan="2" id="re_content">
 								<div>${dto.content}</div>	
 						</td>
-					<tr>
+						<tr>
 						<td id="re_comm">
-					<%-- 	<c:choose>
-							<c:when test="${likeCnt eq '0' or empty likeCnt}">
-								<div class="re_img"><a href="#" onclick="changeHeart()" id="like">🧡</a></div>
-							</c:when>
-							<c:otherwise>
-								<div class="re_img"><a href="#" onclick="changeHeart()" id="like">🤍</a></div>
-							</c:otherwise>
-						</c:choose> --%>
-							<div class="re_img"><a href="#" onclick="changeHeart()" id="like">🧡</a></div>
-							<div class="re_img"><a href="#" onclick="changeHeart()" id="like">🤍</a></div>
-							<div class="re_cnt" id="likeCnt">추천수 ${dto.cnt}</div>
+							<div class="re_img"><img src="./image/delike.png" id="likebtn"></div>	
+							<div class="re_img">추천수 <span id="like_cnt"> ${cnt} </span></div>
 						</td>
 						<c:if test="${sessionScope.loginId ne null}">
 						<td>		
@@ -154,6 +154,61 @@
 	</div>
 </body>
 <script>
+var msg = "${msg}";
+	 if(msg!=""){
+			alert(msg);
+	 }
+	 
+likeCnt(); 
+$("#likebtn").click(function(){
+	 var $reviewIdx = $("#reviewIdx");
+	 var $id = $("#id");
+	 var params = {};
+	 params.reviewIdx = $reviewIdx.val();
+	 params.id = $id.val();
+	$.ajax({
+		url: "reviewLike",
+          type: "get",
+          data: params,
+          dataType:'JSON',
+          success: function (data) {
+       	 	console.log(data);
+       	 	console.log("--------------");
+       	 	console.log(data.success);
+       	 	if(data.success==0){
+       	 		$("#likebtn").attr("src","./image/like.png");
+       	 		alert("해당 리뷰를 추천하였습니다.");
+       	 		likeCnt();
+       	 	}else if(data.success==1){
+       	 		$("#likebtn").attr("src","./image/delike.png");
+       	 		alert("해당 리뷰 추천을 취소하였습니다.");
+       	 		likeCnt();
+       	 	}else{
+       	 		alert("리뷰 추천은 로그인 후 이용할 수 있습니다.");
+       	 	}
+          }
+    });
+});
+
+ function likeCnt(){
+	 var $reviewIdx = $("#reviewIdx");
+	 var params = {};
+	 params.reviewIdx = $reviewIdx.val();
+	$.ajax({
+		url: "reviewLikeCnt",
+        type: "get",
+        data: params,
+        dataType: 'JSON',
+        success: function (data) {
+        	   console.log("--------------");
+        	   console.log(data);
+        	   $("#like_cnt").html(data.cnt);	
+        	   console.log($("#like_cnt")); 
+           }
+	});
+};
+
+
 /* $(".writer").each(function(){
     var length = 12; //표시할 글자수 정하기
     $(this).each(function(){
@@ -163,6 +218,7 @@
         }
     });
 }); */
+
 var msg = "${msg}";
 if(msg!=""){
 	alert(msg);

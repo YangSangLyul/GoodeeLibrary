@@ -20,12 +20,7 @@
 				AS rnum, r.id, r.cnt, r.reg_date, r.reviewIdx,b.bookImg, b.bookName, b.writer, b.publisher
 			FROM book b JOIN review r ON b.bookIdx=r.bookIdx) WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
-	
-<!-- 	<select id="reviewCom" resultType="review" parameterType="list">
-		SELECT r.id, r.cnt, r.reg_date, r.reviewIdx,b.bookImg, b.bookName, b.writer, b.publisher FROM
-			book b JOIN review r ON b.bookIdx=r.bookIdx ORDER BY r.cnt DESC
-	</select> -->
-	
+
 		<select id="reviewCom" resultType="review" parameterType="list">
 		SELECT * FROM (
 			SELECT ROW_NUMBER() OVER(ORDER BY r.cnt DESC) 
@@ -39,7 +34,7 @@
 	</select>
 	
 		<select id="reviewDetail" resultType="review">
-			SELECT r.id, r.cnt, r.reviewIdx, r.content, r.reg_date, b.bookImg, b.bookName, b.writer, b.publisher FROM
+			SELECT r.id, r.cnt, r.reviewIdx, r.blind_status,r.content, r.reg_date, b.bookImg, b.bookName, b.writer, b.publisher FROM
 			book b JOIN review r ON b.bookIdx=r.bookIdx WHERE reviewIdx=#{param1}
 	</select>
 
@@ -61,6 +56,21 @@
 			WHERE id in (SELECT reportid FROM reviewreport WHERE reviewIdx=#{reviewIdx})
 	</update> 
 	
+	<select id="likeChk" resultType="Integer">
+		SELECT count(*) as like_chk FROM reviewrecommend where reviewIdx=#{param1} AND id=#{param2}
+	</select>
+	
+	<insert id="likeupdate">
+		INSERT INTO reviewrecommend(reviewIdx, id) VALUES (#{param1}, #{param2})
+	</insert>
+
+	<delete id="likedelete">
+		DELETE FROM reviewrecommend WHERE reviewIdx=#{param1} AND id=#{param2}
+	</delete>
+	
+	<select id="like_cnt" resultType="Integer">
+		SELECT cnt from review WHERE reviewIdx=#{param1}
+	</select>
 
 		
 </mapper>
