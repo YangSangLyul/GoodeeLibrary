@@ -22,7 +22,7 @@
             table{
                 width: 650px;
                 height: 100px;
-                margin: auto;
+                margin-left: 365px;
                 text-align: center;
             }
             table,td,th{                
@@ -184,6 +184,7 @@
 	    
 	    function reqBlind(reportIdx,reviewIdx){
 	    	location.href='blindReason?reportIdx='+reportIdx+'&reviewIdx='+reviewIdx;
+	    	//window.open('blindReason?reportIdx='+reportIdx+'&reviewIdx='+reviewIdx,'blindreason','width=400 height=100');
 	    }
 	    
 	    function reqIgnore(reportIdx){

@@ -10,13 +10,19 @@
         <!-- favicon:사이트를 대표하는 탭창에 보여지는 이미지 -->
         <link rel="icon" href="icon.jpg">
         <style>
+        	#container{
+        		padding: 50px;
+			    margin-top: 58px;
+			    margin-left: 130px;
+			    font-size: 20px;
+        	}
         	#home{
                 font-size: 50;
                 color: blue;
                 margin-left: 170px;
             }
             #tabMenu, h3{
-                width: 700px;
+                width: 800px;
                 margin: 20px 550px;
                 text-align: center;
             }
@@ -39,6 +45,8 @@
             } 
             button{
                 padding: 50px;
+			    margin-top: 13px;
+			    font-size: 20px;
             }
             h4{
                 text-align: left;
@@ -100,12 +108,14 @@
             <a href="memLogout"> 로그아웃</a>
         </div>
         </c:if>
-        <h3>관리하고자 하는 메뉴를 선택 해주세요.</h3>
-        <div id="tabMenu">
-            <button onclick="location.href='adminNotice'">공지사항</button>
-            <button onclick="location.href='bookList'">도서관리</button>
-            <button onclick="location.href='ReviewKing'">리뷰관리</button>
-            <button onclick="location.href=#">문의내역</button>
+        <div id="container">
+	        <h3>관리하고자 하는 메뉴를 선택 해주세요.</h3>
+	        <div id="tabMenu">
+	            <button onclick="location.href='adminNotice'">공지사항</button>
+	            <button onclick="location.href='bookList'">도서관리</button>
+	            <button onclick="location.href='ReviewKing'">리뷰관리</button>
+	            <button onclick="location.href=#">문의내역</button>
+	        </div>
         </div>
        <%--  <hr/>
         <h4>알림 내역</h4>
