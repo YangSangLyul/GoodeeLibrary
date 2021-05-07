@@ -78,10 +78,15 @@
     top: 98%;
        left: 55%; 
    }
+   .btn{
+   		margin-top:60%;
+   		width:70px;
+   }
 </style>
 </head>
 <body>
 	<jsp:include page="header.jsp"/>
+	<div id="my_title">${loginId}의 문의 내역</div>
     <div id="body">
         <form action="question_edit" method="POST">
             <table>
@@ -122,8 +127,8 @@
                     </td>
                 </tr>
             </table>
-            <input id="save" type="button" value="저장"/>
-	        <input id="cancel" type="button" value="취소" onclick="location.href='./question_detail?idx=${question_info.queidx}&&ansstatus=FALSE'"/>
+            <input id="save" class="btn" type="button" value="저장"/>
+	        <input id="cancel" class="btn" type="button" value="취소" onclick="location.href='./myLib_question_detail?idx=${question_info.queidx}&&ansstatus=FALSE'"/>
         </form>
         <!-- <button id="b2" onclick="location.href='./question_detail?idx='">취소</button> -->
     </div>

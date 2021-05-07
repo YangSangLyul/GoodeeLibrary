@@ -121,7 +121,7 @@
 	
 	<select id="hope_list" resultType="hashMap">
 		SELECT  * FROM( 
-			SELECT ROW_NUMBER() OVER(ORDER BY h.hopebooksNumber DESC) AS rnum,h.hopereason,h.id,h.hb_bookname,h.hb_date,h.hb_state,h.publisher,h.writer,r.reject  
+			SELECT ROW_NUMBER() OVER(ORDER BY h.hopebooksNumber DESC) AS rnum,h.hopebooksNumber,h.hopereason,h.id,h.hb_bookname,h.hb_date,h.hb_state,h.publisher,h.writer,r.reject  
 			FROM hopebook h LEFT JOIN hopebookreject r ON h.hopebooksNumber = r.hopebooksNumber WHERE id=#{param3}
 		)WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>

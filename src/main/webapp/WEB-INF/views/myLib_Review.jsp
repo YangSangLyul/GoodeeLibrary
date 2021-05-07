@@ -59,12 +59,19 @@
 		margin-right:525px;
 		
 		}
+		
+	#paging{
+       
+       position: fixed;
+       left:20%;
+       top:80%;
+     }
 </style>
 </head>
 <body>
 <jsp:include page="header.jsp"/>
    	<div>
-    <div id="title">${loginId}의 리뷰 내역</div>
+    <div id="my_title">${loginId}의 리뷰 내역</div>
     <div id="sideBar">
         <jsp:include page="mySidebar.jsp"/>
     </div>
