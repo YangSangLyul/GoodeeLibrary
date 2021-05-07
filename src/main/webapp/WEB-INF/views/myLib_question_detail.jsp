@@ -7,14 +7,29 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <style>
-    #qdBackground{
-        background-color: wheat;
-             width: 900px;
-            height: 500px;
-            position: absolute;
-            left: 28%;
-            top: 35%;
-    }
+	#sideBar{
+       		position: absolute;
+        	margin-left: 10%;
+        	margin-top: 3%;
+        }
+    #my_title{
+    	
+	    text-align: center;
+	    background-color: white;
+	    width: 200px;
+	    height: 40px;
+	    margin-left: 40%;
+	    margin-bottom: 2%;
+	    border: 1px solid black;
+	}
+	#body{
+		position: absolute;
+		text-align: center;
+	    background-color: beige;
+	    margin-left: 25%;
+	    width: 1000px;
+	    height: 900px;
+	}
     table{
         position: absolute;
         left: 15%;
@@ -24,18 +39,23 @@
    td{
      
        border: 1px solid gray;
+       background-color:white;
        width: 300px;
        height: 100px;
        vertical-align: top;
    }
    .btn{
-   		padding-right:10px;
-   		display:inline-block;
+   		margin-top:60%;
+   		width:70px;
    }
 </style>
 <body>
 	<jsp:include page="header.jsp"/>
-    <div id="qdBackground">
+	<div id="my_title">${loginId}의 문의 상세내역</div>
+	<div id="sideBar">
+        <jsp:include page="mySidebar.jsp"/>
+    </div>
+    <div id="body">
         <table>
            <tr>
                <td>제목<hr/><br/>
@@ -65,22 +85,20 @@
         </tr>
         <tr>
             <td colspan="2">답변내용<hr/><br/>
-              <%--  ${question_info.content} --%>
             	${question_info.answer}
             </td>
         </tr>
      
         </table>
-        <!-- 목록으로 가는 url 수정필요~ -->
+        <!-- 관리자 답변이 있을 경우 -->
 		<c:if test="${question_info.ansstatus eq 'TRUE'}">
-			<button class="btn" onclick="location.href='./MyLibrary'">목록</button>
+			<button class="btn" onclick="location.href='./MyQuestion'">목록</button>
 		</c:if>
         <!-- if 관리자 답변이 없을 경우 -->
         <c:if test="${question_info.ansstatus eq 'FALSE'}">
 			<button class="btn" onclick="location.href='./editForm?idx=${question_info.queidx}'">수정</button>
-	        <button class="btn" onclick="location.href='./MyLibrary'">목록</button>
+	        <button class="btn" onclick="location.href='./MyQuestion'">목록</button>
 	        <button class="btn" onclick="location.href='./question_delete?idx=${question_info.queidx}'">삭제</button>
-        
         </c:if>
     </div>
 </body>

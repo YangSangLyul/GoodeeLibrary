@@ -34,7 +34,7 @@ public class MyLibraryController {
 			String page = "redirect:/memLogin";
 			logger.info(loginId);
 			if(loginId != null) {
-				page="myLib_Review";
+				page="myLib_reserveSeatInOut";
 			}
 			rAttr.addFlashAttribute("msg",msg);	
 			mav.addObject("loginId",loginId); 
@@ -59,7 +59,14 @@ public class MyLibraryController {
 		  logger.info("params:{}",params); 
 		  return service.review_write(params); 
 	}
-	 
+	  
+	  @RequestMapping(value = "/MyReview")
+	  public ModelAndView MyReview() { 
+		  logger.info("나의 리뷰내역"); 
+		  ModelAndView mav = new ModelAndView(); 
+		  mav.setViewName("myLib_Review"); 
+		  return mav; 
+	  }
 	  
 	  @RequestMapping(value = "/myReview_detail")
 		public ModelAndView myReview_detail(@RequestParam HashMap<String, Object> params) {

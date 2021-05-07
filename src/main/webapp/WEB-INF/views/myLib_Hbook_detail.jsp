@@ -78,7 +78,7 @@
                 <td>${HbookDetail.hopeReason}</td>
             </tr>
         </table>
-        <button onclick="location.href='./MyLibrary'">목록</button>
+        <button onclick="location.href='./MyHopeBook'">목록</button>
     
     </div>
 </div>

@@ -143,7 +143,8 @@
 
 		
         <div class="topMenuNotice">
-            <a id="notification" href="#"><img id="light" src="./image/알림.jpg" width="100" height="80"/></a>
+
+            <a href="./userNotification"><img id="light" src="../../image/알림.jpg" width="100" height="80"/></a>
         </div>
         <c:if test="${sessionScope.loginId eq null}">
         <div id="loginOffBox">
@@ -163,7 +164,7 @@
     </body>
 	<script>
 		$("#librarySearch").click(function(){
-			location.href = '../../../booksSearch';
+			location.href = '../../booksSearch';
 		});
 		
 		function menuCall(){

@@ -6,23 +6,28 @@
 <title>나의 리뷰내역</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
-	#title{
+	#sideBar{
+       		position: absolute;
+        	margin-left: 10%;
+        	margin-top: 3%;
+        }
+    #my_title{
+    	
 	    text-align: center;
 	    background-color: white;
 	    width: 200px;
 	    height: 30px;
 	    margin-left: 40%;
+	    margin-bottom: 1%;
 	    border: 1px solid black;
 	}
-	
 	#body{
+		position: absolute;
 		text-align: center;
 	    background-color: beige;
-		margin-top: 60px;
-		margin-bottom: 60px;
-		margin-left:25%;
-	    width: 800px;
-	    height: 500px;
+	    margin-left: 25%;
+	    width: 1000px;
+	    height: 900px;
 	}
 	
 	body div{
@@ -54,13 +59,22 @@
 		margin-right:525px;
 		
 		}
+		
+	#paging{
+       
+       position: fixed;
+       left:20%;
+       top:80%;
+     }
 </style>
 </head>
 <body>
 <jsp:include page="header.jsp"/>
    	<div>
-    <div id="title">${loginId}의 리뷰 내역</div>
-    <jsp:include page="mySidebar.jsp"/>
+    <div id="my_title">${loginId}의 리뷰 내역</div>
+    <div id="sideBar">
+        <jsp:include page="mySidebar.jsp"/>
+    </div>
     <div id="body">
          <table id="table">
            

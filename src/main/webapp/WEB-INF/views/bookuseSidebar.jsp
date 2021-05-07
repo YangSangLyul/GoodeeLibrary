@@ -42,22 +42,22 @@
         //여기 누르면 경로 지정;
         $(".menu:eq(0)").click(function () {
            console.log("1번")
-           location.href = 'wayFind';
+           location.href = '../../wayFind';
        })
        
         $(".menu:eq(1)").click(function () {
             console.log("2번")
-            location.href = 'notice';
+            location.href = '../../notice';
         })
         
         $(".menu:eq(2)").click(function () {
             console.log("3번")
-            location.href = 'faq';
+            location.href = '../../faq';
         })
         
         $(".menu:eq(3)").click(function () {
             console.log("4번")
-            location.href = 'QuestionAll';
+            location.href = '../../QuestionAll';
         })
         
     </script>
