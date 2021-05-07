@@ -14,12 +14,12 @@
     <style>
 
     #qdBackground{
-        background-color: wheat;
+       /*  background-color: wheat; */
              width: 900px;
             height: 500px;
             position: absolute;
             left: 28%;
-            top: 35%;
+            top: 26%;
     }
     table{
     background-color: white;
@@ -66,8 +66,8 @@
    }
    .b2{
     position: absolute;
-    top: 98%;
-       left: 55%; 
+    top: 120%;
+       left: 38%; 
    }
     #home{
                 font-size: 50;
@@ -165,59 +165,45 @@
             #home a:hover {
                 color: blue;
             }
+            i{
+            font-size: 50px;
+            }
+            
+              #titleMenu {
+            border: 1px solid black;
+            background-color: blue;
+            width: 200px;
+            height: 50px;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .menu{
+            border: 1px solid black;
+            background-color: white;
+            width: 200px;
+            height: 40px;
+            text-align: center;
+            padding-bottom: 20px;
+        } 
+         a{
+            color:white
+        }
+        a:link,a:visited{
+            color: black;
+            text-decoration: none;
+        } 
+          #sid{
+         position: absolute;
+         top: 17%;
+         left: 11%;
+        }
 </style>
 <body>
-<div id="home">
-            <a href="./"><i>구디 도서관</i></a>
-        </div>
-
-        
-        <nav id="topMenu">
-            <!-- 일반 유저 메뉴 영역-->
-            <div id="userMenu">
-            <ul>
-                <li class="topMenuLi"> 
-                    <button id="libraryInfo" onclick="location.href='../../notice'">도서관 이용안내</button>
-                </li>
-    
-                <li class="topMenuLi">
-                    <button id="libraryService" onclick="location.href='../../reserveSeatForm'">도서관 서비스</button>
-                </li>
-    
-                <li class="topMenuLi">
-                    <button id="librarySearch">자료 검색</button>
-                </li>
-                <li class="topMenuLi">
-                    <button id="libraryMy" onclick="location.href='../../MyLibrary'">마이 라이브러리</button>
-                    <!-- onclick="location.href='myLib_reserveSeatInOut'" -->
-                    
-                    <!-- 관리자가 로그인할 경우 나타나게 될 메뉴
-                         마이 라이브러리는 숨김처리 됨
-                    -->
-                    <button id="adminService">관리자 서비스</button>
-                </li>
-            </ul>
-            </div>
-        </nav>
-
-        <div class="topMenuNotice">
-            <a href="#"><img id="light" src="../../image/알림.jpg" width="100" height="80"/></a>
-        </div>
-        <c:if test="${sessionScope.loginId eq null}">
-        <div id="loginOffBox">
-            <a href="memJoinForm">회원가입 </a>
-            |
-            <a href="memLogin"> 로그인</a>
-        </div>
-        </c:if>
-        <c:if test="${sessionScope.loginId ne null}">
-        <div id="loginOnBox">
-            	${sessionScope.loginId} 님 반갑습니다. | 
-            <a href="memLogout"> 로그아웃</a>
-        </div>
-        </c:if>
-        <br/>
-        <hr/>
+<jsp:include page="header.jsp"/>
+<div id="sid">
+<jsp:include page="bookuseSidebar.jsp"/>
+</div>
 
     <div id="qdBackground">
         <form action="/questionDetail/questionEditing">
@@ -261,8 +247,8 @@
                     </td>
                 </tr>    
             </table>
-            <input id="save" type="button" value="작성완료"/>
-            <input class="b2" type="button" value="취소"/>    
+            <input id="save" type="button" value="작성완료" style="position: absolute;top:120%;left: 55%;" />
+            <input class="b2" type="button" value="취소" onclick="location.href='../../questionDetail/${map.QUEIDX}'"/>    
         </form>
            
         </div>

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.spring.main.dto.LibraryInfoDTO;
 import com.spring.main.service.LibraryInfoService;
 
 @Controller
@@ -21,8 +22,9 @@ public class MainController {
 	public String home(Model model) {
 		
 		service.mainNoticeCall(model);
-		
+		LibraryInfoDTO dto = service.noticePopup();
 		logger.info("메인 진입");
+		model.addAttribute("pop", dto);
 		return "main";
 	}
 }

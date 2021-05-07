@@ -16,14 +16,30 @@
 	<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
     
     <style>
-         #QBack{
-            background-color: blanchedalmond;
-            width: 900px;
-            height: 500px;
-            position: absolute;
-            left: 28%;
-            top: 35%;
-        }
+	    #sideBar{
+	       		position: absolute;
+	        	margin-left: 10%;
+	        	margin-top: 3%;
+	        }
+	    #my_title{
+	    	
+		    text-align: center;
+		    background-color: white;
+		    width: 200px;
+		    height: 30px;
+		    margin-left: 40%;
+		    margin-bottom: 1%;
+		    border: 1px solid black;
+		}
+		#body{
+			position: absolute;
+			text-align: center;
+		    background-color: beige;
+		    margin-left: 25%;
+		    width: 1000px;
+		    height: 900px;
+		}
+         
         #buttonBox{
             position: absolute;
             left: 20%;
@@ -53,8 +69,10 @@
 	<!-- 헤더 영역 -->
     <jsp:include page="header.jsp"/>
    	<div>
-   	<jsp:include page="mySidebar.jsp"/>
-    <div id="QBack">
+   	<div id="sideBar">
+        <jsp:include page="mySidebar.jsp"/>
+    </div>
+    <div id="body">
         <!-- <div id="buttonBox">
             <button name="QAll">전체</button>
             <button onclick="location.href='QRoom'">열람실</button>

@@ -70,7 +70,7 @@ public class MemberController {
 		String loginId = "";
 		
 		msg= "아이디 비밀번호를 확인해 주세요";
-		page = "memLogin";
+		page = "redirect:/memLogin";
 		
 		MemberDTO dto = new MemberDTO();
 	
@@ -80,7 +80,7 @@ public class MemberController {
 			logger.info(loginId+" 로그인 성공");
 			session.setAttribute("loginId", loginId);
 			infoService.mainNoticeCall(model);
-			page="main";
+			page="redirect:/";
 			msg = "";
 			
 			if(service.withdraw(params).equals("TRUE")) {
@@ -98,7 +98,7 @@ public class MemberController {
 		logger.info("로그아웃 요청");
 		infoService.mainNoticeCall(model);
 		session.removeAttribute("loginId");
-		return "main";
+		return "redirect:/";
 	}
 	
 	//------------계정찾기관련 영역----------------------------------------

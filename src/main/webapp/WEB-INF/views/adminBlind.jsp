@@ -22,7 +22,7 @@
             table{
                 width: 650px;
                 height: 100px;
-                margin: auto;
+                margin-left: 365px;
                 text-align: center;
             }
             table,td,th{                

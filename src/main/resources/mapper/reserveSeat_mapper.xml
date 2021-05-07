@@ -50,7 +50,7 @@
 		WHERE id = #{param1} AND rservenumber = #{param2}
 	</update>
 	
-	<select id="mySeatEnd">
+	<select id="mySeatEnd" resultType="Date">
 		SELECT reserveend + (interval '1' hour) hour2 FROM reserveseat WHERE id=#{param1} AND seatstatus = 'S003'
 	</select>
 	
@@ -87,7 +87,7 @@
 	<update id="exitTimeChk">
 		UPDATE reserveseat SET seatstatus = 'S001' 
 		<where>
-				TO_CHAR(reserveend,'HH24') IN (#{param1}) AND seatstatus = 'S003' 
+				TO_CHAR(reserveend,'HH24')+1 IN (#{param1}) AND seatstatus = 'S003' 
 		</where>
 	</update>
 	

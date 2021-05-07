@@ -4,11 +4,15 @@
     <head>
         <meta charset="UTF-8">
         <title>블라인드 처리 사유</title>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <style>
             body{
-                width: 700px;
-                margin: 20px 550px;
-                text-align: center;
+                /* width: 700px;
+                margin-left: 160px;
+    			margin-top: 15px; */	
+    			width: 700px;
+			    margin-left: 800px;
+			    margin-top: 400px;
             }
         </style>
     </head>
@@ -18,10 +22,14 @@
     		<input type="hidden" name="reportIdx" value="${info.reportIdx}"/>
     		<input type="hidden" name="reviewIdx" value="${info.reviewIdx}"/>
 	    	<input type="text" name="WhyBlind"/>
-	    	<input type="submit" value="전송">
+	    	<input type="button" onclick="sub()" value="전송">
     	</form>
     </body>
     <script>
-    
+    	/* function sub(){
+    		if(document.getElementsByTagName("form")[0].submit()){
+	    		self.close();
+    		}
+    	} */
     </script>
 </html>

@@ -89,7 +89,7 @@
     </head>
     <body>
         <div id="home">
-            <a href="./"><i>구디 도서관</i></a>
+            <a href="/main"><i>구디 도서관</i></a>
         </div>
 
         

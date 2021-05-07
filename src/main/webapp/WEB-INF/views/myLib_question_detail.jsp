@@ -7,14 +7,29 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <style>
-    #qdBackground{
-        background-color: wheat;
-             width: 900px;
-            height: 500px;
-            position: absolute;
-            left: 28%;
-            top: 35%;
-    }
+	#sideBar{
+       		position: absolute;
+        	margin-left: 10%;
+        	margin-top: 3%;
+        }
+    #my_title{
+    	
+	    text-align: center;
+	    background-color: white;
+	    width: 200px;
+	    height: 30px;
+	    margin-left: 40%;
+	    margin-bottom: 1%;
+	    border: 1px solid black;
+	}
+	#body{
+		position: absolute;
+		text-align: center;
+	    background-color: beige;
+	    margin-left: 25%;
+	    width: 1000px;
+	    height: 900px;
+	}
     table{
         position: absolute;
         left: 15%;
@@ -35,7 +50,10 @@
 </style>
 <body>
 	<jsp:include page="header.jsp"/>
-    <div id="qdBackground">
+	<div id="sideBar">
+        <jsp:include page="mySidebar.jsp"/>
+    </div>
+    <div id="body">
         <table>
            <tr>
                <td>제목<hr/><br/>
@@ -80,7 +98,6 @@
 			<button class="btn" onclick="location.href='./editForm?idx=${question_info.queidx}'">수정</button>
 	        <button class="btn" onclick="location.href='./MyLibrary'">목록</button>
 	        <button class="btn" onclick="location.href='./question_delete?idx=${question_info.queidx}'">삭제</button>
-        
         </c:if>
     </div>
 </body>

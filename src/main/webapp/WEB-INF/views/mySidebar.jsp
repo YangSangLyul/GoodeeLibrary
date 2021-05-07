@@ -46,7 +46,7 @@
     <div id="mysidenav" class="sidenav">
         <div id="titleMenu"><a href="">도서관메뉴</a></div>
         <div class="menu">
-            <a href="myLib_reserveSeatInOut">입실|퇴실 내역</a>
+            <a href="MyLibrary">입실|퇴실 내역</a>
         </div>
         <div class="menu">
             <a href="MyBook">도서 예약 내역</a>
@@ -55,13 +55,13 @@
             <a href="MyHopeBook">희망 도서 신청 내역</a>
         </div>
         <div class="menu">
-            <a href="MyLibrary">내 리뷰내역</a>
+            <a href="MyReview">내 리뷰내역</a>
         </div>
         <div class="menu">
             <a href="MyQuestion">내 문의내역</a>
         </div>
         <div class="menu">
-            <p>회원정보 수정/탈퇴</p>
+            <a href="myLib_Update">회원정보 수정/탈퇴</a>
         </div>
     </div>
 

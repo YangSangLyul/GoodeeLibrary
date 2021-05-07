@@ -123,6 +123,17 @@
             a:hover {
                 color: gray;
             }
+            #popup{
+            	position: absolute;
+                width: 400px;
+                height: 400px;
+                background-color: white;
+                top:20%;
+                left:35%;
+                border: 1px solid black;
+                z-index: 5; 
+                text-align: center;
+            }
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         
@@ -130,9 +141,20 @@
     <body>
         <!-- 헤더 영역 -->
         <jsp:include page="header.jsp"/>
-
-<%--    <iframe src="header.jsp" width="100%" frameborder="0" scrolling="no">
-        </iframe> --%>
+        <!-- 팝업 -->
+		<div id="popup">
+			<c:if test="${pop.noticestatus eq 'true'}">
+				<h2 style="font-size: 40px;">${pop.subject}</h2>
+				<br/>
+				<h4 style="font-size: 20px;">${pop.content}</h4>
+				<div style="font-size: 20px; margin-top: 130px;">
+				<hr/>
+					오늘 하루 열지 않기<input type="checkbox" style="width: 20px; height: 20px;" id="todayChk" name="todayChk" >
+					<a href="#" onclick="closeBtn();" style="color: blue; margin-left: 100px; font-size: 25px;" id="closeBtn" >X</a>
+				</div>
+			</c:if>
+		</div>
+		
         <!-- 검색창 영역-->
         <form id="searchForm" action="bookSearchReq" method="POST">
         <div id="searchBox">
@@ -183,6 +205,45 @@
 
     </body>
     <script>
+    
+    //팝업 쿠키 굽기
+    $(document).ready(function(){
+	    cookiedata = document.cookie;
+	    if(cookiedata.indexOf("close=Y")<0){
+	    	$("#popup").css("display","block");
+	    }else{
+	    	$("#popup").css("display","none");
+	    }
+	});
+    
+	function getCookie(cname) {
+	    var name = cname + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i=0; i<ca.length; i++) {
+	        var c = ca[i];
+	        while (c.charAt(0)==' ') c = c.substring(1);
+	        if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+	    }
+	    return "";
+	}
+	
+	function setCookie(cname, cvalue, exdays) {
+	    var d = new Date();
+	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	    var expires = "expires="+d.toUTCString();
+	    document.cookie = cname + "=" + cvalue + "; " + expires;
+	}
+	
+	function closeBtn(){ //닫기 버튼 클릭 시 
+    	
+	    if($('input:checkbox[name=todayChk]')[0].checked) {
+	    	console.log("체크");
+	    	setCookie("close","Y",1);
+	    }
+	    $("#popup").css("display","none");
+	}
+	
+	//alert
     var msg = "${msg}";
     if(msg!=""){
     	alert(msg);

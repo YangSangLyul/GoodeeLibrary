@@ -157,14 +157,23 @@ public class AdminService {
 		mav.setViewName("redirect:/BlindList");
 		return mav;
 	}
-
-	public ModelAndView adminNotice() {
+	
+	public HashMap<String, Object> adminNotice(int pagePerCnt, int page) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int allCnt = dao.allCount();
+		int range = allCnt/pagePerCnt > 0 ? Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		//생성 가능한 페이지 보다 현재페이지가 클 경우 현재 페이지를 생성 가능한 페이지로 맞춰준다.
+		page = page>range ? range : page;
+		//시작, 끝
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		
 		logger.info("관리자 공지사항 쿼리 요청");
-		ModelAndView mav = new ModelAndView();
-		ArrayList<AdminDTO> list = dao.adminNotice();
-		mav.addObject("notice", list);
-		mav.setViewName("adminNotice");
-		return mav;
+		ArrayList<AdminDTO> list = dao.adminNotice(start,end);
+		map.put("list", list);
+		map.put("range", range);
+		map.put("currPage", page);
+		return map;
 	}
 
 	public ModelAndView noticeWrite(HashMap<String, Object> params) {

@@ -328,9 +328,9 @@ public class LibraryInfoService {
 	public ModelAndView edit(int idx, HttpSession session, RedirectAttributes rAttr) {
 		String loginId = (String) session.getAttribute("loginId");
 		ModelAndView mav = new ModelAndView();
-		logger.info("edit의 서비스 왓니");
+		logger.info("edit의 서비스 왔니");
 		HashMap<String,Object> map=dao.questionDetail(idx);
-		logger.info("맵에잇는"+map.get("ID"));	
+		logger.info("맵에있는"+map.get("ID"));	
 		logger.info(""+loginId);
 		String page ="redirect:/QuestionAll";
 		String msg = "수정할 권한이 없습니다.로그인부탁드려용";
@@ -469,6 +469,11 @@ public class LibraryInfoService {
 		  rAttr.addFlashAttribute("msg",msg);
 		  mav.setViewName("redirect:/QuestionAll");
 		return mav;
+	}
+
+	public LibraryInfoDTO noticePopup() {
+		logger.info("팝업 유무 쿼리 요청");
+		return dao.noticePopup();
 	}
 
 }

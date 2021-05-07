@@ -154,7 +154,17 @@ public class AdminController {
 	@RequestMapping(value = "/adminNotice", method = RequestMethod.GET)
 	public ModelAndView adminNotice() {
 		logger.info("관리자 공지사항");
-		return service.adminNotice();
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("adminNotice");
+		return mav;
+	}
+	
+	//관리자 공지사항 - 페이징
+	@RequestMapping(value = "/adminNotice/{page}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> adminNotice(@PathVariable int page) {
+		int pagePerCnt = 10;
+		logger.info("page: "+page);
+		return service.adminNotice(pagePerCnt, page);
 	}
 	
 	//관리자 공지사항 글쓰기 폼
