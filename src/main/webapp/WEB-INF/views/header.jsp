@@ -141,8 +141,9 @@
             </div>
         </nav>
 
+		
         <div class="topMenuNotice">
-            <a href="./userNotification"><img id="light" src="./image/알림.jpg" width="100" height="80"/></a>
+            <a id="notification" href="#"><img id="light" src="./image/알림.jpg" width="100" height="80"/></a>
         </div>
         <c:if test="${sessionScope.loginId eq null}">
         <div id="loginOffBox">
@@ -181,9 +182,22 @@
 					location.href = 'adminService';
 				});
 			}
+			
+			if(loginId == 'admin' || loginId == ''){
+				$(".topMenuNotice").css('display','none');
+				$("#libraryMy").css('display','none');
+			}else{
+				$(".topMenuNotice").css('display','block');
+				$("#libraryMy").css('display','block');
+			}
 		}
 		
 		menuCall();
+		
+		
+		function notification(){
+
+		}
 	</script>
 
 </html>

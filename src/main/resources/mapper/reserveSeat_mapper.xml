@@ -50,7 +50,7 @@
 		WHERE id = #{param1} AND rservenumber = #{param2}
 	</update>
 	
-	<select id="mySeatEnd">
+	<select id="mySeatEnd" resultType="Date">
 		SELECT reserveend + (interval '1' hour) hour2 FROM reserveseat WHERE id=#{param1} AND seatstatus = 'S003'
 	</select>
 	
