@@ -78,10 +78,22 @@
             location.href = 'recommendBooks';
         });
         
+        var loginId = "${loginId}";
+        
+        
+        
         //여기 누르면 경로 지정;
         $("#wantBook").click(function () {
+        	if(loginId != ""){
+        	console.log('로그인 되어있음');
             location.href = 'hopeBook';
+        	}else{
+        		alert('로그인 후 사용할 수 있는 기능입니다.');
+        		
+        	}
         });
+        
+        
 
     </script>
 </body>

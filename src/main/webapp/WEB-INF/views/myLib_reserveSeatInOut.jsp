@@ -234,7 +234,7 @@
         	</div>
         
         	
-        	<a href="" style="position: relative;top: 80%; left:20%;">이전 내역 보러가기</a>
+        	<a href="./seatEnterExitHistory" style="position: relative;top: 80%; left:20%;">이전 내역 보러가기</a>
         	
         	<div id="enterContainer">
         		<div id="clock">
@@ -374,20 +374,22 @@
     
     function enterReq(){
     	
+    	console.log('입실 요청 들어옴');
+    	
     	<fmt:formatDate var="start" value="${mySeat.reserveStart}" pattern="HH"/>
         <fmt:parseNumber var="intStart" value="${start}" integerOnly="true"/>
         
         var startTime = "${intStart}";
         var currentDate = new Date();                                     // 현재시간
-        var currentHours = addZeros(currentDate.getHours(),2); 
-        var currentMinute = addZeros(currentDate.getMinutes() ,2);
+        var currentHours = currentDate.getHours(); 
+        var currentMinute = currentDate.getMinutes();
         
         //만약 9시로 예약을했으면 9시 10분이 넘어가면 입실 불가능
-        if((currentHours >= startTime && currentMinute > 10) || (currentHours > startTime)){
+        if((currentHours == startTime - 1 && currentMinute < 50)){
         	console.log('현재 입실시간 아님!');
         	$("#cantEnter").css("visibility","visible");
         } else{
-        	if(currentHours >= startTime){
+        	
 			$.ajax({
 				url:'./seatEnterReq'
 				,type:'GET'
@@ -412,8 +414,8 @@
 					console.log(error);
 				}
 			});
-        	}
         }
+        
  	
     }
     
