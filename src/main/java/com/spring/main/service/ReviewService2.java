@@ -101,6 +101,7 @@ public class ReviewService2 { //리뷰 모아보기용
 		return map;
 	}
 
+	@Transactional
 	public HashMap<String, Object> clickLike(int reviewIdx, String id) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		logger.info("리뷰추천 요청");
@@ -113,9 +114,11 @@ public class ReviewService2 { //리뷰 모아보기용
 			success = dao.likeChk(reviewIdx,id);
 			if(success==0) {
 				dao.likeupdate(reviewIdx,id);
+				dao.upLike(reviewIdx);
 				map.put("success",success);
 			}else {
 				dao.likedelete(reviewIdx,id);
+				dao.downLike(reviewIdx);
 				map.put("success",success);
 			}
 		}

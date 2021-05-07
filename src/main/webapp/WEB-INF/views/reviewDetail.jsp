@@ -203,7 +203,6 @@ $("#likebtn").click(function(){
         	   console.log("--------------");
         	   console.log(data);
         	   $("#like_cnt").html(data.cnt);	
-        	   console.log($("#like_cnt")); 
            }
 	});
 };

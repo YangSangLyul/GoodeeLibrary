@@ -34,5 +34,9 @@ public interface ReviewDao2 { //리뮤 모아보기용
 
 	int like_cnt(int reviewIdx);
 
+	void upLike(int reviewIdx);
+
+	void downLike(int reviewIdx);
+
 
 }

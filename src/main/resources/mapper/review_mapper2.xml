@@ -72,5 +72,13 @@
 		SELECT cnt from review WHERE reviewIdx=#{param1}
 	</select>
 
+	<update id="upLike">
+		UPDATE review SET cnt=cnt+1 WHERE reviewIdx=#{param1}
+	</update>
+	
+	<update id="downLike">
+		UPDATE review SET cnt=cnt-1 WHERE reviewIdx=#{param1}
+	</update>
+
 		
 </mapper>
