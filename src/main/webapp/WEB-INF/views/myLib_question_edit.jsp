@@ -79,10 +79,10 @@
                     <td>
                         문의유형<br>
                         <select name="Qtype" id="selbox">
-                            <option value="Q001">열람실</option>
-                            <option value="Q002">도서</option>
-                            <option value="Q003">서비스</option>
-                            <option value="Q004">기타</option>
+                            <option value="Q001"<c:if test="${question_info.type =='Q001'}">selected</c:if>>열람실</option>
+                            <option value="Q002"<c:if test="${question_info.type =='Q002'}">selected</c:if>>도서</option>
+                            <option value="Q003"<c:if test="${question_info.type =='Q003'}">selected</c:if>>서비스</option>
+                            <option value="Q004"<c:if test="${question_info.type =='Q004'}">selected</c:if>>기타</option>
                         </select>
                     </td>
                 </tr>
@@ -96,12 +96,13 @@
                 </tr>
                 <tr> 
                     <td colspan="2">문의내용
-                        <textarea name="content" id="" cols="30" rows="10">${question_info.content}</textarea>
+                        <div id="editable" contenteditable="true" class="gw4" style="width:650px;height:180px; background-color: white; border: 1px solid black;overflow: scroll ">${question_info.content}</div>
+						<input id="content" type="hidden" name="content" value=""/>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2"><br>
-                        <input type="button" value="사진업로드">
+                        <input type="button" value="사진업로드" onclick="fileUp()">
                     </td>
                 </tr>
             </table>
@@ -113,8 +114,44 @@
 </body>
 <script>
 $("#save").click(function(){
-	//$('#content').val($('#editable').html());
+	$("#editable a").find("b").remove();
+	$("#editable a").removeAttr('onclick');
+	$('#content').val($('#editable').html());
 	$('form').submit();
 });
+
+$(document).ready(function(){
+	console.log("b붙이기")
+	$("#editable").find("a").append("<b>X</b>");
+	$("#editable a").attr("onclick","del(this)");
+})
+function fileUp(){
+	window.open('/uploadForm','file_upload','width=400,height=100,top=280');
+}
+
+function del(elem){
+	console.log(elem);
+	var newFileName = elem.id.substring(elem.id.lastIndexOf("/")+1);
+	console.log(newFileName);
+	
+	//1.실제 파일 삭제 요청	
+	$.ajax({
+		url:'/fileDelete',
+		type:'get',
+		data:{"fileName":newFileName},
+		dataType:'json',
+		success:function(d){
+			console.log(d);
+			if(d.success == 1){
+				//2. 파일 삭제 요청이 완료 되면 화면에 나타난 사진 삭제				
+				$(elem).remove();//이미지와 X버튼 삭제
+			}
+		},
+		error:function(e){
+			console.log(e);
+		}
+	});
+	
+}
 </script>
 </html>
