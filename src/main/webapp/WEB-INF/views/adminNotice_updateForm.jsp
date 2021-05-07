@@ -8,12 +8,13 @@
         <link rel="icon" href="icon.jpg">
         <style>
             #container{
-                width: 700px;
+                width: 800px;
                 margin: 20px 550px;
                 /* text-align: center; */
             }
             table{
-                margin-top: 55px;
+                margin-top: 190px;
+                margin-left: 100px;
                 width: 700px;
                 height: 100px;
                 text-align: center;
@@ -28,6 +29,7 @@
                 width: 100%;
                 height: 300px;
                 resize: none;
+                font-size: 20px;
             }
             #btn{
                 margin-left: 1120px;
@@ -35,12 +37,13 @@
             }
             input[type='text']{
             	width: 100%;
+            	font-size: 15px;
             }
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
     <body>
-        <jsp:include page="header.jsp"/>
+        <jsp:include page="adminHeader.jsp"/>
         <div id="container">
         	<form action="noticeUpdate" method="post">
 		        <input type="hidden" name="idx" value="${detail.noticeidx}"/>

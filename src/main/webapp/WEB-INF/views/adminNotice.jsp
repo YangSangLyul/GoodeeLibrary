@@ -20,38 +20,39 @@
                 text-align: center;
             }
             table{
-                margin-top: 55px;
+                margin-top: 200px;
                 width: 700px;
                 height: 100px;
-                text-align: center;
             }
             table,td,th{                
                 border: 1px solid black;
                 border-collapse: collapse;
+                padding: 8px;
+                text-align: center;
             } 
-            #search{
+            /* #search{
                 position: absolute;
                 left: 1035px;
     			top: 145px;
-            }
+            } */
             #write{
                 position: absolute;
-                left: 1180px;
-                top: 185px;
+                left: 1620px;
+    			top: 280px;
                 padding: 5px 10px;
             }
         </style>
     </head>
     <body>
-    	<jsp:include page="header.jsp"/>
+    	<jsp:include page="adminHeader.jsp"/>
     	<div id="container">
-	        <select name="searchType">
+	        <!-- <select name="searchType">
 	            <option value="all">전체</option>
 	            <option value="subject">제목</option>
 	            <option value="content">내용</option>
 	        </select>    
 	        <input type="text"/> 
-	        <input type="button" value="검색" id="search"/>
+	        <input type="button" value="검색" id="search"/> -->
 	        <input type="button" value="공지등록" id="write" onclick="location.href='noticewriteForm'"/>
 	        <table>
 	        	<thead>

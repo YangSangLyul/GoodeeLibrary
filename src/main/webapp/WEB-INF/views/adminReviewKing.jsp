@@ -15,7 +15,7 @@
             table{
                 width: 650px;
                 height: 100px;
-                margin: auto;
+                margin-left: 615px;
                 text-align: center;
             }
             table,td,th{                
@@ -25,11 +25,13 @@
             } 
             #decision{
                 margin-top: 10px;
-    			margin-left: 1190px;
+    			margin-left: 1153px;
+    			padding: 5px 8px;
             }
             #tabMenu{
             	width: 700px;
             	margin-left: 650px;
+            	margin-top: 20px;
             }
             .tabBtn{
             	padding: 10px;
