@@ -133,7 +133,6 @@
                 border: 1px solid black;
                 z-index: 5; 
                 text-align: center;
-                display: block;
             }
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -151,7 +150,7 @@
 				<div style="font-size: 20px; margin-top: 130px;">
 				<hr/>
 					오늘 하루 열지 않기<input type="checkbox" style="width: 20px; height: 20px;" id="todayChk" name="todayChk" >
-					<a href="#" style="color: blue; margin-left: 100px; font-size: 25px;" id="closeBtn" >X</a>
+					<a href="#" onclick="closeBtn();" style="color: blue; margin-left: 100px; font-size: 25px;" id="closeBtn" >X</a>
 				</div>
 			</c:if>
 		</div>
@@ -207,16 +206,44 @@
     </body>
     <script>
     
-    $("#closeBtn").click(function(){
-    	if($('input:checkbox[name=todayChk]')[0].checked){
-    		console.log("체크");
-    		$("#popup").css("display","none");
-    	}else{
-    		console.log("체크안됨");
-    		$("#popup").css("display","none");
-    	}
-    });
+    //팝업 쿠키 굽기
+    $(document).ready(function(){
+	    cookiedata = document.cookie;
+	    if(cookiedata.indexOf("close=Y")<0){
+	    	$("#popup").css("display","block");
+	    }else{
+	    	$("#popup").css("display","none");
+	    }
+	});
     
+	function getCookie(cname) {
+	    var name = cname + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i=0; i<ca.length; i++) {
+	        var c = ca[i];
+	        while (c.charAt(0)==' ') c = c.substring(1);
+	        if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+	    }
+	    return "";
+	}
+	
+	function setCookie(cname, cvalue, exdays) {
+	    var d = new Date();
+	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	    var expires = "expires="+d.toUTCString();
+	    document.cookie = cname + "=" + cvalue + "; " + expires;
+	}
+	
+	function closeBtn(){ //닫기 버튼 클릭 시 
+    	
+	    if($('input:checkbox[name=todayChk]')[0].checked) {
+	    	console.log("체크");
+	    	setCookie("close","Y",1);
+	    }
+	    $("#popup").css("display","none");
+	}
+	
+	//alert
     var msg = "${msg}";
     if(msg!=""){
     	alert(msg);
