@@ -6,14 +6,30 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
-	#qdBackground{
-        background-color: wheat;
-            width: 900px;
-            height: 500px;
-            position: absolute;
-            left: 28%;
-            top: 35%;
-    }
+	#sideBar{
+       		position: absolute;
+        	margin-left: 10%;
+        	margin-top: 3%;
+        }
+    #my_title{
+    	
+	    text-align: center;
+	    background-color: white;
+	    width: 200px;
+	    height: 30px;
+	    margin-left: 40%;
+	    margin-bottom: 1%;
+	    border: 1px solid black;
+	}
+	#body{
+		position: absolute;
+		text-align: center;
+	    background-color: beige;
+	    margin-left: 25%;
+	    width: 1000px;
+	    height: 900px;
+	}
+
     table{
     background-color: white;
         position: absolute;
@@ -66,7 +82,7 @@
 </head>
 <body>
 	<jsp:include page="header.jsp"/>
-    <div id="qdBackground">
+    <div id="body">
         <form action="question_edit" method="POST">
             <table>
             	<input type="hidden" name="idx" value="${question_info.queidx}"/>
