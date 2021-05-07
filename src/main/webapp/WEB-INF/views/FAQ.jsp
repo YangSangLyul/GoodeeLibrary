@@ -21,7 +21,7 @@
          }
         
          table{
-             width: 800px;
+             width: 1024px;
              height: 450px;
              position: absolute;
              top: 13%;
@@ -40,8 +40,8 @@
             width: 100%;
             height: 100%;
             position: absolute;
-            left: 50%;
-            top: 5%;
+            left: 6%;
+            top: 3%;
         }
         select{
             font-size: large;
@@ -120,17 +120,17 @@
         </div>
             <table>
                 <tr class="clT">
-                    <th>번호</th>
-                    <th>제목</th>
+                    <th style="background-color: #148CFF;width:60px;height: 60px;">번호</th>
+                    <th style="background-color: #148CFF;width:60px;height: 60px;">제목</th>
                 </tr>
                 <c:forEach items="${dto}" var="dto">
                 <tr class="client">
-                    <td>${dto.faqidx}번</td>
-                    <td>${dto.content}</td>
+                    <td style="background-color: #FFACB7;width:60px;">${dto.faqidx}번</td>
+                    <td style="background-color: #FFC6C3;width:200px;'">${dto.content}</td>
                 </tr>
                 <tr class="librarian">
-                    <td>답변</td>
-                    <td>${dto.anwser}</td>
+                    <td style="background-color: #FFF0F5;width:60px;">답변</td>
+                    <td style="background-color: #FFF0F5;width:200px;">${dto.anwser}</td>
                 </tr>
                 </c:forEach>
             </table>

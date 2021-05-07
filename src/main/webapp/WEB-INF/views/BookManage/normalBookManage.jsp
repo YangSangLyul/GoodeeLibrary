@@ -186,53 +186,61 @@ table, th, td {
 					content += "</tr>";
 					
 					if(list[i].reserveBookDTO.length > 0){
+						console.log(list[i])
 						for(var j = 0; j < list[i].reserveBookDTO.length; j++){
 							content += "<tr>";
 							content += "<td colspan='3'>"+reserveBookState(list[i]) + "</td>";
 							content += "</tr>";
 						}	
 					}
+					
+					//반복문 안에 없어서 아래 2개 함수 에러 발생했음(해결)
+					function reserveBookState(bookList){
+						reserveBookState = bookList.reserveBookDTO[0].bookState;
+						bookName = bookList.bookName;
+						id = bookList.reserveBookDTO[0].id;
+						reserveNum = bookList.reserveBookDTO[0].reserveBookIdx;
+						console.log("id : " + id + " / bookName : " + bookName+" / 예약번호 "+reserveNum);
+						if(reserveBookState == 'R001') {
+								return "예약중 : " + id + " <button onclick='userReserveNotification(\""+ bookName + "/" + id+"/"+reserveNum+"\")'>예약승인</button>";
+						} else if(reserveBookState == 'R002') {
+							return "대여중";
+						} else if(reserveBookState == 'R003') {
+							return "반납완료";
+						}
+					}
+					
+					function bookState(bookState){
+						if(bookState == 'B001') {
+							return "예약가능";
+						} else if(bookState == 'B002') {
+							return "예약불가";
+						}else if(bookState == 'B003') {
+							return "대여가능";
+						}else if(bookState == 'B004') {
+							return "예약중";
+						}else if(bookState == 'B005') {
+							return "훼손";
+						}else if(bookState == 'B006') {
+							return "분실";
+						}else if(bookState == 'B007') {
+							return "기타";
+						}
+					}
+					
 				}
 			} else {
 				content = "<h2>해당 목록이 없습니다.</h2>";
 			}
-			
-			function reserveBookState(bookList){
-				reserveBookState = bookList.reserveBookDTO[0].bookState;
-				bookName = bookList.bookName;
-				id = bookList.reserveBookDTO[0].id;
-				console.log("id : " + id + " / bookName : " + bookName);
-				if(reserveBookState == 'R001') {
- 					return "예약중 : " + id + " <button onclick='userReserveNotification(\""+ bookName + "/" + id+"\")'>예약승인</button>";
-				} else if(reserveBookState == 'R002') {
-					return "대여중";
-				} else if(reserveBookState == 'R003') {
-					return "반납완료";
-				}
-			}
-			
-			function bookState(bookState){
-				if(bookState == 'B001') {
-					return "예약가능";
-				} else if(bookState == 'B002') {
-					return "예약불가";
-				}else if(bookState == 'B003') {
-					return "대여가능";
-				}else if(bookState == 'B004') {
-					return "예약중";
-				}else if(bookState == 'B005') {
-					return "훼손";
-				}else if(bookState == 'B006') {
-					return "분실";
-				}else if(bookState == 'B007') {
-					return "기타";
-				}
-			}
-			
+
+
 			$("#list").empty();
 			$("#list").append(content);
 		}
 		
+		
+		
+
 		
 		function userReserveNotification(book){
 			console.log(book);
@@ -242,6 +250,7 @@ table, th, td {
 			var params = {};
  			params.bookName = bookInfo[0];
 			params.id = bookInfo[1];
+			params.reserveNum = bookInfo[2];
  			$.ajax({
 				type : 'get',
 				url : 'userReserveNotification',
@@ -252,7 +261,7 @@ table, th, td {
 					if(data.success > 0) {
 						alert('예약승인이 완료 되었습니다.');
 					} else {
-						alert('잠시 후 다시 시도해 주세요.');
+						alert('이미 예약승인이 되었습니다.');
 					}
 				},
 				error : function(e) {

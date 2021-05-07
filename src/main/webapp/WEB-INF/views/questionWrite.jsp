@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+.<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -16,7 +16,8 @@
 		height: 240px;
 	}
     #qwBackground{
-        background-color: wheat;
+        /* background-color: wheat; */
+        border:1px solid gray;
              width: 900px;
             height: 500px;
             position: absolute;
@@ -25,22 +26,22 @@
     }
     .gw1{
         position: absolute;
-        left:27%;
+        left:23%;
         top:5%;
     }
     .gw2{
         position: absolute;
-        left:70%;
+        left:64%;
         top:5%;
     }
     .gw3{
         position: absolute;
-        left:27%;
+        left:23%;
         top:10%;
     }
     .gw4{
         position: absolute;
-        left:27%;
+        left:23%;
         top:20%;
         width:400px;
         height: 220px;
@@ -60,13 +61,48 @@
     }
     .gw7{
         position: absolute;
-        left:47%;
+        left:74%;
         top:80%;
+        width: 160px;
+        height: 50px;
+        background-color: #FF9100;
     }
+    
+      #titleMenu {
+            border: 1px solid black;
+            background-color: blue;
+            width: 200px;
+            height: 50px;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .menu{
+            border: 1px solid black;
+            background-color: white;
+            width: 200px;
+            height: 40px;
+            text-align: center;
+            padding-bottom: 20px;
+        } 
+         a{
+            color:white
+        }
+        a:link,a:visited{
+            color: black;
+            text-decoration: none;
+        } 
+          #sid{
+         position: absolute;
+         top: 17%;
+         left: 11%;
+        }
 </style>
 <body>
 <jsp:include page="header.jsp"/>
-
+<div id="sid">
+<jsp:include page="bookuseSidebar.jsp"/>
+</div>
     <div id="qwBackground">
         <form action="questionWriting">
             <input type="text" value="${loginId}" readonly class="gw1" name="loginId">
@@ -83,8 +119,9 @@
             <div id="editable" contenteditable="true" class="gw4" style="background-color: white; border: 1px solid black " ></div>
 			<input id="content" type="hidden" name="content" value=""/>
             <input type="button" value="사진업로드"  class="gw5" onclick="fileUp()"/>
-            <label class="gw6"><input type="radio" name="false" value="FALSE" id="tfC">비공개
-            								<input type="radio" name="false" value="TRUE" checked id="tfCK"> 공개
+            <label class="gw6"><input type="radio" name="false" value="FALSE" id="tfC" style="width:18px;height:18px;border:1px;">비공개
+            					 <hr style="border: 0px;">
+            								 <input type="radio" name="false" value="TRUE" checked id="tfCK" style="width:18px;height:18px;border:1px;"> 공개
             </label>
             <input id="save" type="button" value="작성완료"  class="gw7"/>
         </form>

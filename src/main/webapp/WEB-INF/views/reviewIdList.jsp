@@ -21,7 +21,8 @@
 }
 
 #review {
-	margin: 5px;
+	margin: 10px;
+	font-size: 16px;
 }
 
 .re_option {
@@ -52,53 +53,53 @@
 
 #r_table {
 	border-collapse: collapse;
- 	width: 715px;
+	width: 715px;
 }
 
-#b_img{
+#b_img {
 	width: 130px;
 	height: 160px;
 }
 
-#b_name, #b_content{
-  width: 400px;
-  height: 50px;
+#b_name, #b_content {
+	width: 400px;
+	height: 50px;
 }
 
-#b_name,#re_name{
+#b_name, #re_name {
 	background-color: #f2f2f2;
-	font-size:16px;
+	font-size: 16px;
 }
 
-.b_info{
+.b_info {
 	margin-left: 8px;
 }
 
-.re_img, .re_cnt{
-  display: inline;
-  margin: 0 15px;
+.re_img, .re_cnt {
+	display: inline;
+	margin: 0 15px;
 }
 
-.re_detail,.re_id{
-  text-align: center;
+.re_detail, .re_id {
+	text-align: center;
 }
 
-#re_name a{
-  color: gray;
-  text-decoration: none;
+#re_name a {
+	color: gray;
+	text-decoration: none;
 }
 
-#re_name a:hover{
-  color: #0070c0;
-  text-decoration: underline;
+#re_name a:hover {
+	color: #0070c0;
+	text-decoration: underline;
 }
 
-#re_btn{
+#re_btn {
 	width: 70%;
 	padding: 10px;
 	margin: 0;
 	font-size: 14px;
-	font-weight:600;
+	font-weight: 600;
 	color: #0070c0;
 	background-color: #e8ecf4;
 	border: 1px solid lightgray;
@@ -114,9 +115,8 @@
 		</div>
 		<div class="re_option">
 			<ul>
-				<li><a href="#">유형</a></li>
-				<li><a href="#">최신순</a></li>
-				<li><a href="#">추천순</a></li>
+				<li><a href="reviewList">최신순</a></li>
+				<li><a href="reviewCom">추천순</a></li>
 			</ul>
 		</div>
 		<c:forEach items="${review}" var="review">
@@ -139,17 +139,16 @@
 						<td rowspan="2" id="b_content">
 							<div class="b_info">저자명 : ${review.writer}</div>
 							<div class="b_info">출판사 : ${review.publisher}</div>
-							<div class="b_info">출판일 : 2020</div>
+							<div class="b_info">등록일 : ${review.reviewIdx}</div>
 						</td>
 						<td id="re_recomm">
-							<div class="re_img">🤍🧡</div>
 							<div class="re_cnt">추천수 : ${review.cnt}</div>
 						</td>
 					</tr>
 					<tr>					
 						<td>
 							<div class="re_detail">
-							<input type="button" id="re_btn" onclick="location.href='reviewIdList'" value="리뷰 상세보기">
+							<input type="button" id="re_btn" onclick="location.href='reviewDetail?reviewIdx=${review.reviewIdx}'" value="리뷰 상세보기">
 							</div>
 						</td>
 					</tr> 

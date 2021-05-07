@@ -93,7 +93,9 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-<jsp:include page="mySidebar.jsp"/>
+<div id="sideBar">
+        <jsp:include page="mySidebar.jsp"/>
+    </div>
    	<div id="main">
 		<div class="subject">
 			<h3 id="review">${loginId}의 리뷰 상세 내역</h3>

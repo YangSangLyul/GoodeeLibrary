@@ -82,13 +82,22 @@ public class BookService {
 
 		int success = dao.reserveApproval(params);
 		map.put("success", success);
-		return null;
+		return map;
 	}
 
 	public HashMap<String, Object> userReserveNotification(HashMap<String, String> params) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		
 
-		int success = dao.userReserveNotification(params);
+		int success = 0;;
+		int cnt = dao.userReserveNotificationChk(params);
+		
+		//예약승인 여부 확인
+		if(cnt == 0) {
+			success = dao.userReserveNotification(params);
+		}
+		
 		map.put("success", success);
 		return map;
 	}

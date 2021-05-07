@@ -248,9 +248,9 @@ public class MyLibraryService {
 		return map;
 	}
 
-	public ModelAndView myRBookCancel(String bookIdx,String loginId) {
+	public ModelAndView myRBookCancel(String reserveBookIdx,String loginId) {
 		ModelAndView mav = new ModelAndView();
-		dao.myRBookCancel(bookIdx,loginId);
+		dao.myRBookCancel(reserveBookIdx,loginId);
 		//mav.setViewName("myRBookDetail?bookIdx="+bookIdx);
 		mav.setViewName("myLib_RBook");
 		return mav;
@@ -296,19 +296,21 @@ public class MyLibraryService {
 		return dao.bookReturn(reserveBookIdx,loginId);
 	}
 
-	public ModelAndView reserveBook(String bookIdx, String loginId) {
+	//예약취소 기능
+	public ModelAndView reserveBook(String reserveBookIdx, String loginId) {
 		ModelAndView mav = new ModelAndView();
-		int result = dao.reserveIdChk(bookIdx,loginId);
+		int result = dao.reserveIdChk(reserveBookIdx,loginId);
 		logger.info("result : {}",result);
 		if(result==0) {
-			 boolean ReserveSuccess = dao.reserveS(bookIdx,loginId);
+			 boolean ReserveSuccess = dao.reserveS(reserveBookIdx,loginId);
 			 mav.addObject("reserve_result", ReserveSuccess);
-			 mav.setViewName("myLib_Rbook");
+			 
 		}else {
 			 //boolean ReserveFail = dao.reserveF(bookIdx,loginId);
 			 logger.info("중복예약");
 			 //mav.addObject("reserve_result", ReserveFail);
 		}
+		mav.setViewName("myLib_Rbook");
 		//return dao.reserveBook(params,loginId);
 		return mav;
 	}

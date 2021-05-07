@@ -121,19 +121,26 @@
 						</td>
 					<tr>
 						<td id="re_comm">
-						<c:choose>
+					<%-- 	<c:choose>
 							<c:when test="${likeCnt eq '0' or empty likeCnt}">
 								<div class="re_img"><a href="#" onclick="changeHeart()" id="like">🧡</a></div>
 							</c:when>
 							<c:otherwise>
 								<div class="re_img"><a href="#" onclick="changeHeart()" id="like">🤍</a></div>
 							</c:otherwise>
-						</c:choose>
+						</c:choose> --%>
+							<div class="re_img"><a href="#" onclick="changeHeart()" id="like">🧡</a></div>
+							<div class="re_img"><a href="#" onclick="changeHeart()" id="like">🤍</a></div>
 							<div class="re_cnt" id="likeCnt">추천수 ${dto.cnt}</div>
 						</td>
 						<c:if test="${sessionScope.loginId ne null}">
 						<td>		
 							<div><input type="button" id="re_report" onclick="reviewReport()" value="신고"></div>
+						</td>
+						</c:if>
+						<c:if test="${sessionScope.loginId eq null}">
+						<td>		
+							<div></div>
 						</td>
 						</c:if>
 					</tr>
@@ -164,6 +171,5 @@ if(msg!=""){
 function reviewReport(){
 	window.open('reviewReportForm?reviewIdx=${dto.reviewIdx}','reviewReportForm','width=500, height=400');
 }
-
    </script>
 </html>

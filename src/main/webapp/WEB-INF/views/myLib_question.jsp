@@ -16,45 +16,80 @@
 	<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
     
     <style>
-         #QBack{
-            background-color: blanchedalmond;
-            width: 900px;
-            height: 500px;
-            position: absolute;
-            left: 28%;
-            top: 35%;
+	    #sideBar{
+	       		position: absolute;
+	        	margin-left: 10%;
+	        	margin-top: 3%;
+	        }
+	    #my_title{
+	    	
+		    text-align: center;
+		    background-color: white;
+		    width: 200px;
+		    height: 30px;
+		    margin-left: 40%;
+		    margin-bottom: 1%;
+		    border: 1px solid black;
+		}
+		#body{
+			position: absolute;
+			text-align: center;
+		    background-color: beige;
+		    margin-left: 25%;
+		    width: 1000px;
+		    height: 900px;
+		}
+        #QuestionTable{
+        	text-align: center;
         }
-        #buttonBox{
-            position: absolute;
-            left: 20%;
-        }
-        .writebox{
-            position: absolute;
-            left: 180%;
-        }
+       
+		#table th{
+		    background-color:#c5d8f1ff;
+		    text-align: center;
+		    border:1px solid black;
+		    width:10px;
+		}
+		#table td{
+		    background-color:white;
+		    text-align: center;
+		    border:1px solid black;
+		    position: relative;
+		    top: 30%;
+		    margin-bottom: 80px;
+		}
+       
         #QuestionTable{
             text-align: center;
             position: absolute;
             left: 16%;
             top: 10%;
         }
+        
         .n1{
-            width: 100px;
+            width: 50px;
             height: 10px;
         }
         .n2{
-            width: 300px;
+            width: 200px;
             height: 30px;
         }
+        
+        #paging{
+	        position: fixed;
+	        top:80%;
+	     }
     </style>
 </head>
 
 <body>
 	<!-- 헤더 영역 -->
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="header.jsp"/> 
+    <div id="my_title">${loginId}의 문의 내역</div>
    	<div>
-   	<jsp:include page="mySidebar.jsp"/>
-    <div id="QBack">
+   	<div id="sideBar">
+        <jsp:include page="mySidebar.jsp"/>
+    </div>
+    <div id="body">
         <!-- <div id="buttonBox">
             <button name="QAll">전체</button>
             <button onclick="location.href='QRoom'">열람실</button>
@@ -65,10 +100,10 @@
         </div> -->
 
         <div id="QuestionTable">
-            <table>
+            <table id='table'>
                 <tr>
-                    <th class="n1">글번호</th>
-                    <th class="n2">제목</th>
+                    <th class='n1'>글번호</th>
+                    <th class='n2'>제목</th>
                     <th>작성자</th>
                     <th>작성일</th>
                     <th>답변</th>
@@ -103,9 +138,7 @@
 </body>
 <script>
 var showPage=1;
-//listCall('./myLib_question/5/1');//시작하자 마자 이 함수를 호출
 
-//Q001버튼 눌렀을 때 이게 바로 실행되서 서비스버튼 클릭시 서비스에 관한 문의를 보여주지 못함;;;
 listCall(showPage);
 
 function listCall(reqPage){         
@@ -120,9 +153,7 @@ function listCall(reqPage){
          console.log(data);
          showPage = data.currPage;
          listPrint(data.page_list);
-         //pagePrint(data.range);//플러그인 미사용 페이징 처리!
-         //플러그인 사용
-         
+        
          $("#pagination").twbsPagination({
       	   startPage:data.currPage,//시작페이지
       	   totalPages:data.range,//총 페이지
@@ -142,51 +173,13 @@ function listCall(reqPage){
    });
 }
 
-
-function pagePrint(range){
-	  console.log("생성 가능 페이지 : "+range);
-	  console.log("현재 페이지 : "+showPage);
-	  var content="";
-	  var start=1;
-	  var end = range >= 5? 5: range;
-	  
-	  //이전(5페이지가 넘어 갔을때 나타나는 녀석)
-	  if(showPage>5){
-		  end = Math.ceil(showPage/5)*5;
-		  if(end>range){
-			  end = range;
-		  }
-		  start = end-4;
-		  content += "<a href='#' onclick='listCall("+(start-1)+")'>이전</a> |"
-	  }
-
-	  //1~5
-	  for(var i = start; i<=end; i++){
-		  if(i==showPage){
-			content += " <b style='color:red'>"+i+"</b> ";	    			  
-		  }//else if(range>=i){
-		  else{
-			  content += " <a href='#' onclick='listCall("+i+")'>"+i+"</a>";
-		  }    			  
-	  }
-	  //다음(range 가 더있을 경우 나타나는 녀석)
-	  if(end<range){
-		  content += "| <a href='#' onclick='listCall("+(end+1)+")'>다음</a>"
-	  }
-	  
-	  $('#paging').empty();
-	  $('#paging').append(content);
-}
-
-
 function listPrint(page_list){
 	  var content="";
 	  
 	  for(var i=0; i<page_list.length;i++){
 		content += "<tr>"
-		content += "<td class='n1'>"+page_list[i].queidx+"</td>"
-		//Idx 값 불러오는거 수정하기!!
-		content += "<td class='n2'><a href='./myLib_question_detail?idx="+page_list[i].queidx+"&&ansstatus="+page_list[i].ansstatus+"'>"+page_list[i].subject+"</a></td>"
+		content += "<td calss='n1'>"+page_list[i].queidx+"</td>"
+		content += "<td calss='n2'><a href='./myLib_question_detail?idx="+page_list[i].queidx+"&&ansstatus="+page_list[i].ansstatus+"'>"+page_list[i].subject+"</a></td>"
 		content += "<td>"+page_list[i].id+"</td>"
 		var date = new Date(page_list[i].reg_date);
 		content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
@@ -196,12 +189,10 @@ function listPrint(page_list){
 		}else if(page_list[i].ansstatus == 'TRUE'){
 			content += "<td>답변완료</td>";
 		}
-		
-		  	content += "</tr>"
-	    		  
-	  }
-	  $("#question_list").empty();  
-	  $("#question_list").append(content);
+	  	content += "</tr>"
+  }
+  $("#question_list").empty();  
+  $("#question_list").append(content);
 }
 
 </script>

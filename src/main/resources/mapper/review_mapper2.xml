@@ -5,14 +5,32 @@
 >
 
 <mapper namespace="com.spring.main.dao.ReviewDao2">
-	<select id="reviewList" resultType="review" parameterType="list">
+<!-- 	<select id="reviewList" resultType="review" parameterType="list">
 		SELECT r.id, r.cnt, r.reg_date, r.reviewIdx,b.bookImg, b.bookName, b.writer, b.publisher FROM
 			book b JOIN review r ON b.bookIdx=r.bookIdx ORDER BY reg_date DESC
+	</select> -->
+	
+	<select id="review_AllCount" resultType="Integer">
+		SELECT COUNT(*) FROM review 
 	</select>
 	
-	<select id="reviewCom" resultType="review" parameterType="list">
+	<select id="reviewList" resultType="review" parameterType="list">
+		SELECT * FROM (
+			SELECT ROW_NUMBER() OVER(ORDER BY r.reg_date DESC) 
+				AS rnum, r.id, r.cnt, r.reg_date, r.reviewIdx,b.bookImg, b.bookName, b.writer, b.publisher
+			FROM book b JOIN review r ON b.bookIdx=r.bookIdx) WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
+<!-- 	<select id="reviewCom" resultType="review" parameterType="list">
 		SELECT r.id, r.cnt, r.reg_date, r.reviewIdx,b.bookImg, b.bookName, b.writer, b.publisher FROM
-			book b JOIN review r ON b.bookIdx=r.bookIdx ORDER BY cnt DESC
+			book b JOIN review r ON b.bookIdx=r.bookIdx ORDER BY r.cnt DESC
+	</select> -->
+	
+		<select id="reviewCom" resultType="review" parameterType="list">
+		SELECT * FROM (
+			SELECT ROW_NUMBER() OVER(ORDER BY r.cnt DESC) 
+				AS rnum, r.id, r.cnt, r.reg_date, r.reviewIdx,b.bookImg, b.bookName, b.writer, b.publisher
+			FROM book b JOIN review r ON b.bookIdx=r.bookIdx) WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
 	
 	<select id="reviewIdList" resultType="review" parameterType="list">

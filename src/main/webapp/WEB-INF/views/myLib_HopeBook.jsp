@@ -6,20 +6,29 @@
     <meta charset="UTF-8">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<style>
-	#my_title{
+	
+	#sideBar{
+       		position: absolute;
+        	margin-left: 10%;
+        	margin-top: 3%;
+        }
+    #my_title{
+    	
 	    text-align: center;
 	    background-color: white;
 	    width: 200px;
 	    height: 30px;
 	    margin-left: 40%;
+	    margin-bottom: 1%;
 	    border: 1px solid black;
 	}
 	#body{
+		position: absolute;
 		text-align: center;
 	    background-color: beige;
 	    margin-left: 25%;
-	    width: 800px;
-	    height: 400px;
+	    width: 1000px;
+	    height: 900px;
 	}
 	
 	body div{
@@ -44,13 +53,21 @@
 	    border: 1px solid black;
 	    border-collapse: collapse;
 	}
+	#paging{
+        
+        position: fixed;
+        left:20%;
+        top:80%;
+     }
 	</style>
 </head>
 <body>
 	<jsp:include page="header.jsp"/>
    	<div>
     <div id="my_title">${loginId}의 희망도서 신청 내역</div>
-    <jsp:include page="mySidebar.jsp"/>
+    <div id="sideBar">
+        <jsp:include page="mySidebar.jsp"/>
+    </div>
     <div id="body">
         <table id="table">
             <tr>

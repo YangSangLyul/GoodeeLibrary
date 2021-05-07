@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.main.dao.LibrarySearchDAO;
 import com.spring.main.service.LibrarySearchService;
 
 @Controller
@@ -23,6 +24,7 @@ public class LibrarySearchController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired LibrarySearchService service;
+	@Autowired LibrarySearchDAO dao;
 	
 	@RequestMapping(value = "/reserveBook", method = RequestMethod.GET)
 	public String reserveBook(@RequestParam HashMap<String, String> params, HttpSession session, RedirectAttributes rAttr) {
@@ -33,16 +35,48 @@ public class LibrarySearchController {
 		
 		logger.info("아이디 : "+params.get("id"));
 		String msg = "현재 예약된 도서입니다.";
-		int success = service.reserveBook(params);
-		logger.info("예약 성공 여부 : " + success);
+		String cantReserveMsg = "";
+		
+		//이달의 베스트 리뷰왕인지 체크
+		int success = dao.maximumRentalChk(loginId);
+		int reserveSuccess = 0;
+		int cnt = 0;
+		
+		//베스트 리뷰왕이므로 대여 3번가능
+		if(success > 0) {
+			cnt = dao.RentalChk(loginId);
+			//최대 3권인지 확인
+			if(cnt >= 3) {
+				logger.info("현재 3권 대여되었으므로 더이상 예약 불가능");
+				cantReserveMsg = "더이상 대여가 가능한 상태가 아니므로 에약을 할 수 가 없습니다.";
+				msg = "";
+			}else {
+				reserveSuccess = service.reserveBook(params);
+			}
+		//베스트 리뷰왕이 아니므로 대여 2번 가능
+		}else {
+			cnt = dao.RentalChk(loginId);
+			//최대 2권인지 확인
+			if(cnt >= 2) {
+				logger.info("현재 2권 대여되었으므로 더이상 대여 불가능");
+				cantReserveMsg = "더이상 대여가 가능한 상태가 아니므로 예약을 할 수 가 없습니다.";
+				msg = "";
+			}else {
+				reserveSuccess = service.reserveBook(params);
+			}
+		}
+
+		logger.info("예약 성공 여부 : " + reserveSuccess);
 		String bookIdx = params.get("bookIdx");
 		logger.info("bookIdx : " + bookIdx);
 		
-		if(success > 0) {
+		if(reserveSuccess > 0) {
 			msg = "예약에 성공했습니다!";
 			
 		}
 		rAttr.addFlashAttribute("msg",msg);
+		rAttr.addFlashAttribute("cantReserveMsg",cantReserveMsg);
+		
 		return "redirect:/searchResultDetail?bookIdx="+bookIdx;
 	}
 	
@@ -56,9 +90,14 @@ public class LibrarySearchController {
 	}
 	
 	@RequestMapping(value = "/rentalBook", method = RequestMethod.GET)
-	public String rentalBook(@RequestParam String reserveBookIdx) {
+	public String rentalBook(@RequestParam String reserveBookIdx,@RequestParam String noticeIdx, HttpSession session) {
 		logger.info("대여하기 : " + reserveBookIdx);
-		int success = service.rentalBook(reserveBookIdx);
+		int success = service.rentalBook(reserveBookIdx,session);
+		
+		if(success > 0) {
+			//대여 성공 시 알림 읽음 처리 하는 작업
+			service.notificationRead(noticeIdx);
+		}
 		logger.info("대여 성공 여부 : " + success);
 		
 		return "redirect:/MyBook";

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,17 +30,34 @@ public class ReviewController2 { // 리뷰모아보기용 (추후 합칠예정)
 	@Autowired
 	ReviewService2 service;
 
-	// 전체 리뷰 가져오기
+	// 전체 리뷰 가져오기(등록순)
 	@RequestMapping(value = "/reviewList", method = RequestMethod.GET)
-	public ModelAndView review_All() {
+	public String review_All() {
 		logger.info("전체 리뷰 최신순 요청");
-		return service.reviewList();
+		return "reviewList";
 	}
-
+	
+	// 전체 리뷰 가져오기(페이징)
+	@RequestMapping(value = "/reviewList/{page}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String,Object> review_All(@PathVariable int page) {
+		int pagePerCnt = 5;
+		logger.info("page: "+page);
+		return service.reviewList(pagePerCnt,page);
+	}
+	
+	//추천순 리뷰 가져오기
 	@RequestMapping(value = "/reviewCom", method = RequestMethod.GET)
-	public ModelAndView reviewCom() {
+	public String reviewCom() {
 		logger.info("리뷰 추천순 정렬 요청");
-		return service.reviewCom();
+		return "reviewList";
+	}
+	
+	//추천순 리뷰 가져오기(페이징)
+	@RequestMapping(value = "/reviewCom/{page}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String,Object> reviewComList(@PathVariable int page) {
+		int pagePerCnt = 5;
+		logger.info("page: "+page);
+		return service.reviewCom(pagePerCnt,page);
 	}
 
 	// 특정아이디의 리뷰 가져오기
@@ -81,7 +99,7 @@ public class ReviewController2 { // 리뷰모아보기용 (추후 합칠예정)
 			 return service.reviewReport(dto,loginId);
 		}	
 		  
-		  @RequestMapping(value = "/clickLike", method = RequestMethod.POST) 
+		  @RequestMapping(value = "/reviewComm", method = RequestMethod.GET) 
 		  public @ResponseBody HashMap<String, Object> clickLike(HashMap<String, Object> map,HttpSession session){
 			logger.info("리뷰 추천 요청");
 			 return null;

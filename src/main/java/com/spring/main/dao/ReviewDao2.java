@@ -7,11 +7,12 @@ import com.spring.main.dto.ReviewDTO;
 
 public interface ReviewDao2 { //리뮤 모아보기용
 
-	ArrayList<ReviewDTO> reviewList();
+	ArrayList<ReviewDTO> reviewList(int start, int end);
 
 	ArrayList<ReviewDTO> reviewIdList(String id);
 
-	ArrayList<ReviewDTO> reviewCom();
+	ArrayList<ReviewDTO> reviewCom(int start, int end);
+	//ArrayList<ReviewDTO> reviewCom();
 
 	ReviewDTO reviewDetail(String reviewIdx);
 
@@ -22,6 +23,9 @@ public interface ReviewDao2 { //리뮤 모아보기용
 	void reportCntUp(int reviewIdx);
 
 	String overReport(ReviewDTO dto);
+
+	
+	int review_AllCount();
 
 
 }
