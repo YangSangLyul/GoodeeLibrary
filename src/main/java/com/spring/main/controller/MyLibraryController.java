@@ -253,12 +253,12 @@ public class MyLibraryController {
 	}
 	
 	@RequestMapping(value = "/myRBookCancel", method = RequestMethod.GET)
-	public ModelAndView reserveBookCancel(@RequestParam String bookIdx,HttpSession session) {
+	public ModelAndView reserveBookCancel(@RequestParam String reserveBookIdx,HttpSession session) {
 		//logger.info("예약 취소하기 : " + reserveBookIdx);
 		String loginId = (String) session.getAttribute("loginId");
-		logger.info("책번호 : " + bookIdx);
+		logger.info("예약번호 : " + reserveBookIdx);
 		
-		return service.myRBookCancel(bookIdx,loginId);
+		return service.myRBookCancel(reserveBookIdx,loginId);
 	}
 	
 	@RequestMapping(value = "/myRBookDetail", method = RequestMethod.GET)
@@ -270,14 +270,18 @@ public class MyLibraryController {
 	
 	
 	  @RequestMapping(value = "/myBookReturn", method = RequestMethod.GET) 
-	  public ModelAndView returnBook(@RequestParam String reserveBookIdx,HttpSession session) {
-		  ModelAndView mav = new ModelAndView();
+	  public String returnBook(@RequestParam String reserveBookIdx,HttpSession session, RedirectAttributes rAttr) {
+		  
 		  String loginId = (String) session.getAttribute("loginId");
 		  logger.info("반납하기 : " + reserveBookIdx); 
+		  String msg = "반납에  실패했습니다";
 		  int success = service.bookReturn(reserveBookIdx,loginId); 
+		  if(success > 0) {
+			  msg = "반납에 성공했습니다";
+		  }
 		  logger.info("반납 성공 여부 : " +success); 
-		  mav.setViewName("myLib_Rbook");
-		  return mav;
+		  rAttr.addFlashAttribute("msg",msg);
+		  return "redirect:/myLib_Rbook";
 	  }
 	 
 	

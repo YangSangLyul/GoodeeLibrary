@@ -53,6 +53,12 @@
 	    border: 1px solid black;
 	    border-collapse: collapse;
 	}
+	#paging{
+        
+        position: fixed;
+        left:20%;
+        top:80%;
+     }
 	</style>
 </head>
 <body>

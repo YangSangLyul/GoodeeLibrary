@@ -11,6 +11,7 @@
 			<result column="reg_date" property="reg_date"/>
 			<result column="bookIdx " property="bookIdx"/>
 			<result column="RESERVEBOOKSTATE" property="bookState"/>
+			<result column="reserveBookIdx" property="reserveBookIdx"/>
 		</resultMap>
 		
 		<resultMap type="book" id="book">
@@ -35,7 +36,7 @@
 		    ) B LEFT JOIN (
 		    SELECT r.reserveBookIdx, r.bookidx, r.bookState AS reserveBookState, r.id, r.reg_date 
 		    FROM reserveBook r 
-		    WHERE r.bookstate = 'R001' OR r.bookstate IS NULL) R
+		    WHERE r.bookstate = 'R001' OR r.bookstate IS NULL ORDER BY r.reg_date DESC) R
 		ON b.bookidx = r.bookidx
 		WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
@@ -92,9 +93,13 @@
 		UPDATE reserveBook SET bookState = 'R002' WHERE bookIdx = #{bookIdx}
 	</update> -->
 	
+	<select id="userReserveNotificationChk" parameterType="hashMap" resultType="int">
+		SELECT count(*) FROM notification WHERE id=#{id} AND reservebookidx = #{reserveNum}
+	</select>
+	
 	<insert id="userReserveNotification" parameterType="hashMap">
-		INSERT INTO notification(noticeIdx, id, notype, content, mem_type)
-			VALUES(noticeIdx_seq.NEXTVAL, #{id}, 'N005', #{bookName}||' 도서 예약이 가능합니다', '회원')
+		INSERT INTO notification(noticeIdx, id, notype, content, mem_type,reservebookidx)
+			VALUES(noticeIdx_seq.NEXTVAL, #{id}, 'N005', #{bookName}||' 도서 예약이 가능합니다', '회원',#{reserveNum})
 	</insert>
 	
 	<select id="bookManageDetail" resultType="book">
