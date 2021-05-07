@@ -140,11 +140,11 @@
 			<thead style="color:#0000FF;
 			font-weight: bold;
         	border: 1px solid gray;
-            height: 40px;">
+            height: 60px;">
 				<tr>
-					<td>번호</td>
-					<td>제목</td>
-					<td>작성일</td>
+					<td >번호</td>
+					<td >제목</td>
+					<td >작성일</td>
 				</tr>
 			</thead>
 			<tbody id="list">
@@ -218,10 +218,10 @@ function listPrint(list){
 	for(var i =0;i<list.length;i++){
 		var b= list[i].noticeidx;
 		content +="<tr>"
-		content +="<td class='n1'>"+list[i].noticeidx+"</td>"
+		content +="<td class='n1' style='width:60px;'>"+list[i].noticeidx+"</td>"
 		content +="<td class='n2'>"+"<a href='noticeDetail/"+b+"'>"+list[i].subject+"</a></td>"
 		var date = new Date(list[i].reg_date);
-		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
+		content +="<td style='width:100px;'>"+date.toLocaleDateString("ko-KR")+"</td>"
 		content +="</tr>"
 	}
 	

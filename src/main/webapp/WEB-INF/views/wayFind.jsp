@@ -398,13 +398,16 @@
  
  </div>
 	
-	
     <div class="container" style="margin-top: 151px">
+	<h3>★검색창에 출발지를 입력후 찾으시는 곳이 맞다면 좌표를 클릭하시면 경로가나옵니다</h3>
+	<br>
+	<br>
         <div class="map_wrap">
             <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
             <div id="menu_wrap" class="bg_white">
                 <div class="option">
-                    <div>
+                    <div >
+                    
                         <form onsubmit="searchPlaces(); return false;">
                             검색 : <input type="text" value="구디아카데미" id="keyword" size="15">
                             <button type="submit">검색하기</button>

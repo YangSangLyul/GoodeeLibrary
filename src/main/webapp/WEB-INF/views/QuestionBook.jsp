@@ -124,32 +124,42 @@
         </div>
         <div id="QuestionTable">
             <table>
-                <tr >
-                    <th class="n1"  style="color:#0000FF;
+               <tr style="color:#0000FF;
 			font-weight: bold;
         	border: 1px solid gray;
             height: 40px;
-            text-align: center;">글번호</th>
+            text-align: center;
+            ">
+                    <th class="n1" style="color:#0000FF;
+			font-weight: bold;
+        	border: 1px solid gray;
+            height: 40px;
+            text-align: center;
+            ">글번호</th>
                     <th class="n2" style="color:#0000FF;
 			font-weight: bold;
         	border: 1px solid gray;
             height: 40px;
-            text-align: center;">제목</th>
+            text-align: center;
+            ">제목</th>
                     <th style="color:#0000FF;
 			font-weight: bold;
         	border: 1px solid gray;
             height: 40px;
-            text-align: center;">작성자</th>
+            text-align: center;
+            ">작성자</th>
                     <th style="color:#0000FF;
 			font-weight: bold;
         	border: 1px solid gray;
             height: 40px;
-            text-align: center;">작성일</th>
+            text-align: center;
+            ">작성일</th>
                     <th style="color:#0000FF;
 			font-weight: bold;
         	border: 1px solid gray;
             height: 40px;
-            text-align: center;">답변</th>
+            text-align: center;
+            ">답변</th>
                 </tr>
                  <tbody id="list">
 				

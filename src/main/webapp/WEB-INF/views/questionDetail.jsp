@@ -8,15 +8,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <style>
     #qdBackground{
-        background-color: wheat;
+      /*   background-color: wheat; */
+      	border: 1px solid gray;
              width: 900px;
-            height: 500px;
+            height: 610px;
             position: absolute;
             left: 28%;
-            top: 35%;
+            top: 26%;
     }
     table{
         position: absolute;
@@ -128,60 +130,50 @@
             #home a:hover {
                 color: blue;
             }
-   
+            
+            
+              #titleMenu {
+            border: 1px solid black;
+            background-color: blue;
+            width: 200px;
+            height: 50px;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .menu{
+            border: 1px solid black;
+            background-color: white;
+            width: 200px;
+            height: 40px;
+            text-align: center;
+            padding-bottom: 20px;
+        } 
+         a{
+            color:white
+        }
+        a:link,a:visited{
+            color: black;
+            text-decoration: none;
+        } 
+          #sid{
+         position: absolute;
+         top: 17%;
+         left: 11%;
+        }
+   		.bccc{
+   		position: absolute;
+   		
+   		}
+   		i{
+   		font-size: 51px;
+   		}
 </style>
 <body>
-<div id="home">
-            <a href="./"><i>구디 도서관</i></a>
-        </div>
-
-        
-        <nav id="topMenu">
-            <!-- 일반 유저 메뉴 영역-->
-            <div id="userMenu">
-            <ul>
-                <li class="topMenuLi"> 
-                    <button id="libraryInfo" onclick="location.href='../notice'">도서관 이용안내</button>
-                </li>
-    
-                <li class="topMenuLi">
-                    <button id="libraryService" onclick="location.href='../reserveSeatForm'">도서관 서비스</button>
-                </li>
-    
-                <li class="topMenuLi">
-                    <button id="librarySearch">자료 검색</button>
-                </li>
-                <li class="topMenuLi">
-                    <button id="libraryMy" onclick="location.href='../MyLibrary'">마이 라이브러리</button>
-                    <!-- onclick="location.href='myLib_reserveSeatInOut'" -->
-                    
-                    <!-- 관리자가 로그인할 경우 나타나게 될 메뉴
-                         마이 라이브러리는 숨김처리 됨
-                    -->
-                    <button id="adminService">관리자 서비스</button>
-                </li>
-            </ul>
-            </div>
-        </nav>
-
-        <div class="topMenuNotice">
-            <a href="#"><img id="light" src="/image/알림.jpg" width="100" height="80"/></a>
-        </div>
-        <c:if test="${sessionScope.loginId eq null}">
-        <div id="loginOffBox">
-            <a href="memJoinForm">회원가입 </a>
-            |
-            <a href="memLogin"> 로그인</a>
-        </div>
-        </c:if>
-        <c:if test="${sessionScope.loginId ne null}">
-        <div id="loginOnBox">
-            	${sessionScope.loginId} 님 반갑습니다. | 
-            <a href="memLogout"> 로그아웃</a>
-        </div>
-        </c:if>
-        <br/>
-        <hr/>
+<jsp:include page="header.jsp"/>
+<div id="sid">
+<jsp:include page="bookuseSidebar.jsp"/>
+</div>
     <div id="qdBackground">
         <table>
            <tr>
@@ -205,9 +197,9 @@
 			${map.REG_DATE}
             </td>
         </tr>
-        <tr> 
+        <tr > 
             <td colspan="2">문의내용 <br>
-			${map.CONTENT}
+            <div style="height: 100px; overflow: scroll;">${map.CONTENT}</div>
             </td>
         </tr>
         <tr>
@@ -220,11 +212,11 @@
         </tr>
         </table>
 
+    <button onclick="location.href='/questionDetail/QuestionEdit/${map.QUEIDX}'" class="bccc" style="top: 85%;left: 27%;width: 70px;height: 40px;">수정하기</button>
+    <button onclick="location.href ='/QuestionAll'" class="bccc" style="top: 85%;left: 47%; width: 70px;height: 40px;">목록</button>
+    <button onclick="location.href='/questionDetail/questiondelete/${map.QUEIDX}'" class="bccc" style="top: 85%;left: 65%; width: 70px;height: 40px;">삭제</button>
     </div>
     
-    <button onclick="location.href='/questionDetail/QuestionEdit/${map.QUEIDX}'">수정하기</button>
-    <button onclick="location.href ='/QuestionAll'">목록</button>
-    <button onclick="location.href='/questionDetail/questiondelete/${map.QUEIDX}'">삭제</button>
 </body>
 <script type="text/javascript">
 var msg = "${msg}";
