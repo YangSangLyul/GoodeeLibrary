@@ -8,12 +8,13 @@
         <link rel="icon" href="icon.jpg">
         <style>
             #container{
-                width: 700px;
+                width: 900px;
                 margin: 20px 550px;
                 /* text-align: center; */
             }
             table{
-                margin-top: 55px;
+                margin-top: 180px;
+    			margin-left: 200px;
                 width: 700px;
                 height: 100px;
                 text-align: center;
@@ -27,13 +28,13 @@
                 overflow: auto;
             }
             #btn{
-                margin-left: 470px;
+                margin-left: 665px;
             }
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
     <body>
-    	<jsp:include page="header.jsp"/>
+    	<jsp:include page="adminHeader.jsp"/>
     	<div id="container">
     		<input type="hidden" value="${detail.noticeidx}"/>
 	        <table>
