@@ -149,12 +149,14 @@ table, th, td {
 			}
 			
 			function reserveBookState(bookList){
+				console.log('뭐가 있을까? '+bookList)
 				reserveBookState = bookList.reserveBookDTO[0].bookState;
 				bookName = bookList.bookName;
 				id = bookList.reserveBookDTO[0].id;
-				console.log("id : " + id + " / bookName : " + bookName);
+				reserveNum = bookList.reserveBookDTO[0].reserveBookIdx;
+				console.log("id : " + id + " / bookName : " + bookName + " / reserveNumber : "+reserveNum);
 				if(reserveBookState == 'R001') {
- 					return "예약중 : " + id + " <button onclick='userReserveNotification(\""+ bookName + "/" + id+"\")'>예약승인</button>";
+ 					//return "예약중 : " + id + " <button onclick='userReserveNotification(\""+ bookName + "/" + id+"\")'>예약승인</button>";
 				} else if(reserveBookState == 'R002') {
 					return "대여중";
 				} else if(reserveBookState == 'R003') {

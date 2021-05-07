@@ -150,9 +150,14 @@
     <script>
     
     	var msg = "${msg}";
+    	var cantReserveMsg = "${cantReserveMsg}";
     	
     	if(msg != ""){
     		alert(msg);
+    	}
+    	
+    	if(cantReserveMsg != ""){
+    		alert(cantReserveMsg);
     	}
     
     	$("#back").click(function() {

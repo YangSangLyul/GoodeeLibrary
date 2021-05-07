@@ -112,7 +112,7 @@
 	</delete>
 	
 	<delete id="myRBookCancel">
-		DELETE FROM reserveBook WHERE bookIdx = #{param1} AND id=#{param2}
+		DELETE FROM reserveBook WHERE reservebookidx = #{param1} AND id=#{param2} AND bookstate = 'R001'
 	</delete>
 	
 	<select id="HopeBook_allCount" resultType="Integer">

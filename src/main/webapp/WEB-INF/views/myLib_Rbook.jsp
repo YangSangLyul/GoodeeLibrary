@@ -142,6 +142,7 @@ function listCall(reqPage){
          }else{
         	 console.log('뭐라도 있네요')
         	 $("#table").css("display","block");
+        	 $("#noReserveBook").css("display","none");
          	listPrint(data.reserve_list);
          }
          //pagePrint(data.range);//플러그인 미사용 페이징 처리!
@@ -180,7 +181,7 @@ function listPrint(reserve_list){
 		//content += "<td>"+reserve_list[i].bstate+"</td>"
 		if(reserve_list[i].rstate == 'R001'){
 			content += "<td>예약중</td>"
-			content += "<td><a href='./mybookReserve?bookIdx="+reserve_list[i].BOOKIDX+"'>예약취소</a></td>"
+			content += "<td><a href='./reserveBookCancel?reserveBookIdx="+reserve_list[i].RESERVEBOOKIDX+"'>예약취소</a></td>"
 		}else if(reserve_list[i].rstate == 'R002'){
 			content += "<td>대여중</td>"
 			content += "<td><a href='./myBookReturn?reserveBookIdx="+reserve_list[i].RESERVEBOOKIDX+"'>반납하기</a></td>"
