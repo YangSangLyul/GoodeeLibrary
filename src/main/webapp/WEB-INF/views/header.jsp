@@ -195,9 +195,9 @@
 		menuCall();
 		
 		
-		function notification(){
-
-		}
+		$("#notification").click(function() {
+			location.href = './userNotification';
+		})
 	</script>
 
 </html>
