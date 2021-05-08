@@ -87,7 +87,7 @@
 		margin-top: 35px;
 		font-size: 14px;
 		border: 1px solid lightgray;
-		margin-left: 230px;
+		margin-left: 80px;
 	}
 	.text{
 		width: 550px;

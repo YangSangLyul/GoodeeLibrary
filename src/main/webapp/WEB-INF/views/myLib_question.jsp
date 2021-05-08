@@ -22,21 +22,20 @@
 	        	margin-top: 3%;
 	        }
 	    #my_title{
-	    	
-		    text-align: center;
-		    background-color: white;
-		    width: 200px;
-		    height: 30px;
-		    margin-left: 40%;
-		    margin-bottom: 1%;
-		    border: 1px solid black;
+	    text-align: center;
+	    background-color: white;
+	    width: 200px;
+	    height: 30px;
+	    margin-left: 45%;
+	    margin-bottom: 1%;
+	    border: 1px solid black;
 		}
 		#body{
 			position: absolute;
 			text-align: center;
 		    background-color: beige;
 		    margin-left: 25%;
-		    width: 1000px;
+		    width: 1600px;
 		    height: 900px;
 		}
         #QuestionTable{
@@ -61,7 +60,7 @@
         #QuestionTable{
             text-align: center;
             position: absolute;
-            left: 16%;
+            left: 14%;
             top: 10%;
         }
         

@@ -25,7 +25,6 @@
 		position: absolute;
 		text-align: center;
 	    background-color: beige;
-	    margin-left: 25%;
 	    width: 1000px;
 	    height: 900px;
 	}
@@ -107,10 +106,8 @@
 	.re_btn{
 		width: 30%;
 		padding: 10px;
-		margin-top: 35px;
 		font-size: 14px;
 		border: 1px solid lightgray;
-		margin-left: 230px;
 	}
 	.text{
 		width: 550px;
@@ -122,7 +119,7 @@
 <jsp:include page="header.jsp"/>
    	<div id="main">
 		<div class="subject">
-			<h3 id="review">${loginId}의 리뷰 상세 내역</h3>
+			<h3 id="review">${loginId}의 리뷰 수정</h3>
 		</div>
 		
     <div class="review_content">

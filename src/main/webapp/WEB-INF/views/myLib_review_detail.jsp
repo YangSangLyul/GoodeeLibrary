@@ -6,6 +6,12 @@
 <title>나의 리뷰내역</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
+	#sideBar{
+       		position: absolute;
+        	margin-left: 10%;
+        	margin-top: 3%;
+        }
+    
 	#main {
 		width: 800px;
 		height: 400px;
@@ -84,18 +90,17 @@
 	.re_btn{
 		width: 30%;
 		padding: 10px;
-		margin-top: 35px;
 		font-size: 14px;
 		border: 1px solid lightgray;
-		margin-left: 230px;
 	}
 </style>
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-<div id="sideBar">
+	<div id="sideBar">
         <jsp:include page="mySidebar.jsp"/>
     </div>
+
    	<div id="main">
 		<div class="subject">
 			<h3 id="review">${loginId}의 리뷰 상세 내역</h3>
@@ -125,7 +130,7 @@
 					<tr>					
 						<td rowspan="2">
 							<input type="button" class="re_btn" onclick="location.href='./ReviewEditForm?reviewIdx=${ReviewDetail.reviewIdx}'" value="수정">
-							<input type="button" class="re_btn" onclick="location.href='./MyLibrary'" value="목록">
+							<input type="button" class="re_btn" onclick="location.href='./MyReview'" value="목록">
 							<input type="button" class="re_btn" onclick="location.href='./review_delete?reviewIdx=${ReviewDetail.reviewIdx}'" value="삭제">
 						</td>
 					</tr> 
