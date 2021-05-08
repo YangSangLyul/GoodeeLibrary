@@ -24,8 +24,19 @@ public interface ReviewDao2 { //리뮤 모아보기용
 
 	String overReport(ReviewDTO dto);
 
-	
 	int review_AllCount();
+
+	int likeChk(int reviewIdx, String id);
+
+	void likeupdate(int reviewIdx, String id);
+
+	void likedelete(int reviewIdx, String id);
+
+	int like_cnt(int reviewIdx);
+
+	void upLike(int reviewIdx);
+
+	void downLike(int reviewIdx);
 
 
 }

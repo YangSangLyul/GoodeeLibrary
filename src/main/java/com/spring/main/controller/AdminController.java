@@ -65,10 +65,10 @@ public class AdminController {
 		return "redirect:/ReviewKing";
 	}
 	
-	//리뷰왕 선정 이미 했으면 다음 달 까지 버튼 숨김
+	//리뷰왕 선정 이미 했으면 다음 달 까지 선정 불가
 	@RequestMapping(value = "/hideBtn", method = RequestMethod.GET)
 	public @ResponseBody HashMap<String, Object> hideBtn() {
-		logger.info("버튼숨김 요청");
+		logger.info("선정불가 요청");
 		return service.hideBtn();
 	}
 	

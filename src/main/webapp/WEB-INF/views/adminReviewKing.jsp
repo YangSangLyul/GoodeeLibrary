@@ -116,25 +116,52 @@
 					console.log(data);
 					//console.log(data.hide.length);
 					 if(data.hide.length==0){
-						$.ajax({ 
-		    				url :'selectKing', 
-		    				type : 'POST', 
-		    				//async: false,
-		    				dataType : 'text', 
-		    				data : { 
-		    					'tdArr':tdArr
-		   					}, 
-		   					success: function(data){ 
-		   						console.log(data);
-		   						//location.href = 'hideBtn';
-		   						alert("이 달의 리뷰왕 선정을 완료했습니다.");
-							},
-							error: function(e){
-								console.log(e);
-							}
-						});
+						//리뷰왕 3명 미만 제한
+			    		if(chkCnt < 3){
+			    			alert("이 달의 리뷰왕 3명을 선택 해주세요.");
+			    			return false;
+			    		}else{    			
+			    			//var ckData = [];
+			    			var tdArr = [];
+			    			var test = {};
+			    			var ckBox = $("input[name=chk]:checked");
+			    			
+			    			//체크 된 체크박스의 값 가져오기
+			    			ckBox.each(function(i){    				
+			    				//ckBox.parent() : ckBox의 부모는 <td>
+			    				var tr = ckBox.parent().parent().eq(i);
+			    				var td = tr.children();    				
+			    				//체크된 row의 모든 값 배열에 담기
+			    				//ckData.push(tr.text());
+			    				var id = td.eq(1).text();
+			    				var cnt = td.eq(2).text();    				
+				    			console.log("id: "+id);
+				    			console.log("cnt: "+cnt);
+			    				//test.put(id,cnt);
+			    				tdArr.push({"id":id,"cnt":cnt});
+			    			});
+			    			//location.href = 'selectKing?id='+id+'&cnt='+cnt;
+							$.ajax({ 
+			    				url :'selectKing', 
+			    				type : 'POST', 
+			    				//async: false,
+			    				dataType : 'text', 
+			    				data : { 
+			    					'tdArr':tdArr
+			   					}, 
+			   					success: function(data){ 
+			   						console.log(data);
+			   						//location.href = 'hideBtn';
+			   						alert("이 달의 리뷰왕 선정을 완료했습니다.");
+								},
+								error: function(e){
+									console.log(e);
+								}
+							});
+			    		}
 					}else{
 						alert("이미 이달의 리뷰왕을 선정했습니다.");
+						return false;
 					}
 				},
 				error: function(e){
@@ -147,32 +174,6 @@
     			if(chkbox[i].checked){
     				chkCnt++;
     			}
-    		}
-    		//리뷰왕 3명 미만 제한
-    		if(chkCnt < 3){
-    			alert("이 달의 리뷰왕 3명을 선택 해주세요.");
-    			return false;
-    		}else{    			
-    			//var ckData = [];
-    			var tdArr = [];
-    			var test = {};
-    			var ckBox = $("input[name=chk]:checked");
-    			
-    			//체크 된 체크박스의 값 가져오기
-    			ckBox.each(function(i){    				
-    				//ckBox.parent() : ckBox의 부모는 <td>
-    				var tr = ckBox.parent().parent().eq(i);
-    				var td = tr.children();    				
-    				//체크된 row의 모든 값 배열에 담기
-    				//ckData.push(tr.text());
-    				var id = td.eq(1).text();
-    				var cnt = td.eq(2).text();    				
-	    			console.log("id: "+id);
-	    			console.log("cnt: "+cnt);
-    				//test.put(id,cnt);
-    				tdArr.push({"id":id,"cnt":cnt});
-    			});
-    			//location.href = 'selectKing?id='+id+'&cnt='+cnt;
     		}
     	});
     </script>

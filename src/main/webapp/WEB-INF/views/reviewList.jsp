@@ -15,8 +15,7 @@
 	width: 750px;
 }
 #main {
-	width: 400px;
-	height: 300px;
+	width: 580px;
 	margin: -95px auto;
 	text-align: center;
 }
@@ -34,22 +33,25 @@
 
 .re_option {
 	float: right;
+	margin: 20px 0;
 }
 
-.re_option li {
+.re_option ul li {
 	border: 1px solid lightgray;
 	width: 100px;
 	padding: 8px;
 	list-style: none;
+	 float: left;   
 }
 
 .re_option li:hover {
-	background-color: lightgreen;
+	background-color: e8ecf4;
 }
 
 .re_option a {
 	text-decoration: none;
 	color: black;
+	
 }
 
 /* .review_content {
@@ -126,7 +128,7 @@
 	<jsp:include page="bookserviceSidebar.jsp" />
 	<div id="main">
 		<div class="subject">
-			<h3 id="review">리뷰 모아보기</h3>
+			<h3 id="review"><b>리뷰 모아보기</b></h3>
 		</div>
 		<div class="re_option">
 			<ul>

@@ -61,14 +61,6 @@ public class ReviewService2 { //리뷰 모아보기용
 		return map;
 	}
 	
-//	public ModelAndView reviewCom() {
-//		ModelAndView mav = new ModelAndView();
-//		ArrayList<ReviewDTO> reviewList = dao.reviewCom();
-//		mav.addObject("review", reviewList);
-//		mav.setViewName("reviewList");
-//		return mav;
-//	}
-
 	public ModelAndView reviewIdList(String id) {
 		ModelAndView mav = new ModelAndView();
 		ArrayList<ReviewDTO> reviewIdList = dao.reviewIdList(id);
@@ -108,6 +100,40 @@ public class ReviewService2 { //리뷰 모아보기용
 		logger.info("신고성공여부: "+success);
 		return map;
 	}
+
+	@Transactional
+	public HashMap<String, Object> clickLike(int reviewIdx, String id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		logger.info("리뷰추천 요청");
+		
+		int success;
+		
+		if(id==null) {
+			msg ="dd";
+		}else {
+			success = dao.likeChk(reviewIdx,id);
+			if(success==0) {
+				dao.likeupdate(reviewIdx,id);
+				dao.upLike(reviewIdx);
+				map.put("success",success);
+			}else {
+				dao.likedelete(reviewIdx,id);
+				dao.downLike(reviewIdx);
+				map.put("success",success);
+			}
+		}
+		map.put("msg",msg);
+		return map;
+	}
+
+	public HashMap<String, Object> reviewLikeCnt(int reviewIdx) {
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		int cnt = dao.like_cnt(reviewIdx);
+		logger.info("cnt: "+cnt);
+		map.put("cnt",cnt);
+		return map;
+	}
+	
 
 
 	
