@@ -7,54 +7,38 @@
 <title>회원 정보 수정/탈퇴 페이지</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
-#sideBar{
-       		position: absolute;
-        	margin-left: 10%;
-        	margin-top: 3%;
-        }
-    #my_title{
-    	
-	    text-align: center;
-	    background-color: white;
-	    width: 200px;
-	    height: 30px;
-	    margin-left: 40%;
-	    margin-bottom: 1%;
-	    border: 1px solid black;
-	}
-	#body{
-		position: absolute;
-		text-align: center;
-	    background-color: beige;
-	    margin-left: 25%;
-	    width: 1000px;
-	    height: 900px;
-	}
+
 #main {
 	width: 400px;
 	height: 300px;
-	margin: 200px auto;
+	margin: -150px auto;
 }
 
 .subject {
-	border: 1px solid;
-	width: 300px;
-	margin: auto;
+    border: 1px solid;
+    width: 354px;
+    margin: 20px auto;
+    padding: 8px 24px;
 }
 
-h3 {
-	margin: 5px;
-}
-
-div {
+#myinfo {
+	margin: 10px;
+	font-size: 16px;
 	text-align: center;
+	font-weight: 600;
+}
+
+#findFields{
+	margin : auto;
 }
 
 input[type="password"] {
-	width: 110%;
+	width: 95%;
 	height: 30px;
 	padding: 5px;
 	margin: 10px;
+    background: #f8f7f7;
+    border: 1px solid;
 }
 
 input[type="button"] {
@@ -62,10 +46,14 @@ input[type="button"] {
 	height: 40px;
 	margin: 20px 5px;
 	font-size: 15px;
-	background-color: #94a7be;
-	color: white;
+	background-color: #e8ecf4;
+	color: #0070c0;
 	border: none;
 	border-radius: 5px;
+}
+
+#mybtn{
+	text-align: center;
 }
 </style>
 </head>
@@ -76,7 +64,7 @@ input[type="button"] {
     </div>
 	<div id="main">
 		<div class="subject">
-			<h3>회원 정보 수정</h3>
+			<h3 id="myinfo">회원 정보 수정</h3>
 		</div>
 		<form name="form" method="POST">
 			<table id="findFields">
@@ -85,7 +73,7 @@ input[type="button"] {
 					<td><input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요." /></td>
 				</tr>
 				<tr>
-					<td colspan="2">
+					<td colspan="2" id="mybtn">
 						<input type="button" value="수정" id="update"/>
 						<input type="button" value="탈퇴" id="withdraw"/>
 					</td>
