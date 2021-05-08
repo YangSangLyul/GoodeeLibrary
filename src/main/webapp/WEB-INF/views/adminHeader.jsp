@@ -89,7 +89,7 @@
     </head>
     <body>
         <div id="home">
-            <a href="/main"><i>구디 도서관</i></a>
+            <a href="../"><i>구디 도서관</i></a>
         </div>
 
         
@@ -115,10 +115,6 @@
             </div>
         </nav>
 
-
-        <div class="topMenuNotice">
-            <a href="#"><img id="light" src="./image/알림.jpg" width="100" height="80"/></a>
-        </div>
         <c:if test="${sessionScope.loginId eq null}">
         <div id="loginOffBox">
             <a href="memJoinForm">회원가입 </a>
@@ -136,6 +132,10 @@
         <hr/>
     </body>
 	<script>
+	
+	$("#adminLibraryQuestion").click(function(){
+		location.href = 'questionList';
+	})
 		
 	</script>
 

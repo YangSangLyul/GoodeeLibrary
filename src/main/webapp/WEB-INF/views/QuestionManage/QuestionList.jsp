@@ -101,7 +101,7 @@ table, th, td {
 			for (var i = 0; i < list.length; i++) {
 				content += "<tr>";
 				content += "<td>" + list[i].queIdx + "</td>";
-				
+				console.log('현재 제목의 문자길이는? ',list[i].subject.length);
 				// 문자열 길이 10 넘어가면 ... 으로 처리
 				 if(list[i].subject.length > length) {
 					subject = list[i].subject.substring(0, length) + '...';
@@ -109,7 +109,7 @@ table, th, td {
 					subject = list[i].subject;
 				}
 				 
-				content += "<td class='ellipsis'><a href='#" + list[i].queIdx + "'>"+subject+"</a></td>";
+				content += "<td class='ellipsis'><a href='QuestionDetail?queIdx=" + list[i].queIdx + "'>"+subject+"</a></td>";
 						
 				var date = new Date(list[i].reg_date);
 				content += "<td>" + date.toLocaleDateString("ko-KR") + "</td>";
