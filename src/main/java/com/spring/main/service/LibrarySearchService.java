@@ -3,6 +3,8 @@ package com.spring.main.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +48,36 @@ public class LibrarySearchService {
 		return dao.reserveBookCancel(reserveBookIdx);
 	}
 	
-	public int rentalBook(String reserveBookIdx) {
-		return dao.rentalBook(reserveBookIdx);
+	public int rentalBook(String reserveBookIdx, HttpSession session) {
+		
+		String loginId = (String) session.getAttribute("loginId");
+		
+		//이달의 베스트 리뷰왕인지 체크
+		int success = dao.maximumRentalChk(loginId);
+		int rentalSuccess = 0;
+		int cnt = 0;
+		
+		//베스트 리뷰왕이므로 대여 3번가능
+		if(success > 0) {
+			cnt = dao.RentalChk(loginId);
+			//최대 3권인지 확인
+			if(cnt >= 3) {
+				logger.info("현재 3권 대여되었으므로 더이상 대여 불가능");
+			}else {
+				rentalSuccess = dao.rentalBook(reserveBookIdx);
+			}
+		//베스트 리뷰왕이 아니므로 대여 2번 가능
+		}else {
+			cnt = dao.RentalChk(loginId);
+			//최대 2권인지 확인
+			if(cnt >= 2) {
+				logger.info("현재 2권 대여되었으므로 더이상 대여 불가능");
+			}else {
+				rentalSuccess = dao.rentalBook(reserveBookIdx);
+			}
+		}
+		
+		return rentalSuccess;
 	}
 	
 	public int returnBook(String reserveBookIdx) {
@@ -93,6 +123,16 @@ public class LibrarySearchService {
 		mav.setViewName("booksDetail");
 		
 		return mav;
+	}
+
+	public void notificationRead(String noticeIdx) {
+		
+		int success = dao.notificationRead(noticeIdx);
+		
+		if(success > 0) {
+			logger.info("성공적으로 알림을 읽음처리 했습니다!!!");
+		}
+		
 	}
 
 }

@@ -24,23 +24,43 @@ public class ReviewService2 { //리뷰 모아보기용
 	String msg = "";
 	
 	@Autowired ReviewDao2 dao;
-
-	public ModelAndView reviewList() {
-		ModelAndView mav = new ModelAndView();
-		ArrayList<ReviewDTO> reviewList = dao.reviewList();
-		mav.addObject("review", reviewList);
-		mav.setViewName("reviewList");
-		return mav;
+	
+	public HashMap<String, Object> reviewList(int pagePerCnt,int page) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int allCnt = dao.review_AllCount();
+		logger.info("allCnt:"+allCnt);
+	
+		int range = allCnt/pagePerCnt > 0? Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		logger.info("만들수있는 페이지~"+range);
+		page = page>range? range:page;
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt+1;
+		
+		ArrayList<ReviewDTO> reviewList = dao.reviewList(start,end);
+		map.put("list",reviewList);
+		map.put("range", range);
+		map.put("currPage",page);
+		return map;
 	}
 	
-	public ModelAndView reviewCom() {
-		ModelAndView mav = new ModelAndView();
-		ArrayList<ReviewDTO> reviewList = dao.reviewCom();
-		mav.addObject("review", reviewList);
-		mav.setViewName("reviewList");
-		return mav;
+	public HashMap<String, Object> reviewCom(int pagePerCnt,int page) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int allCnt = dao.review_AllCount();
+		logger.info("allCnt:"+allCnt);
+	
+		int range = allCnt/pagePerCnt > 0? Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		logger.info("만들수있는 페이지~"+range);
+		page = page>range? range:page;
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt+1;
+		
+		ArrayList<ReviewDTO> reviewList = dao.reviewCom(start,end);
+		map.put("list",reviewList);
+		map.put("range", range);
+		map.put("currPage",page);
+		return map;
 	}
-
+	
 	public ModelAndView reviewIdList(String id) {
 		ModelAndView mav = new ModelAndView();
 		ArrayList<ReviewDTO> reviewIdList = dao.reviewIdList(id);
@@ -80,6 +100,42 @@ public class ReviewService2 { //리뷰 모아보기용
 		logger.info("신고성공여부: "+success);
 		return map;
 	}
+
+	@Transactional
+	public HashMap<String, Object> clickLike(int reviewIdx, String id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		logger.info("리뷰추천 요청");
+		
+		int success;
+		
+		if(id==null) {
+			msg ="dd";
+		}else {
+			success = dao.likeChk(reviewIdx,id);
+			if(success==0) {
+				dao.likeupdate(reviewIdx,id);
+				dao.upLike(reviewIdx);
+				map.put("success",success);
+			}else {
+				dao.likedelete(reviewIdx,id);
+				dao.downLike(reviewIdx);
+				map.put("success",success);
+			}
+		}
+		map.put("msg",msg);
+		return map;
+	}
+
+	public HashMap<String, Object> reviewLikeCnt(int reviewIdx) {
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		int cnt = dao.like_cnt(reviewIdx);
+		logger.info("cnt: "+cnt);
+		map.put("cnt",cnt);
+		return map;
+	}
+	
+
+
 	
 
 }

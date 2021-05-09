@@ -10,50 +10,70 @@
 #main {
 	width: 400px;
 	height: 300px;
-	margin: 200px auto;
+	margin: -150px auto;
 }
 
 .subject {
-	border: 1px solid;
-	width: 300px;
-	margin: auto;
+    border: 1px solid;
+    width: 354px;
+    margin: 20px auto;
+    padding: 8px 24px;
 }
 
-h3 {
-	margin: 5px;
-}
-
-div {
+#myinfo {
+	margin: 10px;
+	font-size: 16px;
 	text-align: center;
+	font-weight: 600;
 }
 
-#find_btn {
-	margin-top: 20px;
+#findFields{
+	margin : auto;
 }
 
 input[type="text"] {
-	width: 110%;
-	height: 30px;
-	padding: 5px;
-	margin: 10px;
+    width: 95%;
+    height: 39px;
+    padding: 16px;
+    margin: 10px;
+    background: #f8f7f7;
+    border: 1px solid;
 }
 
-button {
+#mybtn{
 	width: 100px;
 	height: 40px;
 	margin: 20px 5px;
 	font-size: 15px;
-	background-color: #94a7be;
-	color: white;
+	background-color: #e8ecf4;
+	color: #0070c0;
 	border: none;
 	border-radius: 5px;
+	text-align: center;
+}
+
+#title{
+	padding: 10px;
+}
+
+#updatePw{
+	font-size: 16px;
+}
+
+#updatePw:hover{
+	text-decoration: underline;
+	color : #0070c0;
 }
 </style>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
+<div id="sideBar">
+  <jsp:include page="mySidebar.jsp"/>
+    </div>
 	<div id="main">
 		<div class="subject">
-			<h3>회원 정보 수정</h3>
+			<h3 id="myinfo">회원 정보 수정</h3>
 		</div>
 		<form action="memUpdate" method="POST">
 			<table id="findFields">
@@ -74,12 +94,12 @@ button {
 					<td><input type="text" name="email" value="${dto.email}" /></td>
 				</tr>
 			</table>
-					<button class="find_button">수정</button>
+					<button id="mybtn">수정</button>
 		</form>
 		<div>
-			<a href="myLib_UpdatePwForm">비밀번호 변경하기</a>
+			<a id="updatePw" href="myLib_UpdatePwForm">비밀번호 변경하기</a>
 		</div>
-		<button class="find_button" onclick="location.href='myLib_Update'">취소</button>
+		<button id="mybtn" onclick="location.href='myLib_Update'">취소</button>
 		</div>
 </body>
 <script>

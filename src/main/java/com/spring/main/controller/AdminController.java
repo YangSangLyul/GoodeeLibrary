@@ -65,10 +65,10 @@ public class AdminController {
 		return "redirect:/ReviewKing";
 	}
 	
-	//리뷰왕 선정 이미 했으면 다음 달 까지 버튼 숨김
+	//리뷰왕 선정 이미 했으면 다음 달 까지 선정 불가
 	@RequestMapping(value = "/hideBtn", method = RequestMethod.GET)
 	public @ResponseBody HashMap<String, Object> hideBtn() {
-		logger.info("버튼숨김 요청");
+		logger.info("선정불가 요청");
 		return service.hideBtn();
 	}
 	
@@ -233,6 +233,24 @@ public class AdminController {
 	@RequestMapping(value = "/questionList/{page}", method = RequestMethod.GET)
 	public @ResponseBody HashMap<String, Object> questionList(@PathVariable int page) {
 		return service.questionList(page);
+	}
+	
+	//문의내역 상세 페이지 이동
+	@RequestMapping(value = "/QuestionDetail", method = RequestMethod.GET)
+	public ModelAndView QuestionDetail(@RequestParam String queIdx) {
+		
+		logger.info("문의내역 상세 페이지 이동 대상번호 : "+queIdx);
+		
+		return service.questionDetail(queIdx);
+	}
+
+	//관리자 답변 전송
+	@RequestMapping(value = "/answerInsert", method = RequestMethod.POST)
+	public String answerInsert(@RequestParam HashMap<String, Object> params, RedirectAttributes rAttr) {
+		
+		logger.info("문의내역 답변 정보 : "+params);
+		
+		return service.questionAnswer(params,rAttr);
 	}
 	
 }

@@ -6,14 +6,30 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
-	#qdBackground{
-        background-color: wheat;
-            width: 900px;
-            height: 500px;
-            position: absolute;
-            left: 28%;
-            top: 35%;
-    }
+	#sideBar{
+       		position: absolute;
+        	margin-left: 10%;
+        	margin-top: 3%;
+        }
+    #my_title{
+    	
+	    text-align: center;
+	    background-color: white;
+	    width: 200px;
+	    height: 30px;
+	    margin-left: 40%;
+	    margin-bottom: 1%;
+	    border: 1px solid black;
+	}
+	#body{
+		position: absolute;
+		text-align: center;
+	    background-color: beige;
+	    margin-left: 25%;
+	    width: 1000px;
+	    height: 900px;
+	}
+
     table{
     background-color: white;
         position: absolute;
@@ -62,11 +78,16 @@
     top: 98%;
        left: 55%; 
    }
+   .btn{
+   		margin-top:60%;
+   		width:70px;
+   }
 </style>
 </head>
 <body>
 	<jsp:include page="header.jsp"/>
-    <div id="qdBackground">
+	<div id="my_title">${loginId}의 문의 내역</div>
+    <div id="body">
         <form action="question_edit" method="POST">
             <table>
             	<input type="hidden" name="idx" value="${question_info.queidx}"/>
@@ -106,8 +127,8 @@
                     </td>
                 </tr>
             </table>
-            <input id="save" type="button" value="저장"/>
-	        <input id="cancel" type="button" value="취소" onclick="location.href='./question_detail?idx=${question_info.queidx}&&ansstatus=FALSE'"/>
+            <input id="save" class="btn" type="button" value="저장"/>
+	        <input id="cancel" class="btn" type="button" value="취소" onclick="location.href='./myLib_question_detail?idx=${question_info.queidx}&&ansstatus=FALSE'"/>
         </form>
         <!-- <button id="b2" onclick="location.href='./question_detail?idx='">취소</button> -->
     </div>

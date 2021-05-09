@@ -10,50 +10,68 @@
 #main {
 	width: 400px;
 	height: 300px;
-	margin: 200px auto;
+	margin: -150px auto;
 }
 
 .subject {
-	border: 1px solid;
-	width: 300px;
-	margin: auto;
+    border: 1px solid;
+    width: 440px;
+    margin: 20px auto;
+    padding: 8px 24px;
 }
 
-h3 {
-	margin: 5px;
-}
-
-div {
+#myinfo {
+	margin: 10px;
+	font-size: 16px;
 	text-align: center;
+	font-weight: 600;
 }
 
-#find_btn {
-	margin-top: 20px;
+#findFields{
+	margin : auto;
 }
 
 input[type="password"] {
-	width: 110%;
-	height: 30px;
-	padding: 5px;
-	margin: 10px;
+    width: 110%;
+    height: 39px;
+    padding: 16px;
+    margin: 10px;
+    background: #f8f7f7;
+    border: 1px solid;
 }
 
-button {
+#mybtn{
 	width: 100px;
 	height: 40px;
 	margin: 20px 5px;
 	font-size: 15px;
-	background-color: #94a7be;
-	color: white;
+	background-color: #e8ecf4;
+	color: #0070c0;
 	border: none;
 	border-radius: 5px;
+	text-align: center;
 }
+
+#title{
+	padding: 10px;
+}
+
+#btnbox{
+	border: 1px solid;
+	width: 57%;
+    margin: auto;
+}
+
 </style>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
+<div id="sideBar">
+        <jsp:include page="mySidebar.jsp"/>
+    </div>
 	<div id="main">
 		<div class="subject">
-			<h3>비밀번호 변경</h3>
+			<h3 id="myinfo">비밀번호 변경</h3>
 		</div>
 		<form action="myLib_UpdatePw" method="POST">
 			<table id="findFields">
@@ -70,8 +88,10 @@ button {
 				</tr>
 			</table>
 		</form>
-				<button class="find_button" onclick="newPw()">변경</button>
-				<button class="find_button" onclick="location.href='myLib_Update'">취소</button>
+		<div id="btnbox">
+				<button id="mybtn" onclick="newPw()">변경</button>
+				<button id="mybtn" onclick="location.href='myLib_Update'">취소</button>
+		</div>
 	</div>
 </body>
 <script>

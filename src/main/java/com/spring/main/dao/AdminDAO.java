@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.spring.main.dto.AdminDTO;
 import com.spring.main.dto.BookDTO;
 import com.spring.main.dto.LibraryInfoDTO;
+import com.spring.main.dto.QuestionDTO;
 
 public interface AdminDAO {
 
@@ -49,6 +50,14 @@ public interface AdminDAO {
 	int noticeDel(int idx);
 
 	int noticeUpdate(HashMap<String, Object> params);
+
+	QuestionDTO questionDetail(String queIdx);
+
+	String questionAnsstatus(String queIdx);
+
+	int questionAnswer(HashMap<String, Object> params);
+
+	void questionAnswerStatus(HashMap<String, Object> params);
 
 
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -80,6 +81,7 @@
 			<tbody id="list">
 				<c:forEach items="${notification}" var="notifi">
 					<input type="hidden" id="reserveBookIdx" value="${notifi.reserveBookIdx}"/>
+					<input type="hidden" id="noticeIdx" value="${notifi.noticeIdx}"/>
 					<tr>
 						<c:if test="${notifi.noType == 'N005'}">
 						<td>도서대출예약여부</td>
@@ -89,6 +91,11 @@
 						<td><button onclick="rental()">대여하기</button></td>
 					</tr>
 				</c:forEach>
+				<c:if test="${fn:length(notification) == 0}">
+				<tr>
+					<td colspan="4">현재 알림이 없습니다...</td>
+				</tr>
+				</c:if>
 			</tbody>
         </table>
 		</div>
@@ -98,10 +105,11 @@
     function rental(){
     	
     	var idx = $("#reserveBookIdx").val();
+    	var noticeIdx =$("#noticeIdx").val();
     	
     	console.log('대여 요청');
     	
-    	location.href='rentalBook?reserveBookIdx='+idx;
+    	location.href='rentalBook?reserveBookIdx='+idx+"&&noticeIdx="+noticeIdx;
     }
     
 	var showPage = 1;
@@ -125,7 +133,7 @@
 					$("#list").empty();
 					$("table").css("display","none");
 				}else if(data.success != '0'){
-				$("table").css("display","inline");
+				$("table").css("display","block");
 				//현재 페이지를 가져옴
 				showPage = data.currPage;
 				//가져온 리스트를 뿌려주는 함수 실행

@@ -63,4 +63,6 @@ public interface BookDAO {
 	int hopeBookRejectReason(HashMap<String, String> params);
 
 	int hopeBookReject(String hopeBooksNumber);
+
+	int userReserveNotificationChk(HashMap<String, String> params);
 }

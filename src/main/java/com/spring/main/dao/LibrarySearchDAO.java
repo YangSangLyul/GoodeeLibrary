@@ -23,4 +23,10 @@ public interface  LibrarySearchDAO {
 
 	int reserveChkId(String bookIdx, String id);
 
+	int notificationRead(String noticeIdx);
+
+	int maximumRentalChk(String loginId);
+
+	int RentalChk(String loginId);
+
 }
