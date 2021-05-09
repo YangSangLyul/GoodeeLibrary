@@ -231,7 +231,7 @@ public class LibraryInfoService {
 			if(map.get("ANSSTATUS").equals("TRUE")) {
 				String ansstatus =dao.questionAnsstatus(idx);
 				logger.info("값:"+ansstatus);
-				msg="전체공개";
+//				msg="전체공개";
 				mav.addObject("ansstatus", ansstatus);
 			}
 			page="questionDetail";
@@ -243,7 +243,7 @@ public class LibraryInfoService {
 					logger.info("값:"+ansstatus);
 					mav.addObject("ansstatus", ansstatus);
 				}
-				msg="비공개글이지만 작성자이기에 보여집니다.";
+//				msg="비공개글이지만 작성자이기에 보여집니다.";
 				page="questionDetail";
 				mav.addObject("map", map);
 			}else {
@@ -429,36 +429,41 @@ public class LibraryInfoService {
 		
 		String msg ="삭제권한이 없습니다...";
 		
-		if(loginId.equals(dto.get("ID"))) {
-			
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			ArrayList<LibraryInfoDTO> list =dao.fileCk(idx);
-			
-			logger.info(""+list);
-			if(list !=null) {
-				int i =0;
-				for(i=0;i <list.size();i++) {
-					map.put("del"+i,list.get(i));
+		if(loginId.equals(dto.get("ID"))) {	
+			logger.info("답변달린여부"+dto.get("ANSSTATUS"));
+			if(dto.get("ANSSTATUS").equals("TRUE")) {
+				msg="놀랍게도 답변이 달린게시물은 삭제가되지않습니다.";
+			}else {
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				ArrayList<LibraryInfoDTO> list =dao.fileCk(idx);
+				logger.info(""+list);
+				if(list !=null) {
+					int i =0;
+					for(i=0;i <list.size();i++) {
+						map.put("del"+i,list.get(i));
+						
+						File delFile = new File("C:/upload/Library/"+ map.get("del"+i));
+						
+						if(delFile.exists()) { 
+							delFile.delete();  //있다면 삭제
+							logger.info("삭제하는중"+ map.get("del"+i));
+						}else {
+							logger.info("이미삭제된 파일 "); 
+						}
+					}
 					
-					File delFile = new File("C:/upload/Library/"+ map.get("del"+i));
-					
-					if(delFile.exists()) { 
-						delFile.delete();  //있다면 삭제
-						logger.info("삭제하는중"+ map.get("del"+i));
-					}else {
-						logger.info("이미삭제된 파일 "); 
+					success =dao.questionDelete(idx);
+					if(success>0) {
+						msg="성공";
+					}
+				}else {
+					success =dao.questionDelete(idx);
+					if(success>0) {
+						msg="성공";
 					}
 				}
 				
-				success =dao.questionDelete(idx);
-				if(success>0) {
-					msg="성공";
-				}
-			}else {
-				success =dao.questionDelete(idx);
-				if(success>0) {
-					msg="성공";
-				}
+				
 			}
 			
 		}

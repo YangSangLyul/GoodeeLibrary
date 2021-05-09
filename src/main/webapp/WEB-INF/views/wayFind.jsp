@@ -23,7 +23,7 @@
     <!--bootstrapcdn-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>윤희섭의 맵만들기예제</title>
+    <title>구디도서관 찾아오는길</title>
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e7aa43bd9568a78436a7f4be6405f6e6&libraries=services,clusterer,drawing"></script>
     <script src="kakaoMapsJavaScriptAPIwrapper.js"></script>
@@ -526,7 +526,10 @@
                         // 마커에 클릭이벤트를 등록합니다
                         kakao.maps.event.addListener(marker, 'click', function () {
                             var detailAddr ="구디아카데미";
-                            location.href = "https://map.kakao.com/?sName="+title+"&eName="+detailAddr      
+                        /*     location.href = "https://map.kakao.com/?sName="+title+"&eName="+detailAddr   */    
+                            		
+                            window.open("https://map.kakao.com/?sName="+title+"&eName="+detailAddr ,"지도", "width=1200, height=900, toolbar=no, menubar=no, scrollbars=no, resizable=yes")
+	
                         });    
 
                         itemEl.onmouseover = function () {
