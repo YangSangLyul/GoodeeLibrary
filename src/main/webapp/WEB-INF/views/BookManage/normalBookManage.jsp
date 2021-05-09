@@ -141,10 +141,10 @@ table, th, td {
 					} else{
 						content += "<td rowspan='4' width='100px'><img src="+list[i].bookImg+" width='100px' height=100px /></td>";					
 					}
-	 				if(list[i].bookState == 'B001') {
+	 				if(list[i].bookState == 'B001' || list[i].bookState == 'B005' || list[i].bookState == 'B006' || list[i].bookState == 'B007' ) {
 						console.log(list[i].bookIdx);
 						content += "<th colspan='2'><a href='bookManageDetail?bookIdx="+list[i].bookIdx+"'>"+list[i].bookName+"</a></th>";
-						content += "<td><select id='bookState' name='bookState'";
+						content += "<td><select id='bookState' name='bookState'>";
 						content += "<option value=''>선택</option>";
 						content += "<option value='B001'>예약가능</option>";
 						content += "<option value='B005'>훼손</option>";
@@ -193,7 +193,7 @@ table, th, td {
 					}
 					
 					function bookState(bookState){
-						if(bookState == 'B001') {
+					if(bookState == 'B001') {
 							return "예약가능";
 						} else if(bookState == 'B002') {
 							return "예약불가";
@@ -235,6 +235,7 @@ table, th, td {
 					console.log(data);
 					if(data.success > 0) {
 						alert('예약승인이 완료 되었습니다.');
+						
 					} else {
 						alert('이미 예약승인이 되었습니다.');
 					}
@@ -285,6 +286,11 @@ table, th, td {
 		params.bookIdx = bookIdx;
 		params.bookState = bookState;
 		
+		if(bookState == ""){
+			alert('변경할 도서 상태값을 선택해주세요!');
+			return;
+		}
+		
 		$.ajax({
 			type : 'get',
 			url : 'bookStateChange',
@@ -294,6 +300,7 @@ table, th, td {
 				console.log(data);
 				if(data.success > 0) {
 					alert('도서 상태 변경에 성공했습니다.');
+					location.reload();
 				} else {
 					alert('잠시 후 다시 시도해 주세요.');
 				}
