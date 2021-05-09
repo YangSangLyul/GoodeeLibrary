@@ -34,6 +34,8 @@ table, th, td {
 </head>
 
 <body>
+    <jsp:include page="../adminHeader.jsp"/>
+    <jsp:include page="./bookManageSidebar.jsp"/>
 	<div id="bookManageMain">
 		<div id="bookFilter">
 			<button id="toggle">필터 옵션</button>

@@ -143,7 +143,7 @@ public class BookService {
 	public HashMap<String, Object> bookList(int page) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		int pagePerCnt = 10;
+		int pagePerCnt = 5;
 		int allCnt = dao.allCnt(); 		// 전체 게시글 수
 		int range = (int) (allCnt % pagePerCnt > 0 ? Math.floor((allCnt/pagePerCnt))+1 : Math.floor((allCnt/pagePerCnt)));
 		

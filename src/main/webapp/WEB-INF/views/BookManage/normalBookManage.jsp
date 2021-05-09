@@ -25,6 +25,10 @@ table, th, td {
 	border: 1px solid black;
 }
 
+#paging{
+	text-align: center;
+}
+
 #filter {
 	display: none;
 }
@@ -32,6 +36,8 @@ table, th, td {
 </head>
 
 <body>
+   	<jsp:include page="../adminHeader.jsp"/>
+    <jsp:include page="./bookManageSidebar.jsp"/>
 	<div id="bookManageMain">
 		<div id="bookFilter">
 			<button id="toggle">필터 옵션</button>
@@ -154,9 +160,9 @@ table, th, td {
 				for (var i = 0; i < list.length; i++) {
 					content += "<tr>";
 					if(list[i].reserveBookDTO.length > 0){
-						content += "<td rowspan='5'><img src="+list[i].bookImg+" width='100px' height=100px /></td>";					
+						content += "<td rowspan='5' width='100px'><img src="+list[i].bookImg+" width='100px' height=100px /></td>";					
 					} else{
-						content += "<td rowspan='4'><img src="+list[i].bookImg+" width='100px' height=100px /></td>";					
+						content += "<td rowspan='4' width='100px'><img src="+list[i].bookImg+" width='100px' height=100px /></td>";					
 					}
 	 				if(list[i].bookState == 'B001') {
 						console.log(list[i].bookIdx);
@@ -171,7 +177,7 @@ table, th, td {
 						content += "<input type='button' value='변경' onclick='bookStateChange("+list[i].bookIdx+")'/>";
 						content += "</td>";
 					} else {
-						content += "<th colspan='3'><a href='bookManageDetail?bookIdx='"+list[i].bookIdx+">"+list[i].bookName+"</a></th>";
+						content += "<th colspan='3'><a href='bookManageDetail?bookIdx="+list[i].bookIdx+"'>"+list[i].bookName+"</a></th>";
 					}
 					content += "</tr>";
 	

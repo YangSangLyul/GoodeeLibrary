@@ -8,14 +8,14 @@
 		<style></style>
 	</head>
 	<body>
-	<form action="/main/hopeBookRejectReason" method="GET">
-			<input type="hidden" name="hopeBooksNumber" value="${hopeBooksNumber}"/>
-		<div>
-			<h4>희망도서 신청 거부 사유</h4>
-			<textarea id="reject" name="reject" style="resize: none;"></textarea>
-	        <input type="button" id="save" value="확인"/>
-		</div>
-	</form>
+		<form action="/main/hopeBookRejectReason" method="GET">
+				<input type="hidden" name="hopeBooksNumber" value="${hopeBooksNumber}"/>
+			<div>
+				<h4>희망도서 신청 거부 사유</h4>
+				<textarea id="reject" name="reject" style="resize: none;"></textarea>
+		        <input type="button" id="save" value="확인"/>
+			</div>
+		</form>
 	</body>
 	<script>
 		$("#save").click(function(){

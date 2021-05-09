@@ -13,20 +13,37 @@
 	table, th, td{
 		border: 1px solid black;
 		border-collapse: collapse;
-		padding: 5px 5px;
+		padding: 10px 5px;
 	}
-
+	th, td{
+		height: 50px;
+		text-align: center;
+	}
+	
+	
+	#hopeBook{
+		position: absolute;
+		top: 17%;
+		left: 17%;
+	}
+	.hopeBookBar{
+		text-align: center;
+		background-color: #c5d8f1ff;
+		font-weight: 600; 
+	}
 </style>
 </head>
 <body>
-	<div>
+    <jsp:include page="../adminHeader.jsp"/>
+   	<jsp:include page="./bookManageSidebar.jsp"/>
+	<div id="hopeBook">
 		<table>
 			<tr>
-				<th>신청번호</th>
-				<th>서명</th>
-				<th>출판사</th>
-				<th>신청회원ID</th>
-				<th>승인여부</th>
+				<th class='hopeBookBar'>신청번호</th>
+				<th class='hopeBookBar'>서명</th>
+				<th class='hopeBookBar'>출판사</th>
+				<th class='hopeBookBar'>신청회원ID</th>
+				<th class='hopeBookBar'>승인여부</th>
 			</tr>
 			<tbody id="list">
 				<!-- 불러온 데이터 뿌리는 영역 -->

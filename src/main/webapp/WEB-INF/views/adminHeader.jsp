@@ -136,6 +136,9 @@
 	$("#adminLibraryQuestion").click(function(){
 		location.href = 'questionList';
 	})
+	$("#adminLibraryBook").click(function(){
+		location.href = 'bookList';
+	})
 		
 	</script>
 

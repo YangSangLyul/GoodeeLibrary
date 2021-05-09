@@ -11,10 +11,17 @@
                 border-collapse: collapse;
                 padding: 5px 10px;
             }
+            #hopeBookDetail{
+            	position: absolute;
+            	top: 25%;
+            	left: 25%;
+            }
         </style>
     </head>
     <body>
-        <div>
+      	<jsp:include page="../adminHeader.jsp"/>
+    	<jsp:include page="./bookManageSidebar.jsp"/>
+        <div id="hopeBookDetail">
             <table>
                 <tr>
                     <th>신청일</th>

@@ -61,7 +61,7 @@
 		SELECT hopebooksNumber, id, hb_state, hb_date, hb_bookName, writer, publisher, hopeReason, rnum
 		FROM ( 
 		    SELECT hopebooksNumber, id, hb_state, hb_date, hb_bookName, writer, publisher, hopeReason,
-		        ROW_NUMBER() OVER(ORDER BY hopebooksNumber ASC) AS rnum FROM hopeBook
+		        ROW_NUMBER() OVER(ORDER BY hopebooksNumber DESC) AS rnum FROM hopeBook
 		    )
 		WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
