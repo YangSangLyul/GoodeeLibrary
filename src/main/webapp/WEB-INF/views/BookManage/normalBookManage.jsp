@@ -39,16 +39,16 @@ table, th, td {
    	<jsp:include page="../adminHeader.jsp"/>
     <jsp:include page="./bookManageSidebar.jsp"/>
 	<div id="bookManageMain">
-		<div id="bookFilter">
+<!-- 		<div id="bookFilter">
 			<button id="toggle">필터 옵션</button>
 				<div id="filter">
-					<span><input type="checkbox" name="reserve" value="R001" />예약중</span>
+					<span><input type="checkbox" name="filter" value="R001" />예약중</span>
 					<span><input type="checkbox" name="filter" value="B001" />예약가능</span>
 					<span><input type="checkbox" name="filter" value="B002" />예약불가</span>
 					<span><input type="checkbox" name="filter" value="B007" />숨김</span>
-					<span><button onclick="normalBookFilter()" >검색</button></span>
+					<span><button onclick="normalBookFilter(1)" >검색</button></span>
 				</div>
-		</div>
+		</div> -->
 		<button onclick="location.href='bookManageInsert'">도서 등록</button>
 		<div>
 			<table>
@@ -76,49 +76,25 @@ table, th, td {
 		listCall(showPage); // 시작하자마자 이 함수를 호출
 		
 		function normalBookFilter(reqPage) {
-			console.log('reqPage : ', reqPage==null);
 			var params = {};
 			var filter = [];
-	        var reserve;
-	        
-			if(reqPage == null){
-				reqPage = 1;
-			}
 			
-			console.log('reqPage : ', reqPage);
-	        
 	        $("input[name=filter]:checked").each(function() { 
 	        	filter.push($(this).val()); 
 	        })
 	        
-	        $("input[name=reserve]:checked").each(function() { 
-	        	reserve = $(this).val(); 
-	        })
-	        
-
-	        params.reserve = reserve;
 	        params.filter = filter;
-	        console.log(params);
 	        
-	        var reqUrl = './normalBookFilter/'+reqPage;
+	        var reqUrl = './bookFilter';
  			$.ajax({
 				url:reqUrl,
 				type:'GET',
 				data:params,
 				dataType:'JSON',
 				success:function(data){
-					console.log(data);
-					showPage = data.currPage;
-					listPrint(data.list);
-					// 플러그인 사용
-					$("#pagination").twbsPagination({
-						startPage : data.currPage, // 시작 페이지
-						totalPages : data.range, // 생성 가능한 최대 페이지
-						visiblePages: 10,
-						onPageClick:function(evt, page) { // 각 페이지를 눌렀을 경우
-							listCall(page);
-						}
-					});
+					if(data.success == 'true'){
+					location.href='bookManageFilter';
+					}
 				},
 				error:function(error){
 					console.log(error);
@@ -127,6 +103,7 @@ table, th, td {
 			
 		}
 		function listCall(reqPage){
+			$("#pageination").empty();
 			var reqUrl = './normalBookManage/'+reqPage;
 			$.ajax({
 				url:reqUrl,
@@ -192,7 +169,6 @@ table, th, td {
 					content += "</tr>";
 					
 					if(list[i].reserveBookDTO.length > 0){
-						console.log(list[i])
 						for(var j = 0; j < list[i].reserveBookDTO.length; j++){
 							content += "<tr>";
 							content += "<td colspan='3'>"+reserveBookState(list[i]) + "</td>";
@@ -244,15 +220,8 @@ table, th, td {
 			$("#list").append(content);
 		}
 		
-		
-		
-
-		
 		function userReserveNotification(book){
-			console.log(book);
 			bookInfo = book.split("/");
-			console.log(bookInfo[0]);
-			console.log(bookInfo[1]);
 			var params = {};
  			params.bookName = bookInfo[0];
 			params.id = bookInfo[1];
