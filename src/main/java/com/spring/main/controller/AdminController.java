@@ -235,4 +235,22 @@ public class AdminController {
 		return service.questionList(page);
 	}
 	
+	//문의내역 상세 페이지 이동
+	@RequestMapping(value = "/QuestionDetail", method = RequestMethod.GET)
+	public ModelAndView QuestionDetail(@RequestParam String queIdx) {
+		
+		logger.info("문의내역 상세 페이지 이동 대상번호 : "+queIdx);
+		
+		return service.questionDetail(queIdx);
+	}
+
+	//관리자 답변 전송
+	@RequestMapping(value = "/answerInsert", method = RequestMethod.POST)
+	public String answerInsert(@RequestParam HashMap<String, Object> params, RedirectAttributes rAttr) {
+		
+		logger.info("문의내역 답변 정보 : "+params);
+		
+		return service.questionAnswer(params,rAttr);
+	}
+	
 }

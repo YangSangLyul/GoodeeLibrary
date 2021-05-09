@@ -128,9 +128,28 @@
 		SELECT queIdx, id, subject, content, reg_date, showStatus, ansStatus, type, rnum
 		FROM ( 
 		    SELECT queIdx, id, subject, content, reg_date, showStatus, ansStatus, type,
-		        ROW_NUMBER() OVER(ORDER BY queIdx DESC) AS rnum FROM question
+		        ROW_NUMBER() OVER(ORDER BY DECODE(ansStatus,'FALSE',1,'TRUE',2), reg_date DESC) AS rnum FROM question
 		    )
 		WHERE rnum BETWEEN #{param1} AND #{param2}
+		
 	</select>
+	
+	<select id="questionDetail" resultType="question">
+	SELECT QUEIDX,ID,SUBJECT,CONTENT,to_char(REG_DATE ,'YYYY-MM-DD'),SHOWSTATUS,ANSSTATUS,TYPE FROM QUESTION WHERE QUEIDX = #{param1}
+	</select>
+	
+	<select id="questionAnsstatus" resultType="string">
+	SELECT a.CONTENT FROM QUESTION q ,ANSWER a WHERE q.QUEIDX = a.QUEIDX(+) AND q.QUEIDX = #{param1}
+	</select>
+	
+	<insert id="questionAnswer" parameterType="hashMap">
+		INSERT INTO answer(ansidx,queidx,content)
+		VALUES(ansidx_seq.NEXTVAL,#{queIdx},#{answerContent})
+	</insert>
+	
+	<update id="questionAnswerStatus" parameterType="hashMap">
+		UPDATE question SET ansstatus = 'TRUE'
+		WHERE queidx = #{queIdx}
+	</update>
 	
 </mapper>

@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -15,6 +16,7 @@ import com.spring.main.dao.AdminDAO;
 import com.spring.main.dto.AdminDTO;
 import com.spring.main.dto.BookDTO;
 import com.spring.main.dto.LibraryInfoDTO;
+import com.spring.main.dto.QuestionDTO;
 
 @Service
 public class AdminService {
@@ -230,6 +232,54 @@ public class AdminService {
 		map.put("range", range);
 		map.put("currPage", page);
 		return map;
+	}
+
+	public ModelAndView questionDetail(String queIdx) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		QuestionDTO queDetail = dao.questionDetail(queIdx);
+		
+		String ans = queDetail.getAnsStatus();
+		
+		if(queDetail != null) {
+			mav.addObject("queDetail",queDetail);
+			
+			if(ans.equals("TRUE")) {
+				String ansContent = dao.questionAnsstatus(queIdx);
+				mav.addObject("ansContent",ansContent);
+				logger.info("관리자 답변 O ");
+			}
+			
+			mav.setViewName("/QuestionManage/QuestionDetail");
+		}else {
+			mav.setViewName("/QuestionManage/QuestionList");
+		}
+		
+		
+		
+		return mav;
+	}
+
+	@Transactional
+	public String questionAnswer(HashMap<String, Object> params, RedirectAttributes rAttr) {
+
+		int success = 0;
+		
+		success = dao.questionAnswer(params);
+		String path = (String) params.get("queIdx");
+		
+		String msg = "답변 작성에 실패했습니다..";
+		String page = "redirect:/QuestionDetail?queIdx="+path;
+		
+		if(success > 0) {
+			msg = "성공적으로 답변을 작성하였습니다.";
+			dao.questionAnswerStatus(params);
+		}
+		
+		rAttr.addFlashAttribute("msg",msg);
+		
+		return page;
 	}
 
 	

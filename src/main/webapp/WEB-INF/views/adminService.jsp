@@ -114,7 +114,7 @@
 	            <button onclick="location.href='adminNotice'">공지사항</button>
 	            <button onclick="location.href='bookList'">도서관리</button>
 	            <button onclick="location.href='ReviewKing'">리뷰관리</button>
-	            <button onclick="location.href=#">문의내역</button>
+	            <button onclick="location.href='questionList'">문의내역</button>
 	        </div>
         </div>
        <%--  <hr/>
