@@ -10,7 +10,7 @@ public interface BookDAO {
 
 	ArrayList<BookDTO> bookManageList();
 
-	ArrayList<BookDTO> normalBookFilter(ArrayList<String> filter);
+	ArrayList<BookDTO> normalBookFilter(int start, int end, ArrayList<String> filter, int size, String isReserve);
 
 	int bookStateChange(HashMap<String, String> params);
 
@@ -65,4 +65,10 @@ public interface BookDAO {
 	int hopeBookReject(String hopeBooksNumber);
 
 	int userReserveNotificationChk(HashMap<String, String> params);
+
+	BookDTO reserveBook();
+
+	int reserveBookCnt();
+
+	int bookFilterCnt(ArrayList<String> filterList, int size, String isReserve);
 }

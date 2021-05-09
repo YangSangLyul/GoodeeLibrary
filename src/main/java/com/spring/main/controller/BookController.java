@@ -1,6 +1,11 @@
 package com.spring.main.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,20 +90,30 @@ public class BookController {
 		return service.hopeBookRejectReason(params);
 	}
 	
+	@RequestMapping(value = "/bookFilter", method = RequestMethod.GET)
+	public  @ResponseBody HashMap<String, Object> bookFilter(
+			@RequestParam(value="filter[]") String[] filter, Model model, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		logger.info("도서 필터 페이지 이동 : " + filter);
+		session.setAttribute("filter", filter);
+		map.put("success","true");
+		return map;
+	}
+	@RequestMapping(value = "/bookManageFilter", method = RequestMethod.GET)
+	public String bookManageFilter() {
+		logger.info("도서 필터 페이지 이동");
+		return "/BookManage/bookManageFilter";
+	}
+	
 	// 50번 슬라이드 2번 기능 필터 골라서 나온 값 페이징 처리 해야하는데 아직 미완성
 	@RequestMapping(value = "/normalBookFilter/{page}", method = RequestMethod.GET)
 	public @ResponseBody HashMap<String, Object> normalBookFilter(
-			@RequestParam HashMap<String, Object> params, 
-			@PathVariable int page) {
-		//logger.info("일반도서 필터 : " + filter + " / reserve : " + reserve);
-		
-		logger.info("일반도서 필터 : " + params);
-		logger.info("일반도서 필터 : " + params.get("filter[]"));
-		logger.info("일반도서 필터 : " + params.get("filter[0]"));
-		logger.info("일반도서 필터 : " + params.get("filter[1]"));
-		
+			@RequestParam(value="filter[]") String[] filter,
+			@PathVariable int page,
+			HttpSession session) {
+		session.removeAttribute("filter");
 		logger.info("page : " + page);
- 		return null;
+ 		return service.normalBookFilter(filter, page);
 	}
 	
 	// bookList에서 책 상태 변환
