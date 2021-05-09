@@ -5,7 +5,12 @@
 		<meta charset="UTF-8">
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<title>도서 거부</title>
-		<style></style>
+		<style>
+			#reject{
+				width: 200px;
+				height: 100px;
+			}
+		</style>
 	</head>
 	<body>
 		<form action="/main/hopeBookRejectReason" method="GET">
