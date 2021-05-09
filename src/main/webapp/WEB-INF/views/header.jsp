@@ -156,7 +156,7 @@
         <c:if test="${sessionScope.loginId ne null}">
         <div id="loginOnBox">
             	${sessionScope.loginId} 님 반갑습니다. | 
-            <a href="memLogout"> 로그아웃</a>
+            <a href="../../memLogout"> 로그아웃</a>
         </div>
         </c:if>
         <br/>
