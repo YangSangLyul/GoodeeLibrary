@@ -45,12 +45,45 @@
 		SELECT COUNT(*) FROM book
 	</select>
 	
+	<select id="normalBookFilter" parameterType="list" resultMap="book">
+		SELECT b.bookIdx, b.bookName, b.writer, b.story, b.publisher, b.bookImg, b.bookState, r.reserveBookIdx, reserveBookState, r.id, r.reg_date, rnum
+		FROM (
+		    SELECT b.bookIdx, b.bookName, b.writer, b.story, b.publisher, b.bookImg, b.bookState,
+		        ROW_NUMBER() OVER(ORDER BY b.bookIdx DESC) AS rnum 
+		        FROM book b 
+		        <if test="param4 > 0">
+		        WHERE b.bookstate IN
+			        <foreach collection="param3" item="item" open="(" separator="," close=")">
+			        	#{item}
+			        </foreach>
+		        </if>
+		    ) B LEFT JOIN (
+		    SELECT r.reserveBookIdx, r.bookidx, r.bookState AS reserveBookState, r.id, r.reg_date 
+		    FROM reserveBook r 
+		    <if test="param5.equals('true')">
+		    	WHERE r.bookstate = 'R001'
+		    </if>
+		    ) R
+		ON b.bookidx = r.bookidx
+		WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
 	
-	<select id="normalBookFilter" parameterType="list" resultType="reserveBook">
-		SELECT * FROM book WHERE bookstate IN
-			<foreach collection="list" item="item" open="(" separator="," close=")">
-					#{item}
+	<select id="bookFilterCnt" resultType="integer">
+		SELECT COUNT(*) FROM book b LEFT JOIN reserveBook r
+		ON b.bookIdx = r.bookIdx
+		WHERE 
+		<if test="param2 > 0">
+		b.bookState IN
+			<foreach collection="param1" item="item" open="(" separator="," close=")">
+				#{item}
 			</foreach>
+		</if>
+		<if test="param2 == 0 and param3.equals('true')">
+			r.bookState = 'R001'
+		</if>
+		<if test="param3.equals('true')">
+			OR r.bookState = 'R001'
+		</if>
 	</select>
 	
 	<update id="bookStateChange" parameterType="hashMap">
@@ -61,7 +94,7 @@
 		SELECT hopebooksNumber, id, hb_state, hb_date, hb_bookName, writer, publisher, hopeReason, rnum
 		FROM ( 
 		    SELECT hopebooksNumber, id, hb_state, hb_date, hb_bookName, writer, publisher, hopeReason,
-		        ROW_NUMBER() OVER(ORDER BY hopebooksNumber ASC) AS rnum FROM hopeBook
+		        ROW_NUMBER() OVER(ORDER BY hopebooksNumber DESC) AS rnum FROM hopeBook
 		    )
 		WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>

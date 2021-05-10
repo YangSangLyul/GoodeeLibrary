@@ -11,15 +11,28 @@
                 border-collapse: collapse;
                 padding: 5px 10px;
             }
+            .bookDetail{
+            	position: absolute;
+            	top: 20%;
+            	left: 15%;
+            }
+            .bookDetail th{
+            	width:100px;
+            }
+            .bookDetail td{
+            	width:500px;
+            }
         </style>
     </head>
     <body>
-        <div>
+    	<jsp:include page="../adminHeader.jsp"/>
+    	<jsp:include page="./bookManageSidebar.jsp"/>
+        <div class="bookDetail">
             <table>
                 <tr>
-                    <td rowspan="8">
+                    <th rowspan="8">
                         <img src="${dto.bookImg}" width="300px" height="300px"/>
-                    </td>
+                    </th>
                 </tr>
                 <tr>
                     <th colspan="2">${dto.bookName}</th>
@@ -46,11 +59,31 @@
                 </tr>
                 <tr>
                     <th>도서상태</th>
-                    <td>${dto.bookState}</td>
+                    <c:if test="${dto.bookState eq 'B001'}">
+                    	<td>예약가능</td>
+                    </c:if>
+                    <c:if test="${dto.bookState eq 'B002'}">
+                    	<td>예약불가</td>
+                    </c:if>
+                    <c:if test="${dto.bookState eq 'B003'}">
+                    	<td>대여가능</td>
+                    </c:if>
+                    <c:if test="${dto.bookState eq 'B004'}">
+                    	<td>예약중</td>
+                    </c:if>
+                    <c:if test="${dto.bookState eq 'B005'}">
+                    	<td>훼손</td>
+                    </c:if>
+                    <c:if test="${dto.bookState eq 'B006'}">
+                    	<td>분실</td>
+                    </c:if>
+                    <c:if test="${dto.bookState eq 'B007'}">
+                    	<td>기타</td>
+                    </c:if>
                 </tr>
             </table>
             <button onclick="location.href='recommendBook?bookIdx=${dto.bookIdx}&bookName=${dto.bookName}'">사서의 추천도서 추가하기</button>
-            <button>목록</button>
+            <button onclick="location.href='bookList'">목록</button>
         </div>
     </body>
     <script>

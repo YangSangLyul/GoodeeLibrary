@@ -25,6 +25,10 @@ table, th, td {
 	border: 1px solid black;
 }
 
+#paging{
+	text-align: center;
+}
+
 #filter {
 	display: none;
 }
@@ -32,17 +36,19 @@ table, th, td {
 </head>
 
 <body>
+   	<jsp:include page="../adminHeader.jsp"/>
+    <jsp:include page="./bookManageSidebar.jsp"/>
 	<div id="bookManageMain">
-		<div id="bookFilter">
+<!-- 		<div id="bookFilter">
 			<button id="toggle">필터 옵션</button>
 				<div id="filter">
-					<span><input type="checkbox" name="reserve" value="R001" />예약중</span>
+					<span><input type="checkbox" name="filter" value="R001" />예약중</span>
 					<span><input type="checkbox" name="filter" value="B001" />예약가능</span>
 					<span><input type="checkbox" name="filter" value="B002" />예약불가</span>
 					<span><input type="checkbox" name="filter" value="B007" />숨김</span>
-					<span><button onclick="normalBookFilter()" >검색</button></span>
+					<span><button onclick="normalBookFilter(1)" >검색</button></span>
 				</div>
-		</div>
+		</div> -->
 		<button onclick="location.href='bookManageInsert'">도서 등록</button>
 		<div>
 			<table>
@@ -70,49 +76,25 @@ table, th, td {
 		listCall(showPage); // 시작하자마자 이 함수를 호출
 		
 		function normalBookFilter(reqPage) {
-			console.log('reqPage : ', reqPage==null);
 			var params = {};
 			var filter = [];
-	        var reserve;
-	        
-			if(reqPage == null){
-				reqPage = 1;
-			}
 			
-			console.log('reqPage : ', reqPage);
-	        
 	        $("input[name=filter]:checked").each(function() { 
 	        	filter.push($(this).val()); 
 	        })
 	        
-	        $("input[name=reserve]:checked").each(function() { 
-	        	reserve = $(this).val(); 
-	        })
-	        
-
-	        params.reserve = reserve;
 	        params.filter = filter;
-	        console.log(params);
 	        
-	        var reqUrl = './normalBookFilter/'+reqPage;
+	        var reqUrl = './bookFilter';
  			$.ajax({
 				url:reqUrl,
 				type:'GET',
 				data:params,
 				dataType:'JSON',
 				success:function(data){
-					console.log(data);
-					showPage = data.currPage;
-					listPrint(data.list);
-					// 플러그인 사용
-					$("#pagination").twbsPagination({
-						startPage : data.currPage, // 시작 페이지
-						totalPages : data.range, // 생성 가능한 최대 페이지
-						visiblePages: 10,
-						onPageClick:function(evt, page) { // 각 페이지를 눌렀을 경우
-							listCall(page);
-						}
-					});
+					if(data.success == 'true'){
+					location.href='bookManageFilter';
+					}
 				},
 				error:function(error){
 					console.log(error);
@@ -121,6 +103,7 @@ table, th, td {
 			
 		}
 		function listCall(reqPage){
+			$("#pageination").empty();
 			var reqUrl = './normalBookManage/'+reqPage;
 			$.ajax({
 				url:reqUrl,
@@ -154,14 +137,14 @@ table, th, td {
 				for (var i = 0; i < list.length; i++) {
 					content += "<tr>";
 					if(list[i].reserveBookDTO.length > 0){
-						content += "<td rowspan='5'><img src="+list[i].bookImg+" width='100px' height=100px /></td>";					
+						content += "<td rowspan='5' width='100px'><img src="+list[i].bookImg+" width='100px' height=100px /></td>";					
 					} else{
-						content += "<td rowspan='4'><img src="+list[i].bookImg+" width='100px' height=100px /></td>";					
+						content += "<td rowspan='4' width='100px'><img src="+list[i].bookImg+" width='100px' height=100px /></td>";					
 					}
-	 				if(list[i].bookState == 'B001') {
+	 				if(list[i].bookState == 'B001' || list[i].bookState == 'B005' || list[i].bookState == 'B006' || list[i].bookState == 'B007' ) {
 						console.log(list[i].bookIdx);
 						content += "<th colspan='2'><a href='bookManageDetail?bookIdx="+list[i].bookIdx+"'>"+list[i].bookName+"</a></th>";
-						content += "<td><select id='bookState' name='bookState'";
+						content += "<td><select id='bookState' name='bookState'>";
 						content += "<option value=''>선택</option>";
 						content += "<option value='B001'>예약가능</option>";
 						content += "<option value='B005'>훼손</option>";
@@ -171,7 +154,7 @@ table, th, td {
 						content += "<input type='button' value='변경' onclick='bookStateChange("+list[i].bookIdx+")'/>";
 						content += "</td>";
 					} else {
-						content += "<th colspan='3'><a href='bookManageDetail?bookIdx='"+list[i].bookIdx+">"+list[i].bookName+"</a></th>";
+						content += "<th colspan='3'><a href='bookManageDetail?bookIdx="+list[i].bookIdx+"'>"+list[i].bookName+"</a></th>";
 					}
 					content += "</tr>";
 	
@@ -186,7 +169,6 @@ table, th, td {
 					content += "</tr>";
 					
 					if(list[i].reserveBookDTO.length > 0){
-						console.log(list[i])
 						for(var j = 0; j < list[i].reserveBookDTO.length; j++){
 							content += "<tr>";
 							content += "<td colspan='3'>"+reserveBookState(list[i]) + "</td>";
@@ -211,7 +193,7 @@ table, th, td {
 					}
 					
 					function bookState(bookState){
-						if(bookState == 'B001') {
+					if(bookState == 'B001') {
 							return "예약가능";
 						} else if(bookState == 'B002') {
 							return "예약불가";
@@ -238,15 +220,8 @@ table, th, td {
 			$("#list").append(content);
 		}
 		
-		
-		
-
-		
 		function userReserveNotification(book){
-			console.log(book);
 			bookInfo = book.split("/");
-			console.log(bookInfo[0]);
-			console.log(bookInfo[1]);
 			var params = {};
  			params.bookName = bookInfo[0];
 			params.id = bookInfo[1];
@@ -260,6 +235,7 @@ table, th, td {
 					console.log(data);
 					if(data.success > 0) {
 						alert('예약승인이 완료 되었습니다.');
+						
 					} else {
 						alert('이미 예약승인이 되었습니다.');
 					}
@@ -310,6 +286,11 @@ table, th, td {
 		params.bookIdx = bookIdx;
 		params.bookState = bookState;
 		
+		if(bookState == ""){
+			alert('변경할 도서 상태값을 선택해주세요!');
+			return;
+		}
+		
 		$.ajax({
 			type : 'get',
 			url : 'bookStateChange',
@@ -319,6 +300,7 @@ table, th, td {
 				console.log(data);
 				if(data.success > 0) {
 					alert('도서 상태 변경에 성공했습니다.');
+					location.reload();
 				} else {
 					alert('잠시 후 다시 시도해 주세요.');
 				}

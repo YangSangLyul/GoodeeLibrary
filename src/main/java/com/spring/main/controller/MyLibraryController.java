@@ -130,13 +130,13 @@ public class MyLibraryController {
 	  public HashMap<String,Object> HopeBook_list( 
 			  @PathVariable int page,HttpSession session) { 
 		  String loginId = (String) session.getAttribute("loginId");
-		  logger.info("나의 도서예약 ");
+		  logger.info("나의 희망도서 ");
 		  logger.info(" page : {}, session Id: {}",  page,loginId);
 	  
 	  return service.hope_list(page,loginId); 
 	  }
 	  
-	  @RequestMapping(value = "/MyBook")
+	  @RequestMapping(value = "/MyBook" ,method = RequestMethod.GET)
 	  public ModelAndView MyBook() { 
 		  logger.info("나의 도서 예약내역"); 
 		  ModelAndView mav = new ModelAndView(); 
@@ -270,7 +270,7 @@ public class MyLibraryController {
 	
 	
 	  @RequestMapping(value = "/myBookReturn", method = RequestMethod.GET) 
-	  public String returnBook(@RequestParam String reserveBookIdx,HttpSession session, RedirectAttributes rAttr) {
+	  public ModelAndView returnBook(@RequestParam String reserveBookIdx,HttpSession session, RedirectAttributes rAttr) {
 		  
 		  String loginId = (String) session.getAttribute("loginId");
 		  logger.info("반납하기 : " + reserveBookIdx); 
@@ -281,7 +281,7 @@ public class MyLibraryController {
 		  }
 		  logger.info("반납 성공 여부 : " +success); 
 		  rAttr.addFlashAttribute("msg",msg);
-		  return "redirect:/myLib_Rbook";
+		  return new ModelAndView("redirect:/MyBook");
 	  }
 	 
 	
