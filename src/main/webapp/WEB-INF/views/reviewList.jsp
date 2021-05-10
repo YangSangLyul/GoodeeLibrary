@@ -41,24 +41,17 @@
 	width: 100px;
 	padding: 8px;
 	list-style: none;
-	 float: left;   
+	float: left;   
 }
 
 .re_option li:hover {
-	background-color: e8ecf4;
+	background-color: #e8ecf4;
 }
 
 .re_option a {
 	text-decoration: none;
 	color: black;
-	
 }
-
-/* .review_content {
-	width: 715px;
-	padding: 15px;
-	border-bottom: 1px solid lightgray;
-} */
 
 #r_table {
 	border-collapse: collapse;
@@ -118,9 +111,6 @@
 	width : 200px;
 }
 
-#se_tr{
-	border-bottom: 1px solid red;
-}
 </style>
 </head>
 <body>
@@ -153,7 +143,6 @@
 				</tr>
 			</table>
 		</div>
-	</div>
 </body>
 <script>
 var showPage=1;
@@ -226,24 +215,28 @@ function listPrint(list){
 		content += "<td id='re_name'>"+"<div class='re_id'>"+"<a href='reviewIdList?id="+list[i].id+"'>ID : "+list[i].id+"</a>"+"</div>"+"</td>"
 		content += "</tr>"
 	
-
 		content += "<tr>"
-			content += "<hr/>"
+		content += "<hr/>"
 		content += "<td id='b_content'>";
 		content += "<div class='b_info'>"+"저자명 "+list[i].writer+"</div>";	
 		content += "<div class='b_info'>"+"출판사 "+list[i].publisher+"</div>";
-		content += "<div class='b_info'>"+"등록번호 "+list[i].reviewIdx+"</div>";
+		//content += "<div class='b_info'>"+"리뷰등록일 "+list[i].reg_date+"</div>";
+		var date = new Date(list[i].reg_date);
+		content +="<div class='b_info'>"+"리뷰등록일 "+date.toLocaleDateString("ko-KR")+"</div>"
 		content += "</td>"
 
 		content += "<td id='re_recomm'>"
 		content += "<div class='re_cnt'>"+"추천수 "+list[i].cnt+"</div>"
-		content += "<div class='re_detail'>"+"<input type='button' id='re_btn' onclick='location.href=reviewDetail?reviewIdx="+list[i].reviewIdx+"' value='리뷰 상세보기' />"+"</div>"	
+		content += "<div class='re_detail'>"+"<input type='button' id='re_btn' onclick='reviewDetailReq("+list[i].reviewIdx+")' value='리뷰 상세보기' />"+"</div>"	
 		content += "</td>"	
 		content += "</tr>"	
-	
 		}
 	  $("#review_All").empty();  
 	  $("#review_All").append(content);
+}
+
+function reviewDetailReq(idx){
+	location.href = "reviewDetail?reviewIdx="+idx;
 }
 
    </script>

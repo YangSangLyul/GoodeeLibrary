@@ -151,7 +151,7 @@ public class MemberService {
 		if(success>0) {
 			dto.getId();
 			msg = "회원정보를 수정하였습니다.";
-			page = "myLib_UpdateForm";
+			page = "myLib_Update";
 		}
 		logger.info("수정성공여부:"+success);
 		mav.addObject("msg", msg);

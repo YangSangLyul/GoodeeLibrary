@@ -10,14 +10,15 @@
 #main {
 	width: 400px;
 	height: 300px;
-	margin: -150px auto;
+	margin: -200px auto;
 }
 
 .subject {
-    border: 1px solid;
+    border: 1px solid lightgray;
     width: 354px;
     margin: 20px auto;
-    padding: 8px 24px;
+    padding: 5px 24px;
+    background-color: #e8ecf4;
 }
 
 #myinfo {
@@ -64,6 +65,13 @@ input[type="text"] {
 	text-decoration: underline;
 	color : #0070c0;
 }
+
+.upp{
+	text-align: right;
+}
+.upbtn{
+	text-align: center;
+}
 </style>
 </head>
 <body>
@@ -94,18 +102,22 @@ input[type="text"] {
 					<td><input type="text" name="email" value="${dto.email}" /></td>
 				</tr>
 			</table>
-					<button id="mybtn">수정</button>
 		</form>
-		<div>
-			<a id="updatePw" href="myLib_UpdatePwForm">비밀번호 변경하기</a>
+		<div class="upp"><a id="updatePw" href="myLib_UpdatePwForm">비밀번호 변경하기</a></div>
+		<div class="upbtn">
+			<button id="mybtn" onclick="update()">수정</button>
+			<button id="mybtn" onclick="location.href='myLib_Update'">취소</button>
 		</div>
-		<button id="mybtn" onclick="location.href='myLib_Update'">취소</button>
-		</div>
+	</div>
 </body>
 <script>
 var msg = "${msg}"; 
 if (msg != "") {  
 	alert(msg); 
+}
+
+function update() {
+		$('form').submit();
 }
 </script>
 </html>

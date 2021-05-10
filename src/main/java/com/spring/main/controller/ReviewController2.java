@@ -60,13 +60,29 @@ public class ReviewController2 { // 리뷰모아보기용 (추후 합칠예정)
 		return service.reviewCom(pagePerCnt, page);
 	}
 
+//	// 특정아이디의 리뷰 가져오기
+//	@RequestMapping(value = "/reviewIdList", method = RequestMethod.GET)
+//	public ModelAndView reviewIdList(@RequestParam String id) {
+//		logger.info(id + " 의 리뷰 목록");
+//		return service.reviewIdList(id);
+//	}
+	
 	// 특정아이디의 리뷰 가져오기
 	@RequestMapping(value = "/reviewIdList", method = RequestMethod.GET)
-	public ModelAndView reviewIdList(@RequestParam String id) {
+	public String reviewIdList(@RequestParam String id) {
 		logger.info(id + " 의 리뷰 목록");
-		return service.reviewIdList(id);
+		return "reviewIdList";
 	}
-
+	
+	// 특정아이디의 리뷰 가져오기-페이징
+	@RequestMapping(value = "/reviewIdList/{page}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> reviewIdList(@PathVariable int page,@RequestParam String id) {
+		int pagePerCnt = 5;
+		logger.info("page: " + page);
+		return service.reviewIdListPaging(pagePerCnt,page,id);
+	}
+	
+	
 	// 리뷰 상세보기
 	@RequestMapping(value = "/reviewDetail", method = RequestMethod.GET)
 	public String reviewDetail(Model model, @RequestParam String reviewIdx,HttpSession session) {
