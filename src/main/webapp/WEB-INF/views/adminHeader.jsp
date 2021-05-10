@@ -89,7 +89,7 @@
     </head>
     <body>
         <div id="home">
-            <a href="../"><i>구디 도서관</i></a>
+            <a href="./"><i>구디 도서관</i></a>
         </div>
 
         
@@ -133,11 +133,17 @@
     </body>
 	<script>
 	
-	$("#adminLibraryQuestion").click(function(){
-		location.href = 'questionList';
+	$("#adminLibraryInfo").click(function(){
+		location.href = 'adminNotice';
 	})
 	$("#adminLibraryBook").click(function(){
 		location.href = 'bookList';
+	})
+	$("#adminLibraryReview").click(function(){
+		location.href = 'ReviewKing';
+	})
+	$("#adminLibraryQuestion").click(function(){
+		location.href = 'questionList';
 	})
 		
 	</script>

@@ -14,13 +14,14 @@
 		<!-- 페이징 라이브러리(제이쿼리 반드시 필요, 버전도 맞아야함) -->
 		<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
         <style>
-            #container{
+            /* #container{
                 width: 700px;
                 margin: 20px 550px;
                 text-align: center;
-            }
+            } */
             table{
                 margin-top: 200px;
+                margin-left: 365px;
                 width: 700px;
                 height: 100px;
             }
@@ -37,7 +38,7 @@
             } */
             #write{
                 position: absolute;
-                left: 1620px;
+                left: 1433px;
     			top: 280px;
                 padding: 5px 10px;
             }
