@@ -12,9 +12,9 @@
             }
 
             .searchImg img{
-                
-                width: 200px;
                 height: 200px;
+                margin: 10px 50px;
+                width: 150px;
             }
 
             .searchBookName{
@@ -23,26 +23,26 @@
                 font-weight: 600;
                 width: 700px;
                 left: 25%;
-               	margin-top: -200px;
+               	margin-top: -225px;
+               	
             }
 
- 
-            table{
+
+            #booktable{
                 margin-left: 250px;
-                
                 width: 70%;
                 height: 60%;
                 border-radius: 5px;
             }
 
-            table,td,th{
-                border: 1px solid gray;
+            #booktable,td,th{
+                border-bottom: 1px solid lightgray;
                 border-collapse: collapse;
-                text-align: center;
+                padding : 10px 20px;
             }
 
-            table th{
-                background-color: #c5d8f1ff;
+            #booktable th{
+                width: 65px;
             }
 
             #container button{
@@ -58,9 +58,7 @@
                 left: 40%;
             }
             
-           #loginOffBox{
-                
-                
+           #loginOffBox{     
                 margin-top: -80px;
             }
 
@@ -81,6 +79,13 @@
         		margin-left: 10%;
         		margin-top: 3%;
         	}
+        	
+        	.bookmain{
+        		padding: 10px;
+    			background-color: #f9f7f7ed;
+    			height: 465px;
+   				margin-top: 15px;
+        	}
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script>
@@ -98,6 +103,7 @@
         <div id="container">
             <h2>도서 상세보기</h2>
             <hr/>
+            <div class="bookmain">
             <div class="searchImg">
                 <img src="${searchDetail.bookImg}"/>
             </div>
@@ -105,7 +111,7 @@
                 <p>${searchDetail.bookName}</p>
             </div>
 
-            <table>
+            <table id="booktable">
                 <tr>
                     <th>저자명</th>
                     <td>${searchDetail.writer}</td>
@@ -137,6 +143,7 @@
                 	</td>
                 </tr>
             </table>
+            </div>
             <c:if test="${reserveCnt <= '2'}">
 		                <button id="reserve" onclick="location.href='reserveBook?bookIdx=${searchDetail.bookIdx}'">도서예약</button>
 

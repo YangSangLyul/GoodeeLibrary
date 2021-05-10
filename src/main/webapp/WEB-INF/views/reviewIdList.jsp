@@ -73,6 +73,7 @@
 
 .re_cnt {
 	margin: 25px 69px;
+    width: 70px;
 }
 
 .re_detail, .re_id {
@@ -120,121 +121,43 @@
 		</div>
 		<div class="re_option">
 			<ul>
-				<li><a href="reviewIdList">최신순</a></li>
-				<li><a href="#" id="command">추천순</a></li>
+				<li><a href="reviewIdList?id=${dId}">최신순</a></li>
+				<li><a href="reviewIdComm?id=${dId}">추천순</a></li>
 			</ul>
 		</div>
+		<c:forEach items="${review}" var="review">
+			<div class="review_content">
 				<table id="r_table">
-	 				<tbody id="review_All">
-	
-					</tbody>
-					<tr>
-						<!-- 페이징 번호 보여주기 -->
-						<td id="paging" colspan="4">
-							<!-- 플러그인 사용 -->
-							<div class="container">
-								<nav aria-label="page navigation" style="text-align: center">
-									<ul class="pagination" id="pagination"></ul>
-								</nav>
-							</div>
+ 					<tr>
+						<td rowspan="2" id="b_img">
+							<a href="#">
+								<img src="${review.bookImg}" width="117" height="162" />
+							</a>	
+						</td>
+						<td id="b_name">
+							<div class="b_info">${review.bookName}</div>
+						</td>
+            			<td id="re_name">
+							<div class="re_id">ID : ${review.id}</div>
 						</td>
 					</tr>
+					<tr>
+						<td id="b_content">
+							<div class="b_info">저자명 ${review.writer}</div>
+							<div class="b_info">출판사 ${review.publisher}</div>
+							<div class="b_info">등록일 ${review.reg_date}</div>
+						</td>
+						<td id="re_recomm">
+							<div class="re_cnt">추천수 ${review.cnt}</div>
+							<div class="re_detail"><input type="button" id="re_btn" onclick="location.href='reviewDetail?reviewIdx=${review.reviewIdx}'" value="리뷰 상세보기"></div>
+						</td>					
+					</tr> 
 				</table>
+			</div>
+		</c:forEach>
 	</div>
 </body>
 <script>
-var showPage=1;
 
-$("#command").click(function() {
-	listCall2(showPage);
-	function listCall2(reqPage){         
-	 	var reqUrl ='./reviewCom/'+reqPage;
-	   $.ajax({
-	      url: reqUrl
-	      ,type:'get'
-	      ,data:{}
-	      ,dataType:'JSON'
-	      ,success:function(data){
-	         console.log(data);
-	         showPage = data.currPage;
-	         listPrint(data.list);
-	 
-	         $("#pagination").twbsPagination({
-	      	   startPage:data.currPage,//시작페이지
-	      	   totalPages:data.range,//총 페이지
-	      	   visiblePages:5,//5개씩 보여주겠다.(1~5)
-	      	   onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
-	     		   listCall(page);
-	      	   } 
-	         });     
-	      }
-	      ,error:function(error){
-	         console.log(error);
-	      }
-	   });
-	}
-
-})
-
-listCall(showPage);
-function listCall(reqPage){         
- 	var reqUrl ='./reviewIdList/'+reqPage;
-   $.ajax({
-      url: reqUrl
-      ,type:'get'
-      ,data:{}
-      ,dataType:'JSON'
-      ,success:function(data){
-         console.log(data);
-         showPage = data.currPage;
-         listPrint(data.list);
- 
-         $("#pagination").twbsPagination({
-      	   startPage:data.currPage,//시작페이지
-      	   totalPages:data.range,//총 페이지
-      	   visiblePages:5,//5개씩 보여주겠다.(1~5)
-      	   onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
-     		   listCall(page);
-      	   } 
-         });     
-      }
-      ,error:function(error){
-         console.log(error);
-      }
-   });
-}
-
-function listPrint(list){
-	  var content="";
-	  for(var i=0; i<list.length; i++){
-		content += "<tr>"
-	  	content += "<td rowspan='2' id='b_img'>"+"<a href='searchResultDetail?bookIdx="+list[i].bookIdx+"'><img src="+list[i].bookImg+" width='117' height='162' /></a>"
-		content += "<td id='b_name'>"+"<div class='b_info'>"+list[i].bookName+"</div>"+"</td>"
-		content += "<td id='re_name'>"+"<div class='re_id'>"+"<a href='reviewIdList?id="+list[i].id+"'>ID : "+list[i].id+"</a>"+"</div>"+"</td>"
-		content += "</tr>"
-	
-		content += "<tr>"
-		content += "<hr/>"
-		content += "<td id='b_content'>";
-		content += "<div class='b_info'>"+"저자명 "+list[i].writer+"</div>";	
-		content += "<div class='b_info'>"+"출판사 "+list[i].publisher+"</div>";
-		//content += "<div class='b_info'>"+"리뷰등록일 "+list[i].reg_date+"</div>";
-		var date = new Date(list[i].reg_date);
-		content +="<div class='b_info'>"+"리뷰등록일 "+date.toLocaleDateString("ko-KR")+"</div>"
-		content += "</td>"
-
-		content += "<td id='re_recomm'>"
-		content += "<div class='re_cnt'>"+"추천수 "+list[i].cnt+"</div>"
-		content += "<div class='re_detail'>"+"<input type='button' id='re_btn' onclick='reviewDetailReq("+list[i].reviewIdx+")' value='리뷰 상세보기' />"+"</div>"	
-		content += "</td>"	
-		content += "</tr>"	
-		}
-	  $("#review_All").empty();  
-	  $("#review_All").append(content);
-}
-
-function reviewDetailReq(idx){
-	location.href = "reviewDetail?reviewIdx="+idx;
-}
 </script>
 </html>
