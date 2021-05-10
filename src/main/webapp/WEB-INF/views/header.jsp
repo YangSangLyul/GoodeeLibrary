@@ -122,7 +122,7 @@
                 </li>
     
                 <li class="topMenuLi">
-                    <button id="libraryService" onclick="location.href='../../../reserveSeatForm'">도서관 서비스</button>
+                    <button id="libraryService" onclick="location.href='../../../reviewList'">도서관 서비스</button>
                 </li>
     
                 <li class="topMenuLi">
