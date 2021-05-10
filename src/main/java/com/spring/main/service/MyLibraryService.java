@@ -455,7 +455,8 @@ public class MyLibraryService {
 	}
 
 
-	public ModelAndView review_write(HashMap<String, String> params) {
+	public HashMap<String, Object> review_write(HashMap<String, String> params) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView();
 		logger.info("글쓰기 요청");
 		int success = dao.review_write(params);
@@ -465,8 +466,9 @@ public class MyLibraryService {
 			page = "myLib_Review";
 		}
 		mav.setViewName(page);
+		map.put("success", success);
 		
-		return mav;
+		return map;
 	}
 
 

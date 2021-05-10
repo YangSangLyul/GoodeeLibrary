@@ -53,7 +53,7 @@ public class MyLibraryController {
 	  
 	
 	  @RequestMapping(value = "/review_write") 
-	  public ModelAndView review_write(@RequestParam HashMap<String, String> params){ 
+	  public HashMap<String, Object> review_write(@RequestParam HashMap<String, String> params){ 
 		 
 		  logger.info("리뷰 작성하기"); 
 		  logger.info("params:{}",params); 
