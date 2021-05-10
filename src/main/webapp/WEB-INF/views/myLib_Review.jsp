@@ -30,7 +30,7 @@
 	    height: 900px;
 	}
 	
-	body div{
+	#frame div{
 	    text-align: center;
 	}
 	
@@ -79,7 +79,7 @@
  <div id="sideBar">
     <jsp:include page="mySidebar.jsp"/>
  </div>
-   	<div>
+   	<div id="frame">
     <div id="body">
          <table id="table">
            

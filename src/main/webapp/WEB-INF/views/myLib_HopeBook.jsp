@@ -57,6 +57,7 @@
 	}     
 	#paging{
         position: fixed;
+        left:20%;
         top:80%;
      }
      .subject{
@@ -83,14 +84,14 @@
             </tbody>
         </table>
 			<!-- 페이징 번호 보여주기 -->
-            <td id="paging" colspan="3">
+            <div id="paging" colspan="3">
             	<!-- 플러그인 사용 -->
             	<div class="container">
             		<nav aria-label="page navigation" style="text-align:center">
             			<ul class="pagination" id="pagination"></ul>
             		</nav>
             	</div>
-            </td>
+            </div>
     </div>
     </div>
 </body>

@@ -74,6 +74,10 @@
      	top:5%;
    
      }
+   
+   #btn{
+   	background-color: lime;
+   }
     
     </style>
 </head>
@@ -119,9 +123,15 @@
 </body>
 <script>
 
-var msg = "${msg}";
-if(msg != ""){
-	alert(msg);
+function writeForm(aaa){
+	console.log("책번호");
+	console.log(aaa);
+	console.log($("#bookIdx").val());
+	var parent = $(aaa).parent();
+	var childValue = $(parent.children()[1]).attr("value")
+	console.log(parent);
+	console.log('요소 값 가져오기 : ',childValue);
+	window.open('review_WriteForm?bookIdx='+childValue,'pop','width=840,height=460,top=280');
 }
 
 var showPage=1;
@@ -138,8 +148,6 @@ function listCall(reqPage){
       ,data:{}
       ,dataType:'JSON'
       ,success:function(data){
-         //console.log(data);
-         //console.log(data.reserve_list);
          showPage = data.currPage;
          if(data.reserve_list.length == 0){
         	 console.log('아무것도 없슴다');
@@ -151,20 +159,14 @@ function listCall(reqPage){
         	 $("#noReserveBook").css("display","none");
          	listPrint(data.reserve_list);
          }
-         //pagePrint(data.range);//플러그인 미사용 페이징 처리!
-         //플러그인 사용
-         
          $("#pagination").twbsPagination({
       	   startPage:data.currPage,//시작페이지
       	   totalPages:data.range,//총 페이지
       	   visiblePages:5,//5개씩 보여주겠다.(1~5)
-      	   onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
-      		   //console.log(evt);
-      		   //console.log(page); 
+      	   onPageClick:function(evt,page){
       		   listCall(page);
       	   } 
          });
-         
       }
       ,error:function(error){
          console.log(error);
@@ -200,8 +202,11 @@ function listPrint(reserve_list){
 			content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
 			content += "<td>"+reserve_list[i].BOOKNAME+"</td>"
 			content += "<td>반납완료</td>"
-			content += "<td></td>";
-	  	
+			var bookIdx = reserve_list[i].BOOKIDX;
+			console.log('책번호:'+bookIdx);
+			content += "<td><input type='button' onclick='writeForm(this)' value='리뷰작성하기' />"
+			content += "<input type='hidden' id='bookIdx' name='bookIdx' value='"+bookIdx+"'/></td>"
+			//href='./review_WriteForm?bookIdx="+reserve_list[i].BOOKIDX+"'>리뷰작성하기</a></td>
 	  }
 }
 	  content += "</tr>"

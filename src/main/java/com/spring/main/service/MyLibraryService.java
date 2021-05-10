@@ -448,7 +448,8 @@ public class MyLibraryService {
 		logger.info("params:{}",params);
 		MyLibraryDTO dto = dao.myReviewWriteForm(params);
 		mav.addObject("ReviewDetail", dto);
-		mav.setViewName("myLib_review_write");
+		//mav.setViewName("myLib_review_write");
+		mav.setViewName("myLib_ReviewWrite");
 		
 		return mav;
 	}

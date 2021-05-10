@@ -22,31 +22,29 @@
 	        	margin-top: 3%;
 	        }
 	    #my_title{
-	    text-align: center;
-	    background-color: white;
-	    width: 200px;
-	    height: 30px;
-	    margin-left: 45%;
-	    margin-bottom: 1%;
-	    border: 1px solid black;
+		    text-align: center;
+		    background-color: white;
+		    width: 200px;
+		    height: 30px;
+		    margin-left: 45%;
+		    margin-bottom: 1%;
+		    border: 1px solid black;
 		}
 		#body{
 			position: absolute;
 			text-align: center;
 		    background-color: beige;
 		    margin-left: 25%;
-		    width: 1600px;
+		    width: 1400px;
 		    height: 900px;
 		}
-        #QuestionTable{
-        	text-align: center;
-        }
        
 		#table th{
 		    background-color:#c5d8f1ff;
 		    text-align: center;
 		    border:1px solid black;
 		    width:10px;
+		    height:30px;
 		}
 		#table td{
 		    background-color:white;
@@ -55,12 +53,13 @@
 		    position: relative;
 		    top: 30%;
 		    margin-bottom: 80px;
+		    height:40px;
 		}
        
         #QuestionTable{
             text-align: center;
             position: absolute;
-            left: 14%;
+            left:10%;
             top: 10%;
         }
         
@@ -69,7 +68,7 @@
             height: 10px;
         }
         .n2{
-            width: 200px;
+            width: 50px;
             height: 30px;
         }
         

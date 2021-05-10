@@ -109,11 +109,8 @@
 </style>
 </head>
 <body>
-<jsp:include page="header.jsp"/>
-		<h3 id="review">${loginId}의 리뷰 작성하기</h3>
-		<div id="sideBar">
-        <jsp:include page="mySidebar.jsp"/>
-    </div>
+<h3 id="review">${loginId}의 리뷰 작성하기</h3>
+		
    	<div id="main">
     <div class="review_content">
     <form action="review_write" method="POST">
@@ -135,7 +132,7 @@
 					<tr>					
 						<td rowspan="2">
 							<input type="button" class="re_btn" id="save" value="저장">
-							<input type="button" class="re_btn" onclick="location.href='booksSearch'" value="취소">
+							<input type="button" class="re_btn" onclick="window.close()" value="취소">
 						</td>
 					</tr> 
 				</table>
@@ -151,9 +148,12 @@ if(msg!=""){
 	alert(msg);
 }
 
+
+
 $("#save").click(function(){
-	//$('#content').val($('#editable').html());
 	$('form').submit();
+	alert("리뷰작성을 완료하였습니다.");
+	window.close();
 });
 </script>
 </html>
