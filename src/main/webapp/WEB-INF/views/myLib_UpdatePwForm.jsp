@@ -10,14 +10,15 @@
 #main {
 	width: 400px;
 	height: 300px;
-	margin: -150px auto;
+	margin: -200px auto;
 }
 
 .subject {
-    border: 1px solid;
+    border: 1px solid lightgray;
     width: 440px;
     margin: 20px auto;
-    padding: 8px 24px;
+    padding: 5px 24px;
+    background-color: #e8ecf4;
 }
 
 #myinfo {
@@ -57,7 +58,6 @@ input[type="password"] {
 }
 
 #btnbox{
-	border: 1px solid;
 	width: 57%;
     margin: auto;
 }

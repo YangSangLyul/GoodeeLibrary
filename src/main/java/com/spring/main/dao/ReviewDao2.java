@@ -9,10 +9,9 @@ public interface ReviewDao2 { //리뮤 모아보기용
 
 	ArrayList<ReviewDTO> reviewList(int start, int end);
 
-	ArrayList<ReviewDTO> reviewIdList(String id);
+	//ArrayList<ReviewDTO> reviewIdList(String id);
 
 	ArrayList<ReviewDTO> reviewCom(int start, int end);
-	//ArrayList<ReviewDTO> reviewCom();
 
 	ReviewDTO reviewDetail(String reviewIdx);
 
@@ -25,6 +24,8 @@ public interface ReviewDao2 { //리뮤 모아보기용
 	String overReport(ReviewDTO dto);
 
 	int review_AllCount();
+	
+	int review_IdAllCount(String id);
 
 	int likeChk(int reviewIdx, String id);
 
@@ -37,6 +38,10 @@ public interface ReviewDao2 { //리뮤 모아보기용
 	void upLike(int reviewIdx);
 
 	void downLike(int reviewIdx);
+
+	ArrayList<ReviewDTO> reviewIdListPaging(int start, int end, String id);
+
+	
 
 
 }

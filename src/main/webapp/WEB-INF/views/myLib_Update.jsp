@@ -15,10 +15,11 @@
 }
 
 .subject {
-    border: 1px solid;
+    border: 1px solid lightgray;
     width: 354px;
     margin: 20px auto;
-    padding: 8px 24px;
+    padding: 5px 24px;
+    background-color: #e8ecf4;
 }
 
 #myinfo {
