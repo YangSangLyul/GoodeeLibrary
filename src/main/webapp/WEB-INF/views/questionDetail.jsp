@@ -211,10 +211,19 @@
             </td>
         </tr>
         </table>
-
+	
+	<c:set var="id" value="${sessionScope.loginId}"/>
+	<c:set var="mapid" value="${map.ID}"/>
+	<c:if test="${id eq mapid}">
+	
     <button onclick="location.href='/questionDetail/QuestionEdit/${map.QUEIDX}'" class="bccc" style="top: 85%;left: 27%;width: 70px;height: 40px;">수정하기</button>
+    </c:if>
+    
     <button onclick="location.href ='/QuestionAll'" class="bccc" style="top: 85%;left: 47%; width: 70px;height: 40px;">목록</button>
+    
+    <c:if test="${id eq mapid}">
     <button onclick="location.href='/questionDetail/questiondelete/${map.QUEIDX}'" class="bccc" style="top: 85%;left: 65%; width: 70px;height: 40px;">삭제</button>
+    </c:if>
     </div>
     
 </body>

@@ -7,12 +7,32 @@
         <title>J-Query</title>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <style>
-
+			#newBook{
+				position: absolute;
+				top: 25%;
+				left: 25%;
+			}
+			td, th{
+				height: 50px;
+				width: 100px;
+			}
+			input[type='text'] {
+				width: 500px;
+			}
+			#newBookBtn{
+				text-align: right;
+			}
+			#newBookTitle{
+            	color: #c5d8f1ff;
+            	text-align: center;
+            }
         </style>
     </head>
     <body>
-        <div>
-            <h2>신규 도서 등록</h2>
+       	<jsp:include page="../adminHeader.jsp"/>
+        <jsp:include page="./bookManageSidebar.jsp"/>
+        <div id="newBook">
+            <h2 id="newBookTitle">신규 도서 등록</h2>
             <form action="bookInsert" method="POST">
                 <table>
                     <tr>
@@ -36,7 +56,7 @@
                         <td><input type="text" name="bookImg" placeholder="대표 사진 경로를 넣어주세요."></td>
                     </tr>
                 </table>
-                <input type="submit" value="등록완료">
+                <div id='newBookBtn'><input type="submit" value="등록완료"></div>
             </form>
         </div>
     </body>

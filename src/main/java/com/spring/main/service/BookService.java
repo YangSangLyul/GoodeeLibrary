@@ -2,6 +2,7 @@ package com.spring.main.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -47,10 +48,23 @@ public class BookService {
 	 * 
 	 * return mav; }
 	 */
-	public HashMap<String, Object> normalBookFilter(ArrayList<String> filter, int page) {
+	public HashMap<String, Object> normalBookFilter(String[] filter, int page) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		int pagePerCnt = 10;
-		int allCnt = dao.allCnt(); 		// 전체 게시글 수
+		ArrayList<String> filterList = new ArrayList<String>();
+		Collections.addAll(filterList, filter);
+		ArrayList<String> chkReserve = new ArrayList<String>(filterList);
+		
+		int pagePerCnt = 5;
+		
+		String isReserve = "false";
+		for(String reserve : chkReserve) {
+			if(reserve.equals("R001")) {
+				filterList.remove(reserve);
+				isReserve = "true";
+			}
+		}
+		int allCnt = dao.bookFilterCnt(filterList, filterList.size(), isReserve);
+		logger.info("allCnt : " + allCnt);
 		int range = (int) (allCnt % pagePerCnt > 0 ? Math.floor((allCnt/pagePerCnt))+1 : Math.floor((allCnt/pagePerCnt)));
 		
 		page = page > range ? range : page;
@@ -60,8 +74,7 @@ public class BookService {
 		int start = end - pagePerCnt + 1;
 		
 		logger.info("start : " + start + " / end : " + end);
-		
-		ArrayList<BookDTO> list = dao.normalBookFilter(start,end);
+		ArrayList<BookDTO> list = dao.normalBookFilter(start,end,filterList,filterList.size(),isReserve);
 		map.put("list", list);
 		map.put("range", range);
 		map.put("currPage", page);
@@ -143,7 +156,7 @@ public class BookService {
 	public HashMap<String, Object> bookList(int page) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		int pagePerCnt = 10;
+		int pagePerCnt = 5;
 		int allCnt = dao.allCnt(); 		// 전체 게시글 수
 		int range = (int) (allCnt % pagePerCnt > 0 ? Math.floor((allCnt/pagePerCnt))+1 : Math.floor((allCnt/pagePerCnt)));
 		

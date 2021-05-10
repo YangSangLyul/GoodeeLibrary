@@ -5,17 +5,22 @@
 		<meta charset="UTF-8">
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<title>도서 거부</title>
-		<style></style>
+		<style>
+			#reject{
+				width: 200px;
+				height: 100px;
+			}
+		</style>
 	</head>
 	<body>
-	<form action="/main/hopeBookRejectReason" method="GET">
-			<input type="hidden" name="hopeBooksNumber" value="${hopeBooksNumber}"/>
-		<div>
-			<h4>희망도서 신청 거부 사유</h4>
-			<textarea id="reject" name="reject" style="resize: none;"></textarea>
-	        <input type="button" id="save" value="확인"/>
-		</div>
-	</form>
+		<form action="/main/hopeBookRejectReason" method="GET">
+				<input type="hidden" name="hopeBooksNumber" value="${hopeBooksNumber}"/>
+			<div>
+				<h4>희망도서 신청 거부 사유</h4>
+				<textarea id="reject" name="reject" style="resize: none;"></textarea>
+		        <input type="button" id="save" value="확인"/>
+			</div>
+		</form>
 	</body>
 	<script>
 		$("#save").click(function(){

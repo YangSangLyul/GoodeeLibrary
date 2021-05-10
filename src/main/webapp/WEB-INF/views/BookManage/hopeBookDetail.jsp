@@ -11,10 +11,38 @@
                 border-collapse: collapse;
                 padding: 5px 10px;
             }
+            #hopeBookDetail{
+            	position: absolute;
+            	top: 20%;
+            	left: 25%;
+            }
+            #hopeBookDetail th{
+            	width: 200px;
+            	height: 60px;
+            }
+            #hopeBookDetail td{
+            	width: 500px;
+            }
+            #hopeBookList{
+            	text-align: center;
+            }
+            #hopeBookList button{
+            	background-color: #c5d8f1ff;
+            	border: none;
+            }
+            #hopeBookYN{
+            	text-align: right;
+            }
+            #hopeBookYN button{
+            	background-color: #c5d8f1ff;
+            	border: none;
+            }
         </style>
     </head>
     <body>
-        <div>
+      	<jsp:include page="../adminHeader.jsp"/>
+    	<jsp:include page="./bookManageSidebar.jsp"/>
+        <div id="hopeBookDetail">
             <table>
                 <tr>
                     <th>신청일</th>
@@ -47,13 +75,15 @@
                 </tr>
                 </c:if>
                 <tr>
-                    <td colspan="2"><button onclick="location.href='/main/hopeBookList'">목록</button></td>
+                    <td colspan="2"><div id="hopeBookList"><button onclick="location.href='/main/hopeBookList'">목록</button></div></td>
                 </tr>
                 <c:if test="${dto.hb_state eq 'H001' }">
 	                <tr>
 	                    <td colspan="2">
-	                        <button onclick="location.href='hopeBookApprove?hopeBooksNumber=${dto.hopeBooksNumber}'">희망도서 승인</button>
-	                        <button onclick="reject()">희망도서 거부</button>
+		                    <div id="hopeBookYN">
+		                        <button onclick="location.href='hopeBookApprove?hopeBooksNumber=${dto.hopeBooksNumber}'">희망도서 승인</button>
+		                        <button onclick="reject()">희망도서 거부</button>
+		                    </div>
 	                    </td>
 	                </tr>
                 </c:if>

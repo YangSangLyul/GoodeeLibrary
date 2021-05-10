@@ -118,6 +118,12 @@
     </div>
 </body>
 <script>
+
+var msg = "${msg}";
+if(msg != ""){
+	alert(msg);
+}
+
 var showPage=1;
 
 listCall(showPage);
