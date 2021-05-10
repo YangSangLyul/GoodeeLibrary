@@ -102,6 +102,10 @@
     margin-inline-start: 0px;
     margin-inline-end: 0px;
 }
+h6{
+display:inline;
+color: red;
+}
     </style>
 </head>
 <body>
@@ -224,14 +228,20 @@ function listCall(reqPage){
 		});	
 	}
 	
+	
+
 function listPrint(list){
 	var content="";
-	
 	for(var i =0;i<list.length;i++){
+		var status = list[i].showstatus;
 		var b= list[i].queidx;
 		content +="<tr>"
 		content +="<td class='n1'>"+list[i].queidx+"</td>"
-		content +="<td class='n2'>"+"<a href='questionDetail/"+b+"'>"+list[i].subject+"</a></td>"
+		if(status =="FALSE"){
+		content +="<td class='n2'>"+"<h6>&lt;비공개&gt;&nbsp;&nbsp;</h6>"+"<a href='questionDetail/"+b+"'>"+list[i].subject+"</a></td>"			
+		}else{
+		content +="<td class='n2'>"+"<a href='questionDetail/"+b+"'>"+list[i].subject+"</a></td>"	
+		}
 		content +="<td>"+list[i].id+"</a></td>"
 		var date = new Date(list[i].reg_date);
 		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
