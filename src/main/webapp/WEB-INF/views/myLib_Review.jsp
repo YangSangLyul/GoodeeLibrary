@@ -30,7 +30,7 @@
 	    height: 900px;
 	}
 	
-	body div{
+	#frame div{
 	    text-align: center;
 	}
 	
@@ -51,17 +51,22 @@
 	    margin-left: 100px;
 	}
 	#border{
-		border-collapse: collapse;
-		border: 1px solid black;
-		margin-bottom: 10px;
-		margin-top: 100px;
-		margin-left:-85px;
-		margin-right:525px;
+	    border-collapse: collapse;
+	    border: 1px solid black;
+	    margin-bottom: 150px;
+	    margin-top: -100px;
+	    margin-left: 120px;
+	    margin-right: 240px;
+	    width: 500px;
+	    height: 290px;
+	}
 		
-		}
+	.bookimg{
+	    width: 100px;
+    	height: 150px;
+	}	
 		
 	#paging{
-       
        position: fixed;
        left:20%;
        top:80%;
@@ -70,11 +75,11 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-   	<div>
-    <div id="my_title">${loginId}의 리뷰 내역</div>
-    <div id="sideBar">
-        <jsp:include page="mySidebar.jsp"/>
-    </div>
+   <div id="my_title">${loginId}의 리뷰 내역</div>
+ <div id="sideBar">
+    <jsp:include page="mySidebar.jsp"/>
+ </div>
+   	<div id="frame">
     <div id="body">
          <table id="table">
            
@@ -104,13 +109,13 @@ function listPrint(review_list){
 	  var content="";
 	  for(var i=0; i<review_list.length;i++){
 	  	content += "<div id='border'>"
-		content += "<img src='"+review_list[i].BOOKIMG+"'/>"+review_list[i].BOOKNAME
+		content += "<img class='bookimg' src='"+review_list[i].BOOKIMG+"'/>"+review_list[i].BOOKNAME
 		content += "<div>저자명 : "+review_list[i].WRITER+"</div>"
 		content += "<div>출판사 : "+review_list[i].PUBLISHER+"</div>"
 		var date = new Date(review_list[i].REG_DATE);
 		content += "<div>등록날짜 : "+date.toLocaleDateString("ko-KR")+"</div>"
 	
-		content += "추천수 : "+review_list[i].CNT
+		content += "<div>추천수 : "+review_list[i].CNT+"</div>"
 		content += "<a href='./myReview_detail?reviewIdx="+review_list[i].REVIEWIDX+"'><input type='button' value='리뷰상세보기'/></a>"
 		content += "</div>"	  
 	  $("#review_list").empty();  

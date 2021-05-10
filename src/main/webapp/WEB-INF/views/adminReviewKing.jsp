@@ -6,6 +6,11 @@
         <title>이 달의 리뷰왕</title>
         <!-- favicon:사이트를 대표하는 탭창에 보여지는 이미지 -->
         <link rel="icon" href="icon.jpg">
+        <!-- 제이쿼리(제이쿼리가 있어야 아래 라이브러리를 사용할 수 있으므로 최상단에 위치) -->
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<!-- 반응형 디자인을 위한 css/js 라이브러리 -->
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
         <style>
             /* body{
                 width: 700px;
@@ -21,6 +26,7 @@
             table,td,th{                
                 border: 1px solid black;
                 border-collapse: collapse;
+                text-align: center;
                 padding: 10px;
             } 
             #decision{
@@ -39,12 +45,11 @@
                 margin: 20px;
             }
         </style>
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
+    <body>
     	<div style="text-align: left;">
 	    	<jsp:include page="adminHeader.jsp"/>
     	</div>
-    <body>
         <div id="tabMenu">
             <button class="tabBtn" onclick="location.href='ReviewKing'">이달의 리뷰왕</button>
             <button class="tabBtn" onclick="location.href='ReportList'">신고 리스트</button>
@@ -78,7 +83,7 @@
             <c:forEach items="${king.manyReview}" var="list2">
 	            <tr>
 	                <td>${list2.rnum}</td>
-	                <td><a href="[리뷰모아보기]?id=${list2.id}" id="userId">${list2.id}</a></td>
+	                <td><a href="reviewIdList?id=${list2.id}" id="userId">${list2.id}</a></td>
 	                <td>${list2.cnt}</td>
 	                <td><input type="checkbox" onclick="count_ck(this)" name="chk"/></td>
 	            </tr>

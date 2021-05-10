@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>J-Query</title>
+<title>관리자 문의내역 리스트</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <link
 	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -14,15 +14,31 @@
 <script src="resources/js/jquery.twbsPagination.js"
 	type="text/javascript"></script>
 <style>
+table{
+    width: 650px;
+    height: 100px;
+    margin-left: 365px;
+    margin-top: 10px;
+    text-align: center;
+}
+
 table, th, td {
 	border: 1px solid black;
 	border-collapse: collapse;
+	text-align: center;
 	padding: 5px 10px;
+}
+
+#btn{
+	margin-left: 1400px;
 }
 </style>
 </head>
 <body>
-	<div>
+	<div style="text-align: left; margin-bottom: 70px;">
+    	<jsp:include page="../adminHeader.jsp"/>
+   	</div>
+	<div id="btn">
 		<button>답변완료</button>
 		<button>답변하기</button>
 	</div>

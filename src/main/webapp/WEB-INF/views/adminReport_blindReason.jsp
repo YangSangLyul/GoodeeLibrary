@@ -22,7 +22,8 @@
     		<input type="hidden" name="reportIdx" value="${info.reportIdx}"/>
     		<input type="hidden" name="reviewIdx" value="${info.reviewIdx}"/>
 	    	<input type="text" name="WhyBlind"/>
-	    	<input type="button" onclick="sub()" value="전송">
+	    	<!-- <input type="button" onclick="sub()" value="전송"> -->
+	    	<input type="submit" value="전송">
     	</form>
     </body>
     <script>

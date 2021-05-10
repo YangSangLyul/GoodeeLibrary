@@ -7,10 +7,15 @@
 <title>회원정보수정</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
+#sideBar{
+       		position: absolute;
+        	margin-left: 10%;
+        	margin-top: 3%;
+        }
 #main {
 	width: 400px;
 	height: 300px;
-	margin: -200px auto;
+	margin: 200px auto;
 }
 
 .subject {

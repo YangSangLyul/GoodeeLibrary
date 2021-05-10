@@ -209,10 +209,13 @@
         <form action="/questionDetail/questionEditing">
             <table>
                 <tr>
-                    <td>
+                    <td>${map.subject}
                         제목
                         <input type="hidden" value="${map.QUEIDX}" name="queidx">
-                        <input type="text"  name="subject" value="제목수정해주세욥">
+                        <input type="text"  name="subject" id="s"  value="" style="border: 1px solid gray" autofocus>
+                        <script type="text/javascript">
+                        	$("#s").val("${map.SUBJECT}");
+                        </script>
                     </td>
                     <td>
                         문의유형<br>

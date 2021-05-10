@@ -7,11 +7,15 @@
 <title>회원 정보 수정/탈퇴 페이지</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
-
+#sideBar{
+       		position: absolute;
+        	margin-left: 10%;
+        	margin-top: 3%;
+        }
 #main {
 	width: 400px;
 	height: 300px;
-	margin: -150px auto;
+	margin: 100px auto;
 }
 
 .subject {

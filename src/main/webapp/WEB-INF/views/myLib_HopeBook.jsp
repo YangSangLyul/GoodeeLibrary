@@ -31,33 +31,37 @@
 	    height: 900px;
 	}
 	
-	body div{
-	    text-align: center;
-	}
-	
 	#table{
-	    border: 1px solid black;
-	    border-collapse: collapse;
-	    margin-left: 15%;
-	    margin-top: 20%;
+		width:400px;
+		position: relative;
+	    margin-left: 30%;
+	    top: 10%;
 	    margin-bottom: 80px;
 	    text-align: center;
 	}
 	#table th{
 	    background-color:#c5d8f1ff;
+	    text-align: center;
 	}
 	#table td{
-	    background-color:white;
+		background-color:white;
+	    text-align: center;
+	    position:relative;
 	}
-	table,th,td{
+	th,td{
+	    height:50px;
+	    text-align: center;
 	    border: 1px solid black;
 	    border-collapse: collapse;
-	}
+	    position:relative;
+	}     
 	#paging{
-        
         position: fixed;
         left:20%;
         top:80%;
+     }
+     .subject{
+     	font-style: italic;
      }
 	</style>
 </head>
@@ -75,22 +79,19 @@
                 <th>신청일자</th>
                 <th>처리상태</th>
             </tr>
-            <br/>
             <tbody id="hope_list">
              
             </tbody>
-        	<tr>
+        </table>
 			<!-- 페이징 번호 보여주기 -->
-            <td id="paging" colspan="4">
+            <div id="paging" colspan="3">
             	<!-- 플러그인 사용 -->
             	<div class="container">
             		<nav aria-label="page navigation" style="text-align:center">
             			<ul class="pagination" id="pagination"></ul>
             		</nav>
             	</div>
-            </td>
-         </tr>
-        </table>
+            </div>
     </div>
     </div>
 </body>
@@ -109,20 +110,14 @@ function listCall(reqPage){
       ,data:{}
       ,dataType:'JSON'
       ,success:function(data){
-         console.log(data);
-         console.log(data.hope_list);
          showPage = data.currPage;
          listPrint(data.hope_list);
-         //pagePrint(data.range);//플러그인 미사용 페이징 처리!
-         //플러그인 사용
          
          $("#pagination").twbsPagination({
       	   startPage:data.currPage,//시작페이지
       	   totalPages:data.range,//총 페이지
       	   visiblePages:5,//5개씩 보여주겠다.(1~5)
       	   onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
-      		   //console.log(evt);
-      		   //console.log(page); 
       		   listCall(page);
       	   } 
          });
@@ -135,47 +130,11 @@ function listCall(reqPage){
    });
 }
 
-function pagePrint(range){
-	  console.log("생성 가능 페이지 : "+range);
-	  console.log("현재 페이지 : "+showPage);
-	  var content="";
-	  var start=1;
-	  var end = range >= 10? 10: range;
-	  
-	  //이전(5페이지가 넘어 갔을때 나타나는 녀석)
-	  if(showPage>5){
-		  end = Math.ceil(showPage/5)*5;
-		  if(end>range){
-			  end = range;
-		  }
-		  start = end-4;
-		  content += "<a href='#' onclick='listCall("+(start-1)+")'>이전</a> |"
-	  }
-
-	  //1~5
-	  for(var i = start; i<=end; i++){
-		  if(i==showPage){
-			content += " <b style='color:red'>"+i+"</b> ";	    			  
-		  }//else if(range>=i){
-		  else{
-			  content += " <a href='#' onclick='listCall("+i+")'>"+i+"</a>";
-		  }    			  
-	  }
-	  //다음(range 가 더있을 경우 나타나는 녀석)
-	  if(end<range){
-		  content += "| <a href='#' onclick='listCall("+(end+1)+")'>다음</a>"
-	  }
-	  
-	  $('#paging').empty();
-	  $('#paging').append(content);
-}
-
-
 function listPrint(hope_list){
 	  var content="";
 	  for(var i=0; i<hope_list.length;i++){
 		content += "<tr>"
-		content += "<td><a href='./myHBookDetail?hopeBooksNumber="+hope_list[i].HOPEBOOKSNUMBER+"'>"+hope_list[i].HB_BOOKNAME+"</a></td>"
+		content += "<td class='subject'><a href='./myHBookDetail?hopeBooksNumber="+hope_list[i].HOPEBOOKSNUMBER+"'>"+hope_list[i].HB_BOOKNAME+"</a></td>"
 		var date = new Date(hope_list[i].HB_DATE);
 		content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
 		//content += "<td>"+reserve_list[i].bstate+"</td>"

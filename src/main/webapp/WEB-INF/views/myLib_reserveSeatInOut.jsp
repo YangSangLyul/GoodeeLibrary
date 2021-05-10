@@ -407,6 +407,7 @@
 						$("#Entering").css("top","0%");
 						$("#cantEnter").css("display","none");
 						alert('입실에 성공하였습니다!');
+						location.reload();
 					}else{
 						alert('입실이 가능한 상태가 아닙니다...');
 					}
