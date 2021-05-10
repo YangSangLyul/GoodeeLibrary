@@ -61,12 +61,31 @@ public class ReviewService2 { //리뷰 모아보기용
 		return map;
 	}
 	
-	public ModelAndView reviewIdList(String id) {
-		ModelAndView mav = new ModelAndView();
-		ArrayList<ReviewDTO> reviewIdList = dao.reviewIdList(id);
-		mav.addObject("review", reviewIdList);
-		mav.setViewName("reviewIdList");
-		return mav;
+//	public ModelAndView reviewIdList(String id) {
+//		ModelAndView mav = new ModelAndView();
+//		ArrayList<ReviewDTO> reviewIdList = dao.reviewIdList(id);
+//		mav.addObject("dId",id);
+//		mav.addObject("review", reviewIdList);
+//		mav.setViewName("reviewIdList");
+//		return mav;
+//	}
+	
+	public HashMap<String, Object> reviewIdListPaging(int pagePerCnt,int page,String id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int allCnt = dao.review_IdAllCount(id);
+		logger.info("allCnt:"+allCnt);
+	
+		int range = allCnt/pagePerCnt > 0? Math.round(allCnt/pagePerCnt)+1 : Math.round(allCnt/pagePerCnt);
+		logger.info("만들수있는 페이지~"+range);
+		page = page>range? range:page;
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt+1;
+		
+		ArrayList<ReviewDTO> reviewIdList = dao.reviewIdListPaging(start,end,id);
+		map.put("list",reviewIdList);
+		map.put("range", range);
+		map.put("currPage",page);
+		return map;
 	}
 
 	public ReviewDTO reviewDetail(String reviewIdx) {

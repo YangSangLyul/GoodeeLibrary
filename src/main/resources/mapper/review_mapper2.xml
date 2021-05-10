@@ -28,12 +28,23 @@
 			FROM book b JOIN review r ON b.bookIdx=r.bookIdx) WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
 	
-	<select id="reviewIdList" resultType="review" parameterType="list">
-			SELECT r.id, r.cnt, r.reviewIdx, b.bookImg, b.bookName, b.writer, b.publisher FROM
+<!--  	<select id="reviewIdList" resultType="review" parameterType="list">
+			SELECT r.id, r.cnt, r.reg_date, r.reviewIdx, b.bookImg, b.bookName, b.writer, b.publisher FROM
 			book b JOIN review r ON b.bookIdx=r.bookIdx WHERE id=#{param1}
+	</select>  -->
+	
+	<select id="reviewIdListPaging" resultType="review" parameterType="list">
+		SELECT * FROM (
+			SELECT ROW_NUMBER() OVER(ORDER BY r.reg_date DESC) 
+				AS rnum, r.id, r.cnt, r.reg_date, r.reviewIdx,b.bookImg, b.bookName, b.writer, b.publisher
+			FROM book b JOIN review r ON b.bookIdx=r.bookIdx WHERE r.id={param3}) WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
 	
-		<select id="reviewDetail" resultType="review">
+	<select id="review_IdAllCount" resultType="Integer">
+		SELECT COUNT(*) FROM review WHERE id={param1}
+	</select>
+	
+	<select id="reviewDetail" resultType="review">
 			SELECT r.id, r.cnt, r.reviewIdx, r.blind_status,r.content, r.reg_date, b.bookImg, b.bookName, b.writer, b.publisher FROM
 			book b JOIN review r ON b.bookIdx=r.bookIdx WHERE reviewIdx=#{param1}
 	</select>

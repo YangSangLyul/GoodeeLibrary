@@ -15,7 +15,7 @@
 	text-align: center;
 }
 
-##loginTitle {
+#loginTitle {
 	text-align: center;
 	color: #0070c0;
 }
@@ -33,6 +33,10 @@
 
 #find_content {
 	width: 500px;
+}
+
+#findFields{
+	margin-left: 25px;
 }
 
 input[type="password"] {
