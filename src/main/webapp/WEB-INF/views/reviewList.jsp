@@ -210,7 +210,7 @@ function listPrint(list){
 	  var content="";
 	  for(var i=0; i<list.length; i++){
 		content += "<tr>"
-	  	content += "<td rowspan='2' id='b_img'>"+"<a href='searchResultDetail?bookIdx="+list[i].bookIdx+"'><img src="+list[i].bookImg+" width='117' height='162' /></a>"
+	  	content += "<td rowspan='2' id='b_img'>"+"<a href='searchResultDetail?bookIdx="+list[i].bookIdx+"' target=window.open('width=500,height=1000')><img src="+list[i].bookImg+" width='117' height='162' /></a>"
 		content += "<td id='b_name'>"+"<div class='b_info'>"+list[i].bookName+"</div>"+"</td>"
 		content += "<td id='re_name'>"+"<div class='re_id'>"+"<a href='reviewIdList?id="+list[i].id+"'>ID : "+list[i].id+"</a>"+"</div>"+"</td>"
 		content += "</tr>"
