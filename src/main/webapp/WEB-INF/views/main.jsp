@@ -181,7 +181,7 @@
         </div>
         <!--공지사항 목록은 최신순으로 4개까지만...-->
         <div id="noticeAll">
-            <button onclick="location.href='noticea'">더보기</button>
+            <button onclick="location.href='notice'">더보기</button>
         </div>
         
         <div id="notice">
