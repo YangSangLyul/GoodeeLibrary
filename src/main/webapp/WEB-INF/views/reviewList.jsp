@@ -16,7 +16,7 @@
 }
 #main {
 	width: 580px;
-	margin: -95px auto;
+	margin: 50px auto;
 	text-align: center;
 }
 
@@ -87,7 +87,7 @@
 }
 
 #re_name a {
-	color: gray;
+	color: black;
 	text-decoration: none;
 }
 
@@ -111,11 +111,19 @@
 	width : 200px;
 }
 
+#sideBar{
+    position: absolute;
+    margin-left: 10%;
+    margin-top: 3%;
+}
+
 </style>
 </head>
 <body>
 	<jsp:include page="header.jsp" />
+	<div id="sideBar">
 	<jsp:include page="bookserviceSidebar.jsp" />
+	</div>
 	<div id="main">
 		<div class="subject">
 			<h3 id="review"><b>리뷰 모아보기</b></h3>
