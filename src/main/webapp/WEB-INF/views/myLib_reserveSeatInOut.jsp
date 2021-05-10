@@ -286,6 +286,7 @@
     	var startTime = "${intStart}"+" : 00";
     	var endTime = "${intEnd}"+" : 00";
     	var i = 1;
+    	console.log(list);
     	console.log(startTime,"/",endTime);
     	console.log(seatState);
     	
@@ -406,6 +407,7 @@
 						$("#Entering").css("top","0%");
 						$("#cantEnter").css("display","none");
 						alert('입실에 성공하였습니다!');
+						location.reload();
 					}else{
 						alert('입실이 가능한 상태가 아닙니다...');
 					}

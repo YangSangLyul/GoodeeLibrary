@@ -9,7 +9,6 @@
 <style>
 .main {
 	width: 400px;
-	height: 300px;
 	margin: 150px auto;
 	text-align: center;
 }
@@ -30,6 +29,15 @@ input[type="text"] {
 	padding: 5px;
 	margin: 10px;
 	
+}
+
+#findFields{
+	margin-left: 25px;
+	margin-top: 30px;
+}
+
+#title{
+	margin : 0 10px;
 }
 
 .find_button {

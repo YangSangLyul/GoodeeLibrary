@@ -8,9 +8,8 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
 #main {
-	width: 400px;
-	height: 300px;
-	margin: auto;
+	width: 580px;
+	margin: -140px auto;
 	text-align: center;
 }
 
@@ -27,17 +26,19 @@
 
 .re_option {
 	float: right;
+	margin: 20px 0;
 }
 
-.re_option li {
+.re_option ul li {
 	border: 1px solid lightgray;
 	width: 100px;
 	padding: 8px;
 	list-style: none;
+	float: left;  
 }
 
 .re_option li:hover {
-	background-color: lightgreen;
+	background-color: #e8ecf4;
 }
 
 .re_option a {
@@ -45,15 +46,9 @@
 	color: black;
 }
 
-.review_content {
-	width: 715px;
-	padding: 15px;
-	border-bottom: 1px solid lightgray;
-}
-
 #r_table {
 	border-collapse: collapse;
-	width: 715px;
+	margin-left : -100px;
 }
 
 #b_img {
@@ -63,21 +58,21 @@
 
 #b_name, #b_content {
 	width: 400px;
-	height: 50px;
 }
 
 #b_name, #re_name {
 	background-color: #f2f2f2;
 	font-size: 16px;
+	height: 50px;
 }
 
 .b_info {
 	margin-left: 8px;
+	font-size: 15px;
 }
 
-.re_img, .re_cnt {
-	display: inline;
-	margin: 0 15px;
+.re_cnt {
+	margin: 25px 69px;
 }
 
 .re_detail, .re_id {
@@ -97,12 +92,22 @@
 #re_btn {
 	width: 70%;
 	padding: 10px;
-	margin: 0;
+	margin-bottom: 20px;
 	font-size: 14px;
 	font-weight: 600;
 	color: #0070c0;
 	background-color: #e8ecf4;
 	border: 1px solid lightgray;
+}
+
+#re_recomm{
+	width : 200px;
+}
+
+#dId{
+	font-size: 18px;
+	font-weight: 600;
+	color : #0070c0; 
 }
 </style>
 </head>
@@ -111,52 +116,125 @@
 <jsp:include page="bookserviceSidebar.jsp"/>
 	<div id="main">
 		<div class="subject">
-			<h3 id="review">님의 리뷰 모아보기</h3>
+			<h3 id="review"><span id="dId">${dId}</span> 님의 리뷰 모아보기</h3>
 		</div>
 		<div class="re_option">
 			<ul>
-				<li><a href="reviewList">최신순</a></li>
-				<li><a href="reviewCom">추천순</a></li>
+				<li><a href="reviewIdList">최신순</a></li>
+				<li><a href="#" id="command">추천순</a></li>
 			</ul>
 		</div>
-		<c:forEach items="${review}" var="review">
-			<div class="review_content">
 				<table id="r_table">
- 					<tr>
-						<td rowspan="3" id="b_img">
-							<a href="#">
-								<img src="${review.bookImg}" width="117" height="162" />
-							</a>	
-						</td>
-						<td id="b_name">
-							<div class="b_info">${review.bookName}</div>
-						</td>
-            			<td id="re_name">
-							<div class="re_id">ID : ${review.id}</div>
-						</td>
-					</tr>
+	 				<tbody id="review_All">
+	
+					</tbody>
 					<tr>
-						<td rowspan="2" id="b_content">
-							<div class="b_info">저자명 : ${review.writer}</div>
-							<div class="b_info">출판사 : ${review.publisher}</div>
-							<div class="b_info">등록일 : ${review.reviewIdx}</div>
-						</td>
-						<td id="re_recomm">
-							<div class="re_cnt">추천수 : ${review.cnt}</div>
-						</td>
-					</tr>
-					<tr>					
-						<td>
-							<div class="re_detail">
-							<input type="button" id="re_btn" onclick="location.href='reviewDetail?reviewIdx=${review.reviewIdx}'" value="리뷰 상세보기">
+						<!-- 페이징 번호 보여주기 -->
+						<td id="paging" colspan="4">
+							<!-- 플러그인 사용 -->
+							<div class="container">
+								<nav aria-label="page navigation" style="text-align: center">
+									<ul class="pagination" id="pagination"></ul>
+								</nav>
 							</div>
 						</td>
-					</tr> 
+					</tr>
 				</table>
-			</div>
-		</c:forEach>
 	</div>
 </body>
 <script>
-   </script>
+var showPage=1;
+
+$("#command").click(function() {
+	listCall2(showPage);
+	function listCall2(reqPage){         
+	 	var reqUrl ='./reviewCom/'+reqPage;
+	   $.ajax({
+	      url: reqUrl
+	      ,type:'get'
+	      ,data:{}
+	      ,dataType:'JSON'
+	      ,success:function(data){
+	         console.log(data);
+	         showPage = data.currPage;
+	         listPrint(data.list);
+	 
+	         $("#pagination").twbsPagination({
+	      	   startPage:data.currPage,//시작페이지
+	      	   totalPages:data.range,//총 페이지
+	      	   visiblePages:5,//5개씩 보여주겠다.(1~5)
+	      	   onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
+	     		   listCall(page);
+	      	   } 
+	         });     
+	      }
+	      ,error:function(error){
+	         console.log(error);
+	      }
+	   });
+	}
+
+})
+
+listCall(showPage);
+function listCall(reqPage){         
+ 	var reqUrl ='./reviewIdList/'+reqPage;
+   $.ajax({
+      url: reqUrl
+      ,type:'get'
+      ,data:{}
+      ,dataType:'JSON'
+      ,success:function(data){
+         console.log(data);
+         showPage = data.currPage;
+         listPrint(data.list);
+ 
+         $("#pagination").twbsPagination({
+      	   startPage:data.currPage,//시작페이지
+      	   totalPages:data.range,//총 페이지
+      	   visiblePages:5,//5개씩 보여주겠다.(1~5)
+      	   onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
+     		   listCall(page);
+      	   } 
+         });     
+      }
+      ,error:function(error){
+         console.log(error);
+      }
+   });
+}
+
+function listPrint(list){
+	  var content="";
+	  for(var i=0; i<list.length; i++){
+		content += "<tr>"
+	  	content += "<td rowspan='2' id='b_img'>"+"<a href='searchResultDetail?bookIdx="+list[i].bookIdx+"'><img src="+list[i].bookImg+" width='117' height='162' /></a>"
+		content += "<td id='b_name'>"+"<div class='b_info'>"+list[i].bookName+"</div>"+"</td>"
+		content += "<td id='re_name'>"+"<div class='re_id'>"+"<a href='reviewIdList?id="+list[i].id+"'>ID : "+list[i].id+"</a>"+"</div>"+"</td>"
+		content += "</tr>"
+	
+		content += "<tr>"
+		content += "<hr/>"
+		content += "<td id='b_content'>";
+		content += "<div class='b_info'>"+"저자명 "+list[i].writer+"</div>";	
+		content += "<div class='b_info'>"+"출판사 "+list[i].publisher+"</div>";
+		//content += "<div class='b_info'>"+"리뷰등록일 "+list[i].reg_date+"</div>";
+		var date = new Date(list[i].reg_date);
+		content +="<div class='b_info'>"+"리뷰등록일 "+date.toLocaleDateString("ko-KR")+"</div>"
+		content += "</td>"
+
+		content += "<td id='re_recomm'>"
+		content += "<div class='re_cnt'>"+"추천수 "+list[i].cnt+"</div>"
+		content += "<div class='re_detail'>"+"<input type='button' id='re_btn' onclick='reviewDetailReq("+list[i].reviewIdx+")' value='리뷰 상세보기' />"+"</div>"	
+		content += "</td>"	
+		content += "</tr>"	
+		}
+	  $("#review_All").empty();  
+	  $("#review_All").append(content);
+}
+
+function reviewDetailReq(idx){
+	location.href = "reviewDetail?reviewIdx="+idx;
+}
+</script>
 </html>
