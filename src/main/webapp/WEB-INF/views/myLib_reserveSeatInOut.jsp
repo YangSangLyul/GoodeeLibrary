@@ -286,6 +286,7 @@
     	var startTime = "${intStart}"+" : 00";
     	var endTime = "${intEnd}"+" : 00";
     	var i = 1;
+    	console.log(list);
     	console.log(startTime,"/",endTime);
     	console.log(seatState);
     	

@@ -46,7 +46,7 @@
     <div id="mysidenav" class="sidenav">
         <div id="titleMenu"><a href="">도서관메뉴</a></div>
         <div class="menu">
-            <a href="MyLibrary">입실|퇴실 내역</a>
+            <a href="myLib_reserveSeatInOut" >입실|퇴실 내역</a>
         </div>
         <div class="menu">
             <a href="MyBook">도서 예약 내역</a>
@@ -74,15 +74,6 @@
 
         //여기 누르면 경로 지정 예시 ;
         //여기 누르면 경로 지정;
-        $(".menu:eq(0)").click(function () {
-           console.log("0번")
-           location.href = 'myLib_reserveSeatInOut';
-       })
-       
-        $(".menu:eq(1)").click(function () {
-            console.log("1번")
-            location.href = '';
-        })
     </script>
 </body>
 
