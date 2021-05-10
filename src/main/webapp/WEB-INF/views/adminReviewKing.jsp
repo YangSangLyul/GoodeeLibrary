@@ -90,8 +90,15 @@
             </c:forEach>
         </table>
        	<input type="button" value="리뷰왕 선정" id="decision"/>
+       	<a href="#" onclick="chkKing()" id="selectedKing">리뷰왕 확인하기</a>
+       	${hide}
     </body>
     <script>
+    	//리뷰왕 확인하기
+    	function chkKing(){
+    		window.open('chkReviewKing','reviewking','width=200, height=100');
+    	}
+    
 		//리뷰왕 3명초과 제한
    		var chkbox = document.getElementsByName("chk");
     	function count_ck(obj){

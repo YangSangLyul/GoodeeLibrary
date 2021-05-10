@@ -72,6 +72,13 @@ public class AdminController {
 		return service.hideBtn();
 	}
 	
+	//선정한 리뷰왕 확인
+	@RequestMapping(value = "/chkReviewKing", method = RequestMethod.GET)
+	public ModelAndView chkReviewKing() {
+		logger.info("선정한 리뷰왕 확인 요청");
+		return service.chkReviewKing();
+	}
+	
 	//신고리스트 불러오기
 	@RequestMapping(value = "/ReportList", method = RequestMethod.GET)
 	public ModelAndView ReportList() {

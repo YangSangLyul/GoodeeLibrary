@@ -78,6 +78,19 @@ public class AdminService {
 		}
 		return map;
 	}
+	
+	public ModelAndView chkReviewKing() {
+		logger.info("선정한 리뷰왕 쿼리 요청");
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<String> hide = dao.hideBtn();
+		map.put("hide",hide);
+		if(map.size()>0) {
+			mav.addObject("chk", map);
+			mav.setViewName("adminChkKing");
+		}
+		return mav;
+	}
 
 	public HashMap<String, Object> ReportList(int pagePerCnt, int page) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
