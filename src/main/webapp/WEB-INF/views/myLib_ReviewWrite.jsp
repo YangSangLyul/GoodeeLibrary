@@ -127,7 +127,7 @@
 							<div><b>출판사</b> ${ReviewDetail.publisher}</div>	
 						</td>
 						<td colspan="2" id="re_content">
-								<input class="text" type="text" name="content"/>
+								<input class="text" type="text" name="content" id="ab"/>
 						</td>
 					<tr>					
 						<td rowspan="2">
@@ -151,9 +151,29 @@ if(msg!=""){
 
 
 $("#save").click(function(){
-	$('form').submit();
-	alert("리뷰작성을 완료하였습니다.");
-	window.close();
+	//$('form').submit();
+	var b = $("#ab").val();
+	var a = "${ReviewDetail.bookIdx}";
+	var serial = $("form").serialize();
+	$.ajax({
+		url:"./review_write?bookIdx="+a,
+		type:'GET',
+		dataType:'JSON',
+		data:serial,
+		success:function(data){
+			/* window.close(); */
+			console.log("ㅇ")
+			if(data.success > 0){
+				alert('작성완료');
+				window.close();
+			}
+		},
+		error:function(error){
+			console.log(error);
+		}
+	});
 });
+
+
 </script>
 </html>

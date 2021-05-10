@@ -224,7 +224,7 @@ if(msg!=""){
 }
 
 function reviewReport(){
-	window.open('reviewReportForm?reviewIdx=${dto.reviewIdx}','reviewReportForm','width=400, height=350');
+	window.open('reviewReportForm?reviewIdx=${dto.reviewIdx}','reviewReportForm','width=450, height=350');
 }
    </script>
 </html>
