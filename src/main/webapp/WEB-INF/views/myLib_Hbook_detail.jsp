@@ -15,7 +15,7 @@
     	
 	    text-align: center;
 	    background-color: white;
-	    width: 200px;
+	    width: 300px;
 	    height: 30px;
 	    margin-left: 40%;
 	    margin-bottom: 1%;
@@ -28,10 +28,6 @@
 	    margin-left: 25%;
 	    width: 1000px;
 	    height: 900px;
-	}
-	
-	body div{
-	    text-align: center;
 	}
 	
 	#table{
@@ -59,13 +55,23 @@
 	    position:relative;
 	}     
 	.btn{
-		margin-top:40%;
+		width:100px;
+		margin-top:30%;
+		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+	    			height:50px;
 	}
+	    button,input[type="button"],input[type="submit"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
 	</style>
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-    <div>
+    
     <div id="my_title">${loginId}의 희망도서 상세 내역</div>
     <div id="sideBar">
         <jsp:include page="mySidebar.jsp"/>
@@ -100,8 +106,22 @@
         <button class="btn" onclick="location.href='./MyHopeBook'">목록</button>
     
     </div>
-</div>
+
 </body>
 <script>
+$("#libraryMy").css('background-color','#337ab7').css("color","white");
+
+$(".menu:eq(2)").css("background-color","#337ab7");
+
+$(".menu").hover(function () {
+    $(this).css("backgroundColor", "red");
+}, function () {
+	 $(".menu:eq(2)").css("background-color","#337ab7");
+    $(".menu:eq(1)").css("backgroundColor", "white");
+    $(".menu:eq(0)").css("backgroundColor", "white");
+    $(".menu:eq(3)").css("backgroundColor", "white");
+    $(".menu:eq(4)").css("backgroundColor", "white");
+    $(".menu:eq(5)").css("backgroundColor", "white");
+})
 </script>
 </html>

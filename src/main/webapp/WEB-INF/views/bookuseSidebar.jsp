@@ -16,7 +16,7 @@
 
 <body>
     <div id="mysidenav" class="sidenav">
-        <div id="titleMenu" style="">도서관이용안내</div>
+        <div id="titleMenu" style="background-color:#337ab7;">도서관이용안내</div>
         <div class="menu">
             <p>찾아오는길</p>
         </div>

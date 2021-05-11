@@ -13,7 +13,7 @@
 #main {
 	width: 800px;
 	height: 400px;
-	margin: -95px auto;
+	margin: 50px auto;
 	text-align: center;
 }
 
@@ -100,12 +100,23 @@
 	margin-top: 8px;
 	vertical-align: bottom;
 }
-
+                  button,input[type="button"],input[type="submit"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
+            #sideBar{
+			    position: absolute;
+			    margin-left: 10%;
+			    margin-top: 3%;
+			}
 </style>
 </head>
 <body>
 <jsp:include page="header.jsp"/>
+<div id="sideBar">
 <jsp:include page="bookserviceSidebar.jsp"/>
+</div>
 	<div id="main">
 		<div class="subject">
 			<h3 id="review">${dto.id} 님의 리뷰</h3>
@@ -154,6 +165,18 @@
 	</div>
 </body>
 <script>
+
+$("#libraryService").css('background-color','#337ab7').css("color","white");
+
+$(".menu:eq(0)").css("background-color","#337ab7");
+
+$(".menu").hover(function () {
+    $(this).css("backgroundColor", "red");
+}, function () {
+	 $(".menu:eq(0)").css("background-color","#337ab7");
+     $(".menu:eq(1)").css("backgroundColor", "white");
+})
+
 var msg = "${msg}";
 	 if(msg!=""){
 			alert(msg);

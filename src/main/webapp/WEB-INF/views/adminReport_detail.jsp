@@ -29,7 +29,13 @@
             #btn{
                 margin-left: 340px;
             }
+            button,input[type="button"],input[type="submit"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
         </style>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     </head>
     <body>
     	<div style="text-align: left;">
@@ -69,4 +75,7 @@
 	        </div>
         </div>
     </body>
+    <script>
+    $("#adminLibraryReview").css('background-color','#337ab7').css("color","white");
+    </script>
 </html>

@@ -9,7 +9,7 @@
 <style>
 #main {
 	width: 580px;
-	margin: -140px auto;
+	margin: 50px auto;
 	text-align: center;
 }
 
@@ -110,11 +110,23 @@
 	font-weight: 600;
 	color : #0070c0; 
 }
+                  button,input[type="button"],input[type="submit"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
+            #sideBar{
+			    position: absolute;
+			    margin-left: 10%;
+			    margin-top: 3%;
+			}
 </style>
 </head>
 <body>
 <jsp:include page="header.jsp"/>
+<div id="sideBar">
 <jsp:include page="bookserviceSidebar.jsp"/>
+</div>
 	<div id="main">
 		<div class="subject">
 			<h3 id="review"><span id="dId">${dId}</span> 님의 리뷰 모아보기</h3>
@@ -158,6 +170,16 @@
 	</div>
 </body>
 <script>
+$("#libraryService").css('background-color','#337ab7').css("color","white");
+
+$(".menu:eq(0)").css("background-color","#337ab7");
+
+$(".menu").hover(function () {
+    $(this).css("backgroundColor", "red");
+}, function () {
+	 $(".menu:eq(0)").css("background-color","#337ab7");
+     $(".menu:eq(1)").css("backgroundColor", "white");
+})
 
 </script>
 </html>

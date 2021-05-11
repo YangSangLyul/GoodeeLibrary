@@ -14,7 +14,7 @@
             .bookDetail{
             	position: absolute;
             	top: 20%;
-            	left: 15%;
+            	left: 25%;
             }
             .bookDetail th{
             	width:100px;
@@ -27,11 +27,18 @@
 	    			background-color: #e8ecf4;
 	    			border: 1px solid lightgray;
             }
+            #sideBar{
+        		position: absolute;
+        		margin-left: 10%;
+        		margin-top: 3%;
+        	}
         </style>
     </head>
     <body>
     	<jsp:include page="../adminHeader.jsp"/>
+    	<div id="sideBar">
     	<jsp:include page="./bookManageSidebar.jsp"/>
+    	</div>
         <div class="bookDetail">
             <table>
                 <tr>
@@ -92,6 +99,16 @@
         </div>
     </body>
     <script>
-    	$("#adminLibraryBook").css('background-color','#337ab7').css("color","white");
+    	
+        $("#adminLibraryBook").css('background-color','#337ab7').css("color","white");
+        
+    	$(".menu:eq(0)").css("background-color","#337ab7");
+    	
+        $(".menu").hover(function () {
+            $(this).css("backgroundColor", "red");
+        }, function () {
+        	 $(".menu:eq(0)").css("background-color","#337ab7");
+            $(".menu:eq(1)").css("backgroundColor", "white");
+        })
     </script>
 </html>

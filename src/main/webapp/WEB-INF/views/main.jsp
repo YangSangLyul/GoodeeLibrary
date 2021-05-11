@@ -134,6 +134,11 @@
                 z-index: 5; 
                 text-align: center;
             }
+               	button,input[type="button"],input[type="submit"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         

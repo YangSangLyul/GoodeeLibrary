@@ -9,7 +9,7 @@
         <title>navgation bar</title>
         <style>
             #home{
-                font-size: 50;
+                font-size: 50px;
                 color: blue;
             }
 
@@ -118,7 +118,7 @@
             <div id="userMenu">
             <ul>
                 <li class="topMenuLi"> 
-                    <button id="libraryInfo" onclick="location.href='../../../notice'">도서관 이용안내</button>
+                    <button id="libraryInfo" onclick="location.href='../../../wayFind'">도서관 이용안내</button>
                 </li>
     
                 <li class="topMenuLi">

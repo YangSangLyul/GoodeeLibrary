@@ -53,6 +53,11 @@
             #blind{
             	margin-right: 10px;
             }
+            button,input[type="button"],input[type="submit"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
         </style>
     </head>
     <body>
@@ -61,7 +66,7 @@
     	</div>
         <div id="tabMenu">
             <button class="tabBtn" onclick="location.href='ReviewKing'">이달의 리뷰왕</button>
-            <button class="tabBtn" onclick="location.href='ReportList'">신고 리스트</button>
+            <button class="tabBtn" style="background-color:blue;color:white;" onclick="location.href='ReportList'">신고 리스트</button>
             <button class="tabBtn" onclick="location.href='BlindList'">블라인드 리스트</button>
         </div>
         <br/>
@@ -102,6 +107,7 @@
         </table>
     </body>
     <script>
+    	$("#adminLibraryReview").css('background-color','#337ab7').css("color","white");
 		//페이징
 		var showPage = 1;
 	

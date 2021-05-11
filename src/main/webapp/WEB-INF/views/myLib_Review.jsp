@@ -15,7 +15,7 @@
     	
 	    text-align: center;
 	    background-color: white;
-	    width: 200px;
+	    width: 300px;
 	    height: 30px;
 	    margin-left: 40%;
 	    margin-bottom: 1%;
@@ -71,6 +71,11 @@
        left:20%;
        top:80%;
      }
+     	    button,input[type="button"],input[type="submit"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
 </style>
 </head>
 <body>
@@ -101,6 +106,20 @@
     </div>
 </body>
 <script>
+$("#libraryMy").css('background-color','#337ab7').css("color","white");
+
+$(".menu:eq(3)").css("background-color","#337ab7");
+
+$(".menu").hover(function () {
+    $(this).css("backgroundColor", "red");
+}, function () {
+	 $(".menu:eq(3)").css("background-color","#337ab7");
+    $(".menu:eq(1)").css("backgroundColor", "white");
+    $(".menu:eq(0)").css("backgroundColor", "white");
+    $(".menu:eq(2)").css("backgroundColor", "white");
+    $(".menu:eq(4)").css("backgroundColor", "white");
+    $(".menu:eq(5)").css("backgroundColor", "white");
+})
 var showPage=1;
 
 listCall(showPage);

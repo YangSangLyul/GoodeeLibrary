@@ -115,7 +115,20 @@
 
     </body>
     <script>
-    
+    $("#libraryMy").css('background-color','#337ab7').css("color","white");
+
+    $(".menu:eq(0)").css("background-color","#337ab7");
+
+    $(".menu").hover(function () {
+        $(this).css("backgroundColor", "red");
+    }, function () {
+    	 $(".menu:eq(0)").css("background-color","#337ab7");
+        $(".menu:eq(1)").css("backgroundColor", "white");
+        $(".menu:eq(2)").css("backgroundColor", "white");
+        $(".menu:eq(3)").css("backgroundColor", "white");
+        $(".menu:eq(4)").css("backgroundColor", "white");
+        $(".menu:eq(5)").css("backgroundColor", "white");
+    })
     
 	var showPage = 1;
 	

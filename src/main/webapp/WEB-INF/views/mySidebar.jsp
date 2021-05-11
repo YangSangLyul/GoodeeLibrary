@@ -17,7 +17,7 @@
     <style>
         #titleMenu {
             border: 1px solid black;
-            background-color: blue;
+            background-color: #337ab7;
             width: 200px;
             height: 50px;
             text-align: center;

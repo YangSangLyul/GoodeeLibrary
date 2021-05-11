@@ -32,6 +32,11 @@ table, th, td {
 #btn{
 	margin-left: 1400px;
 }
+            button,input[type="button"],input[type="submit"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
 </style>
 </head>
 <body>
@@ -67,6 +72,7 @@ table, th, td {
 	</div>
 </body>
 <script>
+	$("#adminLibraryQuestion").css('background-color','#337ab7').css("color","white");
 	var showPage = 1;
 
 	// 몇개를 보여줄 것인지/몇페이지

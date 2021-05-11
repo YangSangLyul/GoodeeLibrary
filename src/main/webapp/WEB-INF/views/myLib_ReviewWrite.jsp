@@ -14,7 +14,7 @@
     #review{
 	    text-align: center;
 	    background-color: white;
-	    width: 200px;
+	    width: 300px;
 	    height: 30px;
 	    margin-left: 40%;
 	    margin-bottom: 1%;
@@ -106,6 +106,11 @@
 		width: 550px;
     	height: 250px;
 	}
+	    button,input[type="button"],input[type="submit"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
 </style>
 </head>
 <body>

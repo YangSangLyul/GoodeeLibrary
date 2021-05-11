@@ -65,6 +65,11 @@
         		
         		width:200px;
         	}
+        	        	button,input[type="button"],input[type="submit"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         
@@ -112,6 +117,18 @@
 
     </body>
     <script>
+    $("#librarySearch").css('background-color','#337ab7').css("color","white");
+
+    $(".menu:eq(1)").css("background-color","#337ab7");
+
+    $(".menu").hover(function () {
+        $(this).css("backgroundColor", "red");
+    }, function () {
+    	 $(".menu:eq(1)").css("background-color","#337ab7");
+        $(".menu:eq(3)").css("backgroundColor", "white");
+        $(".menu:eq(0)").css("backgroundColor", "white");
+        $(".menu:eq(2)").css("backgroundColor", "white");
+    })
     
     //시계.. printClock, addZeros 함수 인용 출처 : https://bbaksae.tistory.com/23
     function printClock() {

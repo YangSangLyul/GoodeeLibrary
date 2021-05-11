@@ -24,7 +24,7 @@
 	#hopeBook{
 		position: absolute;
 		top: 17%;
-		left: 17%;
+		left: 22%;
 	}
 	.hopeBookBar{
 		text-align: center;
@@ -35,11 +35,18 @@
 	.access{
 		color: blue;
 	}
+    #sideBar{
+        		position: absolute;
+        		margin-left: 10%;
+        		margin-top: 3%;
+    }
 </style>
 </head>
 <body>
     <jsp:include page="../adminHeader.jsp"/>
+    <div id="sideBar">
    	<jsp:include page="./bookManageSidebar.jsp"/>
+   	</div>
 	<div id="hopeBook">
 		<table>
 			<tr>
@@ -66,6 +73,18 @@
 	</div>
 </body>
 <script>
+
+	$("#adminLibraryBook").css('background-color','#337ab7').css("color","white");
+	
+	$(".menu:eq(1)").css("background-color","#337ab7");
+	
+	$(".menu").hover(function () {
+	    $(this).css("backgroundColor", "red");
+	}, function () {
+		 $(".menu:eq(1)").css("background-color","#337ab7");
+	    $(".menu:eq(0)").css("backgroundColor", "white");
+	})
+
 	var showPage = 1;
 
 	// 몇개를 보여줄 것인지/몇페이지

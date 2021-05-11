@@ -13,7 +13,7 @@
     <style>
         #titleMenu {
             border: 1px solid black;
-            background-color: blue;
+            background-color: #337ab7;
             width: 200px;
             height: 50px;
             text-align: center;
@@ -28,11 +28,9 @@
             text-align: center;
             padding-bottom: 20px;
         }
-        #mysidenav a{
-            color:white
-        }
+
         #mysidenav a:link,a:visited{
-            color: white;
+        	color:black;
             text-decoration: none;
         }
     </style>

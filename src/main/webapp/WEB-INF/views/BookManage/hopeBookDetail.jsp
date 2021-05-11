@@ -38,11 +38,23 @@
             	background-color: #c5d8f1ff;
             	
             }
+            button,input[type="button"],input[type="submit"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
+           #sideBar{
+        		position: absolute;
+        		margin-left: 10%;
+        		margin-top: 3%;
+        	}
         </style>
     </head>
     <body>
       	<jsp:include page="../adminHeader.jsp"/>
+      	<div id="sideBar">
     	<jsp:include page="./bookManageSidebar.jsp"/>
+    	</div>
         <div id="hopeBookDetail">
             <table>
                 <tr>
@@ -92,6 +104,18 @@
         </div>
     </body>
     <script>
+	$("#adminLibraryBook").css('background-color','#337ab7').css("color","white");
+	
+	$(".menu:eq(1)").css("background-color","#337ab7");
+	
+	$(".menu").hover(function () {
+	    $(this).css("backgroundColor", "red");
+	}, function () {
+		 $(".menu:eq(1)").css("background-color","#337ab7");
+	    $(".menu:eq(0)").css("backgroundColor", "white");
+	})
+    
+    
 		function reject(){
 			window.open("hopeBookReject?hopeBooksNumber=${dto.hopeBooksNumber}","도서거부", "width=450, height=200, left=100, top=100");
 		}

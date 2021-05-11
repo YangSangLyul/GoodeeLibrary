@@ -106,6 +106,11 @@ h6{
 display:inline;
 color: red;
 }
+                  button,input[type="button"],input[type="submit"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
     </style>
 </head>
 <body>
@@ -177,6 +182,18 @@ color: red;
     </div>
 </body>
 <script type="text/javascript">
+$("#libraryInfo").css('background-color','#337ab7').css("color","white");
+
+$(".menu:eq(3)").css("background-color","#337ab7");
+
+$(".menu").hover(function () {
+    $(this).css("backgroundColor", "red");
+}, function () {
+	 $(".menu:eq(3)").css("background-color","#337ab7");
+    $(".menu:eq(0)").css("backgroundColor", "white");
+    $(".menu:eq(1)").css("backgroundColor", "white");
+    $(".menu:eq(2)").css("backgroundColor", "white");
+})
 var showPage=1;
 
 listCall(showPage); 

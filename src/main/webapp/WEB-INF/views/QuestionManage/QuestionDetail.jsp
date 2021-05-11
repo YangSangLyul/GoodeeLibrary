@@ -31,6 +31,11 @@
         	overflow: scroll;
         	word-break:break-all;
         }
+                    button,input[type="button"],input[type="submit"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
     </style>
 </head>
 
@@ -70,7 +75,7 @@
     </div>
 </body>
 <script>
-
+$("#adminLibraryQuestion").css('background-color','#337ab7').css("color","white");
 	var msg = "${msg}";
 	
 	if(msg != ""){

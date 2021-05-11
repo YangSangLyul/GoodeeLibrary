@@ -6,10 +6,10 @@
         <title>J-Query</title>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <style>
-			table, th, td{
+			table, tr,th, td{
                 border: 1px solid black;
                 border-collapse: collapse;
-                padding: 5px 10px;
+                padding: 20px 10px;
             }
             .recommendBook{
             	position: absolute;
@@ -30,11 +30,23 @@
             	color: #c5d8f1ff;
             	text-align: center;
             }
+            button,input[type="button"],input[type="submit"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
+            #sideBar{
+        		position: absolute;
+        		margin-left: 10%;
+        		margin-top: 3%;
+        	}
         </style>
     </head>
     <body>
         <jsp:include page="../adminHeader.jsp"/>
+        <div id="sideBar">
     	<jsp:include page="./bookManageSidebar.jsp"/>
+    	</div>
         <div class='recommendBook'>
             <h2 id="recommendBookTitle">사서 추천 도서</h2>
             <form action="insertRecommendBook" method="POST">
@@ -55,6 +67,15 @@
         </div>
     </body>
     <script>
-
+    $("#adminLibraryBook").css('background-color','#337ab7').css("color","white");
+    
+	$(".menu:eq(0)").css("background-color","#337ab7");
+	
+    $(".menu").hover(function () {
+        $(this).css("backgroundColor", "red");
+    }, function () {
+    	 $(".menu:eq(0)").css("background-color","#337ab7");
+        $(".menu:eq(1)").css("backgroundColor", "white");
+    })
     </script>
 </html>

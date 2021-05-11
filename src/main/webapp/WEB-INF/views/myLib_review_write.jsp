@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>나의 리뷰내역</title>
+<title>나의 리뷰작성</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
 	#sideBar{
@@ -14,7 +14,7 @@
     #review{
 	    text-align: center;
 	    background-color: white;
-	    width: 200px;
+	    width: 500px;
 	    height: 30px;
 	    margin-left: 40%;
 	    margin-bottom: 1%;

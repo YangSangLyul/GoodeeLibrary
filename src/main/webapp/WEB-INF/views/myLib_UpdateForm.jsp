@@ -77,6 +77,17 @@ input[type="text"] {
 .upbtn{
 	text-align: center;
 }
+   	button,input[type="button"],input[type="submit"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
+            
+    #id{
+    	background-color: blue;
+    	color:white;
+    }
+            
 </style>
 </head>
 <body>
@@ -92,7 +103,7 @@ input[type="text"] {
 			<table id="findFields">
 				<tr>
 					<td id="title">아이디</td>
-					<td><input type="text" id="id" name="id" value="${sessionScope.loginId}" readonly /> </td>
+					<td><input type="text" id="id" name="id" value="${sessionScope.loginId}" readonly/> </td>
 				</tr>
 				<tr>
 					<td id="title">이름</td>
@@ -108,7 +119,7 @@ input[type="text"] {
 				</tr>
 			</table>
 		</form>
-		<div class="upp"><a id="updatePw" href="myLib_UpdatePwForm">비밀번호 변경하기</a></div>
+		<div class="upp"><a id="updatePw" href="myLib_UpdatePwForm" target="_blank">비밀번호 변경하기</a></div>
 		<div class="upbtn">
 			<button id="mybtn" onclick="update()">수정</button>
 			<button id="mybtn" onclick="location.href='myLib_Update'">취소</button>
@@ -116,6 +127,21 @@ input[type="text"] {
 	</div>
 </body>
 <script>
+$("#libraryMy").css('background-color','#337ab7').css("color","white");
+
+$(".menu:eq(5)").css("background-color","#337ab7");
+
+$(".menu").hover(function () {
+    $(this).css("backgroundColor", "red");
+}, function () {
+	 $(".menu:eq(5)").css("background-color","#337ab7");
+    $(".menu:eq(1)").css("backgroundColor", "white");
+    $(".menu:eq(0)").css("backgroundColor", "white");
+    $(".menu:eq(2)").css("backgroundColor", "white");
+    $(".menu:eq(3)").css("backgroundColor", "white");
+    $(".menu:eq(4)").css("backgroundColor", "white");
+})
+
 var msg = "${msg}"; 
 if (msg != "") {  
 	alert(msg); 
