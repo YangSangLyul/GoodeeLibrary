@@ -74,7 +74,7 @@
 	
 	<select id="reserve_list" resultType="hashMap">
 	SELECT  * FROM( 
-		SELECT ROW_NUMBER() OVER(ORDER BY b.bookidx DESC) AS rnum,b.bookIdx,b.bookstate "bstate",b.bookname,r.bookstate "rstate",r.id,r.reg_date,r.reservebookidx  FROM book b FULL OUTER JOIN reserveBook r ON b.bookidx = r.bookidx WHERE id=#{param3}
+		SELECT ROW_NUMBER() OVER(ORDER BY r.reservebookidx DESC) AS rnum,b.bookIdx,b.bookstate "bstate",b.bookname,r.bookstate "rstate",r.id,r.reg_date,r.reservebookidx  FROM book b FULL OUTER JOIN reserveBook r ON b.bookidx = r.bookidx WHERE id=#{param3}
 	)WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
 	
