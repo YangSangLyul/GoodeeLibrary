@@ -31,6 +31,10 @@
 		background-color: #c5d8f1ff;
 		font-weight: 600; 
 	}
+	
+	.access{
+		color: blue;
+	}
 </style>
 </head>
 <body>
@@ -100,15 +104,15 @@
 			for (var i = 0; i < list.length; i++) {
 				content += "<tr>";
 				content += "<td>"+list[i].hopeBooksNumber+"</td>";
-				content += "<td><a href='hopeBookDetail?hopeBooksNumber="+list[i].hopeBooksNumber+"'>"+list[i].hb_bookName+"</a></td>";
+				content += "<td><a style='color:blue;text-decoration:underline;' href='hopeBookDetail?hopeBooksNumber="+list[i].hopeBooksNumber+"'>"+list[i].hb_bookName+"</a></td>";
 				content += "<td>"+list[i].publisher+"</td>";
 				content += "<td>"+list[i].id+"</td>";
 				if(list[i].hb_state == 'H001') {					
-					content += "<td>신청중</td>";
+					content += "<td style='color: gray;'>신청중</td>";
 				} else if(list[i].hb_state == 'H002') {					
-					content += "<td>승인</td>";
+					content += "<td class='access'>승인</td>";
 				} else {					
-					content += "<td>거절</td>";
+					content += "<td style='color: red;'>거절</td>";
 				}
 				content += "</tr>";
 			}

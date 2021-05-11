@@ -29,27 +29,36 @@ table, th, td {
 	text-align: center;
 }
 
-#filter {
-	display: none;
+#filter{
+	margin-bottom:10px;
 }
+           button,input[type="button"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
+                    	#sideBar{
+        		position: absolute;
+        		margin-left: 10%;
+        		margin-top: 3%;
+        	}
 </style>
 </head>
 
 <body>
    	<jsp:include page="../adminHeader.jsp"/>
+   	<div id="sideBar">
     <jsp:include page="./bookManageSidebar.jsp"/>
+    </div>
 	<div id="bookManageMain">
-<!-- 		<div id="bookFilter">
-			<button id="toggle">필터 옵션</button>
+		<div id="bookFilter">
 				<div id="filter">
-					<span><input type="checkbox" name="filter" value="R001" />예약중</span>
-					<span><input type="checkbox" name="filter" value="B001" />예약가능</span>
-					<span><input type="checkbox" name="filter" value="B002" />예약불가</span>
-					<span><input type="checkbox" name="filter" value="B007" />숨김</span>
-					<span><button onclick="normalBookFilter(1)" >검색</button></span>
+					<span style="font-weight: 600;">필터 선택 </span>
+					<span><input type="button" class="filter" name="filter" value="예약중" onclick="initialize('reserve')" /></span>
+					<span><input type="button" class="filter"name="filter" value="모두보기" onclick="initialize('all')"/></span>
 				</div>
-		</div> -->
-		<button onclick="location.href='bookManageInsert'">도서 등록</button>
+		</div>
+		<button style="color:#0070c0;" onclick="location.href='bookManageInsert'">도서 등록</button>
 		<div>
 			<table>
 				<tbody id="list">
@@ -70,10 +79,23 @@ table, th, td {
 	</div>
 </body>
 <script>
+		$("#adminLibraryBook").css('background-color','#337ab7').css("color","white");
+
 		var showPage = 1;
+		var showAll = "all";
+        
+		$(".menu:eq(0)").css("background-color","#337ab7");
+		
+        $(".menu").hover(function () {
+            $(this).css("backgroundColor", "red");
+        }, function () {
+        	 $(".menu:eq(0)").css("background-color","#337ab7");
+            $(".menu:eq(1)").css("backgroundColor", "white");
+        })
+       
 		
 		// 몇개를 보여줄 것인지/몇페이지
-		listCall(showPage); // 시작하자마자 이 함수를 호출
+		listCall(showPage,showAll); // 시작하자마자 이 함수를 호출
 		
 		function normalBookFilter(reqPage) {
 			var params = {};
@@ -102,9 +124,20 @@ table, th, td {
 			});
 			
 		}
-		function listCall(reqPage){
+		
+		function initialize(filter){
+			
+			$("#pagination").twbsPagination('destroy');
+			listCall(1,filter);
+		}
+
+		
+		
+		function listCall(reqPage,reqFilter){
+			
 			$("#pageination").empty();
-			var reqUrl = './normalBookManage/'+reqPage;
+			console.log()
+			var reqUrl = './normalBookManage/'+reqPage+"/"+reqFilter;
 			$.ajax({
 				url:reqUrl,
 				type:'GET',
@@ -118,9 +151,10 @@ table, th, td {
 					$("#pagination").twbsPagination({
 						startPage : data.currPage, // 시작 페이지
 						totalPages : data.range, // 생성 가능한 최대 페이지
-						visiblePages: 10, // 5개씩 보여 주겠다.(1~5)
+						visiblePages: 5, // 5개씩 보여 주겠다.(1~5)
 						onPageClick:function(evt, page) { // 각 페이지를 눌렀을 경우
-							listCall(page);
+							console.log(data.filter,'현재 필터!')
+							listCall(page,data.filter);
 						}
 					});
 				},
@@ -132,7 +166,7 @@ table, th, td {
 		
 		function listPrint(list) {
 			var content = "";
-
+			
 			if(list.length > 0) {
 				for (var i = 0; i < list.length; i++) {
 					content += "<tr>";
@@ -184,7 +218,7 @@ table, th, td {
 						reserveNum = bookList.reserveBookDTO[0].reserveBookIdx;
 						console.log("id : " + id + " / bookName : " + bookName+" / 예약번호 "+reserveNum);
 						if(reserveBookState == 'R001') {
-								return "예약중 : " + id + " <button onclick='userReserveNotification(\""+ bookName + "/" + id+"/"+reserveNum+"\")'>예약승인</button>";
+								return "예약중 : " + id + " <button style='color:#0070c0;' onclick='userReserveNotification(\""+ bookName + "/" + id+"/"+reserveNum+"\")'>예약승인</button>";
 						} else if(reserveBookState == 'R002') {
 							return "대여중";
 						} else if(reserveBookState == 'R003') {

@@ -71,4 +71,8 @@ public interface BookDAO {
 	int reserveBookCnt();
 
 	int bookFilterCnt(ArrayList<String> filterList, int size, String isReserve);
+
+	int reserveAllCnt();
+
+	ArrayList<BookDTO> filterBookList(int start, int end);
 }

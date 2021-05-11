@@ -22,6 +22,11 @@
             .bookDetail td{
             	width:500px;
             }
+            button,input[type="button"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
         </style>
     </head>
     <body>
@@ -82,11 +87,11 @@
                     </c:if>
                 </tr>
             </table>
-            <button onclick="location.href='recommendBook?bookIdx=${dto.bookIdx}&bookName=${dto.bookName}'">사서의 추천도서 추가하기</button>
-            <button onclick="location.href='bookList'">목록</button>
+            <button style="color: #0070c0; margin-top:10px;" onclick="location.href='recommendBook?bookIdx=${dto.bookIdx}&bookName=${dto.bookName}'">사서의 추천도서 추가하기</button>
+            <button style="color: #0070c0; margin-top:10px;" onclick="location.href='bookList'">목록</button>
         </div>
     </body>
     <script>
-
+    	$("#adminLibraryBook").css('background-color','#337ab7').css("color","white");
     </script>
 </html>

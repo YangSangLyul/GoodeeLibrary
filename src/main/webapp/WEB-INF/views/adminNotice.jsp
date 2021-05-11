@@ -42,6 +42,11 @@
     			top: 280px;
                 padding: 5px 10px;
             }
+           button,input[type="button"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
         </style>
     </head>
     <body>
@@ -101,6 +106,7 @@
 		listCall(showPage); //시작하자마자 이 함수를 호출
 		
 		function listCall(reqPage){
+			$("#adminLibraryInfo").css('background-color','#337ab7').css("color","white");
 			//restful service는 ajax를 통해 호출하여 사용하는 경우가 많지만
 			//그렇다고 restful service == ajax 라고 생각해서는 안된다.
 			var reqUrl = './adminNotice/'+reqPage;
@@ -156,5 +162,7 @@
 	    if(msg != ""){
 	    	alert(msg);
 	    }
+	    
+	    
     </script>
 </html>

@@ -30,6 +30,11 @@
             #btn{
                 margin-left: 665px;
             }
+           button,input[type="button"]{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
+            }
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
@@ -66,6 +71,8 @@
     	</div>
     </body>
     <script>
+    	$("#adminLibraryInfo").css('background-color','#337ab7').css("color","white");
+    
 	    var msg = "${msg}";
 	    if(msg != ""){
 	    	alert(msg);

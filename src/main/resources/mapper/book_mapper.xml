@@ -45,6 +45,26 @@
 		SELECT COUNT(*) FROM book
 	</select>
 	
+	
+	<select id="reserveAllCnt" resultType="integer">
+		SELECT COUNT(*) FROM reservebook WHERE bookstate = 'R003'
+	</select>
+	
+	<select id="filterBookList" resultMap="book">
+		SELECT b.bookIdx, b.bookName, b.writer, b.story, b.publisher, b.bookImg, b.bookState, r.reserveBookIdx, reserveBookState, r.id, r.reg_date, rnum
+		FROM (
+		    SELECT b.bookIdx, b.bookName, b.writer, b.story, b.publisher, b.bookImg, b.bookState
+		        FROM book b 
+		        WHERE b.bookstate IN('B001','B002','B003','B004','B005','B006','B007')
+		    ) B LEFT JOIN (
+		    SELECT r.reserveBookIdx, r.bookidx, r.bookState AS reserveBookState, r.id, r.reg_date 
+		    , ROW_NUMBER() OVER(ORDER BY r.bookState DESC) AS rnum 
+		    FROM reserveBook r 
+		    WHERE r.bookstate = 'R001' ORDER BY r.reg_date DESC) R
+		ON b.bookidx = r.bookidx
+		WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
 	<select id="normalBookFilter" parameterType="list" resultMap="book">
 		SELECT b.bookIdx, b.bookName, b.writer, b.story, b.publisher, b.bookImg, b.bookState, r.reserveBookIdx, reserveBookState, r.id, r.reg_date, rnum
 		FROM (

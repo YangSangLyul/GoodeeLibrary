@@ -158,7 +158,7 @@ public class reserveSeatService {
 
 		int success = 0;
 		int reserveNum = 0;
-		Date end;
+		String end;
 		
 		
 		success = reserveSeatDAO.seatEnterReq(loginId);

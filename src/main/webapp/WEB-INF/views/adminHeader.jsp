@@ -12,6 +12,18 @@
                 font-size: 50;
                 color: blue;
             }
+            
+           #home a:link { 
+                color: blue; 
+                text-decoration: none;
+            }
+            #home a:visited {
+                color: blue; 
+                text-decoration: none;
+            }
+            #home a:hover {
+                color: blue;
+            }
 
             #topMenu{
                 height: 30px;

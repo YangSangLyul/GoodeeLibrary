@@ -38,9 +38,9 @@ public interface ReserveSeatDAO {
 
 	int exitTimeChk(String string);
 
-	Date mySeatEnd(String loginId);
+	String mySeatEnd(String loginId);
 
-	void autoMySeatExit(String loginId, int reserveNum, Date end);
+	void autoMySeatExit(String loginId, int reserveNum, String end);
 
 	
 

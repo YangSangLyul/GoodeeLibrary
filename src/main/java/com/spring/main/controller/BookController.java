@@ -41,10 +41,10 @@ public class BookController {
 	}
 	
 	// 일반 도서 관리 - 페이징
-	@RequestMapping(value = "/normalBookManage/{page}", method = RequestMethod.GET)
-	public @ResponseBody HashMap<String, Object> normalBookManage(@PathVariable int page) {
+	@RequestMapping(value = "/normalBookManage/{page}/{filter}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> normalBookManage(@PathVariable int page,@PathVariable String filter) {
 		logger.info("page : " + page);
-		return service.bookList(page);
+		return service.bookList(page,filter);
 	}
 	
 	// 희망 도서 페이지로 이동

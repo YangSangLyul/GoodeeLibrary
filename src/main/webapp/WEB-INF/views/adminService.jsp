@@ -21,6 +21,18 @@
                 color: blue;
                 margin-left: 170px;
             }
+            
+            #home a:link { 
+                color: blue; 
+                text-decoration: none;
+            }
+            #home a:visited {
+                color: blue; 
+                text-decoration: none;
+            }
+            #home a:hover {
+                color: blue;
+            }
             #tabMenu, h3{
                 width: 800px;
                 margin: 20px 550px;
@@ -88,6 +100,12 @@
             }
             #loginOnBox a:hover {
                 color: blue;
+            }
+            
+            button{
+            		color: #0070c0;
+	    			background-color: #e8ecf4;
+	    			border: 1px solid lightgray;
             }
         </style>
     </head>

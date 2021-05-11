@@ -10,6 +10,7 @@
                 border: 1px solid black;
                 border-collapse: collapse;
                 padding: 5px 10px;
+                text-align: center;
             }
             #hopeBookDetail{
             	position: absolute;
@@ -19,6 +20,7 @@
             #hopeBookDetail th{
             	width: 200px;
             	height: 60px;
+            	text-align: center;
             }
             #hopeBookDetail td{
             	width: 500px;
@@ -28,14 +30,13 @@
             }
             #hopeBookList button{
             	background-color: #c5d8f1ff;
-            	border: none;
             }
             #hopeBookYN{
             	text-align: right;
             }
             #hopeBookYN button{
             	background-color: #c5d8f1ff;
-            	border: none;
+            	
             }
         </style>
     </head>
@@ -75,7 +76,7 @@
                 </tr>
                 </c:if>
                 <tr>
-                    <td colspan="2"><div id="hopeBookList"><button onclick="location.href='/main/hopeBookList'">목록</button></div></td>
+                    <td colspan="2"><div id="hopeBookList"><button onclick="location.href='./hopeBookList'">목록</button></div></td>
                 </tr>
                 <c:if test="${dto.hb_state eq 'H001' }">
 	                <tr>

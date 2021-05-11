@@ -153,13 +153,20 @@ public class BookService {
 		return page;
 	}
 
-	public HashMap<String, Object> bookList(int page) {
+	public HashMap<String, Object> bookList(int page, String filter) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int pagePerCnt = 5;
-		int allCnt = dao.allCnt(); 		// 전체 게시글 수
-		int range = (int) (allCnt % pagePerCnt > 0 ? Math.floor((allCnt/pagePerCnt))+1 : Math.floor((allCnt/pagePerCnt)));
-		
+		int allCnt = 0;
+		int range = 0;
+		if(filter.equals("all")) {
+			allCnt = dao.allCnt(); 		// 전체 게시글 수
+			map.put("filter", filter);
+		}else if(filter.equals("reserve")) {
+			allCnt = dao.reserveAllCnt(); 		// 전체 게시글 수
+			map.put("filter", filter);
+		}
+		range = (int) (allCnt % pagePerCnt > 0 ? Math.floor((allCnt/pagePerCnt))+1 : Math.floor((allCnt/pagePerCnt)));
 		page = page > range ? range : page;
 		logger.info("range : " + range + " / page : " + page);
 		// 시작 페이지, 끝 페이지
@@ -167,11 +174,19 @@ public class BookService {
 		int start = end - pagePerCnt + 1;
 		
 		logger.info("start : " + start + " / end : " + end);
+		if(filter.equals("all")) {
+			ArrayList<BookDTO> list = dao.bookList(start,end);	
+			map.put("list", list);
+		}else if(filter.equals("reserve")) {
+			logger.info("예약중 필터 요청");
+			ArrayList<BookDTO> filterList = dao.filterBookList(start,end);
+			map.put("list", filterList);
+		}
 		
-		ArrayList<BookDTO> list = dao.bookList(start,end);
-		map.put("list", list);
+		
 		map.put("range", range);
 		map.put("currPage", page);
+		
 		return map;
 	}
 

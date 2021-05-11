@@ -46,11 +46,11 @@
 	</insert>
 	
 	<update id="autoMySeatExit">
-		UPDATE useseat SET useend = #{param3}
-		WHERE id = #{param1} AND rservenumber = #{param2}
+		UPDATE useseat SET useend = TO_DATE(#{param3},'YYYY-MM-DD HH24:MI:SS')
+		WHERE id = #{param1} AND reservenumber = #{param2}
 	</update>
 	
-	<select id="mySeatEnd" resultType="Date">
+	<select id="mySeatEnd" resultType="String">
 		SELECT reserveend + (interval '1' hour) hour2 FROM reserveseat WHERE id=#{param1} AND seatstatus = 'S003'
 	</select>
 	
