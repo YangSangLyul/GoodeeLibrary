@@ -154,7 +154,7 @@
 
 		    </c:if>
             
-            <button id="back">이전으로</button>
+            <button id="back" onclick="history.go(-1)">이전으로</button>
         </div>
         
 
@@ -184,9 +184,6 @@
     		alert(cantReserveMsg);
     	}
     
-    	$("#back").click(function() {
-    		location.href = 'booksSearch';
-    	});
     	
     </script>
 

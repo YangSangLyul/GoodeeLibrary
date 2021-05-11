@@ -97,7 +97,7 @@
                 <option value="저자">저자</option>
             </select>
 
-            <input type="text" id="searchContent" name="searchContent" placeholder="검색어를 입력 해 주세요."/>
+            <input type="text" id="searchContent" name="searchContent" placeholder="검색어를 입력 해 주세요." value="${searchText}"/>
 
             <input type="button" id="searchBtn" value="검색"/>
         </div>
