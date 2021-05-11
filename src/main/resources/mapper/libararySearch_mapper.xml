@@ -64,4 +64,20 @@
 		SELECT * FROM book WHERE bookidx = #{bookIdx}
 	</select>
 	
+	<select id="reserveCount" resultType="integer" parameterType="hashMap">
+		SELECT COUNT(*) FROM reservebook WHERE  bookidx = #{bookIdx} AND bookstate = 'R001'
+	</select>
+	
+	<update id="cantReserveUpdate" parameterType="hashMap">
+		UPDATE book SET bookstate = 'B002' WHERE bookidx = #{bookIdx}
+	</update>
+	
+	<update id="canReserveUpdate">
+		UPDATE book SET bookstate = 'B001' WHERE bookidx = #{param1}
+	</update>
+	
+	<select id="reserveBookOfIdx" resultType="String">
+		SELECT bookidx FROM reservebook WHERE reservebookidx = #{param1}
+	</select>
+	
 </mapper>

@@ -118,7 +118,7 @@
         <c:forEach items="${searchList}" var="books">
         <div class="searchResultContent">
             <div class="searchImg">
-                <a href="searchResultDetail?bookIdx=${books.bookIdx}"><img src="${books.bookImg}"/></a>
+                <a href="searchResultDetail?bookIdx=${books.bookIdx}&&searchContent=${searchText}"><img src="${books.bookImg}"/></a>
             </div>
             <div class="searchBookName">
                 <p>${books.bookName}</p>

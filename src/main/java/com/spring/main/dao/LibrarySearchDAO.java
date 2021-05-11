@@ -29,4 +29,12 @@ public interface  LibrarySearchDAO {
 
 	int RentalChk(String loginId);
 
+	int reserveCount(HashMap<String, String> params);
+
+	void cantReserveUpdate(HashMap<String, String> params);
+
+	void canReserveUpdate(String bookIdx);
+
+	String reserveBookOfIdx(String reserveBookIdx);
+
 }

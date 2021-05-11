@@ -151,15 +151,19 @@
             </div>
             <c:if test="${reserveCnt <= '2'}">
 		                <button id="reserve" onclick="location.href='reserveBook?bookIdx=${searchDetail.bookIdx}'">도서예약</button>
-
+						<!-- <button id="back" onclick="location.href='booksSearch'">이전으로</button> -->
+						<button id="back" onclick="location.href='booksSearch'">이전으로</button>
 		    </c:if>
-            
-            <button id="back" onclick="history.go(-1)">이전으로</button>
+		    <c:if test="${reserveCnt >= '3'}">
+            <button id="back" onclick="location.href='booksSearch'">이전으로</button>
+            </c:if>
         </div>
         
 
     </body>
     <script>
+   
+    
     $("#librarySearch").css('background-color','#337ab7').css("color","white");
 
     $(".menu:eq(0)").css("background-color","#337ab7");

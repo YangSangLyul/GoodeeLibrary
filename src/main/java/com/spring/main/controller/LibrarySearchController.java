@@ -41,6 +41,7 @@ public class LibrarySearchController {
 		int success = dao.maximumRentalChk(loginId);
 		int reserveSuccess = 0;
 		int cnt = 0;
+		int reserveCount = 0;
 		
 		//베스트 리뷰왕이므로 대여 3번가능
 		if(success > 0) {
@@ -52,6 +53,11 @@ public class LibrarySearchController {
 				msg = "";
 			}else {
 				reserveSuccess = service.reserveBook(params);
+				reserveCount = service.reserveCount(params);
+				if(reserveCount >= 3) {
+					service.cantReserveUpdate(params);
+					logger.info("예약횟수가 3명이므로 도서상태를 예약불가로 변경");
+				}
 			}
 		//베스트 리뷰왕이 아니므로 대여 2번 가능
 		}else {
@@ -63,6 +69,11 @@ public class LibrarySearchController {
 				msg = "";
 			}else {
 				reserveSuccess = service.reserveBook(params);
+				reserveCount = service.reserveCount(params);
+				if(reserveCount >= 3) {
+					service.cantReserveUpdate(params);
+					logger.info("예약횟수가 3명이므로 도서상태를 예약불가로 변경");
+				}
 			}
 		}
 
@@ -81,9 +92,13 @@ public class LibrarySearchController {
 	}
 	
 	@RequestMapping(value = "/reserveBookCancel", method = RequestMethod.GET)
-	public String reserveBookCancel(@RequestParam String reserveBookIdx) {
+	public String reserveBookCancel(@RequestParam String reserveBookIdx,@RequestParam String bookIdx) {
 		logger.info("예약 취소하기 : " + reserveBookIdx);
 		int success = service.reserveBookCancel(reserveBookIdx);
+		if(success > 0) {
+			service.canReserveUpdate(bookIdx);
+			logger.info("예약취소했으니 B001로 변경");
+		}
 		logger.info("예약 취소 성공 여부 : " + success);
 		
 		return "redirect:/MyBook";
@@ -92,11 +107,13 @@ public class LibrarySearchController {
 	@RequestMapping(value = "/rentalBook", method = RequestMethod.GET)
 	public String rentalBook(@RequestParam String reserveBookIdx,@RequestParam String noticeIdx, HttpSession session) {
 		logger.info("대여하기 : " + reserveBookIdx);
+		String bookIdx = service.reserveBookOfIdx(reserveBookIdx);
 		int success = service.rentalBook(reserveBookIdx,session);
 		
 		if(success > 0) {
 			//대여 성공 시 알림 읽음 처리 하는 작업
 			service.notificationRead(noticeIdx);
+			service.canReserveUpdate(bookIdx);
 		}
 		logger.info("대여 성공 여부 : " + success);
 		
@@ -104,7 +121,7 @@ public class LibrarySearchController {
 	}
 	
 	@RequestMapping(value = "/returnBook", method = RequestMethod.GET)
-	public String returnBook(@RequestParam String reserveBookIdx) {
+	public String returnBook(@RequestParam String reserveBookIdx,@RequestParam String bookIdx) {
 		logger.info("반납하기 : " + reserveBookIdx);
 		int success = service.returnBook(reserveBookIdx);
 		logger.info("반납 성공 여부 : " + success);

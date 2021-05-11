@@ -135,4 +135,24 @@ public class LibrarySearchService {
 		
 	}
 
+	public int reserveCount(HashMap<String, String> params) {
+		
+		return dao.reserveCount(params);
+	}
+
+	public void cantReserveUpdate(HashMap<String, String> params) {
+		dao.cantReserveUpdate(params);
+		
+	}
+
+	public void canReserveUpdate(String bookIdx) {
+		dao.canReserveUpdate(bookIdx);
+		
+	}
+
+	public String reserveBookOfIdx(String reserveBookIdx) {
+		
+		return dao.reserveBookOfIdx(reserveBookIdx);
+	}
+
 }
