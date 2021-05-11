@@ -71,11 +71,11 @@
 		                <td><input type="hidden" id="stateR" name="popup"/></td>
 		            </tr>
 		        </table>
+    		</form>
 		        <div id="btn">
 		        	<input type="button" value="작성완료" onclick="popupState()">
 		            <button onclick="location.href='adminNotice'">닫기</button>
 		        </div>
-    		</form>
     	</div>
     </body>
     <script>
