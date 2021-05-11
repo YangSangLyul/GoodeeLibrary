@@ -427,13 +427,13 @@
             
         var startTime = "${intStart}";
         var currentDate = new Date();                                     // 현재시간
-        var currentHours = addZeros(currentDate.getHours(),2); 
-        var currentMinute = addZeros(currentDate.getMinutes() ,2);
+        var currentHours = currentDate.getHours(); 
+        var currentMinute = currentDate.getMinutes();
         
         console.log(startTime,"/",currentHours);
         
         //예약시간 10분전에는 예약을 취소할 수 없다...
-        if(!(startTime <= currentHours && currentMinute >= 50) || startTime < currentHours){
+        if((startTime < currentHours && currentMinute >= 50) || startTime < currentHours){
         	console.log('현재 예약취소할 수 있는 시간 아님!');
         	alert('예약시간 10분전까지만 예약을 취소할 수 있습니다!');
         } else{
