@@ -44,7 +44,7 @@
 
 <body>
     <div id="mysidenav" class="sidenav">
-        <div id="titleMenu"><a href="">도서관메뉴</a></div>
+        <div id="titleMenu"><a href="">마이 라이브러리</a></div>
         <div class="menu">
             <a href="myLib_reserveSeatInOut" >입실|퇴실 내역</a>
         </div>

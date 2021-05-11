@@ -38,7 +38,7 @@
 
 <body>
     <div id="mysidenav" class="sidenav">
-        <div id="titleMenu"><a href="">도서관메뉴</a></div>
+        <div id="titleMenu"><a href="">자료 검색</a></div>
         <div class="menu" id="bookSearch">
             <p>도서 검색</p>
         </div>
