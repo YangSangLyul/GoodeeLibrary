@@ -271,6 +271,7 @@
     
     //시작은 무조건 사서 추천도서 5개 불러오기
 	listCall();
+    var showPage = 1;
 	
 	//사서 추천도서
 	function listCall(){
@@ -387,7 +388,7 @@
 		var month = printClock();
 		//restful service 는 ajax를 통해 호출하여 사용하는 경우가 많지만
 		//그렇다고 restful service == ajax 라고 생각해서는 안된다..
-		var reqUrl = './authorRecommendBooksList/'+month;
+		var reqUrl = './newBooks/'+month+"/"+showPage;
 		console.log(reqUrl);
 		$.ajax({
 			url:reqUrl
