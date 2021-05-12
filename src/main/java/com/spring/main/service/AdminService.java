@@ -145,6 +145,9 @@ public class AdminService {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("success", dao.blindReasonTxt(params));
 		mav.addObject("update", dao.reportFal(params));
+		
+		dao.blindIn(params);
+		
 		mav.setViewName("redirect:/BlindList");
 		return mav;
 	}
@@ -164,9 +167,12 @@ public class AdminService {
 	public ModelAndView blindRemove(int blindIdx, RedirectAttributes attr) {
 		logger.info("블라인드리스트 해제 요청");
 		ModelAndView mav = new ModelAndView();
+		String reviewIdx = dao.blindReviewIdx(blindIdx);
 		String msg = "";
 		if(dao.blindRemove(blindIdx)>0) {
 			msg = "해제 되었습니다.";
+			
+			dao.blindOut(reviewIdx);
 		}
 		attr.addFlashAttribute("msg", msg);
 		mav.setViewName("redirect:/BlindList");

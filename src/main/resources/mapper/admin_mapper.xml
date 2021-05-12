@@ -82,6 +82,18 @@
 			VALUES(BLIND_SEQ.NEXTVAL, #{reportIdx}, #{reviewIdx}, #{WhyBlind})
 	</insert>
 	
+	<select id="blindReviewIdx" resultType="String">
+		SELECT reviewidx FROM reviewblind WHERE blindidx = #{param1} AND blind_status = 'TRUE'
+	</select>
+	
+	<update id="blindIn" parameterType="HashMap">
+		UPDATE review SET blind_status = 'Y' WHERE reviewidx = #{reviewIdx}
+	</update>
+	
+	<update id="blindOut" parameterType="HashMap">
+		UPDATE review SET blind_status = 'N' WHERE reviewidx = #{param1}
+	</update>
+	
 	<update id="reportFal" parameterType="HashMap">
 		UPDATE reviewreport SET reportStatus='TRUE' WHERE reportIdx=#{reportIdx}
 	</update>

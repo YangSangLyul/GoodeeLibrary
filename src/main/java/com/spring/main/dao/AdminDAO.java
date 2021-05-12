@@ -59,5 +59,11 @@ public interface AdminDAO {
 
 	void questionAnswerStatus(HashMap<String, Object> params);
 
+	void blindIn(HashMap<String, Object> params);
+
+	String blindReviewIdx(int blindIdx);
+
+	void blindOut(String reviewIdx);
+
 
 }
