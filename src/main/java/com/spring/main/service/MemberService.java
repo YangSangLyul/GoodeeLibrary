@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.MemberDAO;
 import com.spring.main.dto.MemberDTO;
@@ -159,7 +160,7 @@ public class MemberService {
 		return mav;
 	}
 	
-	public ModelAndView memWithdraw(HttpSession session) {
+	public ModelAndView memWithdraw(HttpSession session,RedirectAttributes attr) {
 		String loginId = (String) session.getAttribute("loginId");
 		logger.info("탈퇴할 회원 id:"+loginId);
 		
@@ -169,11 +170,11 @@ public class MemberService {
 		
 		page = "redirect:/myLib_Update";
 		if(success>0) {
-			page="main";
+			page="redirect:/";
 			msg = "정상적으로 탈퇴처리 되었습니다. ";
 		}
 		logger.info("탈퇴성공여부:"+success);
-		mav.addObject("msg", msg);
+		attr.addFlashAttribute("msg", msg);
 		mav.setViewName(page);
 		session.removeAttribute("loginId");
 		return mav;

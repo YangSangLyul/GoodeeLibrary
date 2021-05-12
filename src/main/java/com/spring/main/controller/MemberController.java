@@ -43,7 +43,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public String join(Model model,@RequestParam HashMap<String, String> params) {
+	public String join(Model model,@RequestParam HashMap<String, String> params,RedirectAttributes attr) {
 		logger.info("params:"+params);
 		
 		page = "joinForm";
@@ -52,7 +52,7 @@ public class MemberController {
 			page = "redirect:/memLogin";
 			msg = "회원가입을 축하드립니다.";
 		}
-		model.addAttribute("msg",msg);
+		attr.addFlashAttribute("msg",msg);
 		return page;
 	}
 	
@@ -85,11 +85,10 @@ public class MemberController {
 			
 			if(service.withdraw(params).equals("TRUE")) {
 				msg = "탈퇴한 회원입니다.";
-				rAttr.addFlashAttribute("msg", msg);
 				return "redirect:/memLogin";
 			}
 		}
-		model.addAttribute("msg", msg);
+		rAttr.addFlashAttribute("msg", msg);
 		return page;
 	}
 	
@@ -173,9 +172,9 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/memWithdraw", method = RequestMethod.POST)
-	public ModelAndView memWithdraw(HttpSession session) {
+	public ModelAndView memWithdraw(HttpSession session,RedirectAttributes attr) {
 		logger.info("회원탈퇴 요청");
-		return service.memWithdraw(session);
+		return service.memWithdraw(session,attr);
 	}
 	
 	@RequestMapping(value = "/myLib_UpdatePwForm")
