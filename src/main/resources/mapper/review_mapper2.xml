@@ -17,8 +17,8 @@
 	<select id="reviewList" resultType="review" parameterType="list">
 		SELECT * FROM (
 			SELECT ROW_NUMBER() OVER(ORDER BY r.reg_date DESC) 
-				AS rnum, r.id, r.cnt, r.reg_date, r.reviewIdx, b.bookIdx, b.bookImg, b.bookName, b.writer, b.publisher
-			FROM book b JOIN review r ON b.bookIdx=r.bookIdx) WHERE rnum BETWEEN #{param1} AND #{param2}
+				AS rnum, r.id, r.cnt, r.reg_date, r.blind_status, r.reviewIdx, b.bookIdx, b.bookImg, b.bookName, b.writer, b.publisher
+			FROM book b JOIN review r ON b.bookIdx=r.bookIdx WHERE r.blind_status='N' ) WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
 
 		<select id="reviewCom" resultType="review" parameterType="list">
