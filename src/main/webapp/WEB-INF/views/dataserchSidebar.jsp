@@ -18,6 +18,7 @@
             height: 50px;
             text-align: center;
             padding-top: 20px;
+            color:white;
         }
 
         .menu{
@@ -27,6 +28,7 @@
             height: 38px;
             text-align: center;
             padding-bottom: 20px;
+            font-weight:600;
         }
 
         #mysidenav a:link,a:visited{
@@ -38,7 +40,7 @@
 
 <body>
     <div id="mysidenav" class="sidenav">
-        <div id="titleMenu"><a href="">자료 검색</a></div>
+        <div id="titleMenu"><a href="" style="color:white;">자료 검색</a></div>
         <div class="menu" id="bookSearch">
             <p>도서 검색</p>
         </div>

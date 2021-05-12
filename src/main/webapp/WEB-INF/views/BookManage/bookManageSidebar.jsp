@@ -17,7 +17,7 @@
     <style>
         #titleMenu {
             border: 1px solid black;
-            background-color: 337ab7;
+            background-color: #337ab7;
             width: 200px;
             height: 50px;
             text-align: center;
@@ -31,25 +31,19 @@
             height: 38px;
             text-align: center;
             padding-bottom: 20px;
+            font-weight:600;
         }
-        a{
-            color:black;
-        }
-        a:link,a:visited{
-            color: black;
-            text-decoration: none;
-        } 
     </style>
 </head>
 
 <body>
     <div id="mysidenav" class="sidenav">
-        <div id="titleMenu"><a href="">도서관메뉴</a></div>
+        <div id="titleMenu"><a href="" style="color:white;">도서관리</a></div>
         <div class="menu">
-            <a href="bookList">일반도서</a>
+            <p>일반도서</p>
         </div>
         <div class="menu">
-            <a href="hopeBookList">희망도서</a>
+            <p>희망도서</p>
         </div>
     </div>
 

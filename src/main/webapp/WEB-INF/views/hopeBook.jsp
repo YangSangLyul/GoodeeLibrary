@@ -133,7 +133,7 @@
                 </tr>
             </table>
             </form>
-            <button>신청하기</button>
+            <button id="hopeReq">신청하기</button>
         </div>
         
 
@@ -141,12 +141,12 @@
     <script>
     $("#librarySearch").css('background-color','#337ab7').css("color","white");
 
-    $(".menu:eq(3)").css("background-color","#337ab7");
+    $(".menu:eq(3)").css("background-color","#337ab7").css("color","white");
 
     $(".menu").hover(function () {
         $(this).css("backgroundColor", "red");
     }, function () {
-    	 $(".menu:eq(3)").css("background-color","#337ab7");
+    	 $(".menu:eq(3)").css("background-color","#337ab7").css("color","white");
         $(".menu:eq(2)").css("backgroundColor", "white");
         $(".menu:eq(0)").css("backgroundColor", "white");
         $(".menu:eq(1)").css("backgroundColor", "white");
@@ -171,7 +171,7 @@
         setTimeout("printClock()",1000);         // 1초마다 printClock() 함수 호출
     }
     
-    $('button').click(function(){
+    $('#hopeReq').click(function(){
     	if($("#hopeBook").val() == ''){
     		alert('희망도서명을 입력해주세요.');
     	}else if($("#writer").val() == ''){

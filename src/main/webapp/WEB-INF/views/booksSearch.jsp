@@ -95,7 +95,7 @@
     <script>
     $("#librarySearch").css('background-color','#337ab7').css("color","white");
 
-    $(".menu:eq(0)").css("background-color","#337ab7");
+    $(".menu:eq(0)").css("background-color","#337ab7").css("color","white");
 
     $(".menu").hover(function () {
         $(this).css("backgroundColor", "red");

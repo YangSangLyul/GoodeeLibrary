@@ -10,13 +10,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-         
+         .menu{
+         	font-weight:600;
+         }
     </style>
 </head>
 
 <body>
     <div id="mysidenav" class="sidenav">
-        <div id="titleMenu" style="background-color:#337ab7;">도서관이용안내</div>
+        <div id="titleMenu" style="background-color:#337ab7; color:white;">도서관이용안내</div>
         <div class="menu">
             <p>찾아오는길</p>
         </div>

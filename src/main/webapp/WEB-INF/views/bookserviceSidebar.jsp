@@ -27,13 +27,14 @@
             height: 38px;
             text-align: center;
             padding-bottom: 20px;
+            font-weight:600;
         }
     </style>
 </head>
 
 <body>
     <div id="mysidenav" class="sidenav">
-        <div id="titleMenu"><a href="" style="color:black;text-decoration:none;">도서관 서비스</a></div>
+        <div id="titleMenu"><a href="" style="color:white;text-decoration:none;">도서관 서비스</a></div>
         <div class="menu">
             <p>리뷰 모아보기</p>
         </div>

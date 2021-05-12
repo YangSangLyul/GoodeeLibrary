@@ -22,6 +22,7 @@
             height: 50px;
             text-align: center;
             padding-top: 20px;
+            color:white;
         }
 
         .menu{
@@ -31,6 +32,7 @@
             height: 38px;
             text-align: center;
             padding-bottom: 20px;
+            font-weight: 600;
         }
         a{
             color:black;
@@ -46,22 +48,22 @@
     <div id="mysidenav" class="sidenav">
         <div id="titleMenu"><a href="">마이 라이브러리</a></div>
         <div class="menu">
-            <a href="myLib_reserveSeatInOut" >입실|퇴실 내역</a>
+            	<p>입실|퇴실 내역</p>
         </div>
         <div class="menu">
-            <a href="MyBook">도서 예약 내역</a>
+           	<p>도서 예약 내역</p>
         </div>
         <div class="menu">
-            <a href="MyHopeBook">희망 도서 신청 내역</a>
+            <p>희망 도서 신청 내역</p>
         </div>
         <div class="menu">
-            <a href="MyReview">내 리뷰내역</a>
+            <p>내 리뷰내역</p>
         </div>
         <div class="menu">
-            <a href="MyQuestion">내 문의내역</a>
+            <p>내 문의내역</p>
         </div>
         <div class="menu">
-            <a href="myLib_Update">회원정보 수정/탈퇴</a>
+            <p>회원정보 수정/탈퇴</p>
         </div>
     </div>
 
@@ -74,6 +76,37 @@
 
         //여기 누르면 경로 지정 예시 ;
         //여기 누르면 경로 지정;
+               //여기 누르면 경로 지정 예시 ;
+        //여기 누르면 경로 지정;
+        $(".menu:eq(0)").click(function () {
+           console.log("1번")
+           location.href = './myLib_reserveSeatInOut';
+       })
+       
+        $(".menu:eq(1)").click(function () {
+            console.log("2번")
+            location.href = './MyBook';
+        })
+        
+        $(".menu:eq(2)").click(function () {
+            console.log("3번")
+            location.href = './MyHopeBook';
+        })
+        
+        $(".menu:eq(3)").click(function () {
+            console.log("4번")
+            location.href = './MyReview';
+        })
+        
+                $(".menu:eq(4)").click(function () {
+            console.log("4번")
+            location.href = './MyQuestion';
+        })
+        
+                $(".menu:eq(5)").click(function () {
+            console.log("4번")
+            location.href = './myLib_Update';
+        })
     </script>
 </body>
 
