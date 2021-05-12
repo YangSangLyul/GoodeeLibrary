@@ -235,7 +235,7 @@
 		SELECT b.bookidx, rnum, b.bookimg,b.story,r.reason,r.reg_date FROM 
     	(SELECT b.bookidx, b.bookimg, b.story FROM book b) B 
     	INNER JOIN
-    	(SELECT r.bookidx, r.reg_date, r.reason,ROW_NUMBER() OVER(ORDER BY r.bookidx DESC) AS rnum FROM recommendbook r
+    	(SELECT r.bookidx, r.reg_date, r.reason,ROW_NUMBER() OVER(ORDER BY r.reg_date DESC) AS rnum FROM recommendbook r
 		<where>
 		<if test="month == calMonth">
 		r.reg_date BETWEEN TRUNC(SYSDATE+1)-TO_CHAR(SYSDATE,'DD')
@@ -243,14 +243,14 @@
     	</if>
 		</where>
 		ON b.bookidx = r.bookidx
-    	WHERE rnum between #{start} AND #{start} ORDER BY r.reg_date ASC
+    	WHERE rnum between #{start} AND #{start}
 	</select>
 	
 	<select id="mainRecommendBooksList" resultType="recommendBook" parameterType="hashMap">
 		SELECT b.bookidx, rnum, b.bookimg,r.reg_date FROM 
     	(SELECT b.bookidx, b.bookimg FROM book b) B 
     	INNER JOIN
-    	(SELECT r.bookidx, r.reg_date, ROW_NUMBER() OVER(ORDER BY r.bookidx DESC) AS rnum FROM recommendbook r
+    	(SELECT r.bookidx, r.reg_date, ROW_NUMBER() OVER(ORDER BY r.reg_date DESC) AS rnum FROM recommendbook r
 		<where>
 		<if test="month == calMonth">
 		r.reg_date BETWEEN TRUNC(SYSDATE+1)-TO_CHAR(SYSDATE,'DD')
@@ -258,7 +258,7 @@
     	</if>
 		</where>
 		ON b.bookidx = r.bookidx
-    	WHERE rnum between 1 AND 5 ORDER BY r.reg_date ASC
+    	WHERE rnum between 1 AND 5
 	</select>
 	
 
